@@ -6,6 +6,6 @@ class SessionDestroyListener implements com.vaadin.server.SessionDestroyListener
 
 	@Override
 	public void sessionDestroy(SessionDestroyEvent event) {
-
+		System.out.println("Session destroy");
 	}
 }

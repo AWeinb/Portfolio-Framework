@@ -7,15 +7,26 @@
         <groupId>de.axp.portfolio</groupId>
         <version>1.0-SNAPSHOT</version>
     </parent>
-    <artifactId>ui</artifactId>
     <modelVersion>4.0.0</modelVersion>
-    <version>1.0-SNAPSHOT</version>
+    <artifactId>bootstrap</artifactId>
+
 
     <dependencies>
         <dependency>
             <groupId>de.axp.portfolio</groupId>
-            <artifactId>model-ui</artifactId>
+            <artifactId>vaadin</artifactId>
             <version>1.0-SNAPSHOT</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.eclipse.jetty</groupId>
+            <artifactId>jetty-webapp</artifactId>
+            <version>${jetty-server.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.eclipse.jetty</groupId>
+            <artifactId>jetty-continuation</artifactId>
+            <version>${jetty-server.version}</version>
         </dependency>
     </dependencies>
 
