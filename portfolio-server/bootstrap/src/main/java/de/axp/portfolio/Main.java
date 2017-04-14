@@ -1,9 +1,9 @@
 package de.axp.portfolio;
 
 import com.vaadin.server.VaadinServlet;
-import de.axp.portfolio.servlet.PortfolioServlet;
 import de.axp.portfolio.bootstrap.session.SessionDestroyListener;
 import de.axp.portfolio.bootstrap.session.SessionInitListener;
+import de.axp.portfolio.servlet.PortfolioServlet;
 import de.axp.portfolio.ui.PortfolioUIProvider;
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.server.session.DefaultSessionIdManager;
@@ -23,6 +23,7 @@ public class Main {
 
 		SessionInitListener sessionInitListener = new SessionInitListener();
 		SessionDestroyListener sessionDestroyListener = new SessionDestroyListener();
+
 		VaadinServlet vaadinServlet = new PortfolioServlet(sessionInitListener, sessionDestroyListener);
 		ServletHolder servletHolder = new ServletHolder(vaadinServlet);
 		servletHolder.setInitParameter(VaadinServlet.SERVLET_PARAMETER_UI_PROVIDER, PortfolioUIProvider.class.getName());
