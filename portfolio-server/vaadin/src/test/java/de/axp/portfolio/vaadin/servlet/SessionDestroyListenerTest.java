@@ -39,12 +39,15 @@ public class SessionDestroyListenerTest {
 
 		@Override
 		public void initializeSession() {
-
 		}
 
 		@Override
 		public void destroySession() {
 			isDestroyed = true;
+		}
+
+		@Override
+		public void putCommand(String command) throws InterruptedException {
 		}
 	}
 }

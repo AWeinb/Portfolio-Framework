@@ -5,4 +5,7 @@ public interface FrameworkInterface {
 	void initializeSession();
 
 	void destroySession();
+
+	void putCommand(String command) throws InterruptedException;
+
 }

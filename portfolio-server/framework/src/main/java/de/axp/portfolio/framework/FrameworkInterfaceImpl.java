@@ -1,8 +1,17 @@
 package de.axp.portfolio.framework;
 
+import de.axp.portfolio.framework.command.CommandBuffer;
+
 class FrameworkInterfaceImpl implements FrameworkInterface {
 
+	private final CommandBuffer commandBuffer;
+
+	private Thread worker;
 	private boolean isInitialized;
+
+	FrameworkInterfaceImpl(CommandBuffer commandBuffer) {
+		this.commandBuffer = commandBuffer;
+	}
 
 	@Override
 	public void initializeSession() {
@@ -18,6 +27,15 @@ class FrameworkInterfaceImpl implements FrameworkInterface {
 			throw new FrameworkNotInitializedException();
 		}
 		isInitialized = false;
+	}
+
+	@Override
+	public void putCommand(String command) throws InterruptedException {
+		if (!isInitialized) {
+			throw new FrameworkNotInitializedException();
+		}
+
+		commandBuffer.putCommand(command);
 	}
 
 	public abstract class FrameworkException extends RuntimeException {
