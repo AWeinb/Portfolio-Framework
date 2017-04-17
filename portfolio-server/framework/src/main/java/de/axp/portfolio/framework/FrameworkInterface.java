@@ -8,8 +8,9 @@ public interface FrameworkInterface {
 
 	void putCommand(String command) throws InterruptedException;
 
-	interface FrameworkResponseListener {
+	void addListener(FrameworkResponseListener responseListener);
 
+	interface FrameworkResponseListener {
 		void onResponse(String response);
 	}
 }

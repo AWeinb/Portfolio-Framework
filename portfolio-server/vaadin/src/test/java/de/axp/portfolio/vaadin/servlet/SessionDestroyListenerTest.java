@@ -49,5 +49,9 @@ public class SessionDestroyListenerTest {
 		@Override
 		public void putCommand(String command) throws InterruptedException {
 		}
+
+		@Override
+		public void addListener(FrameworkResponseListener responseListener) {
+		}
 	}
 }

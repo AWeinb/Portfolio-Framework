@@ -45,6 +45,14 @@ class FrameworkInterfaceImpl implements FrameworkInterface {
 		commandBuffer.putCommand(command);
 	}
 
+	@Override
+	public void addListener(FrameworkResponseListener responseListener) {
+		if (!isInitialized) {
+			throw new FrameworkNotInitializedException();
+		}
+		responseNotifier.addResponseListener(responseListener);
+	}
+
 	public abstract class FrameworkException extends RuntimeException {
 
 	}

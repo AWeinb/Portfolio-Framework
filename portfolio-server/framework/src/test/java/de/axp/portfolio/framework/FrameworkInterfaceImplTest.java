@@ -12,13 +12,14 @@ import static org.junit.Assert.assertTrue;
 
 public class FrameworkInterfaceImplTest {
 
+	private ResponseNotifier responseNotifier;
 	private TestWorkDistributor testWorkDistributor;
 	private FrameworkInterfaceImpl frameworkInterface;
 
 	@Before
 	public void setUp() throws Exception {
 		CommandBuffer commandBuffer = CommandFactory.createCommandBuffer();
-		ResponseNotifier responseNotifier = CommandFactory.createResponseNotifier();
+		responseNotifier = CommandFactory.createResponseNotifier();
 		testWorkDistributor = new TestWorkDistributor();
 		frameworkInterface = new FrameworkInterfaceImpl(commandBuffer, responseNotifier, testWorkDistributor);
 	}
@@ -69,6 +70,17 @@ public class FrameworkInterfaceImplTest {
 		frameworkInterface.putCommand("command2");
 		frameworkInterface.putCommand("command3");
 		frameworkInterface.putCommand("command4");
+	}
+
+	@Test
+	public void frameworkTakesResponseListenersAndNotifiesThem() throws Exception {
+		frameworkInterface.initializeSession();
+
+		TestFrameworkResponseListener responseListener = new TestFrameworkResponseListener();
+		frameworkInterface.addListener(responseListener);
+		responseNotifier.notifyListeners(null);
+
+		assertTrue(responseListener.executed);
 	}
 
 	private class TestWorkDistributor implements WorkDistributor {
