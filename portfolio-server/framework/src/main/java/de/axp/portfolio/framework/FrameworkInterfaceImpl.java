@@ -1,16 +1,22 @@
 package de.axp.portfolio.framework;
 
 import de.axp.portfolio.framework.command.CommandBuffer;
+import de.axp.portfolio.framework.command.ResponseNotifier;
+import de.axp.portfolio.framework.command.WorkDistributor;
 
 class FrameworkInterfaceImpl implements FrameworkInterface {
 
 	private final CommandBuffer commandBuffer;
+	private final ResponseNotifier responseNotifier;
+	private final WorkDistributor workDistributor;
 
-	private Thread worker;
 	private boolean isInitialized;
 
-	FrameworkInterfaceImpl(CommandBuffer commandBuffer) {
+	FrameworkInterfaceImpl(CommandBuffer commandBuffer, ResponseNotifier responseNotifier,
+			WorkDistributor workDistributor) {
 		this.commandBuffer = commandBuffer;
+		this.responseNotifier = responseNotifier;
+		this.workDistributor = workDistributor;
 	}
 
 	@Override
@@ -18,6 +24,7 @@ class FrameworkInterfaceImpl implements FrameworkInterface {
 		if (isInitialized) {
 			throw new FrameworkAlreadyInitializedException();
 		}
+		workDistributor.initWorkers();
 		isInitialized = true;
 	}
 
@@ -26,6 +33,7 @@ class FrameworkInterfaceImpl implements FrameworkInterface {
 		if (!isInitialized) {
 			throw new FrameworkNotInitializedException();
 		}
+		workDistributor.stopWorkers();
 		isInitialized = false;
 	}
 
@@ -34,7 +42,6 @@ class FrameworkInterfaceImpl implements FrameworkInterface {
 		if (!isInitialized) {
 			throw new FrameworkNotInitializedException();
 		}
-
 		commandBuffer.putCommand(command);
 	}
 
