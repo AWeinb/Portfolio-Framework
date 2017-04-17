@@ -53,10 +53,6 @@ class FrameworkInterfaceImpl implements FrameworkInterface {
 		responseNotifier.addResponseListener(responseListener);
 	}
 
-	public abstract class FrameworkException extends RuntimeException {
-
-	}
-
 	public final class FrameworkAlreadyInitializedException extends FrameworkException {
 
 		@Override
