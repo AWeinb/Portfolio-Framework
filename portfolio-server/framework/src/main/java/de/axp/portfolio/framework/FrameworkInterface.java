@@ -8,4 +8,8 @@ public interface FrameworkInterface {
 
 	void putCommand(String command) throws InterruptedException;
 
+	interface FrameworkResponseListener {
+
+		void onResponse(String response);
+	}
 }
