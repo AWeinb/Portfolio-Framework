@@ -26,45 +26,45 @@ public class FrameworkInterfaceImplTest {
 
 	@Test(expected = FrameworkInterfaceImpl.FrameworkAlreadyInitializedException.class)
 	public void frameworkCanNotBeInitializedMoreThanOnce() throws Exception {
-		frameworkInterface.initializeSession();
-		frameworkInterface.initializeSession();
+		frameworkInterface.initFramework();
+		frameworkInterface.initFramework();
 	}
 
 	@Test
 	public void whenInitialized_ThenTheWorkerIsStarted() throws Exception {
-		frameworkInterface.initializeSession();
+		frameworkInterface.initFramework();
 
 		assertTrue(testWorkDistributor.started);
 	}
 
 	@Test
 	public void frameworkCanBeDestroyed() throws Exception {
-		frameworkInterface.initializeSession();
-		frameworkInterface.destroySession();
+		frameworkInterface.initFramework();
+		frameworkInterface.deinitFramework();
 	}
 
 	@Test(expected = FrameworkInterfaceImpl.FrameworkNotInitializedException.class)
 	public void frameworkCanOnlyBeDestroyedIfInitialized() throws Exception {
-		frameworkInterface.destroySession();
+		frameworkInterface.deinitFramework();
 	}
 
 	@Test(expected = FrameworkInterfaceImpl.FrameworkNotInitializedException.class)
 	public void frameworkCanOnlyBeDestroyedOnce() throws Exception {
-		frameworkInterface.destroySession();
-		frameworkInterface.destroySession();
+		frameworkInterface.deinitFramework();
+		frameworkInterface.deinitFramework();
 	}
 
 	@Test
-	public void whenTheSessionIsDestroyed_ThenTheWorkerIsStopped() throws Exception {
-		frameworkInterface.initializeSession();
-		frameworkInterface.destroySession();
+	public void whenTheFrameworkIsDestroyed_ThenTheWorkerIsStopped() throws Exception {
+		frameworkInterface.initFramework();
+		frameworkInterface.deinitFramework();
 
 		assertFalse(testWorkDistributor.started);
 	}
 
 	@Test
 	public void frameworkTakesCommands() throws Exception {
-		frameworkInterface.initializeSession();
+		frameworkInterface.initFramework();
 
 		frameworkInterface.putCommand("command1");
 		frameworkInterface.putCommand("command2");
@@ -74,7 +74,7 @@ public class FrameworkInterfaceImplTest {
 
 	@Test
 	public void frameworkTakesResponseListenersAndNotifiesThem() throws Exception {
-		frameworkInterface.initializeSession();
+		frameworkInterface.initFramework();
 
 		TestFrameworkResponseListener responseListener = new TestFrameworkResponseListener();
 		frameworkInterface.addListener(responseListener);
@@ -95,6 +95,11 @@ public class FrameworkInterfaceImplTest {
 		@Override
 		public void stopWorkers() {
 			started = false;
+		}
+
+		@Override
+		public boolean isWorking() {
+			return started;
 		}
 	}
 

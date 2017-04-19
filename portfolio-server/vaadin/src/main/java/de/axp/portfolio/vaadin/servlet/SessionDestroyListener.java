@@ -7,8 +7,9 @@ public class SessionDestroyListener implements com.vaadin.server.SessionDestroyL
 
 	@Override
 	public void sessionDestroy(SessionDestroyEvent event) {
-		String interfaceId = FrameworkInterface.class.getSimpleName();
-		FrameworkInterface commandInterface = (FrameworkInterface) event.getSession().getAttribute(interfaceId);
-		commandInterface.destroySession();
+		String attributeId = FrameworkInterface.class.getSimpleName();
+		FrameworkInterface frameworkInterface = (FrameworkInterface) event.getSession().getAttribute(attributeId);
+		event.getSession().setAttribute(FrameworkInterface.class.getSimpleName(), null);
+		frameworkInterface.destroySession();
 	}
 }

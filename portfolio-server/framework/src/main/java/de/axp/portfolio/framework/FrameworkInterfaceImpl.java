@@ -20,21 +20,31 @@ class FrameworkInterfaceImpl implements FrameworkInterface {
 	}
 
 	@Override
-	public void initializeSession() {
+	public void initFramework() {
 		if (isInitialized) {
 			throw new FrameworkAlreadyInitializedException();
 		}
+
 		workDistributor.initWorkers();
 		isInitialized = true;
 	}
 
 	@Override
-	public void destroySession() {
+	public void deinitFramework() {
 		if (!isInitialized) {
 			throw new FrameworkNotInitializedException();
 		}
+
 		workDistributor.stopWorkers();
 		isInitialized = false;
+	}
+
+	@Override
+	public void initSession() {
+	}
+
+	@Override
+	public void destroySession() {
 	}
 
 	@Override

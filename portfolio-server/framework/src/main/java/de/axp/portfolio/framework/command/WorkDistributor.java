@@ -7,4 +7,6 @@ public interface WorkDistributor {
 	void initWorkers();
 
 	void stopWorkers();
+
+	boolean isWorking();
 }

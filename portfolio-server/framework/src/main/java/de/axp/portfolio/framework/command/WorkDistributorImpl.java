@@ -9,8 +9,7 @@ public class WorkDistributorImpl implements WorkDistributor {
 	private Thread commandWorkerThread;
 	private Thread responseWorkerThread;
 
-	public WorkDistributorImpl(CommandBuffer commandBuffer, ResponseBuffer responseBuffer,
-			ResponseNotifier responseNotifier) {
+	WorkDistributorImpl(CommandBuffer commandBuffer, ResponseBuffer responseBuffer, ResponseNotifier responseNotifier) {
 		this.commandBuffer = commandBuffer;
 		this.responseBuffer = responseBuffer;
 		this.responseNotifier = responseNotifier;
@@ -18,6 +17,10 @@ public class WorkDistributorImpl implements WorkDistributor {
 
 	@Override
 	public void initWorkers() {
+		if (isWorking()) {
+			return;
+		}
+
 		commandWorkerThread = new Thread(new CommandWorker(commandBuffer, responseBuffer));
 		commandWorkerThread.start();
 
@@ -27,6 +30,10 @@ public class WorkDistributorImpl implements WorkDistributor {
 
 	@Override
 	public void stopWorkers() {
+		if (!isWorking()) {
+			return;
+		}
+
 		try {
 			commandBuffer.putCommand(POISON);
 			responseBuffer.putResponse(POISON);
@@ -35,5 +42,11 @@ public class WorkDistributorImpl implements WorkDistributor {
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
+	}
+
+	@Override
+	public boolean isWorking() {
+		return commandWorkerThread != null && responseWorkerThread != null && commandWorkerThread.isAlive() && responseWorkerThread
+				.isAlive();
 	}
 }
