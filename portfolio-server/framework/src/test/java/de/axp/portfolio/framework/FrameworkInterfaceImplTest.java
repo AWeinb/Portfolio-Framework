@@ -7,8 +7,7 @@ import de.axp.portfolio.framework.command.WorkDistributor;
 import org.junit.Before;
 import org.junit.Test;
 
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 public class FrameworkInterfaceImplTest {
 
@@ -70,6 +69,42 @@ public class FrameworkInterfaceImplTest {
 		frameworkInterface.putCommand("command2");
 		frameworkInterface.putCommand("command3");
 		frameworkInterface.putCommand("command4");
+	}
+
+	@Test(expected = FrameworkInterfaceImpl.FrameworkSessionAlreadyUsedException.class)
+	public void frameworkCreatesSessionsWithUniqueID() throws Exception {
+		frameworkInterface.initSession("ID1");
+		frameworkInterface.initSession("ID1");
+	}
+
+	@Test
+	public void frameworkCanHandleMultipleSessions() throws Exception {
+		frameworkInterface.initSession("ID1");
+		frameworkInterface.initSession("ID2");
+		frameworkInterface.initSession("ID3");
+
+		assertEquals(SessionState.ACTIVE, frameworkInterface.testSessionId("ID1"));
+		assertEquals(SessionState.ACTIVE, frameworkInterface.testSessionId("ID2"));
+		assertEquals(SessionState.ACTIVE, frameworkInterface.testSessionId("ID3"));
+
+		assertEquals(SessionState.UNKNOWN, frameworkInterface.testSessionId("ID4"));
+	}
+
+	@Test
+	public void frameworkCanDestroySessions() throws Exception {
+		frameworkInterface.initSession("ID1");
+		frameworkInterface.initSession("ID2");
+
+		frameworkInterface.destroySession("ID1");
+		frameworkInterface.destroySession("ID2");
+
+		assertEquals(SessionState.UNKNOWN, frameworkInterface.testSessionId("ID1"));
+		assertEquals(SessionState.UNKNOWN, frameworkInterface.testSessionId("ID2"));
+	}
+
+	@Test(expected = FrameworkInterfaceImpl.FrameworkSessionIsUnknownException.class)
+	public void frameworkCanNotDestroyUnknownSessions() throws Exception {
+		frameworkInterface.destroySession("X");
 	}
 
 	@Test

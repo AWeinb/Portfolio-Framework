@@ -34,9 +34,13 @@ public class SessionDestroyListenerTest {
 
 	@Test
 	public void shouldTriggerDestructionOfSession() throws Exception {
+		when(vaadinSession.getAttribute("ID")).thenReturn("sessionID");
+
 		sessionDestroyListener.sessionDestroy(sessionDestroyEvent);
 
 		verify(sessionDestroyEvent.getSession()).setAttribute(FrameworkInterface.class.getSimpleName(), null);
-		verify(frameworkInterface).destroySession();
+		verify(sessionDestroyEvent.getSession()).setAttribute("ID", null);
+
+		verify(frameworkInterface).destroySession("sessionID");
 	}
 }

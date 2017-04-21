@@ -4,11 +4,17 @@ public interface FrameworkInterface {
 
 	void initFramework();
 
+	boolean isFrameworkInitialized();
+
+	boolean hasFrameworkActiveSessions();
+
 	void deinitFramework();
 
-	void initSession();
+	void initSession(String sessionId);
 
-	void destroySession();
+	SessionState testSessionId(String sessionId);
+
+	void destroySession(String sessionId);
 
 	void putCommand(String command) throws InterruptedException;
 

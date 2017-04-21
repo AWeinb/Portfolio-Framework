@@ -18,11 +18,10 @@ public class SessionInitListenerTest {
 
 	@Mock
 	private FrameworkFactory frameworkFactory;
-	@Mock
-	private FrameworkInterface frameworkInterface;
 
 	private SessionInitListener sessionInitListener;
-
+	@Mock
+	private FrameworkInterface frameworkInterface;
 	@Mock
 	private VaadinSession vaadinSession;
 	@Mock
@@ -31,15 +30,19 @@ public class SessionInitListenerTest {
 	@Before
 	public void setUp() throws Exception {
 		when(frameworkFactory.getFrameworkCommandInterface()).thenReturn(frameworkInterface);
-		sessionInitListener = new SessionInitListener(frameworkFactory);
+		SessionIdComputation sessionIdComputation = new SessionIdComputation();
+
+		sessionInitListener = new SessionInitListener(frameworkFactory, sessionIdComputation);
 		when(sessionInitEvent.getSession()).thenReturn(vaadinSession);
 	}
 
 	@Test
 	public void shouldSetFrameworkInterfaceToSession() throws Exception {
+		String sessionId = "0";
 		sessionInitListener.sessionInit(sessionInitEvent);
 
 		verify(vaadinSession).setAttribute(FrameworkInterface.class.getSimpleName(), frameworkInterface);
-		verify(frameworkInterface).initSession();
+		verify(vaadinSession).setAttribute("ID", sessionId);
+		verify(frameworkInterface).initSession(sessionId);
 	}
 }

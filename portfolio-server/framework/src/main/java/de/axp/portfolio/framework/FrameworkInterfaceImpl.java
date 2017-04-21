@@ -4,6 +4,9 @@ import de.axp.portfolio.framework.command.CommandBuffer;
 import de.axp.portfolio.framework.command.ResponseNotifier;
 import de.axp.portfolio.framework.command.WorkDistributor;
 
+import java.util.ArrayList;
+import java.util.List;
+
 class FrameworkInterfaceImpl implements FrameworkInterface {
 
 	private final CommandBuffer commandBuffer;
@@ -11,6 +14,7 @@ class FrameworkInterfaceImpl implements FrameworkInterface {
 	private final WorkDistributor workDistributor;
 
 	private boolean isInitialized;
+	private List<String> sessionIds = new ArrayList<>();
 
 	FrameworkInterfaceImpl(CommandBuffer commandBuffer, ResponseNotifier responseNotifier,
 			WorkDistributor workDistributor) {
@@ -30,6 +34,16 @@ class FrameworkInterfaceImpl implements FrameworkInterface {
 	}
 
 	@Override
+	public boolean isFrameworkInitialized() {
+		return isInitialized;
+	}
+
+	@Override
+	public boolean hasFrameworkActiveSessions() {
+		return false;
+	}
+
+	@Override
 	public void deinitFramework() {
 		if (!isInitialized) {
 			throw new FrameworkNotInitializedException();
@@ -40,11 +54,26 @@ class FrameworkInterfaceImpl implements FrameworkInterface {
 	}
 
 	@Override
-	public void initSession() {
+	public void initSession(String sessionId) {
+		if (sessionIds.contains(sessionId)) {
+			throw new FrameworkSessionAlreadyUsedException();
+		}
+
+		sessionIds.add(sessionId);
 	}
 
 	@Override
-	public void destroySession() {
+	public SessionState testSessionId(String sessionId) {
+		return sessionIds.contains(sessionId) ? SessionState.ACTIVE : SessionState.UNKNOWN;
+	}
+
+	@Override
+	public void destroySession(String sessionId) {
+		if (!sessionIds.contains(sessionId)) {
+			throw new FrameworkSessionIsUnknownException();
+		}
+
+		sessionIds.remove(sessionId);
 	}
 
 	@Override
@@ -76,6 +105,21 @@ class FrameworkInterfaceImpl implements FrameworkInterface {
 		@Override
 		public String getMessage() {
 			return "Initialize the framework before usage!";
+		}
+	}
+
+	public class FrameworkSessionAlreadyUsedException extends FrameworkException {
+
+		@Override
+		public String getMessage() {
+			return "Session ID is already in use!";
+		}
+	}
+
+	public class FrameworkSessionIsUnknownException extends FrameworkException {
+		@Override
+		public String getMessage() {
+			return "Session ID is unknown!";
 		}
 	}
 }

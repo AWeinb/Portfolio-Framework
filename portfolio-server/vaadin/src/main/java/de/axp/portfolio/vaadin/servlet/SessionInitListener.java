@@ -8,15 +8,21 @@ import de.axp.portfolio.framework.FrameworkInterface;
 public class SessionInitListener implements com.vaadin.server.SessionInitListener {
 
 	private final FrameworkFactory frameworkFactory;
+	private final SessionIdComputation sessionIdComputation;
 
-	SessionInitListener(FrameworkFactory frameworkFactory) {
+	SessionInitListener(FrameworkFactory frameworkFactory, SessionIdComputation sessionIdComputation) {
 		this.frameworkFactory = frameworkFactory;
+		this.sessionIdComputation = sessionIdComputation;
 	}
 
 	@Override
 	public void sessionInit(SessionInitEvent event) throws ServiceException {
 		FrameworkInterface frameworkInterface = frameworkFactory.getFrameworkCommandInterface();
 		event.getSession().setAttribute(FrameworkInterface.class.getSimpleName(), frameworkInterface);
-		frameworkInterface.initSession();
+
+		String sessionId = sessionIdComputation.compute();
+		event.getSession().setAttribute("ID", sessionId);
+
+		frameworkInterface.initSession(sessionId);
 	}
 }

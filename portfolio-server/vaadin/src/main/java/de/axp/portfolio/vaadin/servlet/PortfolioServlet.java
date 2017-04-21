@@ -13,7 +13,8 @@ public class PortfolioServlet extends VaadinServlet {
 	protected void servletInitialized() throws ServletException {
 		super.servletInitialized();
 
-		getService().addSessionInitListener(new SessionInitListener(FrameworkFactory.INSTANCE));
+		SessionIdComputation sessionIdComputation = new SessionIdComputation();
+		getService().addSessionInitListener(new SessionInitListener(FrameworkFactory.INSTANCE, sessionIdComputation));
 		getService().addSessionDestroyListener(new SessionDestroyListener());
 	}
 }
