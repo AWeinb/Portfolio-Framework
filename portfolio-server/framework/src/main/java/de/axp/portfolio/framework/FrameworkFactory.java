@@ -22,7 +22,12 @@ public class FrameworkFactory {
 		CommandBuffer commandBuffer = CommandFactory.createCommandBuffer();
 		ResponseNotifier responseNotifier = CommandFactory.createResponseNotifier();
 		WorkDistributor workDistributor = CommandFactory.createWorkDistributor(commandBuffer, responseNotifier);
+		SessionManager sessionManager = createSessionManager();
 
-		return new FrameworkInterfaceImpl(commandBuffer, responseNotifier, workDistributor);
+		return new FrameworkInterfaceImpl(commandBuffer, responseNotifier, workDistributor, sessionManager);
+	}
+
+	static SessionManager createSessionManager() {
+		return new SessionManager();
 	}
 }

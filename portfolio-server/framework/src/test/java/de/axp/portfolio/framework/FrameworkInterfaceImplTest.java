@@ -20,7 +20,9 @@ public class FrameworkInterfaceImplTest {
 		CommandBuffer commandBuffer = CommandFactory.createCommandBuffer();
 		responseNotifier = CommandFactory.createResponseNotifier();
 		testWorkDistributor = new TestWorkDistributor();
-		frameworkInterface = new FrameworkInterfaceImpl(commandBuffer, responseNotifier, testWorkDistributor);
+		SessionManager sessionManager = FrameworkFactory.createSessionManager();
+		frameworkInterface = new FrameworkInterfaceImpl(commandBuffer, responseNotifier, testWorkDistributor,
+				sessionManager);
 	}
 
 	@Test(expected = FrameworkInterfaceImpl.FrameworkAlreadyInitializedException.class)
@@ -71,7 +73,7 @@ public class FrameworkInterfaceImplTest {
 		frameworkInterface.putCommand("command4");
 	}
 
-	@Test(expected = FrameworkInterfaceImpl.FrameworkSessionAlreadyUsedException.class)
+	@Test(expected = SessionManager.FrameworkSessionAlreadyUsedException.class)
 	public void frameworkCreatesSessionsWithUniqueID() throws Exception {
 		frameworkInterface.initSession("ID1");
 		frameworkInterface.initSession("ID1");
@@ -102,7 +104,7 @@ public class FrameworkInterfaceImplTest {
 		assertEquals(SessionState.UNKNOWN, frameworkInterface.testSessionId("ID2"));
 	}
 
-	@Test(expected = FrameworkInterfaceImpl.FrameworkSessionIsUnknownException.class)
+	@Test(expected = SessionManager.FrameworkSessionIsUnknownException.class)
 	public void frameworkCanNotDestroyUnknownSessions() throws Exception {
 		frameworkInterface.destroySession("X");
 	}

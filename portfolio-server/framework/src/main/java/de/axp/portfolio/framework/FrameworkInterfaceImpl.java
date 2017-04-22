@@ -4,23 +4,21 @@ import de.axp.portfolio.framework.command.CommandBuffer;
 import de.axp.portfolio.framework.command.ResponseNotifier;
 import de.axp.portfolio.framework.command.WorkDistributor;
 
-import java.util.ArrayList;
-import java.util.List;
-
 class FrameworkInterfaceImpl implements FrameworkInterface {
 
 	private final CommandBuffer commandBuffer;
 	private final ResponseNotifier responseNotifier;
 	private final WorkDistributor workDistributor;
+	private final SessionManager sessionManager;
 
 	private boolean isInitialized;
-	private List<String> sessionIds = new ArrayList<>();
 
 	FrameworkInterfaceImpl(CommandBuffer commandBuffer, ResponseNotifier responseNotifier,
-			WorkDistributor workDistributor) {
+			WorkDistributor workDistributor, SessionManager sessionManager) {
 		this.commandBuffer = commandBuffer;
 		this.responseNotifier = responseNotifier;
 		this.workDistributor = workDistributor;
+		this.sessionManager = sessionManager;
 	}
 
 	@Override
@@ -55,25 +53,17 @@ class FrameworkInterfaceImpl implements FrameworkInterface {
 
 	@Override
 	public void initSession(String sessionId) {
-		if (sessionIds.contains(sessionId)) {
-			throw new FrameworkSessionAlreadyUsedException();
-		}
-
-		sessionIds.add(sessionId);
+		sessionManager.initSession(sessionId);
 	}
 
 	@Override
 	public SessionState testSessionId(String sessionId) {
-		return sessionIds.contains(sessionId) ? SessionState.ACTIVE : SessionState.UNKNOWN;
+		return sessionManager.testSessionId(sessionId);
 	}
 
 	@Override
 	public void destroySession(String sessionId) {
-		if (!sessionIds.contains(sessionId)) {
-			throw new FrameworkSessionIsUnknownException();
-		}
-
-		sessionIds.remove(sessionId);
+		sessionManager.destroySession(sessionId);
 	}
 
 	@Override
@@ -81,6 +71,7 @@ class FrameworkInterfaceImpl implements FrameworkInterface {
 		if (!isInitialized) {
 			throw new FrameworkNotInitializedException();
 		}
+
 		commandBuffer.putCommand(command);
 	}
 
@@ -89,6 +80,7 @@ class FrameworkInterfaceImpl implements FrameworkInterface {
 		if (!isInitialized) {
 			throw new FrameworkNotInitializedException();
 		}
+
 		responseNotifier.addResponseListener(responseListener);
 	}
 
@@ -105,21 +97,6 @@ class FrameworkInterfaceImpl implements FrameworkInterface {
 		@Override
 		public String getMessage() {
 			return "Initialize the framework before usage!";
-		}
-	}
-
-	public class FrameworkSessionAlreadyUsedException extends FrameworkException {
-
-		@Override
-		public String getMessage() {
-			return "Session ID is already in use!";
-		}
-	}
-
-	public class FrameworkSessionIsUnknownException extends FrameworkException {
-		@Override
-		public String getMessage() {
-			return "Session ID is unknown!";
 		}
 	}
 }
