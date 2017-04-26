@@ -39,10 +39,20 @@ public class SessionInitListenerTest {
 	@Test
 	public void shouldSetFrameworkInterfaceToSession() throws Exception {
 		String sessionId = "0";
+
 		sessionInitListener.sessionInit(sessionInitEvent);
 
 		verify(vaadinSession).setAttribute(FrameworkInterface.class.getSimpleName(), frameworkInterface);
 		verify(vaadinSession).setAttribute("ID", sessionId);
 		verify(frameworkInterface).initSession(sessionId);
+	}
+
+	@Test
+	public void shouldInitFrameworkBeforeCreatingSessions() throws Exception {
+		when(frameworkInterface.isFrameworkInitialized()).thenReturn(false);
+
+		sessionInitListener.sessionInit(sessionInitEvent);
+
+		verify(frameworkInterface).initFramework();
 	}
 }

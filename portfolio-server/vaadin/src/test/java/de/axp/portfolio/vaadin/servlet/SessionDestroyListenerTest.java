@@ -9,8 +9,7 @@ import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 @RunWith(MockitoJUnitRunner.class)
 public class SessionDestroyListenerTest {
@@ -40,7 +39,24 @@ public class SessionDestroyListenerTest {
 
 		verify(sessionDestroyEvent.getSession()).setAttribute(FrameworkInterface.class.getSimpleName(), null);
 		verify(sessionDestroyEvent.getSession()).setAttribute("ID", null);
-
 		verify(frameworkInterface).destroySession("sessionID");
+	}
+
+	@Test
+	public void shouldKeepFrameworkActive_WhenSessionsAreActive() throws Exception {
+		when(frameworkInterface.hasFrameworkActiveSessions()).thenReturn(true);
+
+		sessionDestroyListener.sessionDestroy(sessionDestroyEvent);
+
+		verify(frameworkInterface, never()).deinitFramework();
+	}
+
+	@Test
+	public void shouldDestroyFramework_WhenNoSessionsLeft() throws Exception {
+		when(frameworkInterface.hasFrameworkActiveSessions()).thenReturn(false);
+
+		sessionDestroyListener.sessionDestroy(sessionDestroyEvent);
+
+		verify(frameworkInterface).deinitFramework();
 	}
 }

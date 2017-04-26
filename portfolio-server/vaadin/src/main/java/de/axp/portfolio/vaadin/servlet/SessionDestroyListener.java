@@ -11,6 +11,9 @@ public class SessionDestroyListener implements com.vaadin.server.SessionDestroyL
 		FrameworkInterface frameworkInterface = (FrameworkInterface) event.getSession().getAttribute(attributeId);
 
 		frameworkInterface.destroySession(String.valueOf(event.getSession().getAttribute("ID")));
+		if (!frameworkInterface.hasFrameworkActiveSessions()) {
+			frameworkInterface.deinitFramework();
+		}
 
 		event.getSession().setAttribute(FrameworkInterface.class.getSimpleName(), null);
 		event.getSession().setAttribute("ID", null);

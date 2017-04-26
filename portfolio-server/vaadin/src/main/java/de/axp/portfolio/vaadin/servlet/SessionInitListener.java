@@ -23,6 +23,9 @@ public class SessionInitListener implements com.vaadin.server.SessionInitListene
 		String sessionId = sessionIdComputation.compute();
 		event.getSession().setAttribute("ID", sessionId);
 
+		if (!frameworkInterface.isFrameworkInitialized()) {
+			frameworkInterface.initFramework();
+		}
 		frameworkInterface.initSession(sessionId);
 	}
 }
