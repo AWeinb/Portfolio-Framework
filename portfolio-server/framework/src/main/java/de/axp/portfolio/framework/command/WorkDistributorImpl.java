@@ -2,16 +2,19 @@ package de.axp.portfolio.framework.command;
 
 public class WorkDistributorImpl implements WorkDistributor {
 
-	private CommandBuffer commandBuffer;
-	private ResponseBuffer responseBuffer;
-	private ResponseNotifier responseNotifier;
+	private final CommandBuffer commandBuffer;
+	private final ResponseBuffer responseBuffer;
+	private final CommandListenerNotifier commandListenerNotifier;
+	private final ResponseNotifier responseNotifier;
 
 	private Thread commandWorkerThread;
 	private Thread responseWorkerThread;
 
-	WorkDistributorImpl(CommandBuffer commandBuffer, ResponseBuffer responseBuffer, ResponseNotifier responseNotifier) {
+	WorkDistributorImpl(CommandBuffer commandBuffer, ResponseBuffer responseBuffer,
+			CommandListenerNotifier commandListenerNotifier, ResponseNotifier responseNotifier) {
 		this.commandBuffer = commandBuffer;
 		this.responseBuffer = responseBuffer;
+		this.commandListenerNotifier = commandListenerNotifier;
 		this.responseNotifier = responseNotifier;
 	}
 
@@ -21,7 +24,7 @@ public class WorkDistributorImpl implements WorkDistributor {
 			return;
 		}
 
-		commandWorkerThread = new Thread(new CommandWorker(commandBuffer, responseBuffer));
+		commandWorkerThread = new Thread(new CommandWorker(commandBuffer, commandListenerNotifier));
 		commandWorkerThread.start();
 
 		responseWorkerThread = new Thread(new ResponseWorker(responseBuffer, responseNotifier));

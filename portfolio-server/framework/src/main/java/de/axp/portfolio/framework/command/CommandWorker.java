@@ -2,12 +2,12 @@ package de.axp.portfolio.framework.command;
 
 public class CommandWorker implements Runnable {
 
-	private CommandBufferImpl commandBuffer;
-	private ResponseBuffer responseBuffer;
+	private final CommandBufferImpl commandBuffer;
+	private final CommandListenerNotifier commandListenerNotifier;
 
-	CommandWorker(CommandBuffer commandBuffer, ResponseBuffer responseBuffer) {
+	CommandWorker(CommandBuffer commandBuffer, CommandListenerNotifier commandListenerNotifier) {
 		this.commandBuffer = (CommandBufferImpl) commandBuffer;
-		this.responseBuffer = responseBuffer;
+		this.commandListenerNotifier = commandListenerNotifier;
 	}
 
 	@Override
@@ -30,6 +30,6 @@ public class CommandWorker implements Runnable {
 	}
 
 	private void handleCommand(String command) throws InterruptedException {
-		responseBuffer.putResponse(command);
+		commandListenerNotifier.notifyListeners(command);
 	}
 }

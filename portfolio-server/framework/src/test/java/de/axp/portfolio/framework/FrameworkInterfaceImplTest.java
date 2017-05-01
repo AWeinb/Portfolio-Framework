@@ -1,9 +1,6 @@
 package de.axp.portfolio.framework;
 
-import de.axp.portfolio.framework.command.CommandBuffer;
-import de.axp.portfolio.framework.command.CommandFactory;
-import de.axp.portfolio.framework.command.ResponseNotifier;
-import de.axp.portfolio.framework.command.WorkDistributor;
+import de.axp.portfolio.framework.command.*;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -18,11 +15,12 @@ public class FrameworkInterfaceImplTest {
 	@Before
 	public void setUp() throws Exception {
 		CommandBuffer commandBuffer = CommandFactory.createCommandBuffer();
+		CommandListenerNotifier commandListenerNotifier = CommandFactory.createCommandListenerNotifier();
 		responseNotifier = CommandFactory.createResponseNotifier();
 		testWorkDistributor = new TestWorkDistributor();
 		SessionManager sessionManager = FrameworkFactory.createSessionManager();
-		frameworkInterface = new FrameworkInterfaceImpl(commandBuffer, responseNotifier, testWorkDistributor,
-				sessionManager);
+		frameworkInterface = new FrameworkInterfaceImpl(commandBuffer, commandListenerNotifier, responseNotifier,
+				testWorkDistributor, sessionManager);
 	}
 
 	@Test(expected = FrameworkInterfaceImpl.FrameworkAlreadyInitializedException.class)

@@ -1,21 +1,24 @@
 package de.axp.portfolio.framework;
 
 import de.axp.portfolio.framework.command.CommandBuffer;
+import de.axp.portfolio.framework.command.CommandListenerNotifier;
 import de.axp.portfolio.framework.command.ResponseNotifier;
 import de.axp.portfolio.framework.command.WorkDistributor;
 
 class FrameworkInterfaceImpl implements FrameworkInterface {
 
 	private final CommandBuffer commandBuffer;
+	private final CommandListenerNotifier commandListenerNotifier;
 	private final ResponseNotifier responseNotifier;
 	private final WorkDistributor workDistributor;
 	private final SessionManager sessionManager;
 
 	private boolean isInitialized;
 
-	FrameworkInterfaceImpl(CommandBuffer commandBuffer, ResponseNotifier responseNotifier,
-			WorkDistributor workDistributor, SessionManager sessionManager) {
+	FrameworkInterfaceImpl(CommandBuffer commandBuffer, CommandListenerNotifier commandListenerNotifier,
+			ResponseNotifier responseNotifier, WorkDistributor workDistributor, SessionManager sessionManager) {
 		this.commandBuffer = commandBuffer;
+		this.commandListenerNotifier = commandListenerNotifier;
 		this.responseNotifier = responseNotifier;
 		this.workDistributor = workDistributor;
 		this.sessionManager = sessionManager;

@@ -2,14 +2,19 @@ package de.axp.portfolio.framework.command;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.Mock;
+import org.mockito.runners.MockitoJUnitRunner;
 
-import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
+import static org.mockito.Mockito.verify;
 
+@RunWith(MockitoJUnitRunner.class)
 public class CommandWorkerTest {
 
 	private CommandBufferImpl commandBuffer;
-	private ResponseBuffer responseBuffer;
+	@Mock
+	private CommandListenerNotifier commandListenerNotifier;
 
 	private CommandWorker commandWorker;
 
@@ -18,14 +23,12 @@ public class CommandWorkerTest {
 	@Before
 	public void setUp() throws Exception {
 		commandBuffer = new CommandBufferImpl();
-		responseBuffer = new ResponseBuffer();
-		commandWorker = new CommandWorker(commandBuffer, responseBuffer);
+		commandWorker = new CommandWorker(commandBuffer, commandListenerNotifier);
 	}
 
 	private void createAndStartThread() throws InterruptedException {
 		thread = new Thread(commandWorker);
 		thread.start();
-		Thread.sleep(200);
 	}
 
 	@Test
@@ -33,6 +36,7 @@ public class CommandWorkerTest {
 		commandBuffer.putCommand(WorkDistributor.POISON);
 
 		createAndStartThread();
+		Thread.sleep(50);
 
 		assertFalse(thread.isAlive());
 	}
@@ -48,17 +52,13 @@ public class CommandWorkerTest {
 	}
 
 	@Test
-	public void shouldCopyCommandsToResponseBuffer() throws Exception {
+	public void shouldCallNotifier() throws Exception {
 		commandBuffer.putCommand("A");
-		commandBuffer.putCommand("B");
-		commandBuffer.putCommand("C");
 		commandBuffer.putCommand(WorkDistributor.POISON);
 
 		createAndStartThread();
+		Thread.sleep(50);
 
-		assertFalse(thread.isAlive());
-		assertEquals("A", responseBuffer.getNextResponse());
-		assertEquals("B", responseBuffer.getNextResponse());
-		assertEquals("C", responseBuffer.getNextResponse());
+		verify(commandListenerNotifier).notifyListeners("A");
 	}
 }

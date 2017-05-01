@@ -1,15 +1,16 @@
 package de.axp.portfolio.framework;
 
-import de.axp.portfolio.framework.command.CommandBuffer;
-import de.axp.portfolio.framework.command.CommandFactory;
-import de.axp.portfolio.framework.command.ResponseNotifier;
-import de.axp.portfolio.framework.command.WorkDistributor;
+import de.axp.portfolio.framework.command.*;
 
 public class FrameworkFactory {
 
 	public static FrameworkFactory INSTANCE = new FrameworkFactory();
 
 	private FrameworkInterface frameworkInterfaceInstance;
+
+	static SessionManager createSessionManager() {
+		return new SessionManager();
+	}
 
 	public synchronized FrameworkInterface getFrameworkCommandInterface() {
 		if (frameworkInterfaceInstance == null) {
@@ -21,13 +22,12 @@ public class FrameworkFactory {
 	private synchronized FrameworkInterface createFrameworkInterface() {
 		CommandBuffer commandBuffer = CommandFactory.createCommandBuffer();
 		ResponseNotifier responseNotifier = CommandFactory.createResponseNotifier();
-		WorkDistributor workDistributor = CommandFactory.createWorkDistributor(commandBuffer, responseNotifier);
+		CommandListenerNotifier commandListenerNotifier = CommandFactory.createCommandListenerNotifier();
+		WorkDistributor workDistributor = CommandFactory.createWorkDistributor(commandBuffer, commandListenerNotifier,
+				responseNotifier);
 		SessionManager sessionManager = createSessionManager();
 
-		return new FrameworkInterfaceImpl(commandBuffer, responseNotifier, workDistributor, sessionManager);
-	}
-
-	static SessionManager createSessionManager() {
-		return new SessionManager();
+		return new FrameworkInterfaceImpl(commandBuffer, commandListenerNotifier, responseNotifier, workDistributor,
+				sessionManager);
 	}
 }
