@@ -5,7 +5,7 @@ import java.util.List;
 
 class SessionManager {
 
-	private List<String> sessionIds = new ArrayList<>();
+	private final List<String> sessionIds = new ArrayList<>();
 
 	void initSession(String sessionId) {
 		if (sessionId == null) {

@@ -5,7 +5,7 @@ import java.util.concurrent.BlockingQueue;
 
 class ResponseBuffer {
 
-	private BlockingQueue<String> responses = new ArrayBlockingQueue<>(10);
+	private final BlockingQueue<String> responses = new ArrayBlockingQueue<>(10);
 
 	void putResponse(String response) throws InterruptedException {
 		responses.put(response);

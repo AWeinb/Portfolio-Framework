@@ -8,7 +8,7 @@ public interface FrameworkInterface {
 
 	boolean hasFrameworkActiveSessions();
 
-	void deinitFramework();
+	void disposeFramework();
 
 	void initSession(String sessionId);
 

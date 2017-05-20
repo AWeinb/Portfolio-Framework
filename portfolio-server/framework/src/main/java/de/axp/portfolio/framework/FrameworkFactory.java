@@ -4,7 +4,7 @@ import de.axp.portfolio.framework.command.*;
 
 public class FrameworkFactory {
 
-	public static FrameworkFactory INSTANCE = new FrameworkFactory();
+	public static final FrameworkFactory INSTANCE = new FrameworkFactory();
 
 	private FrameworkInterface frameworkInterfaceInstance;
 

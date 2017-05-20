@@ -9,7 +9,7 @@ import org.eclipse.jetty.servlet.ServletHolder;
 
 public class PortfolioServerInitializer {
 
-	public void initialize(Server server, ServletHolder servletHolder) throws Exception {
+	public void initialize(Server server, ServletHolder servletHolder) {
 		DefaultSessionIdManager idManager = new DefaultSessionIdManager(server);
 		server.setSessionIdManager(idManager);
 

@@ -3,7 +3,7 @@ package de.axp.portfolio.vaadin.servlet;
 import com.vaadin.server.SessionDestroyEvent;
 import de.axp.portfolio.framework.FrameworkInterface;
 
-public class SessionDestroyListener implements com.vaadin.server.SessionDestroyListener {
+class SessionDestroyListener implements com.vaadin.server.SessionDestroyListener {
 
 	@Override
 	public void sessionDestroy(SessionDestroyEvent event) {
@@ -12,7 +12,7 @@ public class SessionDestroyListener implements com.vaadin.server.SessionDestroyL
 
 		frameworkInterface.destroySession(String.valueOf(event.getSession().getAttribute("ID")));
 		if (!frameworkInterface.hasFrameworkActiveSessions()) {
-			frameworkInterface.deinitFramework();
+			frameworkInterface.disposeFramework();
 		}
 
 		event.getSession().setAttribute(FrameworkInterface.class.getSimpleName(), null);

@@ -45,7 +45,7 @@ class FrameworkInterfaceImpl implements FrameworkInterface {
 	}
 
 	@Override
-	public void deinitFramework() {
+	public void disposeFramework() {
 		if (!isInitialized) {
 			throw new FrameworkNotInitializedException();
 		}

@@ -26,7 +26,7 @@ public class CommandWorkerTest {
 		commandWorker = new CommandWorker(commandBuffer, commandListenerNotifier);
 	}
 
-	private void createAndStartThread() throws InterruptedException {
+	private void createAndStartThread() {
 		thread = new Thread(commandWorker);
 		thread.start();
 	}

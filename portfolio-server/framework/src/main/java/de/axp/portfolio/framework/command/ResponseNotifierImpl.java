@@ -7,7 +7,7 @@ import java.util.List;
 
 class ResponseNotifierImpl implements ResponseNotifier {
 
-	private List<FrameworkResponseListener> responseListeners = new LinkedList<>();
+	private final List<FrameworkResponseListener> responseListeners = new LinkedList<>();
 
 	@Override
 	public void addResponseListener(FrameworkResponseListener responseListener) {

@@ -5,7 +5,7 @@ import java.util.concurrent.BlockingQueue;
 
 class CommandBufferImpl implements CommandBuffer {
 
-	private BlockingQueue<String> commands = new ArrayBlockingQueue<>(10);
+	private final BlockingQueue<String> commands = new ArrayBlockingQueue<>(10);
 
 	@Override
 	public void putCommand(String command) throws InterruptedException {

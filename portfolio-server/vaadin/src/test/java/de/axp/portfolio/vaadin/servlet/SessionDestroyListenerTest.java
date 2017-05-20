@@ -48,7 +48,7 @@ public class SessionDestroyListenerTest {
 
 		sessionDestroyListener.sessionDestroy(sessionDestroyEvent);
 
-		verify(frameworkInterface, never()).deinitFramework();
+		verify(frameworkInterface, never()).disposeFramework();
 	}
 
 	@Test
@@ -57,6 +57,6 @@ public class SessionDestroyListenerTest {
 
 		sessionDestroyListener.sessionDestroy(sessionDestroyEvent);
 
-		verify(frameworkInterface).deinitFramework();
+		verify(frameworkInterface).disposeFramework();
 	}
 }

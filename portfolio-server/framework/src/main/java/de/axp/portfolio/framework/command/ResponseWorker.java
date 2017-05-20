@@ -1,6 +1,6 @@
 package de.axp.portfolio.framework.command;
 
-public class ResponseWorker implements Runnable {
+class ResponseWorker implements Runnable {
 
 	private final ResponseBuffer responseBuffer;
 	private final ResponseNotifier responseNotifier;

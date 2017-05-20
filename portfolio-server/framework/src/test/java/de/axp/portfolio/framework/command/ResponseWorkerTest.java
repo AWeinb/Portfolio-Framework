@@ -68,7 +68,7 @@ public class ResponseWorkerTest {
 
 	private class TestResponseNotifier implements ResponseNotifier {
 
-		List<String> responses = new ArrayList<>();
+		final List<String> responses = new ArrayList<>();
 
 		@Override
 		public void addResponseListener(FrameworkInterface.FrameworkResponseListener responseListener) {

@@ -1,6 +1,6 @@
 package de.axp.portfolio.framework.command;
 
-public class CommandWorker implements Runnable {
+class CommandWorker implements Runnable {
 
 	private final CommandBufferImpl commandBuffer;
 	private final CommandListenerNotifier commandListenerNotifier;
@@ -29,7 +29,7 @@ public class CommandWorker implements Runnable {
 		}
 	}
 
-	private void handleCommand(String command) throws InterruptedException {
+	private void handleCommand(String command) {
 		commandListenerNotifier.notifyListeners(command);
 	}
 }

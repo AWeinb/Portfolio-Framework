@@ -5,7 +5,7 @@ import com.vaadin.server.SessionInitEvent;
 import de.axp.portfolio.framework.FrameworkFactory;
 import de.axp.portfolio.framework.FrameworkInterface;
 
-public class SessionInitListener implements com.vaadin.server.SessionInitListener {
+class SessionInitListener implements com.vaadin.server.SessionInitListener {
 
 	private final FrameworkFactory frameworkFactory;
 	private final SessionIdComputation sessionIdComputation;

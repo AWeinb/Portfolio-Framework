@@ -5,7 +5,7 @@ import java.util.List;
 
 public class CommandListenerNotifier {
 
-	private List<CommandListener> commandListeners = new LinkedList<>();
+	private final List<CommandListener> commandListeners = new LinkedList<>();
 
 	void addListener(CommandListener commandListener) {
 		if (commandListener == null) {

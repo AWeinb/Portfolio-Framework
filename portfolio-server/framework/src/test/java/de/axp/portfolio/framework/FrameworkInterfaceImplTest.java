@@ -39,24 +39,24 @@ public class FrameworkInterfaceImplTest {
 	@Test
 	public void frameworkCanBeDestroyed() throws Exception {
 		frameworkInterface.initFramework();
-		frameworkInterface.deinitFramework();
+		frameworkInterface.disposeFramework();
 	}
 
 	@Test(expected = FrameworkInterfaceImpl.FrameworkNotInitializedException.class)
 	public void frameworkCanOnlyBeDestroyedIfInitialized() throws Exception {
-		frameworkInterface.deinitFramework();
+		frameworkInterface.disposeFramework();
 	}
 
 	@Test(expected = FrameworkInterfaceImpl.FrameworkNotInitializedException.class)
 	public void frameworkCanOnlyBeDestroyedOnce() throws Exception {
-		frameworkInterface.deinitFramework();
-		frameworkInterface.deinitFramework();
+		frameworkInterface.disposeFramework();
+		frameworkInterface.disposeFramework();
 	}
 
 	@Test
 	public void whenTheFrameworkIsDestroyed_ThenTheWorkerIsStopped() throws Exception {
 		frameworkInterface.initFramework();
-		frameworkInterface.deinitFramework();
+		frameworkInterface.disposeFramework();
 
 		assertFalse(testWorkDistributor.started);
 	}
