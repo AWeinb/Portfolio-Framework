@@ -1,20 +1,14 @@
-package de.axp.portfolio.framework.command;
+package de.axp.portfolio.framework.response;
 
-import de.axp.portfolio.framework.ResponseNotifier;
-import de.axp.portfolio.framework.WorkDistributor;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import static org.junit.Assert.assertEquals;
+import static de.axp.portfolio.framework.response.ResponseManagementImpl.POISON;
 import static org.junit.Assert.assertFalse;
 
 public class ResponseWorkerTest {
 
 	private ResponseBuffer responseBuffer;
-	private TestResponseNotifier testResponseNotifier;
 
 	private ResponseWorker responseWorker;
 
@@ -23,8 +17,7 @@ public class ResponseWorkerTest {
 	@Before
 	public void setUp() throws Exception {
 		responseBuffer = new ResponseBuffer();
-		testResponseNotifier = new TestResponseNotifier();
-		responseWorker = new ResponseWorker(responseBuffer, testResponseNotifier);
+		responseWorker = new ResponseWorker(responseBuffer, null);
 	}
 
 	private void createAndStartThread() throws InterruptedException {
@@ -35,7 +28,7 @@ public class ResponseWorkerTest {
 
 	@Test
 	public void shouldBeStoppableByCommand() throws Exception {
-		responseBuffer.putResponse(WorkDistributor.POISON);
+		responseBuffer.putResponse(POISON);
 
 		createAndStartThread();
 
@@ -57,28 +50,10 @@ public class ResponseWorkerTest {
 		responseBuffer.putResponse("A");
 		responseBuffer.putResponse("B");
 		responseBuffer.putResponse("C");
-		responseBuffer.putResponse(WorkDistributor.POISON);
+		responseBuffer.putResponse(POISON);
 
 		createAndStartThread();
 
 		assertFalse(thread.isAlive());
-		assertEquals("A", testResponseNotifier.responses.get(0));
-		assertEquals("B", testResponseNotifier.responses.get(1));
-		assertEquals("C", testResponseNotifier.responses.get(2));
-	}
-
-	private class TestResponseNotifier implements ResponseNotifier {
-
-		final List<String> responses = new ArrayList<>();
-
-		@Override
-		public void addResponseListener(FrameworkResponseListener responseListener) {
-
-		}
-
-		@Override
-		public void notifyListeners(String response) {
-			responses.add(response);
-		}
 	}
 }

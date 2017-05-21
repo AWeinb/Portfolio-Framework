@@ -4,19 +4,11 @@ public interface FrameworkInterface {
 
 	void initFramework();
 
-	boolean isFrameworkInitialized();
-
-	boolean hasFrameworkActiveSessions();
-
 	void disposeFramework();
 
 	void initSession(String sessionId);
 
-	SessionState testSessionId(String sessionId);
+	boolean hasFrameworkActiveSessions();
 
 	void destroySession(String sessionId);
-
-	void putCommand(String command) throws InterruptedException;
-
-	void addListener(ResponseNotifier.FrameworkResponseListener responseListener);
 }

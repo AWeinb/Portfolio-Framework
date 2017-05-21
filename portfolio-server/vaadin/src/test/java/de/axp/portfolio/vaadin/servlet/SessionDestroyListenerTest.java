@@ -2,6 +2,7 @@ package de.axp.portfolio.vaadin.servlet;
 
 import com.vaadin.server.SessionDestroyEvent;
 import com.vaadin.server.VaadinSession;
+import de.axp.portfolio.framework.FrameworkCommandInterface;
 import de.axp.portfolio.framework.FrameworkInterface;
 import org.junit.Before;
 import org.junit.Test;
@@ -37,7 +38,6 @@ public class SessionDestroyListenerTest {
 
 		sessionDestroyListener.sessionDestroy(sessionDestroyEvent);
 
-		verify(sessionDestroyEvent.getSession()).setAttribute(FrameworkInterface.class.getSimpleName(), null);
 		verify(sessionDestroyEvent.getSession()).setAttribute("ID", null);
 		verify(frameworkInterface).destroySession("sessionID");
 	}
@@ -58,5 +58,19 @@ public class SessionDestroyListenerTest {
 		sessionDestroyListener.sessionDestroy(sessionDestroyEvent);
 
 		verify(frameworkInterface).disposeFramework();
+	}
+
+	@Test
+	public void shouldSetFrameworkInterfaceToNull() throws Exception {
+		sessionDestroyListener.sessionDestroy(sessionDestroyEvent);
+
+		verify(sessionDestroyEvent.getSession()).setAttribute(FrameworkInterface.class.getSimpleName(), null);
+	}
+
+	@Test
+	public void shouldSetFrameworkCommandInterfaceToNull() throws Exception {
+		sessionDestroyListener.sessionDestroy(sessionDestroyEvent);
+
+		verify(sessionDestroyEvent.getSession()).setAttribute(FrameworkCommandInterface.class.getSimpleName(), null);
 	}
 }

@@ -1,17 +1,15 @@
 package de.axp.portfolio.framework.command;
 
-import de.axp.portfolio.framework.CommandBuffer;
-import de.axp.portfolio.framework.CommandNotifier;
-import de.axp.portfolio.framework.WorkDistributor;
+import static de.axp.portfolio.framework.command.CommandManagementImpl.POISON;
 
 class CommandWorker implements Runnable {
 
-	private final CommandBufferImpl commandBuffer;
-	private final CommandNotifier commandNotifier;
+	private final CommandBuffer commandBuffer;
+	private final CommandHandlerNotifier commandHandlerNotifier;
 
-	CommandWorker(CommandBuffer commandBuffer, CommandNotifier commandNotifier) {
-		this.commandBuffer = (CommandBufferImpl) commandBuffer;
-		this.commandNotifier = commandNotifier;
+	CommandWorker(CommandBuffer commandBuffer, CommandHandlerNotifier commandHandlerNotifier) {
+		this.commandBuffer = commandBuffer;
+		this.commandHandlerNotifier = commandHandlerNotifier;
 	}
 
 	@Override
@@ -21,7 +19,7 @@ class CommandWorker implements Runnable {
 			String command;
 			try {
 				if ((command = commandBuffer.getNextCommand()) != null) {
-					if (WorkDistributor.POISON.equals(command)) {
+					if (POISON.equals(command)) {
 						isRunning = false;
 					} else {
 						handleCommand(command);
@@ -34,6 +32,6 @@ class CommandWorker implements Runnable {
 	}
 
 	private void handleCommand(String command) {
-		commandNotifier.notifyListeners(command);
+		commandHandlerNotifier.notifyListeners(command);
 	}
 }

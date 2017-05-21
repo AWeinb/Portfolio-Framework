@@ -1,5 +1,6 @@
 package de.axp.portfolio.framework;
 
-public interface CommandBuffer {
+public interface FrameworkCommandInterface {
+
 	void putCommand(String command) throws InterruptedException;
 }

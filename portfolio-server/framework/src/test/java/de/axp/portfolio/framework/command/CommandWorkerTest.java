@@ -1,21 +1,21 @@
 package de.axp.portfolio.framework.command;
 
-import de.axp.portfolio.framework.WorkDistributor;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
+import static de.axp.portfolio.framework.command.CommandManagementImpl.POISON;
 import static org.junit.Assert.assertFalse;
 import static org.mockito.Mockito.verify;
 
 @RunWith(MockitoJUnitRunner.class)
 public class CommandWorkerTest {
 
-	private CommandBufferImpl commandBuffer;
+	private CommandBuffer commandBuffer;
 	@Mock
-	private CommandNotifierImpl commandNotifier;
+	private CommandHandlerNotifier commandHandlerNotifier;
 
 	private CommandWorker commandWorker;
 
@@ -23,8 +23,8 @@ public class CommandWorkerTest {
 
 	@Before
 	public void setUp() throws Exception {
-		commandBuffer = new CommandBufferImpl();
-		commandWorker = new CommandWorker(commandBuffer, commandNotifier);
+		commandBuffer = new CommandBuffer();
+		commandWorker = new CommandWorker(commandBuffer, commandHandlerNotifier);
 	}
 
 	private void createAndStartThread() {
@@ -34,7 +34,7 @@ public class CommandWorkerTest {
 
 	@Test
 	public void shouldBeStoppableByCommand() throws Exception {
-		commandBuffer.putCommand(WorkDistributor.POISON);
+		commandBuffer.putCommand(POISON);
 
 		createAndStartThread();
 		Thread.sleep(50);
@@ -55,11 +55,11 @@ public class CommandWorkerTest {
 	@Test
 	public void shouldCallNotifier() throws Exception {
 		commandBuffer.putCommand("A");
-		commandBuffer.putCommand(WorkDistributor.POISON);
+		commandBuffer.putCommand(POISON);
 
 		createAndStartThread();
 		Thread.sleep(50);
 
-		verify(commandNotifier).notifyListeners("A");
+		verify(commandHandlerNotifier).notifyListeners("A");
 	}
 }

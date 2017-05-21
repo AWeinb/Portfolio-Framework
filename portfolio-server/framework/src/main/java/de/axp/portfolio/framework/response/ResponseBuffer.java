@@ -1,4 +1,4 @@
-package de.axp.portfolio.framework.command;
+package de.axp.portfolio.framework.response;
 
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;

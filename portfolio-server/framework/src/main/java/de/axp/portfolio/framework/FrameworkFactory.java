@@ -1,33 +1,29 @@
 package de.axp.portfolio.framework;
 
 import de.axp.portfolio.framework.command.CommandFactory;
+import de.axp.portfolio.framework.response.ResponseFactory;
 
 public class FrameworkFactory {
 
 	public static final FrameworkFactory INSTANCE = new FrameworkFactory();
 
 	private FrameworkInterface frameworkInterfaceInstance;
+	private FrameworkCommandInterfaceImpl frameworkCommandInterfaceInstance;
 
-	static SessionManager createSessionManager() {
-		return new SessionManager();
-	}
-
-	public synchronized FrameworkInterface getFrameworkCommandInterface() {
+	public synchronized FrameworkInterface getFrameworkInterface() {
 		if (frameworkInterfaceInstance == null) {
-			frameworkInterfaceInstance = createFrameworkInterface();
+			SessionManager sessionManager = new SessionManager();
+			frameworkInterfaceInstance = new FrameworkInterfaceImpl(sessionManager);
 		}
 		return frameworkInterfaceInstance;
 	}
 
-	private synchronized FrameworkInterface createFrameworkInterface() {
-		CommandBuffer commandBuffer = CommandFactory.createCommandBuffer();
-		CommandNotifier commandNotifier = CommandFactory.createCommandListenerNotifier();
-		ResponseNotifier responseNotifier = CommandFactory.createResponseNotifier();
-		WorkDistributor workDistributor = CommandFactory.createWorkDistributor(commandBuffer, commandNotifier,
-				responseNotifier);
-		SessionManager sessionManager = createSessionManager();
-
-		return new FrameworkInterfaceImpl(commandBuffer, commandNotifier, responseNotifier, workDistributor,
-				sessionManager);
+	public synchronized FrameworkCommandInterface getFrameworkCommandInterface() {
+		if (frameworkCommandInterfaceInstance == null) {
+			CommandManagement commandManagement = CommandFactory.createCommandManagement();
+			ResponseManagement responseManagement = ResponseFactory.createResponseManagement();
+			frameworkCommandInterfaceInstance = new FrameworkCommandInterfaceImpl(commandManagement);
+		}
+		return frameworkCommandInterfaceInstance;
 	}
 }

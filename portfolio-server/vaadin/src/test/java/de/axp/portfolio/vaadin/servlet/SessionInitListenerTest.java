@@ -2,6 +2,7 @@ package de.axp.portfolio.vaadin.servlet;
 
 import com.vaadin.server.SessionInitEvent;
 import com.vaadin.server.VaadinSession;
+import de.axp.portfolio.framework.FrameworkCommandInterface;
 import de.axp.portfolio.framework.FrameworkFactory;
 import de.axp.portfolio.framework.FrameworkInterface;
 import org.junit.Before;
@@ -23,13 +24,16 @@ public class SessionInitListenerTest {
 	@Mock
 	private FrameworkInterface frameworkInterface;
 	@Mock
+	private FrameworkCommandInterface frameworkCommandInterface;
+	@Mock
 	private VaadinSession vaadinSession;
 	@Mock
 	private SessionInitEvent sessionInitEvent;
 
 	@Before
 	public void setUp() throws Exception {
-		when(frameworkFactory.getFrameworkCommandInterface()).thenReturn(frameworkInterface);
+		when(frameworkFactory.getFrameworkInterface()).thenReturn(frameworkInterface);
+		when(frameworkFactory.getFrameworkCommandInterface()).thenReturn(frameworkCommandInterface);
 		SessionIdComputation sessionIdComputation = new SessionIdComputation();
 
 		sessionInitListener = new SessionInitListener(frameworkFactory, sessionIdComputation);
@@ -37,22 +41,26 @@ public class SessionInitListenerTest {
 	}
 
 	@Test
-	public void shouldSetFrameworkInterfaceToSession() throws Exception {
+	public void shouldInitSessionAndStoreSessionID() throws Exception {
 		String sessionId = "0";
 
 		sessionInitListener.sessionInit(sessionInitEvent);
 
-		verify(vaadinSession).setAttribute(FrameworkInterface.class.getSimpleName(), frameworkInterface);
 		verify(vaadinSession).setAttribute("ID", sessionId);
 		verify(frameworkInterface).initSession(sessionId);
 	}
 
 	@Test
-	public void shouldInitFrameworkBeforeCreatingSessions() throws Exception {
-		when(frameworkInterface.isFrameworkInitialized()).thenReturn(false);
-
+	public void shouldSetFrameworkInterfaceToSession() throws Exception {
 		sessionInitListener.sessionInit(sessionInitEvent);
 
-		verify(frameworkInterface).initFramework();
+		verify(vaadinSession).setAttribute(FrameworkInterface.class.getSimpleName(), frameworkInterface);
+	}
+
+	@Test
+	public void shouldSetFrameworkCommandInterfaceToSession() throws Exception {
+		sessionInitListener.sessionInit(sessionInitEvent);
+
+		verify(vaadinSession).setAttribute(FrameworkCommandInterface.class.getSimpleName(), frameworkCommandInterface);
 	}
 }

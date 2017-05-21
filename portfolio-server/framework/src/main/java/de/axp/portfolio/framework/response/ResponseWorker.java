@@ -1,7 +1,6 @@
-package de.axp.portfolio.framework.command;
+package de.axp.portfolio.framework.response;
 
-import de.axp.portfolio.framework.ResponseNotifier;
-import de.axp.portfolio.framework.WorkDistributor;
+import static de.axp.portfolio.framework.response.ResponseManagementImpl.POISON;
 
 class ResponseWorker implements Runnable {
 
@@ -20,7 +19,7 @@ class ResponseWorker implements Runnable {
 			String response;
 			try {
 				if ((response = responseBuffer.getNextResponse()) != null) {
-					if (WorkDistributor.POISON.equals(response)) {
+					if (POISON.equals(response)) {
 						isRunning = false;
 					} else {
 						handleResponse(response);
@@ -33,6 +32,5 @@ class ResponseWorker implements Runnable {
 	}
 
 	private void handleResponse(String response) {
-		responseNotifier.notifyListeners(response);
 	}
 }

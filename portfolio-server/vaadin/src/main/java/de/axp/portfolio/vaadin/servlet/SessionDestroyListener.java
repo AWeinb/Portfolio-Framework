@@ -1,6 +1,7 @@
 package de.axp.portfolio.vaadin.servlet;
 
 import com.vaadin.server.SessionDestroyEvent;
+import de.axp.portfolio.framework.FrameworkCommandInterface;
 import de.axp.portfolio.framework.FrameworkInterface;
 
 class SessionDestroyListener implements com.vaadin.server.SessionDestroyListener {
@@ -16,6 +17,7 @@ class SessionDestroyListener implements com.vaadin.server.SessionDestroyListener
 		}
 
 		event.getSession().setAttribute(FrameworkInterface.class.getSimpleName(), null);
+		event.getSession().setAttribute(FrameworkCommandInterface.class.getSimpleName(), null);
 		event.getSession().setAttribute("ID", null);
 	}
 }
