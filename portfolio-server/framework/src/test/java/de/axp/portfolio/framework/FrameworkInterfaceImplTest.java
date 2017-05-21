@@ -138,7 +138,7 @@ public class FrameworkInterfaceImplTest {
 		}
 	}
 
-	private class TestFrameworkResponseListener implements FrameworkInterface.FrameworkResponseListener {
+	private class TestFrameworkResponseListener implements ResponseNotifier.FrameworkResponseListener {
 
 		boolean executed;
 

@@ -18,9 +18,5 @@ public interface FrameworkInterface {
 
 	void putCommand(String command) throws InterruptedException;
 
-	void addListener(FrameworkResponseListener responseListener);
-
-	interface FrameworkResponseListener {
-		void onResponse(String response);
-	}
+	void addListener(ResponseNotifier.FrameworkResponseListener responseListener);
 }

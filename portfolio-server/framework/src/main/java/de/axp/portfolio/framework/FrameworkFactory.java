@@ -1,6 +1,6 @@
 package de.axp.portfolio.framework;
 
-import de.axp.portfolio.framework.command.*;
+import de.axp.portfolio.framework.command.CommandFactory;
 
 public class FrameworkFactory {
 
@@ -21,8 +21,8 @@ public class FrameworkFactory {
 
 	private synchronized FrameworkInterface createFrameworkInterface() {
 		CommandBuffer commandBuffer = CommandFactory.createCommandBuffer();
-		ResponseNotifier responseNotifier = CommandFactory.createResponseNotifier();
 		CommandNotifier commandNotifier = CommandFactory.createCommandListenerNotifier();
+		ResponseNotifier responseNotifier = CommandFactory.createResponseNotifier();
 		WorkDistributor workDistributor = CommandFactory.createWorkDistributor(commandBuffer, commandNotifier,
 				responseNotifier);
 		SessionManager sessionManager = createSessionManager();
