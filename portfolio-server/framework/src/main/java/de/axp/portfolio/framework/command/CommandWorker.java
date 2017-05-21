@@ -6,11 +6,11 @@ import de.axp.portfolio.framework.WorkDistributor;
 class CommandWorker implements Runnable {
 
 	private final CommandBufferImpl commandBuffer;
-	private final CommandListenerNotifier commandListenerNotifier;
+	private final CommandNotifier commandNotifier;
 
-	CommandWorker(CommandBuffer commandBuffer, CommandListenerNotifier commandListenerNotifier) {
+	CommandWorker(CommandBuffer commandBuffer, CommandNotifier commandNotifier) {
 		this.commandBuffer = (CommandBufferImpl) commandBuffer;
-		this.commandListenerNotifier = commandListenerNotifier;
+		this.commandNotifier = commandNotifier;
 	}
 
 	@Override
@@ -33,6 +33,6 @@ class CommandWorker implements Runnable {
 	}
 
 	private void handleCommand(String command) {
-		commandListenerNotifier.notifyListeners(command);
+		commandNotifier.notifyListeners(command);
 	}
 }

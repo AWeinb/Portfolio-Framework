@@ -8,8 +8,8 @@ public class WorkDistributorImplTest {
 	public void testCreation() throws Exception {
 		CommandBufferImpl commandBuffer = new CommandBufferImpl();
 		ResponseBuffer responseBuffer = new ResponseBuffer();
-		CommandListenerNotifier commandListenerNotifier = new CommandListenerNotifier();
+		CommandNotifier commandNotifier = new CommandNotifier();
 		ResponseNotifierImpl responseNotifier = new ResponseNotifierImpl();
-		new WorkDistributorImpl(commandBuffer, responseBuffer, commandListenerNotifier, responseNotifier);
+		new WorkDistributorImpl(commandBuffer, responseBuffer, commandNotifier, responseNotifier);
 	}
 }

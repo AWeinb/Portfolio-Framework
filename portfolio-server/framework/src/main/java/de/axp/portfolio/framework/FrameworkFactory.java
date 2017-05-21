@@ -22,12 +22,12 @@ public class FrameworkFactory {
 	private synchronized FrameworkInterface createFrameworkInterface() {
 		CommandBuffer commandBuffer = CommandFactory.createCommandBuffer();
 		ResponseNotifier responseNotifier = CommandFactory.createResponseNotifier();
-		CommandListenerNotifier commandListenerNotifier = CommandFactory.createCommandListenerNotifier();
-		WorkDistributor workDistributor = CommandFactory.createWorkDistributor(commandBuffer, commandListenerNotifier,
+		CommandNotifier commandNotifier = CommandFactory.createCommandListenerNotifier();
+		WorkDistributor workDistributor = CommandFactory.createWorkDistributor(commandBuffer, commandNotifier,
 				responseNotifier);
 		SessionManager sessionManager = createSessionManager();
 
-		return new FrameworkInterfaceImpl(commandBuffer, commandListenerNotifier, responseNotifier, workDistributor,
+		return new FrameworkInterfaceImpl(commandBuffer, commandNotifier, responseNotifier, workDistributor,
 				sessionManager);
 	}
 }

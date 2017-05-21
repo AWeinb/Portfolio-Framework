@@ -15,11 +15,11 @@ public class FrameworkInterfaceImplTest {
 	@Before
 	public void setUp() throws Exception {
 		CommandBuffer commandBuffer = CommandFactory.createCommandBuffer();
-		CommandListenerNotifier commandListenerNotifier = CommandFactory.createCommandListenerNotifier();
+		CommandNotifier commandNotifier = CommandFactory.createCommandListenerNotifier();
 		responseNotifier = CommandFactory.createResponseNotifier();
 		testWorkDistributor = new TestWorkDistributor();
 		SessionManager sessionManager = FrameworkFactory.createSessionManager();
-		frameworkInterface = new FrameworkInterfaceImpl(commandBuffer, commandListenerNotifier, responseNotifier,
+		frameworkInterface = new FrameworkInterfaceImpl(commandBuffer, commandNotifier, responseNotifier,
 				testWorkDistributor, sessionManager);
 	}
 

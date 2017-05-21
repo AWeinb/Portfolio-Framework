@@ -15,7 +15,7 @@ public class CommandWorkerTest {
 
 	private CommandBufferImpl commandBuffer;
 	@Mock
-	private CommandListenerNotifier commandListenerNotifier;
+	private CommandNotifier commandNotifier;
 
 	private CommandWorker commandWorker;
 
@@ -24,7 +24,7 @@ public class CommandWorkerTest {
 	@Before
 	public void setUp() throws Exception {
 		commandBuffer = new CommandBufferImpl();
-		commandWorker = new CommandWorker(commandBuffer, commandListenerNotifier);
+		commandWorker = new CommandWorker(commandBuffer, commandNotifier);
 	}
 
 	private void createAndStartThread() {
@@ -60,6 +60,6 @@ public class CommandWorkerTest {
 		createAndStartThread();
 		Thread.sleep(50);
 
-		verify(commandListenerNotifier).notifyListeners("A");
+		verify(commandNotifier).notifyListeners("A");
 	}
 }

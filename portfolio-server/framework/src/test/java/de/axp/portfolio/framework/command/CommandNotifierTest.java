@@ -10,28 +10,28 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 
 @RunWith(MockitoJUnitRunner.class)
-public class CommandListenerNotifierTest {
+public class CommandNotifierTest {
 
-	private CommandListenerNotifier commandListenerNotifier;
+	private CommandNotifier commandNotifier;
 
 	@Before
 	public void setUp() throws Exception {
-		commandListenerNotifier = new CommandListenerNotifier();
+		commandNotifier = new CommandNotifier();
 	}
 
 	@Test(expected = IllegalArgumentException.class)
 	public void shouldThrowException_WhenAddingNull() throws Exception {
-		commandListenerNotifier.addListener(null);
+		commandNotifier.addListener(null);
 	}
 
 	@Test
 	public void shouldNotifyAddedListeners() throws Exception {
 		CommandListener commandListenerOne = mock(CommandListener.class);
 		CommandListener commandListenerTwo = mock(CommandListener.class);
-		commandListenerNotifier.addListener(commandListenerOne);
-		commandListenerNotifier.addListener(commandListenerTwo);
+		commandNotifier.addListener(commandListenerOne);
+		commandNotifier.addListener(commandListenerTwo);
 
-		commandListenerNotifier.notifyListeners("A");
+		commandNotifier.notifyListeners("A");
 
 		verify(commandListenerOne).onCommand("A");
 		verify(commandListenerTwo).onCommand("A");

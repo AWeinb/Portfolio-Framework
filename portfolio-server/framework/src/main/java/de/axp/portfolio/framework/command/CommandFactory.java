@@ -15,12 +15,12 @@ public class CommandFactory {
 	}
 
 	public static WorkDistributor createWorkDistributor(CommandBuffer commandBuffer,
-	                                                    CommandListenerNotifier commandListenerNotifier, ResponseNotifier responseNotifier) {
+	                                                    CommandNotifier commandNotifier, ResponseNotifier responseNotifier) {
 		ResponseBuffer responseBuffer = new ResponseBuffer();
-		return new WorkDistributorImpl(commandBuffer, responseBuffer, commandListenerNotifier, responseNotifier);
+		return new WorkDistributorImpl(commandBuffer, responseBuffer, commandNotifier, responseNotifier);
 	}
 
-	public static CommandListenerNotifier createCommandListenerNotifier() {
-		return new CommandListenerNotifier();
+	public static CommandNotifier createCommandListenerNotifier() {
+		return new CommandNotifier();
 	}
 }

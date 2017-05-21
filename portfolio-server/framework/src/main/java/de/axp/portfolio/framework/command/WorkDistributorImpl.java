@@ -8,17 +8,17 @@ public class WorkDistributorImpl implements WorkDistributor {
 
 	private final CommandBuffer commandBuffer;
 	private final ResponseBuffer responseBuffer;
-	private final CommandListenerNotifier commandListenerNotifier;
+	private final CommandNotifier commandNotifier;
 	private final ResponseNotifier responseNotifier;
 
 	private Thread commandWorkerThread;
 	private Thread responseWorkerThread;
 
 	WorkDistributorImpl(CommandBuffer commandBuffer, ResponseBuffer responseBuffer,
-			CommandListenerNotifier commandListenerNotifier, ResponseNotifier responseNotifier) {
+	                    CommandNotifier commandNotifier, ResponseNotifier responseNotifier) {
 		this.commandBuffer = commandBuffer;
 		this.responseBuffer = responseBuffer;
-		this.commandListenerNotifier = commandListenerNotifier;
+		this.commandNotifier = commandNotifier;
 		this.responseNotifier = responseNotifier;
 	}
 
@@ -28,7 +28,7 @@ public class WorkDistributorImpl implements WorkDistributor {
 			return;
 		}
 
-		commandWorkerThread = new Thread(new CommandWorker(commandBuffer, commandListenerNotifier));
+		commandWorkerThread = new Thread(new CommandWorker(commandBuffer, commandNotifier));
 		commandWorkerThread.start();
 
 		responseWorkerThread = new Thread(new ResponseWorker(responseBuffer, responseNotifier));

@@ -5,7 +5,7 @@ import de.axp.portfolio.framework.CommandListener;
 import java.util.LinkedList;
 import java.util.List;
 
-public class CommandListenerNotifier {
+public class CommandNotifier {
 
 	private final List<CommandListener> commandListeners = new LinkedList<>();
 
