@@ -1,6 +1,7 @@
 package de.axp.portfolio.framework.command;
 
 import de.axp.portfolio.framework.FrameworkInterface.FrameworkResponseListener;
+import de.axp.portfolio.framework.ResponseNotifier;
 
 import java.util.LinkedList;
 import java.util.List;

@@ -1,5 +1,8 @@
 package de.axp.portfolio.framework.command;
 
+import de.axp.portfolio.framework.ResponseNotifier;
+import de.axp.portfolio.framework.WorkDistributor;
+
 class ResponseWorker implements Runnable {
 
 	private final ResponseBuffer responseBuffer;

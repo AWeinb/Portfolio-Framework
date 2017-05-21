@@ -1,5 +1,6 @@
 package de.axp.portfolio.framework.command;
 
+import de.axp.portfolio.framework.CommandListener;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;

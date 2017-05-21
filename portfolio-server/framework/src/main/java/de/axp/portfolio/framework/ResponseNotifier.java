@@ -1,6 +1,4 @@
-package de.axp.portfolio.framework.command;
-
-import de.axp.portfolio.framework.FrameworkInterface;
+package de.axp.portfolio.framework;
 
 public interface ResponseNotifier {
 

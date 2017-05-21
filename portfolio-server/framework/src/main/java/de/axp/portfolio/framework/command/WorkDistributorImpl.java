@@ -1,5 +1,9 @@
 package de.axp.portfolio.framework.command;
 
+import de.axp.portfolio.framework.CommandBuffer;
+import de.axp.portfolio.framework.ResponseNotifier;
+import de.axp.portfolio.framework.WorkDistributor;
+
 public class WorkDistributorImpl implements WorkDistributor {
 
 	private final CommandBuffer commandBuffer;

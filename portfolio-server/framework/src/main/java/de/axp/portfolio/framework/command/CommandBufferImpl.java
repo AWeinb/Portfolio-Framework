@@ -1,5 +1,7 @@
 package de.axp.portfolio.framework.command;
 
+import de.axp.portfolio.framework.CommandBuffer;
+
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
 

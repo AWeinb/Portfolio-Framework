@@ -1,5 +1,8 @@
 package de.axp.portfolio.framework.command;
 
+import de.axp.portfolio.framework.CommandBuffer;
+import de.axp.portfolio.framework.WorkDistributor;
+
 class CommandWorker implements Runnable {
 
 	private final CommandBufferImpl commandBuffer;

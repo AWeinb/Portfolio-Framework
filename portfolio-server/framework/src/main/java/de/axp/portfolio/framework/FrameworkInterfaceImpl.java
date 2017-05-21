@@ -1,9 +1,6 @@
 package de.axp.portfolio.framework;
 
-import de.axp.portfolio.framework.command.CommandBuffer;
 import de.axp.portfolio.framework.command.CommandListenerNotifier;
-import de.axp.portfolio.framework.command.ResponseNotifier;
-import de.axp.portfolio.framework.command.WorkDistributor;
 
 class FrameworkInterfaceImpl implements FrameworkInterface {
 

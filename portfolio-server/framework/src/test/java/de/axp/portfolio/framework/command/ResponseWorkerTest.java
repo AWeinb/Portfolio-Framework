@@ -1,6 +1,8 @@
 package de.axp.portfolio.framework.command;
 
 import de.axp.portfolio.framework.FrameworkInterface;
+import de.axp.portfolio.framework.ResponseNotifier;
+import de.axp.portfolio.framework.WorkDistributor;
 import org.junit.Before;
 import org.junit.Test;
 

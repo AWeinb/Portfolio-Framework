@@ -1,5 +1,7 @@
 package de.axp.portfolio.framework.command;
 
+import de.axp.portfolio.framework.CommandListener;
+
 import java.util.LinkedList;
 import java.util.List;
 
