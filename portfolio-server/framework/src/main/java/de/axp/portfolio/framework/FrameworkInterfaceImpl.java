@@ -13,7 +13,8 @@ class FrameworkInterfaceImpl implements FrameworkInterface {
 	private boolean isInitialized;
 
 	FrameworkInterfaceImpl(CommandBuffer commandBuffer, CommandNotifier commandNotifier,
-			ResponseNotifier responseNotifier, WorkDistributor workDistributor, SessionManager sessionManager) {
+	                       ResponseNotifier responseNotifier, WorkDistributor workDistributor,
+	                       SessionManager sessionManager) {
 		this.commandBuffer = commandBuffer;
 		this.commandNotifier = commandNotifier;
 		this.responseNotifier = responseNotifier;

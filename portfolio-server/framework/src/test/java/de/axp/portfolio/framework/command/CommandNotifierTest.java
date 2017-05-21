@@ -1,6 +1,6 @@
 package de.axp.portfolio.framework.command;
 
-import de.axp.portfolio.framework.CommandListener;
+import de.axp.portfolio.framework.CommandNotifier.CommandListener;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -12,24 +12,24 @@ import static org.mockito.Mockito.verify;
 @RunWith(MockitoJUnitRunner.class)
 public class CommandNotifierTest {
 
-	private CommandNotifier commandNotifier;
+	private CommandNotifierImpl commandNotifier;
 
 	@Before
 	public void setUp() throws Exception {
-		commandNotifier = new CommandNotifier();
+		commandNotifier = new CommandNotifierImpl();
 	}
 
 	@Test(expected = IllegalArgumentException.class)
 	public void shouldThrowException_WhenAddingNull() throws Exception {
-		commandNotifier.addListener(null);
+		commandNotifier.addCommandListener(null);
 	}
 
 	@Test
 	public void shouldNotifyAddedListeners() throws Exception {
 		CommandListener commandListenerOne = mock(CommandListener.class);
 		CommandListener commandListenerTwo = mock(CommandListener.class);
-		commandNotifier.addListener(commandListenerOne);
-		commandNotifier.addListener(commandListenerTwo);
+		commandNotifier.addCommandListener(commandListenerOne);
+		commandNotifier.addCommandListener(commandListenerTwo);
 
 		commandNotifier.notifyListeners("A");
 

@@ -15,7 +15,7 @@ public class CommandWorkerTest {
 
 	private CommandBufferImpl commandBuffer;
 	@Mock
-	private CommandNotifier commandNotifier;
+	private CommandNotifierImpl commandNotifier;
 
 	private CommandWorker commandWorker;
 

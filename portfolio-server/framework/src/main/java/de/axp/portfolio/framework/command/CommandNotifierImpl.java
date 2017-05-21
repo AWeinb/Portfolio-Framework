@@ -1,22 +1,24 @@
 package de.axp.portfolio.framework.command;
 
-import de.axp.portfolio.framework.CommandListener;
+import de.axp.portfolio.framework.CommandNotifier;
 
 import java.util.LinkedList;
 import java.util.List;
 
-public class CommandNotifier {
+public class CommandNotifierImpl implements CommandNotifier {
 
 	private final List<CommandListener> commandListeners = new LinkedList<>();
 
-	void addListener(CommandListener commandListener) {
+	@Override
+	public void addCommandListener(CommandListener commandListener) {
 		if (commandListener == null) {
 			throw new IllegalArgumentException();
 		}
 		commandListeners.add(commandListener);
 	}
 
-	void notifyListeners(String command) {
+	@Override
+	public void notifyListeners(String command) {
 		for (CommandListener commandListener : commandListeners) {
 			commandListener.onCommand(command);
 		}
