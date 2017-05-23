@@ -1,6 +1,10 @@
 package de.axp.portfolio.framework;
 
-public interface FrameworkCommandInterface {
+public interface FrameworkCommandInterface extends FrameworkInterface {
 
-	void putCommand(String command) throws InterruptedException;
+	void dispatchCommand(CommandMessage commandMessage) throws InterruptedException;
+
+	interface CommandMessage extends FrameworkMessage {
+
+	}
 }

@@ -1,6 +1,4 @@
-package de.axp.portfolio.framework.response;
-
-import static de.axp.portfolio.framework.response.ResponseManagementImpl.POISON;
+package de.axp.portfolio.framework.internal.commands;
 
 class ResponseWorker implements Runnable {
 
@@ -16,13 +14,13 @@ class ResponseWorker implements Runnable {
 	public void run() {
 		boolean isRunning = true;
 		while (isRunning) {
-			String response;
+			ResponseBuffer.ResponsePacket responsePacket;
 			try {
-				if ((response = responseBuffer.getNextResponse()) != null) {
-					if (POISON.equals(response)) {
+				if ((responsePacket = responseBuffer.getNextResponse()) != null) {
+					if (responsePacket instanceof ResponseBuffer.PoisonedResponsePacket) {
 						isRunning = false;
 					} else {
-						handleResponse(response);
+						handleResponse(responsePacket);
 					}
 				}
 			} catch (InterruptedException e) {
@@ -31,6 +29,7 @@ class ResponseWorker implements Runnable {
 		}
 	}
 
-	private void handleResponse(String response) {
+	private void handleResponse(ResponseBuffer.ResponsePacket responsePacket) {
+		responseNotifier.notify(responsePacket);
 	}
 }

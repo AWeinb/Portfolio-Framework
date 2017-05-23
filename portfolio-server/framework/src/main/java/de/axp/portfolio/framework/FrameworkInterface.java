@@ -2,13 +2,7 @@ package de.axp.portfolio.framework;
 
 public interface FrameworkInterface {
 
-	void initFramework();
+	void initialize();
 
-	void disposeFramework();
-
-	void initSession(String sessionId);
-
-	boolean hasFrameworkActiveSessions();
-
-	void destroySession(String sessionId);
+	void dispose();
 }

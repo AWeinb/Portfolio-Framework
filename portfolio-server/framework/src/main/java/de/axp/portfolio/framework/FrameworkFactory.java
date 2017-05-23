@@ -1,29 +1,26 @@
 package de.axp.portfolio.framework;
 
-import de.axp.portfolio.framework.command.CommandFactory;
-import de.axp.portfolio.framework.response.ResponseFactory;
+import de.axp.portfolio.framework.internal.InternalFrameworkFactory;
+
+import java.util.Map;
 
 public class FrameworkFactory {
 
 	public static final FrameworkFactory INSTANCE = new FrameworkFactory();
 
-	private FrameworkInterface frameworkInterfaceInstance;
-	private FrameworkCommandInterfaceImpl frameworkCommandInterfaceInstance;
+	private Map<Class, FrameworkInterface> frameworkInterfaces;
 
-	public synchronized FrameworkInterface getFrameworkInterface() {
-		if (frameworkInterfaceInstance == null) {
-			SessionManager sessionManager = new SessionManager();
-			frameworkInterfaceInstance = new FrameworkInterfaceImpl(sessionManager);
+	public Map<Class, FrameworkInterface> getFrameworkInterfaces() {
+		if (frameworkInterfaces == null) {
+			frameworkInterfaces = InternalFrameworkFactory.createFrameworkInterfaces();
 		}
-		return frameworkInterfaceInstance;
+		return frameworkInterfaces;
 	}
 
-	public synchronized FrameworkCommandInterface getFrameworkCommandInterface() {
-		if (frameworkCommandInterfaceInstance == null) {
-			CommandManagement commandManagement = CommandFactory.createCommandManagement();
-			ResponseManagement responseManagement = ResponseFactory.createResponseManagement();
-			frameworkCommandInterfaceInstance = new FrameworkCommandInterfaceImpl(commandManagement);
+	public void disposeFrameworkInterfaces() {
+		for (FrameworkInterface frameworkInterface : frameworkInterfaces.values()) {
+			frameworkInterface.dispose();
 		}
-		return frameworkCommandInterfaceInstance;
+		frameworkInterfaces = null;
 	}
 }

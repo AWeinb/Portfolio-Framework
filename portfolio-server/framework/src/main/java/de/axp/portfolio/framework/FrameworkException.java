@@ -1,5 +1,5 @@
 package de.axp.portfolio.framework;
 
-abstract class FrameworkException extends RuntimeException {
+public abstract class FrameworkException extends RuntimeException {
 
 }

@@ -1,6 +1,4 @@
-package de.axp.portfolio.framework.command;
-
-import static de.axp.portfolio.framework.command.CommandManagementImpl.POISON;
+package de.axp.portfolio.framework.internal.commands;
 
 class CommandWorker implements Runnable {
 
@@ -16,13 +14,13 @@ class CommandWorker implements Runnable {
 	public void run() {
 		boolean isRunning = true;
 		while (isRunning) {
-			String command;
+			CommandBuffer.CommandPacket commandPacket;
 			try {
-				if ((command = commandBuffer.getNextCommand()) != null) {
-					if (POISON.equals(command)) {
+				if ((commandPacket = commandBuffer.getNextCommand()) != null) {
+					if (commandPacket instanceof CommandBuffer.PoisonedCommandPacket) {
 						isRunning = false;
 					} else {
-						handleCommand(command);
+						handleCommand(commandPacket);
 					}
 				}
 			} catch (InterruptedException e) {
@@ -31,7 +29,7 @@ class CommandWorker implements Runnable {
 		}
 	}
 
-	private void handleCommand(String command) {
-		commandHandlerNotifier.notifyListeners(command);
+	private void handleCommand(CommandBuffer.CommandPacket commandPacket) {
+		commandHandlerNotifier.notify(commandPacket);
 	}
 }
