@@ -1,6 +1,8 @@
 package de.axp.portfolio.framework.internal.commands;
 
+import de.axp.portfolio.framework.FrameworkCommandInterface.Command;
 import de.axp.portfolio.framework.FrameworkSessionInterface;
+import de.axp.portfolio.framework.FrameworkSessionInterface.FrameworkSession;
 import de.axp.portfolio.framework.internal.CommandManagement;
 
 import static de.axp.portfolio.framework.FrameworkCommandInterface.Command.CommandMessage;
@@ -29,10 +31,20 @@ class CommandManagementImpl implements CommandManagement {
 
 	@Override
 	public void initialize() {
+		if (isInitialized()) {
+			throw new AlreadyInitializedException();
+		}
 		commandWorkerThread = new Thread(new CommandWorker(commandBuffer, commandHandlerNotifier));
 		commandWorkerThread.start();
 		responseWorkerThread = new Thread(new ResponseWorker(responseBuffer, responseNotifier));
 		responseWorkerThread.start();
+	}
+
+	@Override
+	public boolean isInitialized() {
+		boolean commandHandlingActive = commandWorkerThread != null && commandWorkerThread.isAlive();
+		boolean responseHandlingActive = responseWorkerThread != null && responseWorkerThread.isAlive();
+		return commandHandlingActive && responseHandlingActive;
 	}
 
 	@Override
@@ -49,18 +61,28 @@ class CommandManagementImpl implements CommandManagement {
 	                            Promise promise) throws InterruptedException {
 		responseNotifier.registerPromise(session, commandMessage, promise);
 
-		CommandPacket commandPacket = new CommandPacket() {
-
-			@Override
-			public FrameworkSessionInterface.FrameworkSession getFrameworkSession() {
-				return session;
-			}
-
-			@Override
-			public CommandMessage getCommand() {
-				return commandMessage;
-			}
-		};
+		CommandPacket commandPacket = new SimpleCommandPacket(session, commandMessage);
 		commandBuffer.putCommand(commandPacket);
+	}
+
+	private static class SimpleCommandPacket implements CommandPacket {
+
+		private final FrameworkSession session;
+		private final Command.CommandMessage commandMessage;
+
+		SimpleCommandPacket(FrameworkSession session, Command.CommandMessage commandMessage) {
+			this.session = session;
+			this.commandMessage = commandMessage;
+		}
+
+		@Override
+		public FrameworkSession getFrameworkSession() {
+			return session;
+		}
+
+		@Override
+		public Command.CommandMessage getCommand() {
+			return commandMessage;
+		}
 	}
 }
