@@ -15,7 +15,7 @@ public class CommandHandlerNotifierTest {
 
 	private CommandHandlerNotifier commandHandlerNotifier;
 
-	private CommandBuffer.CommandPacket testCommandPacket;
+	private CommandPacket testCommandPacket;
 	private FrameworkSessionInterface.FrameworkSession testFrameworkSession;
 	private FrameworkCommandInterface.Command.CommandMessage testCommandMessage;
 
@@ -39,17 +39,11 @@ public class CommandHandlerNotifierTest {
 		};
 		testCommandMessage = new FrameworkCommandInterface.Command.CommandMessage() {
 		};
-		testCommandPacket = new CommandBuffer.CommandPacket() {
-			@Override
-			public FrameworkSessionInterface.FrameworkSession getFrameworkSession() {
-				return testFrameworkSession;
-			}
+		CommandPacket.CommandPacketBuilder packetBuilder = new CommandPacket.CommandPacketBuilder();
+		packetBuilder.setFrameworkSession(testFrameworkSession);
+		packetBuilder.setCommandMessage(testCommandMessage);
+		testCommandPacket = packetBuilder.build();
 
-			@Override
-			public FrameworkCommandInterface.Command.CommandMessage getCommandMessage() {
-				return testCommandMessage;
-			}
-		};
 		futureData = new FrameworkNotice.Message() {
 		};
 	}

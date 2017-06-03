@@ -4,7 +4,6 @@ import de.axp.portfolio.framework.FrameworkCommandInterface;
 import de.axp.portfolio.framework.FrameworkNotice;
 import de.axp.portfolio.framework.FrameworkSessionInterface;
 import de.axp.portfolio.framework.internal.MessageHandlerInterface;
-import de.axp.portfolio.framework.internal.commands.CommandBuffer.CommandPacket;
 
 class CommandHandlerNotifier {
 

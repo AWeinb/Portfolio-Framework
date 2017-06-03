@@ -1,14 +1,11 @@
 package de.axp.portfolio.framework.internal.commands;
 
-import de.axp.portfolio.framework.FrameworkCommandInterface.Command;
 import de.axp.portfolio.framework.FrameworkSessionInterface;
-import de.axp.portfolio.framework.FrameworkSessionInterface.FrameworkSession;
 import de.axp.portfolio.framework.internal.CommandManagement;
 
 import static de.axp.portfolio.framework.FrameworkCommandInterface.Command.CommandMessage;
 import static de.axp.portfolio.framework.FrameworkCommandInterface.Command.Promise;
-import static de.axp.portfolio.framework.internal.commands.CommandBuffer.CommandPacket;
-import static de.axp.portfolio.framework.internal.commands.CommandBuffer.PoisonedCommandPacket;
+import static de.axp.portfolio.framework.internal.commands.CommandPacket.PoisonedCommandPacket;
 import static de.axp.portfolio.framework.internal.commands.ResponsePacket.PoisonedResponsePacket;
 
 class CommandManagementImpl implements CommandManagement {
@@ -61,28 +58,10 @@ class CommandManagementImpl implements CommandManagement {
 	                            Promise promise) throws InterruptedException {
 		responseNotifier.registerPromise(session, commandMessage, promise);
 
-		CommandPacket commandPacket = new SimpleCommandPacket(session, commandMessage);
+		CommandPacket.CommandPacketBuilder commandPacketBuilder = new CommandPacket.CommandPacketBuilder();
+		commandPacketBuilder.setFrameworkSession(session);
+		commandPacketBuilder.setCommandMessage(commandMessage);
+		CommandPacket commandPacket = commandPacketBuilder.build();
 		commandBuffer.putCommand(commandPacket);
-	}
-
-	private static class SimpleCommandPacket implements CommandPacket {
-
-		private final FrameworkSession session;
-		private final Command.CommandMessage commandMessage;
-
-		SimpleCommandPacket(FrameworkSession session, Command.CommandMessage commandMessage) {
-			this.session = session;
-			this.commandMessage = commandMessage;
-		}
-
-		@Override
-		public FrameworkSession getFrameworkSession() {
-			return session;
-		}
-
-		@Override
-		public Command.CommandMessage getCommandMessage() {
-			return commandMessage;
-		}
 	}
 }

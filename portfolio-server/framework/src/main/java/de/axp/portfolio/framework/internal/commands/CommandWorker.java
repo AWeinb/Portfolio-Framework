@@ -14,10 +14,10 @@ class CommandWorker implements Runnable {
 	public void run() {
 		boolean isRunning = true;
 		while (isRunning) {
-			CommandBuffer.CommandPacket commandPacket;
+			CommandPacket commandPacket;
 			try {
 				if ((commandPacket = commandBuffer.getNextCommand()) != null) {
-					if (commandPacket instanceof CommandBuffer.PoisonedCommandPacket) {
+					if (commandPacket instanceof CommandPacket.PoisonedCommandPacket) {
 						isRunning = false;
 					} else {
 						handleCommand(commandPacket);
@@ -29,7 +29,7 @@ class CommandWorker implements Runnable {
 		}
 	}
 
-	private void handleCommand(CommandBuffer.CommandPacket commandPacket) {
+	private void handleCommand(CommandPacket commandPacket) {
 		commandHandlerNotifier.notify(commandPacket);
 	}
 }
