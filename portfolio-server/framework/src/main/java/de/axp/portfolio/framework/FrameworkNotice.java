@@ -1,6 +1,6 @@
 package de.axp.portfolio.framework;
 
-public interface FrameworkMessage<M extends FrameworkMessage.Message, P extends FrameworkMessage.Promise> {
+public interface FrameworkNotice<M extends FrameworkNotice.Message, P extends FrameworkNotice.Promise> {
 
 	FrameworkSessionInterface.FrameworkSession getSession();
 

@@ -1,6 +1,6 @@
 package de.axp.portfolio.framework.internal.commands;
 
-import de.axp.portfolio.framework.FrameworkMessage;
+import de.axp.portfolio.framework.FrameworkNotice;
 import de.axp.portfolio.framework.FrameworkSessionInterface;
 
 import java.util.concurrent.ArrayBlockingQueue;
@@ -22,9 +22,9 @@ class ResponseBuffer {
 
 		FrameworkSessionInterface.FrameworkSession getFrameworkSession();
 
-		FrameworkMessage.Message getCommand();
+		FrameworkNotice.Message getCommand();
 
-		FrameworkMessage.Message getResponse();
+		FrameworkNotice.Message getResponse();
 
 		boolean wasRejected();
 	}
@@ -37,12 +37,12 @@ class ResponseBuffer {
 		}
 
 		@Override
-		public FrameworkMessage.Message getCommand() {
+		public FrameworkNotice.Message getCommand() {
 			return null;
 		}
 
 		@Override
-		public FrameworkMessage.Message getResponse() {
+		public FrameworkNotice.Message getResponse() {
 			return null;
 		}
 

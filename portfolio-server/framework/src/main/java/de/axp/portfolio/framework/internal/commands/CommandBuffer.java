@@ -1,10 +1,11 @@
 package de.axp.portfolio.framework.internal.commands;
 
-import de.axp.portfolio.framework.FrameworkMessage;
 import de.axp.portfolio.framework.FrameworkSessionInterface;
 
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
+
+import static de.axp.portfolio.framework.FrameworkCommandInterface.Command;
 
 class CommandBuffer {
 
@@ -22,7 +23,7 @@ class CommandBuffer {
 
 		FrameworkSessionInterface.FrameworkSession getFrameworkSession();
 
-		FrameworkMessage.Message getCommand();
+		Command.CommandMessage getCommand();
 	}
 
 	static class PoisonedCommandPacket implements CommandPacket {
@@ -33,7 +34,7 @@ class CommandBuffer {
 		}
 
 		@Override
-		public FrameworkMessage.Message getCommand() {
+		public Command.CommandMessage getCommand() {
 			return null;
 		}
 	}

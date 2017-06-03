@@ -1,6 +1,6 @@
 package de.axp.portfolio.framework.internal.commands;
 
-import de.axp.portfolio.framework.FrameworkMessage;
+import de.axp.portfolio.framework.FrameworkNotice;
 import de.axp.portfolio.framework.FrameworkSessionInterface;
 import de.axp.portfolio.framework.internal.MessageHandlerInterface;
 import de.axp.portfolio.framework.internal.commands.CommandBuffer.CommandPacket;
@@ -18,10 +18,10 @@ class CommandHandlerNotifier {
 	void notify(CommandPacket commandPacket) {
 		messageHandlerInterface.handleMessage(commandPacket.getFrameworkSession(), commandPacket.getCommand(),
 				new MessageHandlerInterface.ResponsePromise() {
-					private FrameworkMessage.Message responseMessage;
+					private FrameworkNotice.Message responseMessage;
 
 					@Override
-					public void setFuture(FrameworkMessage.Message responseMessage) {
+					public void setFuture(FrameworkNotice.Message responseMessage) {
 						this.responseMessage = responseMessage;
 					}
 
@@ -35,12 +35,12 @@ class CommandHandlerNotifier {
 								}
 
 								@Override
-								public FrameworkMessage.Message getCommand() {
+								public FrameworkNotice.Message getCommand() {
 									return commandPacket.getCommand();
 								}
 
 								@Override
-								public FrameworkMessage.Message getResponse() {
+								public FrameworkNotice.Message getResponse() {
 									return responseMessage;
 								}
 
@@ -64,12 +64,12 @@ class CommandHandlerNotifier {
 								}
 
 								@Override
-								public FrameworkMessage.Message getCommand() {
+								public FrameworkNotice.Message getCommand() {
 									return commandPacket.getCommand();
 								}
 
 								@Override
-								public FrameworkMessage.Message getResponse() {
+								public FrameworkNotice.Message getResponse() {
 									return responseMessage;
 								}
 

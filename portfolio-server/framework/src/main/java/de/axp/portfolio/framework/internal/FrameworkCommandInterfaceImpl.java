@@ -1,7 +1,7 @@
 package de.axp.portfolio.framework.internal;
 
 import de.axp.portfolio.framework.FrameworkCommandInterface;
-import de.axp.portfolio.framework.FrameworkMessage;
+import de.axp.portfolio.framework.FrameworkNotice;
 
 import static de.axp.portfolio.framework.FrameworkSessionInterface.FrameworkSession;
 
@@ -28,10 +28,10 @@ class FrameworkCommandInterfaceImpl implements FrameworkCommandInterface {
 	}
 
 	@Override
-	public void dispatchCommand(CommandMessage commandMessage) throws InterruptedException {
-		FrameworkSession session = commandMessage.getSession();
-		FrameworkMessage.Message command = commandMessage.getMessage();
-		FrameworkMessage.Promise promise = commandMessage.getPromise();
-		commandManagement.dispatchCommand(session, command, promise);
+	public void dispatchCommand(Command command) throws InterruptedException {
+		FrameworkSession session = command.getSession();
+		Command.CommandMessage message = command.getMessage();
+		FrameworkNotice.Promise promise = command.getPromise();
+		commandManagement.dispatchCommand(session, message, promise);
 	}
 }
