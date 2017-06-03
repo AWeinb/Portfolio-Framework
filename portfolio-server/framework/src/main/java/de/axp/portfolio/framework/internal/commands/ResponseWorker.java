@@ -14,10 +14,10 @@ class ResponseWorker implements Runnable {
 	public void run() {
 		boolean isRunning = true;
 		while (isRunning) {
-			ResponseBuffer.ResponsePacket responsePacket;
+			ResponsePacket responsePacket;
 			try {
 				if ((responsePacket = responseBuffer.getNextResponse()) != null) {
-					if (responsePacket instanceof ResponseBuffer.PoisonedResponsePacket) {
+					if (responsePacket instanceof ResponsePacket.PoisonedResponsePacket) {
 						isRunning = false;
 					} else {
 						handleResponse(responsePacket);
@@ -29,7 +29,7 @@ class ResponseWorker implements Runnable {
 		}
 	}
 
-	private void handleResponse(ResponseBuffer.ResponsePacket responsePacket) {
+	private void handleResponse(ResponsePacket responsePacket) {
 		responseNotifier.notify(responsePacket);
 	}
 }

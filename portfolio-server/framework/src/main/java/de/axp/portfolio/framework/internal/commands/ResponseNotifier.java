@@ -12,11 +12,11 @@ class ResponseNotifier {
 		this.promise = promise;
 	}
 
-	void notify(ResponseBuffer.ResponsePacket responsePacket) {
+	void notify(ResponsePacket responsePacket) {
 		FrameworkSessionInterface.FrameworkSession frameworkSession = responsePacket.getFrameworkSession();
-		FrameworkNotice.Message command = responsePacket.getCommand();
+		FrameworkNotice.Message command = responsePacket.getCommandMessage();
 
-		promise.setFuture(responsePacket.getResponse());
+		promise.setFuture(responsePacket.getResponseMessage());
 		if (!responsePacket.wasRejected()) {
 			promise.resolve();
 		} else {

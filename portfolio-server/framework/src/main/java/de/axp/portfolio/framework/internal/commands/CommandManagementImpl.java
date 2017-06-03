@@ -9,7 +9,7 @@ import static de.axp.portfolio.framework.FrameworkCommandInterface.Command.Comma
 import static de.axp.portfolio.framework.FrameworkCommandInterface.Command.Promise;
 import static de.axp.portfolio.framework.internal.commands.CommandBuffer.CommandPacket;
 import static de.axp.portfolio.framework.internal.commands.CommandBuffer.PoisonedCommandPacket;
-import static de.axp.portfolio.framework.internal.commands.ResponseBuffer.PoisonedResponsePacket;
+import static de.axp.portfolio.framework.internal.commands.ResponsePacket.PoisonedResponsePacket;
 
 class CommandManagementImpl implements CommandManagement {
 
@@ -81,7 +81,7 @@ class CommandManagementImpl implements CommandManagement {
 		}
 
 		@Override
-		public Command.CommandMessage getCommand() {
+		public Command.CommandMessage getCommandMessage() {
 			return commandMessage;
 		}
 	}

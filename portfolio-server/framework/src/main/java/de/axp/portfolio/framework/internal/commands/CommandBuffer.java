@@ -23,7 +23,7 @@ class CommandBuffer {
 
 		FrameworkSessionInterface.FrameworkSession getFrameworkSession();
 
-		Command.CommandMessage getCommand();
+		Command.CommandMessage getCommandMessage();
 	}
 
 	static class PoisonedCommandPacket implements CommandPacket {
@@ -34,7 +34,7 @@ class CommandBuffer {
 		}
 
 		@Override
-		public Command.CommandMessage getCommand() {
+		public Command.CommandMessage getCommandMessage() {
 			return null;
 		}
 	}
