@@ -30,7 +30,7 @@ public class CommandWorkerTest {
 	@Test
 	public void shouldStop_WhenPoisoned() throws Exception {
 		commandWorkerThread.start();
-		commandBuffer.putCommand(new CommandPacket.PoisonedCommandPacket());
+		commandBuffer.putCommand(CommandWorker.POISON);
 		Thread.sleep(50);
 
 		assertFalse(commandWorkerThread.isAlive());

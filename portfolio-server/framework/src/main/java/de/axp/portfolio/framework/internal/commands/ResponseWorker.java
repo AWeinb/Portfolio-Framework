@@ -2,6 +2,8 @@ package de.axp.portfolio.framework.internal.commands;
 
 class ResponseWorker implements Runnable {
 
+	static final ResponsePacket POISON = new ResponsePacket.ResponsePacketBuilder().build();
+
 	private final ResponseBuffer responseBuffer;
 	private final ResponseNotifier responseNotifier;
 
@@ -17,7 +19,7 @@ class ResponseWorker implements Runnable {
 			ResponsePacket responsePacket;
 			try {
 				if ((responsePacket = responseBuffer.getNextResponse()) != null) {
-					if (responsePacket instanceof ResponsePacket.PoisonedResponsePacket) {
+					if (responsePacket == POISON) {
 						isRunning = false;
 					} else {
 						handleResponse(responsePacket);

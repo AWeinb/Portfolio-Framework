@@ -30,7 +30,7 @@ public class ResponseWorkerTest {
 	@Test
 	public void shouldStop_WhenPoisoned() throws Exception {
 		responseWorkerThread.start();
-		responseBuffer.putResponse(new ResponsePacket.PoisonedResponsePacket());
+		responseBuffer.putResponse(ResponseWorker.POISON);
 		Thread.sleep(50);
 
 		assertFalse(responseWorkerThread.isAlive());

@@ -2,6 +2,8 @@ package de.axp.portfolio.framework.internal.commands;
 
 class CommandWorker implements Runnable {
 
+	static final CommandPacket POISON = new CommandPacket.CommandPacketBuilder().build();
+
 	private final CommandBuffer commandBuffer;
 	private final CommandHandlerNotifier commandHandlerNotifier;
 
@@ -17,7 +19,7 @@ class CommandWorker implements Runnable {
 			CommandPacket commandPacket;
 			try {
 				if ((commandPacket = commandBuffer.getNextCommand()) != null) {
-					if (commandPacket instanceof CommandPacket.PoisonedCommandPacket) {
+					if (commandPacket == POISON) {
 						isRunning = false;
 					} else {
 						handleCommand(commandPacket);

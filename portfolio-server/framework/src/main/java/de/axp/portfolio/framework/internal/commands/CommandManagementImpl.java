@@ -5,8 +5,6 @@ import de.axp.portfolio.framework.internal.CommandManagement;
 
 import static de.axp.portfolio.framework.FrameworkCommandInterface.Command.CommandMessage;
 import static de.axp.portfolio.framework.FrameworkCommandInterface.Command.Promise;
-import static de.axp.portfolio.framework.internal.commands.CommandPacket.PoisonedCommandPacket;
-import static de.axp.portfolio.framework.internal.commands.ResponsePacket.PoisonedResponsePacket;
 
 class CommandManagementImpl implements CommandManagement {
 
@@ -46,8 +44,8 @@ class CommandManagementImpl implements CommandManagement {
 
 	@Override
 	public void dispose() throws InterruptedException {
-		commandBuffer.putCommand(new PoisonedCommandPacket());
-		responseBuffer.putResponse(new PoisonedResponsePacket());
+		commandBuffer.putCommand(CommandWorker.POISON);
+		responseBuffer.putResponse(ResponseWorker.POISON);
 
 		commandWorkerThread.join();
 		responseWorkerThread.join();

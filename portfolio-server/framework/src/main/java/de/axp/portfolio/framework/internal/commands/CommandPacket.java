@@ -9,19 +9,6 @@ interface CommandPacket {
 
 	FrameworkCommandInterface.Command.CommandMessage getCommandMessage();
 
-	class PoisonedCommandPacket implements CommandPacket {
-
-		@Override
-		public FrameworkSessionInterface.FrameworkSession getFrameworkSession() {
-			return null;
-		}
-
-		@Override
-		public FrameworkCommandInterface.Command.CommandMessage getCommandMessage() {
-			return null;
-		}
-	}
-
 	class CommandPacketBuilder {
 
 		private FrameworkSessionInterface.FrameworkSession frameworkSession;

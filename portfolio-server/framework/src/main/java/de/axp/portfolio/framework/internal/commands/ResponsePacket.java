@@ -19,29 +19,6 @@ interface ResponsePacket {
 		return !wasResolved();
 	}
 
-	class PoisonedResponsePacket implements ResponsePacket {
-
-		@Override
-		public FrameworkSessionInterface.FrameworkSession getFrameworkSession() {
-			return null;
-		}
-
-		@Override
-		public Command.CommandMessage getCommandMessage() {
-			return null;
-		}
-
-		@Override
-		public FrameworkNotice.Message getResponseMessage() {
-			return null;
-		}
-
-		@Override
-		public boolean wasResolved() {
-			return false;
-		}
-	}
-
 	class ResponsePacketBuilder {
 
 		private FrameworkSessionInterface.FrameworkSession frameworkSession;
