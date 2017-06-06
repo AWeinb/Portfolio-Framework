@@ -10,14 +10,14 @@ import static org.junit.Assert.assertFalse;
 public class ResponseWorkerTest {
 
 	private ResponseBuffer responseBuffer;
-	private TestResponseNotifier responseNotifier;
+	private TestResponseHandlerNotifier responseNotifier;
 
 	private Thread responseWorkerThread;
 
 	@Before
 	public void setUp() throws Exception {
 		responseBuffer = new ResponseBuffer();
-		responseNotifier = new TestResponseNotifier();
+		responseNotifier = new TestResponseHandlerNotifier();
 		ResponseWorker responseWorker = new ResponseWorker(responseBuffer, responseNotifier);
 		responseWorkerThread = new Thread(responseWorker);
 	}
@@ -47,7 +47,7 @@ public class ResponseWorkerTest {
 		assertEquals(responsePacket, responseNotifier.responsePacket);
 	}
 
-	private class TestResponseNotifier extends ResponseNotifier {
+	private class TestResponseHandlerNotifier extends ResponseHandlerNotifier {
 
 		ResponsePacket responsePacket;
 

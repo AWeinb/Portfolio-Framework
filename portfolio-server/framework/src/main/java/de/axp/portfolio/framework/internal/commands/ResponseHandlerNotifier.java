@@ -3,7 +3,7 @@ package de.axp.portfolio.framework.internal.commands;
 import de.axp.portfolio.framework.FrameworkNotice;
 import de.axp.portfolio.framework.FrameworkSessionInterface;
 
-class ResponseNotifier {
+class ResponseHandlerNotifier {
 
 	private FrameworkNotice.Promise promise;
 

@@ -5,11 +5,11 @@ class ResponseWorker implements Runnable {
 	static final ResponsePacket POISON = new ResponsePacket.ResponsePacketBuilder().build();
 
 	private final ResponseBuffer responseBuffer;
-	private final ResponseNotifier responseNotifier;
+	private final ResponseHandlerNotifier responseHandlerNotifier;
 
-	ResponseWorker(ResponseBuffer responseBuffer, ResponseNotifier responseNotifier) {
+	ResponseWorker(ResponseBuffer responseBuffer, ResponseHandlerNotifier responseHandlerNotifier) {
 		this.responseBuffer = responseBuffer;
-		this.responseNotifier = responseNotifier;
+		this.responseHandlerNotifier = responseHandlerNotifier;
 	}
 
 	@Override
@@ -32,6 +32,6 @@ class ResponseWorker implements Runnable {
 	}
 
 	private void handleResponse(ResponsePacket responsePacket) {
-		responseNotifier.notify(responsePacket);
+		responseHandlerNotifier.notify(responsePacket);
 	}
 }

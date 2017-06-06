@@ -11,17 +11,18 @@ class CommandManagementImpl implements CommandManagement {
 	private final CommandBuffer commandBuffer;
 	private final ResponseBuffer responseBuffer;
 	private final CommandHandlerNotifier commandHandlerNotifier;
-	private final ResponseNotifier responseNotifier;
+	private final ResponseHandlerNotifier responseHandlerNotifier;
 
 	private Thread commandWorkerThread;
 	private Thread responseWorkerThread;
 
 	CommandManagementImpl(CommandBuffer commandBuffer, ResponseBuffer responseBuffer,
-	                      CommandHandlerNotifier commandHandlerNotifier, ResponseNotifier responseNotifier) {
+	                      CommandHandlerNotifier commandHandlerNotifier,
+	                      ResponseHandlerNotifier responseHandlerNotifier) {
 		this.commandBuffer = commandBuffer;
 		this.responseBuffer = responseBuffer;
 		this.commandHandlerNotifier = commandHandlerNotifier;
-		this.responseNotifier = responseNotifier;
+		this.responseHandlerNotifier = responseHandlerNotifier;
 	}
 
 	@Override
@@ -31,7 +32,7 @@ class CommandManagementImpl implements CommandManagement {
 		}
 		commandWorkerThread = new Thread(new CommandWorker(commandBuffer, commandHandlerNotifier));
 		commandWorkerThread.start();
-		responseWorkerThread = new Thread(new ResponseWorker(responseBuffer, responseNotifier));
+		responseWorkerThread = new Thread(new ResponseWorker(responseBuffer, responseHandlerNotifier));
 		responseWorkerThread.start();
 	}
 
@@ -54,7 +55,7 @@ class CommandManagementImpl implements CommandManagement {
 	@Override
 	public void dispatchCommand(FrameworkSessionInterface.FrameworkSession session, CommandMessage commandMessage,
 	                            Promise promise) throws InterruptedException {
-		responseNotifier.registerPromise(session, commandMessage, promise);
+		responseHandlerNotifier.registerPromise(session, commandMessage, promise);
 
 		CommandPacket.CommandPacketBuilder commandPacketBuilder = new CommandPacket.CommandPacketBuilder();
 		commandPacketBuilder.setFrameworkSession(session);
