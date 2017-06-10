@@ -24,8 +24,7 @@ public class ResponseHandlerNotifierTest {
 		ResponsePacket.ResponsePacketBuilder responsePacketBuilder = new ResponsePacket.ResponsePacketBuilder();
 		responsePacketBuilder.setFrameworkSession(session);
 		responsePacketBuilder.setCommandMessage(commandMessage);
-		FrameworkNotice.Message responseMessage = new FrameworkNotice.Message() {
-		};
+		FrameworkNotice.Message responseMessage = new TestMessage();
 		responsePacketBuilder.setResponseMessage(responseMessage);
 
 		responseHandlerNotifier.registerPromise(session, commandMessage, promise);

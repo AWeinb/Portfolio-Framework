@@ -34,8 +34,7 @@ public class CommandManagementTest {
 		sentFrameworkSession = new TestFrameworkSession();
 		sentCommandMessage = new TestMessage();
 		sentCommandPromise = new TestCommandPromise();
-		respondedFutureData = new FrameworkNotice.Message() {
-		};
+		respondedFutureData = new TestMessage();
 	}
 
 	@After

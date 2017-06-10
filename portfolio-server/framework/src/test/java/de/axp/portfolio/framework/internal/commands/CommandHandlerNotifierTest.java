@@ -43,8 +43,7 @@ public class CommandHandlerNotifierTest {
 		packetBuilder.setCommandMessage(testCommandMessage);
 		testCommandPacket = packetBuilder.build();
 
-		futureData = new FrameworkNotice.Message() {
-		};
+		futureData = new TestMessage();
 	}
 
 	@Test
