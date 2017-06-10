@@ -4,6 +4,7 @@ import de.axp.portfolio.framework.FrameworkCommandInterface.Command;
 import de.axp.portfolio.framework.FrameworkNotice;
 import de.axp.portfolio.framework.FrameworkSessionInterface;
 import de.axp.portfolio.framework.TestCommandPromise;
+import de.axp.portfolio.framework.TestFrameworkSession;
 import de.axp.portfolio.framework.internal.commands.CommandFactory;
 import org.junit.After;
 import org.junit.Before;
@@ -34,8 +35,7 @@ public class CommandManagementTest {
 		};
 
 		commandManagement = CommandFactory.createCommandManagement(messageHandlerInterface);
-		sentFrameworkSession = new FrameworkSessionInterface.FrameworkSession() {
-		};
+		sentFrameworkSession = new TestFrameworkSession();
 		sentCommandMessage = new Command.CommandMessage() {
 		};
 		sentCommandPromise = new TestCommandPromise();

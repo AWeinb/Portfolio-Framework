@@ -22,10 +22,11 @@ public class FrameworkCommandInterfaceTest {
 
 	@Test
 	public void testRoundTripThroughWorkers() throws Exception {
+		FrameworkSessionInterface.FrameworkSession session = new TestFrameworkSession();
 		TestCommandPromise testCommandPromise = new TestCommandPromise();
 		Command.CommandMessage message = new Command.CommandMessage() {
 		};
-		TestCommand testCommand = new TestCommand(message, testCommandPromise);
+		TestCommand testCommand = new TestCommand(session, message, testCommandPromise);
 
 		frameworkCommandInterface.dispatchCommand(testCommand);
 		Thread.sleep(100);

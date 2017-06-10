@@ -2,18 +2,19 @@ package de.axp.portfolio.framework;
 
 public class TestCommand implements FrameworkCommandInterface.Command {
 
+	private final FrameworkSessionInterface.FrameworkSession session;
 	private final CommandMessage message;
 	private final Promise promise;
 
-	TestCommand(CommandMessage message, Promise promise) {
+	TestCommand(FrameworkSessionInterface.FrameworkSession session, CommandMessage message, Promise promise) {
+		this.session = session;
 		this.message = message;
 		this.promise = promise;
 	}
 
 	@Override
 	public FrameworkSessionInterface.FrameworkSession getSession() {
-		return new FrameworkSessionInterface.FrameworkSession() {
-		};
+		return session;
 	}
 
 	@Override
