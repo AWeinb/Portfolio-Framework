@@ -1,7 +1,7 @@
 package de.axp.portfolio.framework.internal;
 
 import de.axp.portfolio.framework.*;
-import de.axp.portfolio.framework.internal.commands.CommandFactory;
+import de.axp.portfolio.framework.internal.mainloop.commands.CommandFactory;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;

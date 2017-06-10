@@ -1,4 +1,4 @@
-package de.axp.portfolio.framework.internal.commands;
+package de.axp.portfolio.framework.internal.mainloop.commands;
 
 import de.axp.portfolio.framework.FrameworkNotice;
 import de.axp.portfolio.framework.FrameworkSessionInterface;

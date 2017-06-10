@@ -1,4 +1,4 @@
-package de.axp.portfolio.framework.internal.commands;
+package de.axp.portfolio.framework.internal.mainloop.commands;
 
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;

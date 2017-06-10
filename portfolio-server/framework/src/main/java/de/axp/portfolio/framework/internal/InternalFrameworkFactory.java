@@ -4,7 +4,7 @@ import de.axp.portfolio.framework.FrameworkCommandInterface;
 import de.axp.portfolio.framework.FrameworkInterface;
 import de.axp.portfolio.framework.FrameworkSessionInterface;
 import de.axp.portfolio.framework.internal.commandhandling.MessageHandlerInterfaceImpl;
-import de.axp.portfolio.framework.internal.commands.CommandFactory;
+import de.axp.portfolio.framework.internal.mainloop.commands.CommandFactory;
 import de.axp.portfolio.framework.internal.sessions.SessionFactory;
 
 import java.util.HashMap;
