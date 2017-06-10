@@ -18,7 +18,7 @@ public class ResponseHandlerNotifierTest {
 	@Test
 	public void shouldStorePromisesForCommands() throws Exception {
 		FrameworkSessionInterface.FrameworkSession session = new TestFrameworkSession();
-		FrameworkCommandInterface.Command.CommandMessage commandMessage = new TestCommandMessage();
+		TestMessage commandMessage = new TestMessage();
 		TestCommandPromise promise = new TestCommandPromise();
 
 		ResponsePacket.ResponsePacketBuilder responsePacketBuilder = new ResponsePacket.ResponsePacketBuilder();

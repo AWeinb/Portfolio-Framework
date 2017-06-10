@@ -1,10 +1,10 @@
 package de.axp.portfolio.framework.internal.commands;
 
+import de.axp.portfolio.framework.FrameworkNotice;
 import de.axp.portfolio.framework.FrameworkSessionInterface;
 import de.axp.portfolio.framework.internal.CommandManagement;
 
-import static de.axp.portfolio.framework.FrameworkCommandInterface.Command.CommandMessage;
-import static de.axp.portfolio.framework.FrameworkCommandInterface.Command.Promise;
+import static de.axp.portfolio.framework.FrameworkNotice.Promise;
 
 class CommandManagementImpl implements CommandManagement {
 
@@ -53,8 +53,8 @@ class CommandManagementImpl implements CommandManagement {
 	}
 
 	@Override
-	public void dispatchCommand(FrameworkSessionInterface.FrameworkSession session, CommandMessage commandMessage,
-	                            Promise promise) throws InterruptedException {
+	public void dispatchCommand(FrameworkSessionInterface.FrameworkSession session,
+	                            FrameworkNotice.Message commandMessage, Promise promise) throws InterruptedException {
 		responseHandlerNotifier.registerPromise(session, commandMessage, promise);
 
 		CommandPacket.CommandPacketBuilder commandPacketBuilder = new CommandPacket.CommandPacketBuilder();

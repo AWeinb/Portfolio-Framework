@@ -1,10 +1,6 @@
 package de.axp.portfolio.framework.internal;
 
-import de.axp.portfolio.framework.FrameworkCommandInterface.Command;
-import de.axp.portfolio.framework.FrameworkNotice;
-import de.axp.portfolio.framework.FrameworkSessionInterface;
-import de.axp.portfolio.framework.TestCommandPromise;
-import de.axp.portfolio.framework.TestFrameworkSession;
+import de.axp.portfolio.framework.*;
 import de.axp.portfolio.framework.internal.commands.CommandFactory;
 import org.junit.After;
 import org.junit.Before;
@@ -21,7 +17,7 @@ public class CommandManagementTest {
 	private MessageHandlerInterface.ResponsePromise receivedResponsePromise;
 
 	private FrameworkSessionInterface.FrameworkSession sentFrameworkSession;
-	private Command.CommandMessage sentCommandMessage;
+	private FrameworkNotice.Message sentCommandMessage;
 	private TestCommandPromise sentCommandPromise;
 
 	private FrameworkNotice.Message respondedFutureData;
@@ -36,8 +32,7 @@ public class CommandManagementTest {
 
 		commandManagement = CommandFactory.createCommandManagement(messageHandlerInterface);
 		sentFrameworkSession = new TestFrameworkSession();
-		sentCommandMessage = new Command.CommandMessage() {
-		};
+		sentCommandMessage = new TestMessage();
 		sentCommandPromise = new TestCommandPromise();
 		respondedFutureData = new FrameworkNotice.Message() {
 		};

@@ -1,9 +1,9 @@
 package de.axp.portfolio.framework.internal.commands;
 
-import de.axp.portfolio.framework.FrameworkCommandInterface;
 import de.axp.portfolio.framework.FrameworkNotice;
 import de.axp.portfolio.framework.FrameworkSessionInterface;
 import de.axp.portfolio.framework.TestFrameworkSession;
+import de.axp.portfolio.framework.TestMessage;
 import de.axp.portfolio.framework.internal.MessageHandlerInterface;
 import org.junit.Before;
 import org.junit.Test;
@@ -18,7 +18,7 @@ public class CommandHandlerNotifierTest {
 
 	private CommandPacket testCommandPacket;
 	private FrameworkSessionInterface.FrameworkSession testFrameworkSession;
-	private FrameworkCommandInterface.Command.CommandMessage testCommandMessage;
+	private FrameworkNotice.Message testCommandMessage;
 
 	private FrameworkSessionInterface.FrameworkSession respondedSession;
 	private FrameworkNotice.Message respondedCommandMessage;
@@ -37,8 +37,7 @@ public class CommandHandlerNotifierTest {
 		commandHandlerNotifier = new CommandHandlerNotifier(messageHandlerInterface, responseBuffer);
 
 		testFrameworkSession = new TestFrameworkSession();
-		testCommandMessage = new FrameworkCommandInterface.Command.CommandMessage() {
-		};
+		testCommandMessage = new TestMessage();
 		CommandPacket.CommandPacketBuilder packetBuilder = new CommandPacket.CommandPacketBuilder();
 		packetBuilder.setFrameworkSession(testFrameworkSession);
 		packetBuilder.setCommandMessage(testCommandMessage);

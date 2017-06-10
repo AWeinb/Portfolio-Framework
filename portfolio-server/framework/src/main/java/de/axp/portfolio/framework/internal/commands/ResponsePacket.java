@@ -3,13 +3,11 @@ package de.axp.portfolio.framework.internal.commands;
 import de.axp.portfolio.framework.FrameworkNotice;
 import de.axp.portfolio.framework.FrameworkSessionInterface;
 
-import static de.axp.portfolio.framework.FrameworkCommandInterface.Command;
-
 interface ResponsePacket {
 
 	FrameworkSessionInterface.FrameworkSession getFrameworkSession();
 
-	Command.Message getCommandMessage();
+	FrameworkNotice.Message getCommandMessage();
 
 	FrameworkNotice.Message getResponseMessage();
 
@@ -22,7 +20,7 @@ interface ResponsePacket {
 	class ResponsePacketBuilder {
 
 		private FrameworkSessionInterface.FrameworkSession frameworkSession;
-		private Command.CommandMessage commandMessage;
+		private FrameworkNotice.Message commandMessage;
 		private FrameworkNotice.Message responseMessage;
 		private boolean resolved;
 
@@ -30,7 +28,7 @@ interface ResponsePacket {
 			ResponsePacket responsePacket = new ResponsePacket() {
 
 				private FrameworkSessionInterface.FrameworkSession frameworkSession = ResponsePacketBuilder.this.frameworkSession;
-				private Command.CommandMessage commandMessage = ResponsePacketBuilder.this.commandMessage;
+				private FrameworkNotice.Message commandMessage = ResponsePacketBuilder.this.commandMessage;
 				private FrameworkNotice.Message responseMessage = ResponsePacketBuilder.this.responseMessage;
 				private boolean resolved = ResponsePacketBuilder.this.resolved;
 
@@ -40,7 +38,7 @@ interface ResponsePacket {
 				}
 
 				@Override
-				public Command.Message getCommandMessage() {
+				public FrameworkNotice.Message getCommandMessage() {
 					return this.commandMessage;
 				}
 
@@ -67,7 +65,7 @@ interface ResponsePacket {
 			this.frameworkSession = frameworkSession;
 		}
 
-		void setCommandMessage(Command.CommandMessage commandMessage) {
+		void setCommandMessage(FrameworkNotice.Message commandMessage) {
 			this.commandMessage = commandMessage;
 		}
 

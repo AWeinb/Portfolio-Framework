@@ -1,6 +1,5 @@
 package de.axp.portfolio.framework;
 
-import de.axp.portfolio.framework.FrameworkCommandInterface.Command;
 import de.axp.portfolio.framework.internal.InternalFrameworkFactory;
 import org.junit.Before;
 import org.junit.Test;
@@ -24,8 +23,7 @@ public class FrameworkCommandInterfaceTest {
 	public void testRoundTripThroughWorkers() throws Exception {
 		FrameworkSessionInterface.FrameworkSession session = new TestFrameworkSession();
 		TestCommandPromise testCommandPromise = new TestCommandPromise();
-		Command.CommandMessage message = new Command.CommandMessage() {
-		};
+		TestMessage message = new TestMessage();
 		TestCommand testCommand = new TestCommand(session, message, testCommandPromise);
 
 		frameworkCommandInterface.dispatchCommand(testCommand);

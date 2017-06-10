@@ -1,12 +1,12 @@
 package de.axp.portfolio.framework;
 
-public class TestCommand implements FrameworkCommandInterface.Command {
+public class TestCommand implements FrameworkNotice {
 
 	private final FrameworkSessionInterface.FrameworkSession session;
-	private final CommandMessage message;
+	private final TestMessage message;
 	private final Promise promise;
 
-	TestCommand(FrameworkSessionInterface.FrameworkSession session, CommandMessage message, Promise promise) {
+	TestCommand(FrameworkSessionInterface.FrameworkSession session, TestMessage message, Promise promise) {
 		this.session = session;
 		this.message = message;
 		this.promise = promise;
@@ -18,7 +18,7 @@ public class TestCommand implements FrameworkCommandInterface.Command {
 	}
 
 	@Override
-	public CommandMessage getMessage() {
+	public Message getMessage() {
 		return message;
 	}
 

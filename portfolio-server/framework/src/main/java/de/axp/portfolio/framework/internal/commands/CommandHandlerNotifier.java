@@ -1,6 +1,5 @@
 package de.axp.portfolio.framework.internal.commands;
 
-import de.axp.portfolio.framework.FrameworkCommandInterface;
 import de.axp.portfolio.framework.FrameworkNotice;
 import de.axp.portfolio.framework.FrameworkSessionInterface;
 import de.axp.portfolio.framework.internal.MessageHandlerInterface;
@@ -17,7 +16,7 @@ class CommandHandlerNotifier {
 
 	void notify(CommandPacket commandPacket) {
 		FrameworkSessionInterface.FrameworkSession frameworkSession = commandPacket.getFrameworkSession();
-		FrameworkCommandInterface.Command.CommandMessage commandMessage = commandPacket.getCommandMessage();
+		FrameworkNotice.Message commandMessage = commandPacket.getCommandMessage();
 		UnresolvedPromise promiseToResolveOrReject = new UnresolvedPromise(commandPacket);
 		messageHandlerInterface.handleMessage(frameworkSession, commandMessage, promiseToResolveOrReject);
 	}

@@ -28,9 +28,9 @@ class FrameworkCommandInterfaceImpl implements FrameworkCommandInterface {
 	}
 
 	@Override
-	public void dispatchCommand(Command command) throws InterruptedException {
+	public void dispatchCommand(FrameworkNotice command) throws InterruptedException {
 		FrameworkSession session = command.getSession();
-		Command.CommandMessage message = command.getMessage();
+		FrameworkNotice.Message message = command.getMessage();
 		FrameworkNotice.Promise promise = command.getPromise();
 		commandManagement.dispatchCommand(session, message, promise);
 	}
