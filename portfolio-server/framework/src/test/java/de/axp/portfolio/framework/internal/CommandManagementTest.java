@@ -14,7 +14,7 @@ public class CommandManagementTest {
 
 	private FrameworkSessionInterface.FrameworkSession receivedFrameworkSession;
 	private FrameworkNotice.Message receivedMessage;
-	private MessageHandlerInterface.ResponsePromise receivedResponsePromise;
+	private FrameworkNotice.Promise receivedResponsePromise;
 
 	private FrameworkSessionInterface.FrameworkSession sentFrameworkSession;
 	private FrameworkNotice.Message sentCommandMessage;

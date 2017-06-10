@@ -17,54 +17,8 @@ class CommandHandlerNotifier {
 	void notify(CommandPacket commandPacket) {
 		FrameworkSessionInterface.FrameworkSession frameworkSession = commandPacket.getFrameworkSession();
 		FrameworkNotice.Message commandMessage = commandPacket.getCommandMessage();
-		UnresolvedPromise promiseToResolveOrReject = new UnresolvedPromise(commandPacket);
+		FrameworkNotice.Promise promiseToResolveOrReject = new UnresolvedCommandHandlerPromise(commandPacket,
+				responseBuffer);
 		messageHandlerInterface.handleMessage(frameworkSession, commandMessage, promiseToResolveOrReject);
-	}
-
-	private class UnresolvedPromise implements MessageHandlerInterface.ResponsePromise {
-
-		private final CommandPacket commandPacket;
-		private FrameworkNotice.Message responseMessage;
-
-		UnresolvedPromise(CommandPacket commandPacket) {
-			this.commandPacket = commandPacket;
-		}
-
-		@Override
-		public void setFuture(FrameworkNotice.Message responseMessage) {
-			this.responseMessage = responseMessage;
-		}
-
-		@Override
-		public void resolve() {
-			ResponsePacket.ResponsePacketBuilder packetBuilder = new ResponsePacket.ResponsePacketBuilder();
-			packetBuilder.setFrameworkSession(commandPacket.getFrameworkSession());
-			packetBuilder.setCommandMessage(commandPacket.getCommandMessage());
-			packetBuilder.setResponseMessage(responseMessage);
-			packetBuilder.setResolved();
-			ResponsePacket responsePacket = packetBuilder.build();
-
-			tryToPutResponse(responsePacket);
-		}
-
-		@Override
-		public void reject() {
-			ResponsePacket.ResponsePacketBuilder packetBuilder = new ResponsePacket.ResponsePacketBuilder();
-			packetBuilder.setFrameworkSession(commandPacket.getFrameworkSession());
-			packetBuilder.setCommandMessage(commandPacket.getCommandMessage());
-			packetBuilder.setResponseMessage(responseMessage);
-			packetBuilder.setRejected();
-			ResponsePacket responsePacket = packetBuilder.build();
-
-			tryToPutResponse(responsePacket);
-		}
-
-		private void tryToPutResponse(ResponsePacket responsePacket) {
-			try {
-				responseBuffer.putResponse(responsePacket);
-			} catch (InterruptedException e) {
-				e.printStackTrace();
-			}
-		}
 	}
 }

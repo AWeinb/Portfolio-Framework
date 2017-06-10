@@ -6,9 +6,5 @@ import de.axp.portfolio.framework.FrameworkSessionInterface;
 public interface MessageHandlerInterface {
 
 	void handleMessage(FrameworkSessionInterface.FrameworkSession session, FrameworkNotice.Message commandMessage,
-	                   ResponsePromise promiseToResolveOrReject);
-
-	interface ResponsePromise extends FrameworkNotice.Promise {
-
-	}
+	                   FrameworkNotice.Promise promiseToResolveOrReject);
 }

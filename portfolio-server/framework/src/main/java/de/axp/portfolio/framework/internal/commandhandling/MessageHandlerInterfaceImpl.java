@@ -8,7 +8,7 @@ public class MessageHandlerInterfaceImpl implements MessageHandlerInterface {
 
 	@Override
 	public void handleMessage(FrameworkSessionInterface.FrameworkSession session,
-	                          FrameworkNotice.Message commandMessage, ResponsePromise promiseToResolveOrReject) {
+	                          FrameworkNotice.Message commandMessage, FrameworkNotice.Promise promiseToResolveOrReject) {
 		promiseToResolveOrReject.setFuture(new FrameworkNotice.Message() {
 		});
 		promiseToResolveOrReject.resolve();

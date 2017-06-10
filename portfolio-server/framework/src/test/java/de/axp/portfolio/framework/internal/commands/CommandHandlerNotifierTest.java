@@ -22,7 +22,7 @@ public class CommandHandlerNotifierTest {
 
 	private FrameworkSessionInterface.FrameworkSession respondedSession;
 	private FrameworkNotice.Message respondedCommandMessage;
-	private MessageHandlerInterface.ResponsePromise respondedPromiseToResolveOrReject;
+	private FrameworkNotice.Promise respondedPromiseToResolveOrReject;
 	private FrameworkNotice.Message futureData;
 
 	@Before
