@@ -6,7 +6,7 @@
     <modules>
         <module>vaadin</module>
         <module>framework</module>
-        <module>bootstrap</module>
+        <module>portfolio</module>
     </modules>
 
     <name>portfolio-server</name>

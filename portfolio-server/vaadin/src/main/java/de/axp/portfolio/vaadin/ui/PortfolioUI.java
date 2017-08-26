@@ -8,6 +8,7 @@ import com.vaadin.ui.UI;
 public class PortfolioUI extends UI {
 
 	@Override
-	protected void init(VaadinRequest request) {
+	protected void init(VaadinRequest vaadinRequest) {
+
 	}
 }
