@@ -11,6 +11,12 @@ public interface SessionFramework {
 		return InternalFrameworkFactory.createUninitializedFramework();
 	}
 
+	void dispose();
+
+	void addAttribute(String key, Object value);
+
+	Object getAttribute(String key);
+
 	String getSessionID();
 
 	FrameworkSessionInterface getFrameworkSessionInterface();

@@ -1,8 +1,8 @@
 package de.axp.portfolio.framework.internal;
 
+import de.axp.portfolio.framework.api.SessionFramework;
 import de.axp.portfolio.framework.api.interaction.FrameworkPackage;
 import de.axp.portfolio.framework.api.interaction.FrameworkPromise;
-import de.axp.portfolio.framework.api.SessionFramework;
 import de.axp.portfolio.framework.api.interfaces.FrameworkCommandInterface;
 import de.axp.portfolio.framework.api.interfaces.FrameworkSessionInterface;
 import de.axp.portfolio.framework.api.interfaces.FrameworkUiInterface;
@@ -22,6 +22,21 @@ class SessionFrameworkImpl implements SessionFramework,
 	SessionFrameworkImpl(FrameworkImpl framework, String sessionID) {
 		this.framework = framework;
 		this.sessionID = sessionID;
+	}
+
+	@Override
+	public void dispose() {
+		framework.dispose();
+	}
+
+	@Override
+	public void addAttribute(String key, Object value) {
+		framework.addAttribute(key, value);
+	}
+
+	@Override
+	public Object getAttribute(String key) {
+		return framework.getAttribute(key);
 	}
 
 	@Override
