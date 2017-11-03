@@ -1,6 +1,6 @@
 package de.axp.portfolio.framework.internal.service;
 
-import de.axp.portfolio.framework.api.FrameworkExtensions;
+import de.axp.portfolio.framework.api.interaction.FrameworkExtensions;
 import de.axp.portfolio.framework.internal.mainloop.MainLoop;
 import de.axp.portfolio.framework.internal.service.command.CommandFactory;
 import de.axp.portfolio.framework.internal.service.command.CommandService;

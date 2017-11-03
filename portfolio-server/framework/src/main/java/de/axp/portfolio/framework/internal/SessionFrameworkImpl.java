@@ -1,6 +1,11 @@
 package de.axp.portfolio.framework.internal;
 
-import de.axp.portfolio.framework.api.*;
+import de.axp.portfolio.framework.api.interaction.FrameworkPackage;
+import de.axp.portfolio.framework.api.interaction.FrameworkPromise;
+import de.axp.portfolio.framework.api.SessionFramework;
+import de.axp.portfolio.framework.api.interfaces.FrameworkCommandInterface;
+import de.axp.portfolio.framework.api.interfaces.FrameworkSessionInterface;
+import de.axp.portfolio.framework.api.interfaces.FrameworkUiInterface;
 import de.axp.portfolio.framework.internal.service.command.CommandService;
 import de.axp.portfolio.framework.internal.service.session.SessionService;
 import de.axp.portfolio.framework.internal.service.ui.UiService;

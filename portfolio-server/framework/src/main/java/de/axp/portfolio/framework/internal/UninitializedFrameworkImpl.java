@@ -1,8 +1,8 @@
 package de.axp.portfolio.framework.internal;
 
 import de.axp.portfolio.framework.api.Framework;
-import de.axp.portfolio.framework.api.FrameworkException;
-import de.axp.portfolio.framework.api.FrameworkExtensions;
+import de.axp.portfolio.framework.api.interaction.FrameworkException;
+import de.axp.portfolio.framework.api.interaction.FrameworkExtensions;
 import de.axp.portfolio.framework.api.UninitializedFramework;
 import de.axp.portfolio.framework.internal.service.command.CommandService;
 import de.axp.portfolio.framework.internal.service.ui.UiService;

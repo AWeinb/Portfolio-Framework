@@ -1,4 +1,6 @@
-package de.axp.portfolio.framework.api;
+package de.axp.portfolio.framework.api.interfaces;
+
+import de.axp.portfolio.framework.api.interaction.FrameworkPromise;
 
 public interface FrameworkCommandInterface {
 

@@ -1,5 +1,7 @@
 package de.axp.portfolio.framework.api;
 
+import de.axp.portfolio.framework.api.interaction.FrameworkPromise;
+import de.axp.portfolio.framework.api.interfaces.FrameworkCommandInterface;
 import de.axp.portfolio.framework.internal.service.command.CommandService;
 import de.axp.portfolio.framework.internal.service.ui.UiService;
 import org.junit.Before;

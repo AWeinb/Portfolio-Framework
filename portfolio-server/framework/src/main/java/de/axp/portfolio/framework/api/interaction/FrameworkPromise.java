@@ -1,4 +1,4 @@
-package de.axp.portfolio.framework.api;
+package de.axp.portfolio.framework.api.interaction;
 
 public abstract class FrameworkPromise {
 
