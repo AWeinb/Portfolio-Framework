@@ -1,6 +1,5 @@
 package de.axp.portfolio.framework.internal.service.command;
 
-import de.axp.portfolio.framework.api.interaction.FrameworkPackage;
 import de.axp.portfolio.framework.internal.mainloop.MainLoop;
 import de.axp.portfolio.framework.internal.mainloop.MainLoopPackage;
 
@@ -41,7 +40,7 @@ public class CommandServiceImpl implements MainLoop.MainLoopPlugin, CommandServi
 	}
 
 	@Override
-	public void dispatchCommand(String sessionID, String packageID, FrameworkPackage commandPackage)
+	public void dispatchCommand(String sessionID, String packageID, Command commandPackage)
 			throws InterruptedException {
 		pluginOutputListener.registerPromise(sessionID, packageID, commandPackage.getPromise());
 

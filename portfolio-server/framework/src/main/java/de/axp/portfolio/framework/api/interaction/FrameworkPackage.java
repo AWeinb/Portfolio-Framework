@@ -1,32 +1,10 @@
 package de.axp.portfolio.framework.api.interaction;
 
-public class FrameworkPackage {
+public interface FrameworkPackage {
 
-	private String sessionID;
-	private String packageID;
-	private Object content;
-	private FrameworkPromise promise;
+	String getSessionID();
 
-	public FrameworkPackage(String sessionID, String packageID, Object content, FrameworkPromise promise) {
-		this.sessionID = sessionID;
-		this.packageID = packageID;
-		this.content = content;
-		this.promise = promise;
-	}
+	String getPackageID();
 
-	public String getSessionID() {
-		return sessionID;
-	}
-
-	public String getPackageID() {
-		return packageID;
-	}
-
-	public Object getContent() {
-		return content;
-	}
-
-	public FrameworkPromise getPromise() {
-		return promise;
-	}
+	Object getContent();
 }

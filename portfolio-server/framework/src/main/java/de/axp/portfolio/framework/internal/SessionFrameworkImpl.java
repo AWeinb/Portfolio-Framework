@@ -1,7 +1,6 @@
 package de.axp.portfolio.framework.internal;
 
 import de.axp.portfolio.framework.api.SessionFramework;
-import de.axp.portfolio.framework.api.interaction.FrameworkPackage;
 import de.axp.portfolio.framework.api.interaction.FrameworkPromise;
 import de.axp.portfolio.framework.api.interfaces.FrameworkCommandInterface;
 import de.axp.portfolio.framework.api.interfaces.FrameworkSessionInterface;
@@ -64,10 +63,10 @@ class SessionFrameworkImpl implements SessionFramework,
 		SessionService sessionService = (SessionService) framework.getServiceRegistry().get(SessionService.class);
 		sessionService.checkID(sessionID);
 
-		FrameworkPackage frameworkPackage = new FrameworkPackage(sessionID, commandID, content, promise);
+		CommandService.Command command = new CommandService.Command(sessionID, commandID, content, promise);
 		CommandService commandService = (CommandService) framework.getServiceRegistry().get(CommandService.class);
 		try {
-			commandService.dispatchCommand(sessionID, commandID, frameworkPackage);
+			commandService.dispatchCommand(sessionID, commandID, command);
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
