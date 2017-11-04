@@ -23,6 +23,9 @@ class Main {
 		frameworkExtensions.setUiChangeHandler(uiChangeHandler);
 		Framework framework = Framework.create(frameworkExtensions);
 
+		commandHandler.setFrameworkReference(framework);
+		uiChangeHandler.setFrameworkReference(framework);
+
 		Server server = new Server(8080);
 		VaadinServlet vaadinServlet = new PortfolioServlet(framework);
 		ServletHolder servletHolder = new ServletHolder(vaadinServlet);
@@ -43,9 +46,18 @@ class Main {
 	}
 
 	private static CommandService.CommandHandler getCommandHandler() {
-		return (sessionID, commandID, content, promiseToResolveOrReject) -> {
-			promiseToResolveOrReject.setFutureOutput("Got: " + content);
-			promiseToResolveOrReject.resolve();
+		return new CommandService.CommandHandler() {
+
+			@Override
+			public void setFrameworkReference(Framework framework) {
+			}
+
+			@Override
+			public void execute(String sessionID, String commandID, Object content,
+			                    FrameworkPromise promiseToResolveOrReject) {
+				promiseToResolveOrReject.setFutureOutput("Got: " + content);
+				promiseToResolveOrReject.resolve();
+			}
 		};
 	}
 

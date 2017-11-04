@@ -51,17 +51,33 @@ public class FrameworkTest {
 	}
 
 	private CommandService.CommandHandler getCommandHandler() {
-		return (session, commandMessage, content, promiseToResolveOrReject) -> {
-			if (content.equals("A")) {
-				promiseToResolveOrReject.reject();
-			} else {
-				promiseToResolveOrReject.resolve();
+		return new CommandService.CommandHandler() {
+
+			@Override
+			public void setFrameworkReference(Framework framework) {
+			}
+
+			@Override
+			public void execute(String sessionID, String commandID, Object content,
+			                    FrameworkPromise promiseToResolveOrReject) {
+				if (content.equals("A")) {
+					promiseToResolveOrReject.reject();
+				} else {
+					promiseToResolveOrReject.resolve();
+				}
 			}
 		};
 	}
 
 	private UiService.UiChangeHandler getUiChangeHandler() {
-		return (sessionID, uFrame) -> {
+		return new UiService.UiChangeHandler() {
+			@Override
+			public void setFrameworkReference(Framework framework) {
+			}
+
+			@Override
+			public void onFrameChange(String sessionID, UFrame uFrame) {
+			}
 		};
 	}
 }
