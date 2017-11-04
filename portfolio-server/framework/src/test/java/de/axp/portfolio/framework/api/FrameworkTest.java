@@ -1,9 +1,11 @@
 package de.axp.portfolio.framework.api;
 
+import de.axp.portfolio.framework.api.interaction.FrameworkExtensions;
 import de.axp.portfolio.framework.api.interaction.FrameworkPromise;
 import de.axp.portfolio.framework.api.interfaces.FrameworkCommandInterface;
 import de.axp.portfolio.framework.internal.service.command.CommandService;
 import de.axp.portfolio.framework.internal.service.ui.UiService;
+import de.axp.portfolio.framework.internal.service.ui.model.UFrame;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -15,10 +17,12 @@ public class FrameworkTest {
 
 	@Test
 	public void testAll() throws Exception {
-		UninitializedFramework uninitializedFramework = Framework.create();
-		uninitializedFramework.setCommandHandler(getCommandHandler());
-		uninitializedFramework.setUiChangeHandler(getUiChangeHandler());
-		Framework framework = uninitializedFramework.initialize();
+		FrameworkExtensions frameworkExtensions = new FrameworkExtensions();
+		CommandService.CommandHandler commandHandler = getCommandHandler();
+		UiService.UiChangeHandler uiChangeHandler = getUiChangeHandler();
+		frameworkExtensions.setCommandHandler(commandHandler);
+		frameworkExtensions.setUiChangeHandler(uiChangeHandler);
+		Framework framework = Framework.create(frameworkExtensions);
 
 		SessionFramework sessionFramework = framework.adaptForSession("123");
 		sessionFramework.getFrameworkSessionInterface().initializeSession();

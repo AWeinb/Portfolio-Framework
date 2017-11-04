@@ -2,7 +2,8 @@ package de.axp.portfolio;
 
 import com.vaadin.server.VaadinServlet;
 import de.axp.portfolio.framework.api.Framework;
-import de.axp.portfolio.framework.api.UninitializedFramework;
+import de.axp.portfolio.framework.api.interaction.FrameworkExtensions;
+import de.axp.portfolio.framework.api.interaction.FrameworkPromise;
 import de.axp.portfolio.framework.internal.service.command.CommandService;
 import de.axp.portfolio.framework.internal.service.ui.UiService;
 import de.axp.portfolio.vaadin.servlet.PortfolioServlet;
@@ -15,10 +16,12 @@ import org.eclipse.jetty.servlet.ServletHolder;
 class Main {
 
 	public static void main(String[] args) throws Exception {
-		UninitializedFramework uninitializedFramework = Framework.create();
-		uninitializedFramework.setCommandHandler(getCommandHandler());
-		uninitializedFramework.setUiChangeHandler(getUiChangeHandler());
-		Framework framework = uninitializedFramework.initialize();
+		FrameworkExtensions frameworkExtensions = new FrameworkExtensions();
+		CommandService.CommandHandler commandHandler = getCommandHandler();
+		UiService.UiChangeHandler uiChangeHandler = getUiChangeHandler();
+		frameworkExtensions.setCommandHandler(commandHandler);
+		frameworkExtensions.setUiChangeHandler(uiChangeHandler);
+		Framework framework = Framework.create(frameworkExtensions);
 
 		Server server = new Server(8080);
 		VaadinServlet vaadinServlet = new PortfolioServlet(framework);
