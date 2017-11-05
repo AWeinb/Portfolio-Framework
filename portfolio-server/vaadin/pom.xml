@@ -14,8 +14,8 @@
     <version>1.0-SNAPSHOT</version>
 
     <properties>
-        <vaadin.version>8.0.4</vaadin.version>
-        <jetty-server.version>9.3.19.v20170502</jetty-server.version>
+        <vaadin.version>8.1.6</vaadin.version>
+        <jetty-server.version>9.3.22.v20171030</jetty-server.version>
         <vaadin.widgetset.mode>local</vaadin.widgetset.mode>
     </properties>
 
@@ -47,6 +47,21 @@
         <dependency>
             <groupId>org.eclipse.jetty</groupId>
             <artifactId>jetty-continuation</artifactId>
+            <version>${jetty-server.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.eclipse.jetty.websocket</groupId>
+            <artifactId>websocket-api</artifactId>
+            <version>${jetty-server.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.eclipse.jetty.websocket</groupId>
+            <artifactId>websocket-server</artifactId>
+            <version>${jetty-server.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.eclipse.jetty.websocket</groupId>
+            <artifactId>websocket-client</artifactId>
             <version>${jetty-server.version}</version>
         </dependency>
 

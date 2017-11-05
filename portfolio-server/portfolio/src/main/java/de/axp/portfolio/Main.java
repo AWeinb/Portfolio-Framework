@@ -9,6 +9,7 @@ import de.axp.portfolio.framework.internal.service.ui.UiService;
 import de.axp.portfolio.vaadin.servlet.PortfolioServlet;
 import de.axp.portfolio.vaadin.ui.PortfolioUIProvider;
 import de.axp.portfolio.vaadin.ui.UiChangeHandler;
+import org.atmosphere.container.Jetty9AsyncSupportWithWebSocket;
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.servlet.ServletContextHandler;
 import org.eclipse.jetty.servlet.ServletHolder;
@@ -35,16 +36,6 @@ class Main {
 		server.join();
 	}
 
-	private static void initializeServer(Server server, ServletHolder servletHolder) {
-		ServletContextHandler servletContextHandler = new ServletContextHandler(ServletContextHandler.SESSIONS);
-		server.setHandler(servletContextHandler);
-		servletHolder.setInitParameter(VaadinServlet.SERVLET_PARAMETER_UI_PROVIDER,
-				PortfolioUIProvider.class.getName());
-		servletContextHandler.addServlet(servletHolder, "/*");
-		servletContextHandler.setServer(server);
-		server.setHandler(servletContextHandler);
-	}
-
 	private static CommandService.CommandHandler getCommandHandler() {
 		return new CommandService.CommandHandler() {
 
@@ -63,5 +54,29 @@ class Main {
 
 	private static UiService.UiChangeHandler getUiChangeHandler() {
 		return new UiChangeHandler();
+	}
+
+	private static void initializeServer(Server server, ServletHolder servletHolder) {
+		ServletContextHandler servletContextHandler = new ServletContextHandler(ServletContextHandler.SESSIONS);
+		server.setHandler(servletContextHandler);
+
+		setUiParameter(servletHolder);
+		setWebsocketParameter(servletHolder);
+
+		servletContextHandler.addServlet(servletHolder, "/*");
+		servletContextHandler.setServer(server);
+		server.setHandler(servletContextHandler);
+	}
+
+	private static void setUiParameter(ServletHolder servletHolder) {
+		String param = VaadinServlet.SERVLET_PARAMETER_UI_PROVIDER;
+		String value = PortfolioUIProvider.class.getName();
+		servletHolder.setInitParameter(param, value);
+	}
+
+	private static void setWebsocketParameter(ServletHolder servletHolder) {
+		String param = "org.atmosphere.cpr.asyncSupport";
+		String value = Jetty9AsyncSupportWithWebSocket.class.getName();
+		servletHolder.setInitParameter(param, value);
 	}
 }

@@ -15,6 +15,11 @@
     <servlet>
         <servlet-name>PortfolioServlet</servlet-name>
         <servlet-class>de.axp.portfolio.vaadin.servlet.PortfolioServlet</servlet-class>
+
+        <init-param>
+            <param-name>org.atmosphere.cpr.asyncSupport</param-name>
+            <param-value>org.atmosphere.container.JettyCometSupport</param-value>
+        </init-param>
         <init-param>
             <param-name>UI</param-name>
             <param-value>de.axp.portfolio.vaadin.ui.PortfolioUI</param-value>
