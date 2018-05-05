@@ -2,6 +2,7 @@ package de.axp.portfolio.framework.api;
 
 import de.axp.portfolio.framework.api.interfaces.FrameworkCommandInterface;
 import de.axp.portfolio.framework.internal.service.command.CommandService;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -26,7 +27,7 @@ public class FrameworkTest {
 
 			@Override
 			public void reject() {
-				System.out.println(getFutureData());
+				Assert.assertEquals("A", this.getFutureData());
 			}
 		});
 		Thread.sleep(100);
@@ -35,7 +36,7 @@ public class FrameworkTest {
 
 			@Override
 			public void resolve() {
-				System.out.println(getFutureData());
+				Assert.assertEquals("B", this.getFutureData());
 			}
 		});
 		sessionFramework.getFrameworkSessionInterface().destroySession();

@@ -31,21 +31,27 @@ class CommandListener implements MainLoop.MainLoopListener {
 		return new FrameworkPromise() {
 			@Override
 			public void resolve() {
-				CommandService.Response frameworkPackage = new CommandService.Response(commandPackage.getSessionID(),
-						commandPackage.getPackageID(), this.getFutureData());
-				MainLoopPackage aPackage = new MainLoopPackage(frameworkPackage);
+				CommandService.Response response = new CommandService.Response();
+				response.setSessionID(commandPackage.getSessionID());
+				response.setPackageID(commandPackage.getPackageID());
+				response.setContent(commandPackage.getContent());
+
+				MainLoopPackage aPackage = new MainLoopPackage(response);
 				aPackage.setState(MainLoopPackage.STATE.Resolved);
 				try {
 					mainLoopAccessor.put(aPackage);
 				} catch (InterruptedException e) {
-					e.printStackTrace();
+					handleException(e);
 				}
 			}
 
 			@Override
 			public void reject() {
-				CommandService.Response response = new CommandService.Response(commandPackage.getSessionID(),
-						commandPackage.getPackageID(), this.getFutureData());
+				CommandService.Response response = new CommandService.Response();
+				response.setSessionID(commandPackage.getSessionID());
+				response.setPackageID(commandPackage.getPackageID());
+				response.setContent(commandPackage.getContent());
+
 				MainLoopPackage aPackage = new MainLoopPackage(response);
 				aPackage.setState(MainLoopPackage.STATE.Rejected);
 				try {
