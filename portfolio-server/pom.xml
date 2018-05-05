@@ -4,7 +4,6 @@
     <modelVersion>4.0.0</modelVersion>
 
     <modules>
-        <module>vaadin</module>
         <module>framework</module>
         <module>portfolio</module>
     </modules>
