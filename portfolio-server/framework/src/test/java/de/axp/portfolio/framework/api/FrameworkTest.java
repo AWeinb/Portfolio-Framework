@@ -4,8 +4,6 @@ import de.axp.portfolio.framework.api.interaction.FrameworkExtensions;
 import de.axp.portfolio.framework.api.interaction.FrameworkPromise;
 import de.axp.portfolio.framework.api.interfaces.FrameworkCommandInterface;
 import de.axp.portfolio.framework.internal.service.command.CommandService;
-import de.axp.portfolio.framework.internal.service.ui.UiService;
-import de.axp.portfolio.framework.internal.service.ui.model.UFrame;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -19,9 +17,7 @@ public class FrameworkTest {
 	public void testAll() throws Exception {
 		FrameworkExtensions frameworkExtensions = new FrameworkExtensions();
 		CommandService.CommandHandler commandHandler = getCommandHandler();
-		UiService.UiChangeHandler uiChangeHandler = getUiChangeHandler();
 		frameworkExtensions.setCommandHandler(commandHandler);
-		frameworkExtensions.setUiChangeHandler(uiChangeHandler);
 		Framework framework = Framework.create(frameworkExtensions);
 
 		SessionFramework sessionFramework = framework.adaptForSession("123");
@@ -65,18 +61,6 @@ public class FrameworkTest {
 				} else {
 					promiseToResolveOrReject.resolve();
 				}
-			}
-		};
-	}
-
-	private UiService.UiChangeHandler getUiChangeHandler() {
-		return new UiService.UiChangeHandler() {
-			@Override
-			public void setFrameworkReference(Framework framework) {
-			}
-
-			@Override
-			public void onFrameChange(String sessionID, UFrame uFrame) {
 			}
 		};
 	}

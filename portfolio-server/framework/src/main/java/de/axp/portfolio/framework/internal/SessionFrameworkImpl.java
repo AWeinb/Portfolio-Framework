@@ -4,16 +4,10 @@ import de.axp.portfolio.framework.api.SessionFramework;
 import de.axp.portfolio.framework.api.interaction.FrameworkPromise;
 import de.axp.portfolio.framework.api.interfaces.FrameworkCommandInterface;
 import de.axp.portfolio.framework.api.interfaces.FrameworkSessionInterface;
-import de.axp.portfolio.framework.api.interfaces.FrameworkUiInterface;
 import de.axp.portfolio.framework.internal.service.command.CommandService;
 import de.axp.portfolio.framework.internal.service.session.SessionService;
-import de.axp.portfolio.framework.internal.service.ui.UiService;
-import de.axp.portfolio.framework.internal.service.ui.model.UFrame;
 
-class SessionFrameworkImpl implements SessionFramework,
-		FrameworkCommandInterface,
-		FrameworkSessionInterface,
-		FrameworkUiInterface {
+class SessionFrameworkImpl implements SessionFramework, FrameworkCommandInterface, FrameworkSessionInterface {
 
 	private final FrameworkImpl framework;
 	private final String sessionID;
@@ -54,11 +48,6 @@ class SessionFrameworkImpl implements SessionFramework,
 	}
 
 	@Override
-	public FrameworkUiInterface getFrameworkUiInterface() {
-		return this;
-	}
-
-	@Override
 	public void dispatchCommand(String commandID, Object content, FrameworkPromise promise) {
 		SessionService sessionService = (SessionService) framework.getServiceRegistry().get(SessionService.class);
 		sessionService.checkID(sessionID);
@@ -89,17 +78,5 @@ class SessionFrameworkImpl implements SessionFramework,
 		SessionService sessionService = (SessionService) framework.getServiceRegistry().get(SessionService.class);
 		sessionService.checkID(sessionID);
 		sessionService.disposeSession(sessionID);
-	}
-
-	@Override
-	public UFrame getCurrentFrame() {
-		UiService uiService = (UiService) framework.getServiceRegistry().get(UiService.class);
-		return uiService.getCurrentFrame(sessionID);
-	}
-
-	@Override
-	public void navigate(String uri) {
-		UiService uiService = (UiService) framework.getServiceRegistry().get(UiService.class);
-		uiService.navigate(sessionID, uri);
 	}
 }

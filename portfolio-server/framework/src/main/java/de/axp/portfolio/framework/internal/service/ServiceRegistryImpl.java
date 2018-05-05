@@ -6,8 +6,6 @@ import de.axp.portfolio.framework.internal.service.command.CommandFactory;
 import de.axp.portfolio.framework.internal.service.command.CommandService;
 import de.axp.portfolio.framework.internal.service.session.SessionFactory;
 import de.axp.portfolio.framework.internal.service.session.SessionService;
-import de.axp.portfolio.framework.internal.service.ui.UiFactory;
-import de.axp.portfolio.framework.internal.service.ui.UiService;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -19,7 +17,6 @@ class ServiceRegistryImpl implements ServiceRegistry {
 	ServiceRegistryImpl(FrameworkExtensions frameworkExtensions, MainLoop mainLoop) {
 		serviceMap.put(CommandService.class, getCommandService(frameworkExtensions, mainLoop));
 		serviceMap.put(SessionService.class, getSessionService());
-		serviceMap.put(UiService.class, getUiService(frameworkExtensions));
 	}
 
 	@Override
@@ -40,9 +37,5 @@ class ServiceRegistryImpl implements ServiceRegistry {
 
 	private SessionService getSessionService() {
 		return SessionFactory.createSessionService();
-	}
-
-	private UiService getUiService(FrameworkExtensions frameworkExtensions) {
-		return UiFactory.createUiService(frameworkExtensions.getUiChangeHandler());
 	}
 }

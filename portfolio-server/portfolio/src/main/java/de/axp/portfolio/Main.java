@@ -5,10 +5,8 @@ import de.axp.portfolio.framework.api.Framework;
 import de.axp.portfolio.framework.api.interaction.FrameworkExtensions;
 import de.axp.portfolio.framework.api.interaction.FrameworkPromise;
 import de.axp.portfolio.framework.internal.service.command.CommandService;
-import de.axp.portfolio.framework.internal.service.ui.UiService;
 import de.axp.portfolio.vaadin.servlet.PortfolioServlet;
 import de.axp.portfolio.vaadin.ui.PortfolioUIProvider;
-import de.axp.portfolio.vaadin.ui.UiChangeHandler;
 import org.atmosphere.container.Jetty9AsyncSupportWithWebSocket;
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.servlet.ServletContextHandler;
@@ -19,13 +17,10 @@ class Main {
 	public static void main(String[] args) throws Exception {
 		FrameworkExtensions frameworkExtensions = new FrameworkExtensions();
 		CommandService.CommandHandler commandHandler = getCommandHandler();
-		UiService.UiChangeHandler uiChangeHandler = getUiChangeHandler();
 		frameworkExtensions.setCommandHandler(commandHandler);
-		frameworkExtensions.setUiChangeHandler(uiChangeHandler);
 		Framework framework = Framework.create(frameworkExtensions);
 
 		commandHandler.setFrameworkReference(framework);
-		uiChangeHandler.setFrameworkReference(framework);
 
 		Server server = new Server(8080);
 		VaadinServlet vaadinServlet = new PortfolioServlet(framework);
@@ -50,10 +45,6 @@ class Main {
 				promiseToResolveOrReject.resolve();
 			}
 		};
-	}
-
-	private static UiService.UiChangeHandler getUiChangeHandler() {
-		return new UiChangeHandler();
 	}
 
 	private static void initializeServer(Server server, ServletHolder servletHolder) {
