@@ -1,6 +1,5 @@
 package de.axp.portfolio.framework.api;
 
-import de.axp.portfolio.framework.api.interaction.FrameworkExtensions;
 import de.axp.portfolio.framework.api.interfaces.FrameworkCommandInterface;
 import de.axp.portfolio.framework.api.interfaces.FrameworkSessionInterface;
 import de.axp.portfolio.framework.internal.InternalFrameworkFactory;

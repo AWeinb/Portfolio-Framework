@@ -2,8 +2,8 @@ package de.axp.portfolio.framework.internal;
 
 import de.axp.portfolio.framework.api.Framework;
 import de.axp.portfolio.framework.api.SessionFramework;
-import de.axp.portfolio.framework.api.interaction.FrameworkException;
-import de.axp.portfolio.framework.api.interaction.FrameworkExtensions;
+import de.axp.portfolio.framework.api.FrameworkException;
+import de.axp.portfolio.framework.api.FrameworkExtensions;
 import de.axp.portfolio.framework.internal.mainloop.MainLoop;
 import de.axp.portfolio.framework.internal.mainloop.MainLoopFactory;
 import de.axp.portfolio.framework.internal.service.ServiceFactory;

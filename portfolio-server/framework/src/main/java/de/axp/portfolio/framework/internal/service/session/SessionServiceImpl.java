@@ -1,6 +1,6 @@
 package de.axp.portfolio.framework.internal.service.session;
 
-import de.axp.portfolio.framework.api.interaction.FrameworkException;
+import de.axp.portfolio.framework.api.FrameworkException;
 
 import java.util.HashSet;
 import java.util.Set;

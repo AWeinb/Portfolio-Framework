@@ -1,4 +1,4 @@
-package de.axp.portfolio.framework.api.interaction;
+package de.axp.portfolio.framework.internal;
 
 public interface FrameworkPackage {
 

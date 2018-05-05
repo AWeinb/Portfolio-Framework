@@ -1,8 +1,8 @@
 package de.axp.portfolio.framework.internal.service.command;
 
-import de.axp.portfolio.framework.api.interaction.FrameworkHandler;
-import de.axp.portfolio.framework.api.interaction.FrameworkPackage;
-import de.axp.portfolio.framework.api.interaction.FrameworkPromise;
+import de.axp.portfolio.framework.internal.FrameworkHandler;
+import de.axp.portfolio.framework.internal.FrameworkPackage;
+import de.axp.portfolio.framework.api.FrameworkPromise;
 import de.axp.portfolio.framework.internal.service.InternalFrameworkService;
 
 public interface CommandService extends InternalFrameworkService {

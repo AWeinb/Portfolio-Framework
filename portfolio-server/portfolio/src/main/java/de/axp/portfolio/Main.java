@@ -2,8 +2,8 @@ package de.axp.portfolio;
 
 import com.vaadin.server.VaadinServlet;
 import de.axp.portfolio.framework.api.Framework;
-import de.axp.portfolio.framework.api.interaction.FrameworkExtensions;
-import de.axp.portfolio.framework.api.interaction.FrameworkPromise;
+import de.axp.portfolio.framework.api.FrameworkExtensions;
+import de.axp.portfolio.framework.api.FrameworkPromise;
 import de.axp.portfolio.framework.internal.service.command.CommandService;
 import de.axp.portfolio.vaadin.servlet.PortfolioServlet;
 import de.axp.portfolio.vaadin.ui.PortfolioUIProvider;

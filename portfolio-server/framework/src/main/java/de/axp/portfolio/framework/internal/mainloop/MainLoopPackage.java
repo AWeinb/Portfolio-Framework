@@ -1,6 +1,6 @@
 package de.axp.portfolio.framework.internal.mainloop;
 
-import de.axp.portfolio.framework.api.interaction.FrameworkPackage;
+import de.axp.portfolio.framework.internal.FrameworkPackage;
 
 import static de.axp.portfolio.framework.internal.mainloop.MainLoopPackage.STATE.Unknown;
 
