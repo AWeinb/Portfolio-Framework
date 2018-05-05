@@ -5,12 +5,13 @@ import de.axp.portfolio.framework.api.interaction.FrameworkPromise;
 import de.axp.portfolio.framework.internal.mainloop.MainLoop;
 import de.axp.portfolio.framework.internal.mainloop.MainLoopPackage;
 
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
 class ResponseListener implements MainLoop.MainLoopListener {
 
-	private final Map<String, FrameworkPromise> responsePromises = new HashMap<>();
+	private final Map<String, FrameworkPromise> responsePromises = Collections.synchronizedMap(new HashMap<>());
 
 	void registerPromise(String sessionID, String packageID, FrameworkPromise promise) {
 		responsePromises.put(getKey(sessionID, packageID), promise);
