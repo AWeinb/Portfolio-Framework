@@ -48,6 +48,7 @@ class MainLoopWorker {
 
 			if (mainLoopPackage == POISON) {
 				isPoisoned = true;
+				continue;
 			}
 
 			for (MainLoopListener listener : listeners) {
