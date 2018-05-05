@@ -43,7 +43,7 @@ class MainLoopWorker {
 			try {
 				mainLoopPackage = buffer.waitAndGet();
 			} catch (InterruptedException e) {
-				e.printStackTrace();
+				handleException(e);
 			}
 
 			if (mainLoopPackage == POISON) {
@@ -54,6 +54,10 @@ class MainLoopWorker {
 				listener.notify(mainLoopPackage);
 			}
 		}
+	}
+
+	private void handleException(InterruptedException e) {
+		throw new MainLoopBufferException(e);
 	}
 
 	private class WorkerBuffer {
