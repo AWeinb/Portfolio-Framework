@@ -12,22 +12,22 @@ import java.util.Map;
 
 class ServiceRegistryImpl implements ServiceRegistry {
 
-	private Map<Class, FrameworkService> serviceMap = new HashMap<>();
+	private Map<Class, InternalFrameworkService> internalFrameworkServices = new HashMap<>();
 
 	ServiceRegistryImpl(FrameworkExtensions frameworkExtensions, MainLoop mainLoop) {
-		serviceMap.put(CommandService.class, getCommandService(frameworkExtensions, mainLoop));
-		serviceMap.put(SessionService.class, getSessionService());
+		internalFrameworkServices.put(CommandService.class, getCommandService(frameworkExtensions, mainLoop));
+		internalFrameworkServices.put(SessionService.class, getSessionService());
 	}
 
 	@Override
-	public FrameworkService get(Class serviceClass) {
-		return serviceMap.get(serviceClass);
+	public InternalFrameworkService get(Class serviceClass) {
+		return internalFrameworkServices.get(serviceClass);
 	}
 
 	@Override
 	public void disposeAll() {
-		for (FrameworkService frameworkService : serviceMap.values()) {
-			frameworkService.dispose();
+		for (InternalFrameworkService internalFrameworkService : internalFrameworkServices.values()) {
+			internalFrameworkService.dispose();
 		}
 	}
 

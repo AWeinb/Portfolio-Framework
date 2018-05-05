@@ -1,6 +1,6 @@
 package de.axp.portfolio.framework.internal.service;
 
-public interface FrameworkService {
+public interface InternalFrameworkService {
 
 	void dispose();
 }

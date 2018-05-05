@@ -1,8 +1,8 @@
 package de.axp.portfolio.framework.internal.service.session;
 
-import de.axp.portfolio.framework.internal.service.FrameworkService;
+import de.axp.portfolio.framework.internal.service.InternalFrameworkService;
 
-public interface SessionService extends FrameworkService {
+public interface SessionService extends InternalFrameworkService {
 
 	void initializeSession(String sessionID);
 
