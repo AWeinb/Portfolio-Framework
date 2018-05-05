@@ -1,6 +1,7 @@
 package de.axp.portfolio.framework.internal.mainloop;
 
 import java.util.Collection;
+import java.util.Collections;
 import java.util.LinkedList;
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
@@ -12,23 +13,22 @@ class MainLoopWorker {
 	private static final MainLoopPackage POISON = new MainLoopPackage(null);
 
 	private final WorkerBuffer buffer = new WorkerBuffer();
-	private final Collection<MainLoopListener> listeners = new LinkedList<>();
-	private final Collection<MainLoopListener> listenersWaitingForAttachment = new LinkedList<>();
+	private final Collection<MainLoopListener> listeners = Collections.synchronizedList(new LinkedList<>());
 
 	private Thread thread;
 	private boolean isPoisoned = false;
 
-	void startWorking() {
-		thread = new Thread(this::doWork);
-		thread.start();
-	}
-
 	void addListener(MainLoopListener loopListener) {
-		listenersWaitingForAttachment.add(loopListener);
+		listeners.add(loopListener);
 	}
 
 	MainLoop.MainLoopAccessor getAccessor() {
 		return buffer::put;
+	}
+
+	void startWorking() {
+		thread = new Thread(this::doWork);
+		thread.start();
 	}
 
 	void stopWorking() throws InterruptedException {
@@ -38,52 +38,34 @@ class MainLoopWorker {
 
 	private void doWork() {
 		while (!isPoisoned) {
-			updateListeners();
-			handleNextPacketOrWait();
-		}
-	}
+			MainLoopPackage mainLoopPackage = POISON;
 
-	private void updateListeners() {
-		if (!listenersWaitingForAttachment.isEmpty()) {
-			listeners.addAll(listenersWaitingForAttachment);
-			listenersWaitingForAttachment.clear();
-		}
-	}
-
-	private void handleNextPacketOrWait() {
-		try {
-			if (listeners.size() == 0) {
-				Thread.sleep(50);
-				return;
+			try {
+				mainLoopPackage = buffer.waitAndGet();
+			} catch (InterruptedException e) {
+				e.printStackTrace();
 			}
 
-			MainLoopPackage aPackage = buffer.waitAndGet();
-			if (aPackage == POISON) {
+			if (mainLoopPackage == POISON) {
 				isPoisoned = true;
-			} else {
-				notifyListeners(aPackage);
 			}
-		} catch (InterruptedException e) {
-			isPoisoned = true;
-		}
-	}
 
-	private void notifyListeners(MainLoopPackage packet) {
-		for (MainLoopListener listener : listeners) {
-			listener.notify(packet);
+			for (MainLoopListener listener : listeners) {
+				listener.notify(mainLoopPackage);
+			}
 		}
 	}
 
 	private class WorkerBuffer {
 
-		private final BlockingQueue<MainLoopPackage> packets = new ArrayBlockingQueue<>(10);
+		private final BlockingQueue<MainLoopPackage> loopPackages = new ArrayBlockingQueue<>(10);
 
-		void put(MainLoopPackage packet) throws InterruptedException {
-			packets.put(packet);
+		void put(MainLoopPackage aPackage) throws InterruptedException {
+			loopPackages.put(aPackage);
 		}
 
 		MainLoopPackage waitAndGet() throws InterruptedException {
-			return packets.take();
+			return loopPackages.take();
 		}
 	}
 }
