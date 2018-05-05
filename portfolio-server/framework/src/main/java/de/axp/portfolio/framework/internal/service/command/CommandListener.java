@@ -1,8 +1,9 @@
 package de.axp.portfolio.framework.internal.service.command;
 
-import de.axp.portfolio.framework.internal.FrameworkPackage;
 import de.axp.portfolio.framework.api.FrameworkPromise;
+import de.axp.portfolio.framework.internal.FrameworkPackage;
 import de.axp.portfolio.framework.internal.mainloop.MainLoop;
+import de.axp.portfolio.framework.internal.mainloop.MainLoopBufferException;
 import de.axp.portfolio.framework.internal.mainloop.MainLoopPackage;
 
 class CommandListener implements MainLoop.MainLoopListener {
@@ -57,9 +58,13 @@ class CommandListener implements MainLoop.MainLoopListener {
 				try {
 					mainLoopAccessor.put(aPackage);
 				} catch (InterruptedException e) {
-					e.printStackTrace();
+					handleException(e);
 				}
 			}
 		};
+	}
+
+	private void handleException(InterruptedException e) {
+		throw new MainLoopBufferException(e);
 	}
 }

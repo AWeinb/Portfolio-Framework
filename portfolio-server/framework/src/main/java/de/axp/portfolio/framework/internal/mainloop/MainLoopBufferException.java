@@ -4,7 +4,7 @@ import de.axp.portfolio.framework.api.FrameworkException;
 
 public class MainLoopBufferException extends FrameworkException {
 
-	MainLoopBufferException(Throwable e) {
+	public MainLoopBufferException(Throwable e) {
 		addSuppressed(e);
 	}
 }
