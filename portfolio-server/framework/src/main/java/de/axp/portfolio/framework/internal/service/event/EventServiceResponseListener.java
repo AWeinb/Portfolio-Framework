@@ -18,8 +18,7 @@ class EventServiceResponseListener implements MainLoop.MainLoopListener {
 
 	@Override
 	public void notify(MainLoopPackage aPackage) {
-		Response response = (Response) aPackage.getFrameworkPackage();
-
+		Event response = (Event) aPackage.getFrameworkPackage();
 		String sessionID = response.getSessionID();
 		String packageID = response.getPackageID();
 

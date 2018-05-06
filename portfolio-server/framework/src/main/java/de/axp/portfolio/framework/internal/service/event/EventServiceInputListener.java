@@ -33,11 +33,8 @@ class EventServiceInputListener implements MainLoop.MainLoopListener {
 		return new FrameworkPromise() {
 			@Override
 			public void resolve() {
-				Response response = new Response();
-				response.setSessionID(commandPackage.getSessionID());
-				response.setPackageID(commandPackage.getPackageID());
-				response.setContent(commandPackage.getContent());
-
+				Event response = new Event(commandPackage.getSessionID(), commandPackage.getPackageID(),
+						commandPackage.getContent(), null);
 				MainLoopPackage aPackage = new MainLoopPackage(response);
 				aPackage.setState(MainLoopPackage.STATE.Resolved);
 				try {
@@ -49,11 +46,8 @@ class EventServiceInputListener implements MainLoop.MainLoopListener {
 
 			@Override
 			public void reject() {
-				Response response = new Response();
-				response.setSessionID(commandPackage.getSessionID());
-				response.setPackageID(commandPackage.getPackageID());
-				response.setContent(commandPackage.getContent());
-
+				Event response = new Event(commandPackage.getSessionID(), commandPackage.getPackageID(),
+						commandPackage.getContent(), null);
 				MainLoopPackage aPackage = new MainLoopPackage(response);
 				aPackage.setState(MainLoopPackage.STATE.Rejected);
 				try {
