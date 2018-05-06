@@ -1,28 +1,21 @@
 package de.axp.portfolio.framework.internal.mainloop;
 
-import de.axp.portfolio.framework.internal.FrameworkPackage;
-
-import static de.axp.portfolio.framework.internal.mainloop.MainLoopPackage.STATE.Unknown;
-
 public final class MainLoopPackage {
 
-	private final FrameworkPackage frameworkPackage;
-	private STATE state = Unknown;
+	private final Object payload;
+	private final STATE state;
 
-	public MainLoopPackage(FrameworkPackage frameworkPackage) {
-		this.frameworkPackage = frameworkPackage;
+	public MainLoopPackage(Object payload, STATE state) {
+		this.payload = payload;
+		this.state = state;
 	}
 
-	public FrameworkPackage getFrameworkPackage() {
-		return frameworkPackage;
+	public Object getPayload() {
+		return payload;
 	}
 
 	public STATE getState() {
 		return state;
-	}
-
-	public void setState(STATE state) {
-		this.state = state;
 	}
 
 	public enum STATE {

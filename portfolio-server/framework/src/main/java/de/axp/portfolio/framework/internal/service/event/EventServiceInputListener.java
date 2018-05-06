@@ -20,7 +20,7 @@ class EventServiceInputListener implements MainLoop.MainLoopListener {
 
 	@Override
 	public void notify(MainLoopPackage aPackage) {
-		Event inputEvent = (Event) aPackage.getFrameworkPackage();
+		Event inputEvent = (Event) aPackage.getPayload();
 		String sessionID = inputEvent.getSessionID();
 		String packageID = inputEvent.getPackageID();
 		Object content = inputEvent.getContent();
@@ -35,8 +35,7 @@ class EventServiceInputListener implements MainLoop.MainLoopListener {
 			@Override
 			public void resolve() {
 				Event response = Event.buildOneWay(event.getSessionID(), event.getPackageID(), event.getContent());
-				MainLoopPackage aPackage = new MainLoopPackage(response);
-				aPackage.setState(MainLoopPackage.STATE.Resolved);
+				MainLoopPackage aPackage = new MainLoopPackage(response, MainLoopPackage.STATE.Resolved);
 				try {
 					outputBufferAccessor.put(aPackage);
 				} catch (InterruptedException e) {
@@ -47,8 +46,7 @@ class EventServiceInputListener implements MainLoop.MainLoopListener {
 			@Override
 			public void reject() {
 				Event response = Event.buildOneWay(event.getSessionID(), event.getPackageID(), event.getContent());
-				MainLoopPackage aPackage = new MainLoopPackage(response);
-				aPackage.setState(MainLoopPackage.STATE.Rejected);
+				MainLoopPackage aPackage = new MainLoopPackage(response, MainLoopPackage.STATE.Rejected);
 				try {
 					outputBufferAccessor.put(aPackage);
 				} catch (InterruptedException e) {

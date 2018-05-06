@@ -45,7 +45,7 @@ public class EventServiceImpl implements MainLoop.MainLoopPlugin, EventService {
 			outputListener.registerPromise(event.getSessionID(), event.getPackageID(), event.getPromise().get());
 		}
 
-		MainLoopPackage mainLoopPackage = new MainLoopPackage(event);
+		MainLoopPackage mainLoopPackage = new MainLoopPackage(event, MainLoopPackage.STATE.Unknown);
 		inputBufferAccessor.put(mainLoopPackage);
 	}
 }
