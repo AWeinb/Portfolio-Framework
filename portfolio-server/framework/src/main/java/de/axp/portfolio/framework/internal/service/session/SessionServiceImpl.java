@@ -40,10 +40,6 @@ class SessionServiceImpl implements SessionService {
 
 	@Override
 	public void disposeSession(String sessionID) {
-		if (!sessionIds.contains(sessionID)) {
-			throw new FrameworkSessionIsUnknownException(sessionID);
-		}
-
 		sessionIds.remove(sessionID);
 	}
 

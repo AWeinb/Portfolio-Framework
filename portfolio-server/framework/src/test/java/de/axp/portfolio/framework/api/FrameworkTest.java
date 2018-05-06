@@ -31,7 +31,6 @@ public class FrameworkTest {
 				FrameworkPromise.whenResolved(f -> Assert.assertEquals("B", f)));
 		Thread.sleep(100);
 
-		sessionFramework.getFrameworkSessionInterface().destroySession();
 		framework.dispose();
 	}
 
