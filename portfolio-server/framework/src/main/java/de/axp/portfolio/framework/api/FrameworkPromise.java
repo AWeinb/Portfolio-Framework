@@ -28,11 +28,15 @@ public class FrameworkPromise {
 	}
 
 	public void resolve(Object future) {
-		resolve.execute(future);
+		if (resolve != null) {
+			resolve.execute(future);
+		}
 	}
 
 	public void reject(Object future) {
-		reject.execute(future);
+		if (reject != null) {
+			reject.execute(future);
+		}
 	}
 
 	public interface FutureCallback {

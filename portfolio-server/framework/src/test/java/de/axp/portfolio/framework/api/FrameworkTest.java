@@ -25,11 +25,9 @@ public class FrameworkTest {
 
 		frameworkEventInterface.dispatchEvent("FutureCallback", "A",
 				FrameworkPromise.whenRejected(f -> Assert.assertEquals("A", f)));
-		Thread.sleep(100);
 
 		frameworkEventInterface.dispatchEvent("FutureCallback", "B",
 				FrameworkPromise.whenResolved(f -> Assert.assertEquals("B", f)));
-		Thread.sleep(100);
 
 		framework.dispose();
 	}
