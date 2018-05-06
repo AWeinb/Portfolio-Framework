@@ -24,7 +24,7 @@ public interface EventService extends InternalFrameworkService {
 
 		String getPackageID();
 
-		Object getContent();
+		Object getData();
 
 		Optional<FrameworkPromise> getPromise();
 	}

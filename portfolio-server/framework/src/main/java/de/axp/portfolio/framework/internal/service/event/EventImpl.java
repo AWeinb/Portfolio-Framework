@@ -29,7 +29,7 @@ class EventImpl implements EventService.Event {
 	}
 
 	@Override
-	public Object getContent() {
+	public Object getData() {
 		return content;
 	}
 

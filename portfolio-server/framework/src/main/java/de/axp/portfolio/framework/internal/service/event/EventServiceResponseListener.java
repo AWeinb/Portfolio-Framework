@@ -23,14 +23,17 @@ class EventServiceResponseListener implements MainLoop.MainLoopListener {
 		Event response = (Event) aPackage.getPayload();
 		String sessionID = response.getSessionID();
 		String packageID = response.getPackageID();
-
 		FrameworkPromise promise = responsePromises.remove(getKey(sessionID, packageID));
-		promise.setFutureOutput(response.getContent());
 
-		if (aPackage.getState() == MainLoopPackage.STATE.Resolved) {
-			promise.resolve();
-		} else {
-			promise.reject();
+		switch (aPackage.getState()) {
+			case Resolved:
+				promise.resolve(response.getData());
+				break;
+			case Rejected:
+				promise.reject(response.getData());
+				break;
+			case Unknown:
+				break;
 		}
 	}
 

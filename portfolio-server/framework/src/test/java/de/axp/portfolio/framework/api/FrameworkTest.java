@@ -23,26 +23,16 @@ public class FrameworkTest {
 		sessionFramework.getFrameworkSessionInterface().initializeSession();
 		FrameworkEventInterface frameworkEventInterface = sessionFramework.getFrameworkEventInterface();
 
-		frameworkEventInterface.dispatchEvent("Foo", "A", new FrameworkPromise() {
-
-			@Override
-			public void reject() {
-				Assert.assertEquals("A", this.getFutureData());
-			}
-		});
+		frameworkEventInterface.dispatchEvent("FutureCallback", "A",
+				FrameworkPromise.whenRejected(f -> Assert.assertEquals("A", f)));
 		Thread.sleep(100);
 
-		frameworkEventInterface.dispatchEvent("Foo", "B", new FrameworkPromise() {
+		frameworkEventInterface.dispatchEvent("FutureCallback", "B",
+				FrameworkPromise.whenResolved(f -> Assert.assertEquals("B", f)));
+		Thread.sleep(100);
 
-			@Override
-			public void resolve() {
-				Assert.assertEquals("B", this.getFutureData());
-			}
-		});
 		sessionFramework.getFrameworkSessionInterface().destroySession();
-
 		framework.dispose();
-		Thread.sleep(100);
 	}
 
 	private EventService.EventConsumer getCommandHandler() {
@@ -54,10 +44,10 @@ public class FrameworkTest {
 
 			@Override
 			public void consume(EventService.Event event) {
-				if (event.getContent().equals("A")) {
-					event.getPromise().get().reject();
+				if (event.getData().equals("A")) {
+					event.getPromise().ifPresent(e -> e.reject(event.getData()));
 				} else {
-					event.getPromise().get().resolve();
+					event.getPromise().ifPresent(e -> e.resolve(event.getData()));
 				}
 			}
 		};

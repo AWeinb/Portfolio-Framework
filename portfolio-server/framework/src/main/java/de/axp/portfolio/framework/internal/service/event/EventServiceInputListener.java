@@ -23,7 +23,7 @@ class EventServiceInputListener implements MainLoop.MainLoopListener {
 		Event inputEvent = (Event) aPackage.getPayload();
 		String sessionID = inputEvent.getSessionID();
 		String packageID = inputEvent.getPackageID();
-		Object content = inputEvent.getContent();
+		Object content = inputEvent.getData();
 		FrameworkPromise promiseToResolveOrReject = createPromise(inputEvent);
 
 		Event consumerEvent = Event.build(sessionID, packageID, content, promiseToResolveOrReject);
@@ -31,29 +31,24 @@ class EventServiceInputListener implements MainLoop.MainLoopListener {
 	}
 
 	private FrameworkPromise createPromise(Event event) {
-		return new FrameworkPromise() {
-			@Override
-			public void resolve() {
-				Event response = Event.buildOneWay(event.getSessionID(), event.getPackageID(), event.getContent());
-				MainLoopPackage aPackage = new MainLoopPackage(response, MainLoopPackage.STATE.Resolved);
-				try {
-					outputBufferAccessor.put(aPackage);
-				} catch (InterruptedException e) {
-					handleException(e);
-				}
+		return FrameworkPromise.whenResolved(future -> {
+			Event response = Event.buildOneWay(event.getSessionID(), event.getPackageID(), event.getData());
+			MainLoopPackage aPackage = new MainLoopPackage(response, MainLoopPackage.STATE.Resolved);
+			try {
+				outputBufferAccessor.put(aPackage);
+			} catch (InterruptedException e) {
+				handleException(e);
 			}
 
-			@Override
-			public void reject() {
-				Event response = Event.buildOneWay(event.getSessionID(), event.getPackageID(), event.getContent());
-				MainLoopPackage aPackage = new MainLoopPackage(response, MainLoopPackage.STATE.Rejected);
-				try {
-					outputBufferAccessor.put(aPackage);
-				} catch (InterruptedException e) {
-					handleException(e);
-				}
+		}).orRejected(future -> {
+			Event response = Event.buildOneWay(event.getSessionID(), event.getPackageID(), event.getData());
+			MainLoopPackage aPackage = new MainLoopPackage(response, MainLoopPackage.STATE.Rejected);
+			try {
+				outputBufferAccessor.put(aPackage);
+			} catch (InterruptedException e) {
+				handleException(e);
 			}
-		};
+		});
 	}
 
 	private void handleException(InterruptedException e) {
