@@ -23,7 +23,13 @@ class MainLoopWorker {
 	}
 
 	MainLoop.MainLoopAccessor getAccessor() {
-		return buffer::put;
+		return aPackage -> {
+			try {
+				buffer.put(aPackage);
+			} catch (InterruptedException e) {
+				throw new MainLoopBufferException(e);
+			}
+		};
 	}
 
 	void startWorking() {

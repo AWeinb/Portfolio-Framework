@@ -2,7 +2,6 @@ package de.axp.portfolio.framework.internal.service.event;
 
 import de.axp.portfolio.framework.api.FrameworkPromise;
 import de.axp.portfolio.framework.internal.mainloop.MainLoop;
-import de.axp.portfolio.framework.internal.mainloop.MainLoopBufferException;
 import de.axp.portfolio.framework.internal.mainloop.MainLoopPackage;
 
 import static de.axp.portfolio.framework.internal.service.event.EventService.Event;
@@ -34,24 +33,12 @@ class EventServiceInputListener implements MainLoop.MainLoopListener {
 		return FrameworkPromise.whenResolved(future -> {
 			Event response = Event.buildOneWay(event.getSessionID(), event.getPackageID(), event.getData());
 			MainLoopPackage aPackage = new MainLoopPackage(response, MainLoopPackage.STATE.Resolved);
-			try {
-				outputBufferAccessor.put(aPackage);
-			} catch (InterruptedException e) {
-				handleException(e);
-			}
+			outputBufferAccessor.put(aPackage);
 
 		}).orRejected(future -> {
 			Event response = Event.buildOneWay(event.getSessionID(), event.getPackageID(), event.getData());
 			MainLoopPackage aPackage = new MainLoopPackage(response, MainLoopPackage.STATE.Rejected);
-			try {
-				outputBufferAccessor.put(aPackage);
-			} catch (InterruptedException e) {
-				handleException(e);
-			}
+			outputBufferAccessor.put(aPackage);
 		});
-	}
-
-	private void handleException(InterruptedException e) {
-		throw new MainLoopBufferException(e);
 	}
 }

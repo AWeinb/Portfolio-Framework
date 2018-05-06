@@ -1,9 +1,9 @@
 package de.axp.portfolio.framework.internal;
 
 import de.axp.portfolio.framework.api.Framework;
-import de.axp.portfolio.framework.api.SessionFramework;
 import de.axp.portfolio.framework.api.FrameworkException;
 import de.axp.portfolio.framework.api.FrameworkExtensions;
+import de.axp.portfolio.framework.api.SessionFramework;
 import de.axp.portfolio.framework.internal.mainloop.MainLoop;
 import de.axp.portfolio.framework.internal.mainloop.MainLoopFactory;
 import de.axp.portfolio.framework.internal.service.ServiceFactory;
@@ -31,11 +31,7 @@ class FrameworkImpl implements Framework {
 	@Override
 	public void dispose() {
 		serviceRegistry.disposeAll();
-		try {
-			mainLoop.dispose();
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
+		mainLoop.dispose();
 	}
 
 	@Override

@@ -2,7 +2,7 @@ package de.axp.portfolio.framework.internal.mainloop;
 
 public interface MainLoop {
 
-	void dispose() throws InterruptedException;
+	void dispose();
 
 	void addPlugin(MainLoopPlugin plugin);
 
@@ -13,7 +13,7 @@ public interface MainLoop {
 
 	interface MainLoopAccessor {
 
-		void put(MainLoopPackage aPackage) throws InterruptedException;
+		void put(MainLoopPackage aPackage);
 	}
 
 	interface MainLoopPlugin {

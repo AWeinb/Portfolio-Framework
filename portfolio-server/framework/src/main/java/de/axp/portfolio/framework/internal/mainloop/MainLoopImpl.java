@@ -16,13 +16,17 @@ class MainLoopImpl implements MainLoop {
 	}
 
 	@Override
-	public void dispose() throws InterruptedException {
+	public void dispose() {
 		for (MainLoopPlugin mainLoopPlugin : mainLoopPlugins) {
 			mainLoopPlugin.dispose();
 		}
 
-		inputWorker.stopWorking();
-		outputWorker.stopWorking();
+		try {
+			inputWorker.stopWorking();
+			outputWorker.stopWorking();
+		} catch (InterruptedException e) {
+			throw new MainLoopBufferException(e);
+		}
 	}
 
 	@Override
