@@ -4,6 +4,7 @@ import de.axp.portfolio.framework.api.FrameworkPromise;
 import de.axp.portfolio.framework.api.SessionFramework;
 import de.axp.portfolio.framework.api.interfaces.FrameworkEventInterface;
 import de.axp.portfolio.framework.api.interfaces.FrameworkSessionInterface;
+import de.axp.portfolio.framework.internal.service.event.Event;
 import de.axp.portfolio.framework.internal.service.event.EventService;
 import de.axp.portfolio.framework.internal.service.session.SessionService;
 
@@ -52,7 +53,7 @@ class SessionFrameworkImpl implements SessionFramework, FrameworkEventInterface,
 		SessionService sessionService = (SessionService) framework.getServiceRegistry().get(SessionService.class);
 		sessionService.checkID(sessionID);
 
-		EventService.Event event = new EventService.Event(sessionID, eventID, content, promise);
+		Event event = new Event(sessionID, eventID, content, promise);
 		EventService eventService = (EventService) framework.getServiceRegistry().get(EventService.class);
 		try {
 			eventService.dispatchEvent(sessionID, eventID, event);

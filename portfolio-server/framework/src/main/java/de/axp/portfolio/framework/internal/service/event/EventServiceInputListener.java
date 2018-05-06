@@ -18,7 +18,7 @@ class EventServiceInputListener implements MainLoop.MainLoopListener {
 
 	@Override
 	public void notify(MainLoopPackage aPackage) {
-		EventService.Event event = (EventService.Event) aPackage.getFrameworkPackage();
+		Event event = (Event) aPackage.getFrameworkPackage();
 
 		String sessionID = event.getSessionID();
 		String packageID = event.getPackageID();
@@ -32,7 +32,7 @@ class EventServiceInputListener implements MainLoop.MainLoopListener {
 		return new FrameworkPromise() {
 			@Override
 			public void resolve() {
-				EventService.Response response = new EventService.Response();
+				Response response = new Response();
 				response.setSessionID(commandPackage.getSessionID());
 				response.setPackageID(commandPackage.getPackageID());
 				response.setContent(commandPackage.getContent());
@@ -48,7 +48,7 @@ class EventServiceInputListener implements MainLoop.MainLoopListener {
 
 			@Override
 			public void reject() {
-				EventService.Response response = new EventService.Response();
+				Response response = new Response();
 				response.setSessionID(commandPackage.getSessionID());
 				response.setPackageID(commandPackage.getPackageID());
 				response.setContent(commandPackage.getContent());
