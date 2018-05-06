@@ -1,7 +1,7 @@
 package de.axp.portfolio.framework.api;
 
-import de.axp.portfolio.framework.api.interfaces.FrameworkCommandInterface;
-import de.axp.portfolio.framework.internal.service.command.CommandService;
+import de.axp.portfolio.framework.api.interfaces.FrameworkEventInterface;
+import de.axp.portfolio.framework.internal.service.event.EventService;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -15,15 +15,15 @@ public class FrameworkTest {
 	@Test
 	public void testAll() throws Exception {
 		FrameworkExtensions frameworkExtensions = new FrameworkExtensions();
-		CommandService.CommandHandler commandHandler = getCommandHandler();
-		frameworkExtensions.setCommandHandler(commandHandler);
+		EventService.EventHandler eventHandler = getCommandHandler();
+		frameworkExtensions.setEventHandler(eventHandler);
 		Framework framework = Framework.create(frameworkExtensions);
 
 		SessionFramework sessionFramework = framework.adaptForSession("123");
 		sessionFramework.getFrameworkSessionInterface().initializeSession();
-		FrameworkCommandInterface frameworkCommandInterface = sessionFramework.getFrameworkCommandInterface();
+		FrameworkEventInterface frameworkEventInterface = sessionFramework.getFrameworkEventInterface();
 
-		frameworkCommandInterface.dispatchCommand("Foo", "A", new FrameworkPromise() {
+		frameworkEventInterface.dispatchEvent("Foo", "A", new FrameworkPromise() {
 
 			@Override
 			public void reject() {
@@ -32,7 +32,7 @@ public class FrameworkTest {
 		});
 		Thread.sleep(100);
 
-		frameworkCommandInterface.dispatchCommand("Foo", "B", new FrameworkPromise() {
+		frameworkEventInterface.dispatchEvent("Foo", "B", new FrameworkPromise() {
 
 			@Override
 			public void resolve() {
@@ -45,8 +45,8 @@ public class FrameworkTest {
 		Thread.sleep(100);
 	}
 
-	private CommandService.CommandHandler getCommandHandler() {
-		return new CommandService.CommandHandler() {
+	private EventService.EventHandler getCommandHandler() {
+		return new EventService.EventHandler() {
 
 			@Override
 			public void setFrameworkReference(Framework framework) {

@@ -4,7 +4,7 @@ import com.vaadin.server.VaadinServlet;
 import de.axp.portfolio.framework.api.Framework;
 import de.axp.portfolio.framework.api.FrameworkExtensions;
 import de.axp.portfolio.framework.api.FrameworkPromise;
-import de.axp.portfolio.framework.internal.service.command.CommandService;
+import de.axp.portfolio.framework.internal.service.event.EventService;
 import de.axp.portfolio.vaadin.servlet.PortfolioServlet;
 import de.axp.portfolio.vaadin.ui.PortfolioUIProvider;
 import org.atmosphere.container.Jetty9AsyncSupportWithWebSocket;
@@ -16,11 +16,11 @@ class Main {
 
 	public static void main(String[] args) throws Exception {
 		FrameworkExtensions frameworkExtensions = new FrameworkExtensions();
-		CommandService.CommandHandler commandHandler = getCommandHandler();
-		frameworkExtensions.setCommandHandler(commandHandler);
+		EventService.EventHandler eventHandler = getCommandHandler();
+		frameworkExtensions.setEventHandler(eventHandler);
 		Framework framework = Framework.create(frameworkExtensions);
 
-		commandHandler.setFrameworkReference(framework);
+		eventHandler.setFrameworkReference(framework);
 
 		Server server = new Server(8080);
 		VaadinServlet vaadinServlet = new PortfolioServlet(framework);
@@ -31,8 +31,8 @@ class Main {
 		server.join();
 	}
 
-	private static CommandService.CommandHandler getCommandHandler() {
-		return new CommandService.CommandHandler() {
+	private static EventService.EventHandler getCommandHandler() {
+		return new EventService.EventHandler() {
 
 			@Override
 			public void setFrameworkReference(Framework framework) {

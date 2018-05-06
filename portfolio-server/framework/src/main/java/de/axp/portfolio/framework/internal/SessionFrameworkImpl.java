@@ -1,13 +1,13 @@
 package de.axp.portfolio.framework.internal;
 
-import de.axp.portfolio.framework.api.SessionFramework;
 import de.axp.portfolio.framework.api.FrameworkPromise;
-import de.axp.portfolio.framework.api.interfaces.FrameworkCommandInterface;
+import de.axp.portfolio.framework.api.SessionFramework;
+import de.axp.portfolio.framework.api.interfaces.FrameworkEventInterface;
 import de.axp.portfolio.framework.api.interfaces.FrameworkSessionInterface;
-import de.axp.portfolio.framework.internal.service.command.CommandService;
+import de.axp.portfolio.framework.internal.service.event.EventService;
 import de.axp.portfolio.framework.internal.service.session.SessionService;
 
-class SessionFrameworkImpl implements SessionFramework, FrameworkCommandInterface, FrameworkSessionInterface {
+class SessionFrameworkImpl implements SessionFramework, FrameworkEventInterface, FrameworkSessionInterface {
 
 	private final FrameworkImpl framework;
 	private final String sessionID;
@@ -43,19 +43,19 @@ class SessionFrameworkImpl implements SessionFramework, FrameworkCommandInterfac
 	}
 
 	@Override
-	public FrameworkCommandInterface getFrameworkCommandInterface() {
+	public FrameworkEventInterface getFrameworkEventInterface() {
 		return this;
 	}
 
 	@Override
-	public void dispatchCommand(String commandID, Object content, FrameworkPromise promise) {
+	public void dispatchEvent(String eventID, Object content, FrameworkPromise promise) {
 		SessionService sessionService = (SessionService) framework.getServiceRegistry().get(SessionService.class);
 		sessionService.checkID(sessionID);
 
-		CommandService.Command command = new CommandService.Command(sessionID, commandID, content, promise);
-		CommandService commandService = (CommandService) framework.getServiceRegistry().get(CommandService.class);
+		EventService.Event event = new EventService.Event(sessionID, eventID, content, promise);
+		EventService eventService = (EventService) framework.getServiceRegistry().get(EventService.class);
 		try {
-			commandService.dispatchCommand(sessionID, commandID, command);
+			eventService.dispatchEvent(sessionID, eventID, event);
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}

@@ -1,27 +1,27 @@
-package de.axp.portfolio.framework.internal.service.command;
+package de.axp.portfolio.framework.internal.service.event;
 
 import de.axp.portfolio.framework.api.FrameworkPromise;
 import de.axp.portfolio.framework.internal.FrameworkHandler;
 import de.axp.portfolio.framework.internal.FrameworkPackage;
 import de.axp.portfolio.framework.internal.service.InternalFrameworkService;
 
-public interface CommandService extends InternalFrameworkService {
+public interface EventService extends InternalFrameworkService {
 
-	void dispatchCommand(String sessionID, String packageID, Command commandPackage) throws InterruptedException;
+	void dispatchEvent(String sessionID, String packageID, Event event) throws InterruptedException;
 
-	interface CommandHandler extends FrameworkHandler {
+	interface EventHandler extends FrameworkHandler {
 
 		void execute(String sessionID, String commandID, Object content, FrameworkPromise promiseToResolveOrReject);
 	}
 
-	class Command implements FrameworkPackage {
+	class Event implements FrameworkPackage {
 
 		private String sessionID;
 		private String packageID;
 		private Object content;
 		private FrameworkPromise promise;
 
-		public Command(String sessionID, String packageID, Object content, FrameworkPromise promise) {
+		public Event(String sessionID, String packageID, Object content, FrameworkPromise promise) {
 			this.sessionID = sessionID;
 			this.packageID = packageID;
 			this.content = content;

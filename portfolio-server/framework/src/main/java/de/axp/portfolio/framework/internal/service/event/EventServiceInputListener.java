@@ -1,4 +1,4 @@
-package de.axp.portfolio.framework.internal.service.command;
+package de.axp.portfolio.framework.internal.service.event;
 
 import de.axp.portfolio.framework.api.FrameworkPromise;
 import de.axp.portfolio.framework.internal.FrameworkPackage;
@@ -6,33 +6,33 @@ import de.axp.portfolio.framework.internal.mainloop.MainLoop;
 import de.axp.portfolio.framework.internal.mainloop.MainLoopBufferException;
 import de.axp.portfolio.framework.internal.mainloop.MainLoopPackage;
 
-class CommandListener implements MainLoop.MainLoopListener {
+class EventServiceInputListener implements MainLoop.MainLoopListener {
 
-	private final CommandService.CommandHandler handler;
-	private final MainLoop.MainLoopAccessor mainLoopAccessor;
+	private final EventService.EventHandler eventHandler;
+	private final MainLoop.MainLoopAccessor inputBufferAccessor;
 
-	CommandListener(CommandService.CommandHandler handler, MainLoop.MainLoopAccessor mainLoopAccessor) {
-		this.handler = handler;
-		this.mainLoopAccessor = mainLoopAccessor;
+	EventServiceInputListener(EventService.EventHandler eventHandler, MainLoop.MainLoopAccessor inputBufferAccessor) {
+		this.eventHandler = eventHandler;
+		this.inputBufferAccessor = inputBufferAccessor;
 	}
 
 	@Override
 	public void notify(MainLoopPackage aPackage) {
-		FrameworkPackage frameworkPackage = aPackage.getFrameworkPackage();
+		EventService.Event event = (EventService.Event) aPackage.getFrameworkPackage();
 
-		String sessionID = frameworkPackage.getSessionID();
-		String packageID = frameworkPackage.getPackageID();
-		Object content = frameworkPackage.getContent();
-		FrameworkPromise promiseToResolveOrReject = createPromise(frameworkPackage);
+		String sessionID = event.getSessionID();
+		String packageID = event.getPackageID();
+		Object content = event.getContent();
+		FrameworkPromise promiseToResolveOrReject = createPromise(event);
 
-		handler.execute(sessionID, packageID, content, promiseToResolveOrReject);
+		eventHandler.execute(sessionID, packageID, content, promiseToResolveOrReject);
 	}
 
 	private FrameworkPromise createPromise(FrameworkPackage commandPackage) {
 		return new FrameworkPromise() {
 			@Override
 			public void resolve() {
-				CommandService.Response response = new CommandService.Response();
+				EventService.Response response = new EventService.Response();
 				response.setSessionID(commandPackage.getSessionID());
 				response.setPackageID(commandPackage.getPackageID());
 				response.setContent(commandPackage.getContent());
@@ -40,7 +40,7 @@ class CommandListener implements MainLoop.MainLoopListener {
 				MainLoopPackage aPackage = new MainLoopPackage(response);
 				aPackage.setState(MainLoopPackage.STATE.Resolved);
 				try {
-					mainLoopAccessor.put(aPackage);
+					inputBufferAccessor.put(aPackage);
 				} catch (InterruptedException e) {
 					handleException(e);
 				}
@@ -48,7 +48,7 @@ class CommandListener implements MainLoop.MainLoopListener {
 
 			@Override
 			public void reject() {
-				CommandService.Response response = new CommandService.Response();
+				EventService.Response response = new EventService.Response();
 				response.setSessionID(commandPackage.getSessionID());
 				response.setPackageID(commandPackage.getPackageID());
 				response.setContent(commandPackage.getContent());
@@ -56,7 +56,7 @@ class CommandListener implements MainLoop.MainLoopListener {
 				MainLoopPackage aPackage = new MainLoopPackage(response);
 				aPackage.setState(MainLoopPackage.STATE.Rejected);
 				try {
-					mainLoopAccessor.put(aPackage);
+					inputBufferAccessor.put(aPackage);
 				} catch (InterruptedException e) {
 					handleException(e);
 				}

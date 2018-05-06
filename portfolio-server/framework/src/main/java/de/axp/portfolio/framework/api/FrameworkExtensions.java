@@ -1,20 +1,20 @@
 package de.axp.portfolio.framework.api;
 
-import de.axp.portfolio.framework.internal.service.command.CommandService;
+import de.axp.portfolio.framework.internal.service.event.EventService;
 
 public class FrameworkExtensions {
 
-	private CommandService.CommandHandler commandHandler;
+	private EventService.EventHandler eventHandler;
 
-	public CommandService.CommandHandler getCommandHandler() {
-		return commandHandler;
+	public EventService.EventHandler getEventHandler() {
+		return eventHandler;
 	}
 
-	public void setCommandHandler(CommandService.CommandHandler commandHandler) {
-		this.commandHandler = commandHandler;
+	public void setEventHandler(EventService.EventHandler eventHandler) {
+		this.eventHandler = eventHandler;
 	}
 
 	public boolean isComplete() {
-		return commandHandler != null;
+		return eventHandler != null;
 	}
 }
