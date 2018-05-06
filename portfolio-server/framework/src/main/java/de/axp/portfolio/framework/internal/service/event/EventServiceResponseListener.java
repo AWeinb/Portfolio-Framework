@@ -8,6 +8,8 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
+import static de.axp.portfolio.framework.internal.service.event.EventService.Event;
+
 class EventServiceResponseListener implements MainLoop.MainLoopListener {
 
 	private final Map<String, FrameworkPromise> responsePromises = Collections.synchronizedMap(new HashMap<>());

@@ -1,16 +1,17 @@
 package de.axp.portfolio.framework.internal.service.event;
 
 import de.axp.portfolio.framework.api.FrameworkPromise;
-import de.axp.portfolio.framework.internal.FrameworkPackage;
 
-public class Event implements FrameworkPackage {
+import java.util.Optional;
+
+class EventImpl implements EventService.Event {
 
 	private String sessionID;
 	private String packageID;
 	private Object content;
 	private FrameworkPromise promise;
 
-	public Event(String sessionID, String packageID, Object content, FrameworkPromise promise) {
+	EventImpl(String sessionID, String packageID, Object content, FrameworkPromise promise) {
 		this.sessionID = sessionID;
 		this.packageID = packageID;
 		this.content = content;
@@ -32,7 +33,8 @@ public class Event implements FrameworkPackage {
 		return content;
 	}
 
-	public FrameworkPromise getPromise() {
-		return promise;
+	@Override
+	public Optional<FrameworkPromise> getPromise() {
+		return Optional.ofNullable(promise);
 	}
 }

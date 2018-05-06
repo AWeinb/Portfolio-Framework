@@ -1,7 +1,6 @@
 package de.axp.portfolio.framework.api;
 
 import de.axp.portfolio.framework.api.interfaces.FrameworkEventInterface;
-import de.axp.portfolio.framework.internal.service.event.Event;
 import de.axp.portfolio.framework.internal.service.event.EventService;
 import org.junit.Assert;
 import org.junit.Before;
@@ -54,11 +53,11 @@ public class FrameworkTest {
 			}
 
 			@Override
-			public void consume(Event event) {
+			public void consume(EventService.Event event) {
 				if (event.getContent().equals("A")) {
-					event.getPromise().reject();
+					event.getPromise().get().reject();
 				} else {
-					event.getPromise().resolve();
+					event.getPromise().get().resolve();
 				}
 			}
 		};

@@ -3,7 +3,7 @@ package de.axp.portfolio;
 import com.vaadin.server.VaadinServlet;
 import de.axp.portfolio.framework.api.Framework;
 import de.axp.portfolio.framework.api.FrameworkExtensions;
-import de.axp.portfolio.framework.internal.service.event.Event;
+import de.axp.portfolio.framework.api.FrameworkPromise;
 import de.axp.portfolio.framework.internal.service.event.EventService;
 import de.axp.portfolio.vaadin.servlet.PortfolioServlet;
 import de.axp.portfolio.vaadin.ui.PortfolioUIProvider;
@@ -39,9 +39,10 @@ class Main {
 			}
 
 			@Override
-			public void consume(Event event) {
-				event.getPromise().setFutureOutput("Got: " + event.getContent());
-				event.getPromise().resolve();
+			public void consume(EventService.Event event) {
+				FrameworkPromise promise = event.getPromise().get();
+				promise.setFutureOutput("Got: " + event.getContent());
+				promise.resolve();
 			}
 		};
 	}

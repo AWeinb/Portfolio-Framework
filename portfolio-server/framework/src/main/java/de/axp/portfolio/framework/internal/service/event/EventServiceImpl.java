@@ -41,7 +41,9 @@ public class EventServiceImpl implements MainLoop.MainLoopPlugin, EventService {
 
 	@Override
 	public void dispatchEvent(Event event) throws InterruptedException {
-		outputListener.registerPromise(event.getSessionID(), event.getPackageID(), event.getPromise());
+		if (event.getPromise().isPresent()) {
+			outputListener.registerPromise(event.getSessionID(), event.getPackageID(), event.getPromise().get());
+		}
 
 		MainLoopPackage mainLoopPackage = new MainLoopPackage(event);
 		inputBufferAccessor.put(mainLoopPackage);

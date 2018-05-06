@@ -1,18 +1,19 @@
 package de.axp.portfolio.framework.internal.service.event;
 
 import de.axp.portfolio.framework.api.FrameworkPromise;
-import de.axp.portfolio.framework.internal.FrameworkPackage;
 import de.axp.portfolio.framework.internal.mainloop.MainLoop;
 import de.axp.portfolio.framework.internal.mainloop.MainLoopBufferException;
 import de.axp.portfolio.framework.internal.mainloop.MainLoopPackage;
 
+import static de.axp.portfolio.framework.internal.service.event.EventService.Event;
+import static de.axp.portfolio.framework.internal.service.event.EventService.EventConsumer;
+
 class EventServiceInputListener implements MainLoop.MainLoopListener {
 
-	private final EventService.EventConsumer eventConsumer;
+	private final EventConsumer eventConsumer;
 	private final MainLoop.MainLoopAccessor outputBufferAccessor;
 
-	EventServiceInputListener(EventService.EventConsumer eventConsumer,
-	                          MainLoop.MainLoopAccessor outputBufferAccessor) {
+	EventServiceInputListener(EventConsumer eventConsumer, MainLoop.MainLoopAccessor outputBufferAccessor) {
 		this.eventConsumer = eventConsumer;
 		this.outputBufferAccessor = outputBufferAccessor;
 	}
@@ -25,16 +26,15 @@ class EventServiceInputListener implements MainLoop.MainLoopListener {
 		Object content = inputEvent.getContent();
 		FrameworkPromise promiseToResolveOrReject = createPromise(inputEvent);
 
-		Event consumerEvent = new Event(sessionID, packageID, content, promiseToResolveOrReject);
+		Event consumerEvent = Event.build(sessionID, packageID, content, promiseToResolveOrReject);
 		eventConsumer.consume(consumerEvent);
 	}
 
-	private FrameworkPromise createPromise(FrameworkPackage commandPackage) {
+	private FrameworkPromise createPromise(Event event) {
 		return new FrameworkPromise() {
 			@Override
 			public void resolve() {
-				Event response = new Event(commandPackage.getSessionID(), commandPackage.getPackageID(),
-						commandPackage.getContent(), null);
+				Event response = Event.buildOneWay(event.getSessionID(), event.getPackageID(), event.getContent());
 				MainLoopPackage aPackage = new MainLoopPackage(response);
 				aPackage.setState(MainLoopPackage.STATE.Resolved);
 				try {
@@ -46,8 +46,7 @@ class EventServiceInputListener implements MainLoop.MainLoopListener {
 
 			@Override
 			public void reject() {
-				Event response = new Event(commandPackage.getSessionID(), commandPackage.getPackageID(),
-						commandPackage.getContent(), null);
+				Event response = Event.buildOneWay(event.getSessionID(), event.getPackageID(), event.getContent());
 				MainLoopPackage aPackage = new MainLoopPackage(response);
 				aPackage.setState(MainLoopPackage.STATE.Rejected);
 				try {
