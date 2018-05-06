@@ -1,6 +1,4 @@
-package de.axp.portfolio.framework.internal;
-
-import de.axp.portfolio.framework.api.Framework;
+package de.axp.portfolio.framework.api;
 
 public interface FrameworkExternalHandler {
 

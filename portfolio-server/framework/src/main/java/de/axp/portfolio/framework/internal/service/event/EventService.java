@@ -1,7 +1,7 @@
 package de.axp.portfolio.framework.internal.service.event;
 
 import de.axp.portfolio.framework.api.FrameworkPromise;
-import de.axp.portfolio.framework.internal.FrameworkExternalHandler;
+import de.axp.portfolio.framework.api.FrameworkExternalHandler;
 import de.axp.portfolio.framework.internal.service.InternalFrameworkService;
 
 import java.util.Optional;
