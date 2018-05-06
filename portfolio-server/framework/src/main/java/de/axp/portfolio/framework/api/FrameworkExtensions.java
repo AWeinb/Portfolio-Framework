@@ -4,17 +4,17 @@ import de.axp.portfolio.framework.internal.service.event.EventService;
 
 public class FrameworkExtensions {
 
-	private EventService.EventHandler eventHandler;
+	private EventService.EventConsumer eventConsumer;
 
-	public EventService.EventHandler getEventHandler() {
-		return eventHandler;
+	public EventService.EventConsumer getEventConsumer() {
+		return eventConsumer;
 	}
 
-	public void setEventHandler(EventService.EventHandler eventHandler) {
-		this.eventHandler = eventHandler;
+	public void setEventConsumer(EventService.EventConsumer eventConsumer) {
+		this.eventConsumer = eventConsumer;
 	}
 
 	public boolean isComplete() {
-		return eventHandler != null;
+		return eventConsumer != null;
 	}
 }

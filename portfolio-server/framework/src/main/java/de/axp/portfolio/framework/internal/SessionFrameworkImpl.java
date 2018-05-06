@@ -56,7 +56,7 @@ class SessionFrameworkImpl implements SessionFramework, FrameworkEventInterface,
 		Event event = new Event(sessionID, eventID, content, promise);
 		EventService eventService = (EventService) framework.getServiceRegistry().get(EventService.class);
 		try {
-			eventService.dispatchEvent(sessionID, eventID, event);
+			eventService.dispatchEvent(event);
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}

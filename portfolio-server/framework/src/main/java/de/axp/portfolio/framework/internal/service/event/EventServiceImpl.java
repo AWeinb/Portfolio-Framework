@@ -5,14 +5,14 @@ import de.axp.portfolio.framework.internal.mainloop.MainLoopPackage;
 
 public class EventServiceImpl implements MainLoop.MainLoopPlugin, EventService {
 
-	private final EventHandler eventHandler;
+	private final EventConsumer eventConsumer;
 
 	private MainLoop.MainLoopAccessor inputBufferAccessor;
 	private EventServiceInputListener inputListener;
 	private EventServiceResponseListener outputListener;
 
-	EventServiceImpl(EventHandler eventHandler) {
-		this.eventHandler = eventHandler;
+	EventServiceImpl(EventConsumer eventConsumer) {
+		this.eventConsumer = eventConsumer;
 	}
 
 	@Override
@@ -20,7 +20,7 @@ public class EventServiceImpl implements MainLoop.MainLoopPlugin, EventService {
 	                       MainLoop.MainLoopAccessor outputBufferAccessor) {
 		this.inputBufferAccessor = inputBufferAccessor;
 
-		inputListener = new EventServiceInputListener(this.eventHandler, outputBufferAccessor);
+		inputListener = new EventServiceInputListener(this.eventConsumer, outputBufferAccessor);
 		outputListener = new EventServiceResponseListener();
 	}
 
@@ -40,8 +40,8 @@ public class EventServiceImpl implements MainLoop.MainLoopPlugin, EventService {
 	}
 
 	@Override
-	public void dispatchEvent(String sessionID, String packageID, Event event) throws InterruptedException {
-		outputListener.registerPromise(sessionID, packageID, event.getPromise());
+	public void dispatchEvent(Event event) throws InterruptedException {
+		outputListener.registerPromise(event.getSessionID(), event.getPackageID(), event.getPromise());
 
 		MainLoopPackage mainLoopPackage = new MainLoopPackage(event);
 		inputBufferAccessor.put(mainLoopPackage);

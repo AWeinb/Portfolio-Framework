@@ -1,6 +1,7 @@
 package de.axp.portfolio.framework.api;
 
 import de.axp.portfolio.framework.api.interfaces.FrameworkEventInterface;
+import de.axp.portfolio.framework.internal.service.event.Event;
 import de.axp.portfolio.framework.internal.service.event.EventService;
 import org.junit.Assert;
 import org.junit.Before;
@@ -15,8 +16,8 @@ public class FrameworkTest {
 	@Test
 	public void testAll() throws Exception {
 		FrameworkExtensions frameworkExtensions = new FrameworkExtensions();
-		EventService.EventHandler eventHandler = getCommandHandler();
-		frameworkExtensions.setEventHandler(eventHandler);
+		EventService.EventConsumer eventConsumer = getCommandHandler();
+		frameworkExtensions.setEventConsumer(eventConsumer);
 		Framework framework = Framework.create(frameworkExtensions);
 
 		SessionFramework sessionFramework = framework.adaptForSession("123");
@@ -45,20 +46,19 @@ public class FrameworkTest {
 		Thread.sleep(100);
 	}
 
-	private EventService.EventHandler getCommandHandler() {
-		return new EventService.EventHandler() {
+	private EventService.EventConsumer getCommandHandler() {
+		return new EventService.EventConsumer() {
 
 			@Override
 			public void setFrameworkReference(Framework framework) {
 			}
 
 			@Override
-			public void execute(String sessionID, String commandID, Object content,
-			                    FrameworkPromise promiseToResolveOrReject) {
-				if (content.equals("A")) {
-					promiseToResolveOrReject.reject();
+			public void consume(Event event) {
+				if (event.getContent().equals("A")) {
+					event.getPromise().reject();
 				} else {
-					promiseToResolveOrReject.resolve();
+					event.getPromise().resolve();
 				}
 			}
 		};

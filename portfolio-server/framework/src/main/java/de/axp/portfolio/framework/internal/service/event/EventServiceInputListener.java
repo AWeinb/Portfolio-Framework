@@ -8,24 +8,25 @@ import de.axp.portfolio.framework.internal.mainloop.MainLoopPackage;
 
 class EventServiceInputListener implements MainLoop.MainLoopListener {
 
-	private final EventService.EventHandler eventHandler;
-	private final MainLoop.MainLoopAccessor inputBufferAccessor;
+	private final EventService.EventConsumer eventConsumer;
+	private final MainLoop.MainLoopAccessor outputBufferAccessor;
 
-	EventServiceInputListener(EventService.EventHandler eventHandler, MainLoop.MainLoopAccessor inputBufferAccessor) {
-		this.eventHandler = eventHandler;
-		this.inputBufferAccessor = inputBufferAccessor;
+	EventServiceInputListener(EventService.EventConsumer eventConsumer,
+	                          MainLoop.MainLoopAccessor outputBufferAccessor) {
+		this.eventConsumer = eventConsumer;
+		this.outputBufferAccessor = outputBufferAccessor;
 	}
 
 	@Override
 	public void notify(MainLoopPackage aPackage) {
-		Event event = (Event) aPackage.getFrameworkPackage();
+		Event inputEvent = (Event) aPackage.getFrameworkPackage();
+		String sessionID = inputEvent.getSessionID();
+		String packageID = inputEvent.getPackageID();
+		Object content = inputEvent.getContent();
+		FrameworkPromise promiseToResolveOrReject = createPromise(inputEvent);
 
-		String sessionID = event.getSessionID();
-		String packageID = event.getPackageID();
-		Object content = event.getContent();
-		FrameworkPromise promiseToResolveOrReject = createPromise(event);
-
-		eventHandler.execute(sessionID, packageID, content, promiseToResolveOrReject);
+		Event consumerEvent = new Event(sessionID, packageID, content, promiseToResolveOrReject);
+		eventConsumer.consume(consumerEvent);
 	}
 
 	private FrameworkPromise createPromise(FrameworkPackage commandPackage) {
@@ -40,7 +41,7 @@ class EventServiceInputListener implements MainLoop.MainLoopListener {
 				MainLoopPackage aPackage = new MainLoopPackage(response);
 				aPackage.setState(MainLoopPackage.STATE.Resolved);
 				try {
-					inputBufferAccessor.put(aPackage);
+					outputBufferAccessor.put(aPackage);
 				} catch (InterruptedException e) {
 					handleException(e);
 				}
@@ -56,7 +57,7 @@ class EventServiceInputListener implements MainLoop.MainLoopListener {
 				MainLoopPackage aPackage = new MainLoopPackage(response);
 				aPackage.setState(MainLoopPackage.STATE.Rejected);
 				try {
-					inputBufferAccessor.put(aPackage);
+					outputBufferAccessor.put(aPackage);
 				} catch (InterruptedException e) {
 					handleException(e);
 				}

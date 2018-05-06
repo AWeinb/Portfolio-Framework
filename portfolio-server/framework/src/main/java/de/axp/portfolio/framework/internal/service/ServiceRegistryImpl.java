@@ -32,7 +32,7 @@ class ServiceRegistryImpl implements ServiceRegistry {
 	}
 
 	private EventService getEventService(FrameworkExtensions frameworkExtensions, MainLoop mainLoop) {
-		return EventServiceFactory.createCommandService(mainLoop, frameworkExtensions.getEventHandler());
+		return EventServiceFactory.createCommandService(mainLoop, frameworkExtensions.getEventConsumer());
 	}
 
 	private SessionService getSessionService() {

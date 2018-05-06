@@ -3,7 +3,7 @@ package de.axp.portfolio;
 import com.vaadin.server.VaadinServlet;
 import de.axp.portfolio.framework.api.Framework;
 import de.axp.portfolio.framework.api.FrameworkExtensions;
-import de.axp.portfolio.framework.api.FrameworkPromise;
+import de.axp.portfolio.framework.internal.service.event.Event;
 import de.axp.portfolio.framework.internal.service.event.EventService;
 import de.axp.portfolio.vaadin.servlet.PortfolioServlet;
 import de.axp.portfolio.vaadin.ui.PortfolioUIProvider;
@@ -16,11 +16,11 @@ class Main {
 
 	public static void main(String[] args) throws Exception {
 		FrameworkExtensions frameworkExtensions = new FrameworkExtensions();
-		EventService.EventHandler eventHandler = getCommandHandler();
-		frameworkExtensions.setEventHandler(eventHandler);
+		EventService.EventConsumer eventConsumer = getEventHandler();
+		frameworkExtensions.setEventConsumer(eventConsumer);
 		Framework framework = Framework.create(frameworkExtensions);
 
-		eventHandler.setFrameworkReference(framework);
+		eventConsumer.setFrameworkReference(framework);
 
 		Server server = new Server(8080);
 		VaadinServlet vaadinServlet = new PortfolioServlet(framework);
@@ -31,18 +31,17 @@ class Main {
 		server.join();
 	}
 
-	private static EventService.EventHandler getCommandHandler() {
-		return new EventService.EventHandler() {
+	private static EventService.EventConsumer getEventHandler() {
+		return new EventService.EventConsumer() {
 
 			@Override
 			public void setFrameworkReference(Framework framework) {
 			}
 
 			@Override
-			public void execute(String sessionID, String commandID, Object content,
-			                    FrameworkPromise promiseToResolveOrReject) {
-				promiseToResolveOrReject.setFutureOutput("Got: " + content);
-				promiseToResolveOrReject.resolve();
+			public void consume(Event event) {
+				event.getPromise().setFutureOutput("Got: " + event.getContent());
+				event.getPromise().resolve();
 			}
 		};
 	}
