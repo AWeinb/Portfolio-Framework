@@ -14,14 +14,12 @@ public class FrameworkTest {
 
 	@Test
 	public void testAll() throws Exception {
-		FrameworkExtensions frameworkExtensions = new FrameworkExtensions();
-		EventService.EventConsumer eventConsumer = getCommandHandler();
-		frameworkExtensions.setEventConsumer(eventConsumer);
-		Framework framework = Framework.create(frameworkExtensions);
+		Framework framework = Framework.create();
 
 		SessionFramework sessionFramework = framework.adaptForSession("123");
 		sessionFramework.getFrameworkSessionInterface().initializeSession();
 		FrameworkEventInterface frameworkEventInterface = sessionFramework.getFrameworkEventInterface();
+		frameworkEventInterface.addEventConsumer(getCommandHandler());
 
 		frameworkEventInterface.dispatchEvent("FutureCallback", "A",
 				FrameworkPromise.whenRejected(f -> Assert.assertEquals("A", f)));
@@ -33,19 +31,11 @@ public class FrameworkTest {
 	}
 
 	private EventService.EventConsumer getCommandHandler() {
-		return new EventService.EventConsumer() {
-
-			@Override
-			public void setFrameworkReference(Framework framework) {
-			}
-
-			@Override
-			public void consume(EventService.Event event) {
-				if (event.getData().equals("A")) {
-					event.getPromise().ifPresent(e -> e.reject(event.getData()));
-				} else {
-					event.getPromise().ifPresent(e -> e.resolve(event.getData()));
-				}
+		return event -> {
+			if (event.getData().equals("A")) {
+				event.getPromise().ifPresent(e -> e.reject(event.getData()));
+			} else {
+				event.getPromise().ifPresent(e -> e.resolve(event.getData()));
 			}
 		};
 	}

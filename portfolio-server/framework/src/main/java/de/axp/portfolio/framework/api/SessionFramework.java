@@ -6,8 +6,8 @@ import de.axp.portfolio.framework.internal.InternalFrameworkFactory;
 
 public interface SessionFramework {
 
-	static Framework create(FrameworkExtensions frameworkExtensions) {
-		return InternalFrameworkFactory.createFramework(frameworkExtensions);
+	static Framework create() {
+		return InternalFrameworkFactory.createFramework();
 	}
 
 	void dispose();

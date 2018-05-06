@@ -50,11 +50,30 @@ class SessionFrameworkImpl implements SessionFramework, FrameworkEventInterface,
 	}
 
 	@Override
-	public void dispatchEvent(String eventID, Object content, FrameworkPromise promise) {
+	public void addEventConsumer(EventService.EventConsumer eventConsumer) {
+		addEventConsumerForContext("", eventConsumer);
+	}
+
+	@Override
+	public void addEventConsumerForContext(String context, EventService.EventConsumer eventConsumer) {
 		SessionService sessionService = (SessionService) framework.getServiceRegistry().get(SessionService.class);
 		sessionService.checkID(sessionID);
 
-		Event event = Event.build(sessionID, eventID, content, promise);
+		EventService eventService = (EventService) framework.getServiceRegistry().get(EventService.class);
+		eventService.addEventConsumer(sessionID, context, eventConsumer);
+	}
+
+	@Override
+	public void dispatchEvent(String eventID, Object content, FrameworkPromise promise) {
+		dispatchEventInContext("", eventID, content, promise);
+	}
+
+	@Override
+	public void dispatchEventInContext(String context, String eventID, Object content, FrameworkPromise promise) {
+		SessionService sessionService = (SessionService) framework.getServiceRegistry().get(SessionService.class);
+		sessionService.checkID(sessionID);
+
+		Event event = Event.build(sessionID, context, eventID, content, promise);
 		EventService eventService = (EventService) framework.getServiceRegistry().get(EventService.class);
 		try {
 			eventService.dispatchEvent(event);

@@ -5,22 +5,16 @@ import de.axp.portfolio.framework.internal.mainloop.MainLoopPackage;
 
 public class EventServiceImpl implements MainLoop.MainLoopPlugin, EventService {
 
-	private final EventConsumer eventConsumer;
-
 	private MainLoop.MainLoopAccessor inputBufferAccessor;
 	private EventServiceInputListener inputListener;
 	private EventServiceResponseListener outputListener;
-
-	EventServiceImpl(EventConsumer eventConsumer) {
-		this.eventConsumer = eventConsumer;
-	}
 
 	@Override
 	public void initialize(MainLoop.MainLoopAccessor inputBufferAccessor,
 	                       MainLoop.MainLoopAccessor outputBufferAccessor) {
 		this.inputBufferAccessor = inputBufferAccessor;
 
-		inputListener = new EventServiceInputListener(this.eventConsumer, outputBufferAccessor);
+		inputListener = new EventServiceInputListener(outputBufferAccessor);
 		outputListener = new EventServiceResponseListener();
 	}
 
@@ -37,6 +31,11 @@ public class EventServiceImpl implements MainLoop.MainLoopPlugin, EventService {
 	@Override
 	public MainLoop.MainLoopListener getOutputListener() {
 		return outputListener;
+	}
+
+	@Override
+	public void addEventConsumer(String sessionID, String context, EventConsumer eventConsumer) {
+		inputListener.addEventConsumer(sessionID, context, eventConsumer);
 	}
 
 	@Override

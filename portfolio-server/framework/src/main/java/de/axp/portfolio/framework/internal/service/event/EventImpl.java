@@ -6,13 +6,15 @@ import java.util.Optional;
 
 class EventImpl implements EventService.Event {
 
-	private String sessionID;
-	private String packageID;
-	private Object content;
-	private FrameworkPromise promise;
+	private final String sessionID;
+	private final String context;
+	private final String packageID;
+	private final Object content;
+	private final FrameworkPromise promise;
 
-	EventImpl(String sessionID, String packageID, Object content, FrameworkPromise promise) {
+	EventImpl(String sessionID, String context, String packageID, Object content, FrameworkPromise promise) {
 		this.sessionID = sessionID;
+		this.context = context;
 		this.packageID = packageID;
 		this.content = content;
 		this.promise = promise;
@@ -21,6 +23,11 @@ class EventImpl implements EventService.Event {
 	@Override
 	public String getSessionID() {
 		return sessionID;
+	}
+
+	@Override
+	public String getContext() {
+		return context;
 	}
 
 	@Override

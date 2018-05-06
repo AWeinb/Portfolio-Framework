@@ -2,8 +2,6 @@ package de.axp.portfolio;
 
 import com.vaadin.server.VaadinServlet;
 import de.axp.portfolio.framework.api.Framework;
-import de.axp.portfolio.framework.api.FrameworkExtensions;
-import de.axp.portfolio.framework.internal.service.event.EventService;
 import de.axp.portfolio.vaadin.servlet.PortfolioServlet;
 import de.axp.portfolio.vaadin.ui.PortfolioUIProvider;
 import org.atmosphere.container.Jetty9AsyncSupportWithWebSocket;
@@ -14,12 +12,7 @@ import org.eclipse.jetty.servlet.ServletHolder;
 class Main {
 
 	public static void main(String[] args) throws Exception {
-		FrameworkExtensions frameworkExtensions = new FrameworkExtensions();
-		EventService.EventConsumer eventConsumer = getEventHandler();
-		frameworkExtensions.setEventConsumer(eventConsumer);
-		Framework framework = Framework.create(frameworkExtensions);
-
-		eventConsumer.setFrameworkReference(framework);
+		Framework framework = Framework.create();
 
 		Server server = new Server(8080);
 		VaadinServlet vaadinServlet = new PortfolioServlet(framework);
@@ -28,20 +21,6 @@ class Main {
 
 		server.start();
 		server.join();
-	}
-
-	private static EventService.EventConsumer getEventHandler() {
-		return new EventService.EventConsumer() {
-
-			@Override
-			public void setFrameworkReference(Framework framework) {
-			}
-
-			@Override
-			public void consume(EventService.Event event) {
-				event.getPromise().ifPresent(promise -> promise.resolve("Got: " + event.getData()));
-			}
-		};
 	}
 
 	private static void initializeServer(Server server, ServletHolder servletHolder) {

@@ -1,6 +1,5 @@
 package de.axp.portfolio.framework.internal.service;
 
-import de.axp.portfolio.framework.api.FrameworkExtensions;
 import de.axp.portfolio.framework.internal.mainloop.MainLoop;
 import de.axp.portfolio.framework.internal.service.event.EventService;
 import de.axp.portfolio.framework.internal.service.event.EventServiceFactory;
@@ -14,8 +13,8 @@ class ServiceRegistryImpl implements ServiceRegistry {
 
 	private Map<Class, InternalFrameworkService> internalFrameworkServices = new HashMap<>();
 
-	ServiceRegistryImpl(FrameworkExtensions frameworkExtensions, MainLoop mainLoop) {
-		internalFrameworkServices.put(EventService.class, getEventService(frameworkExtensions, mainLoop));
+	ServiceRegistryImpl(MainLoop mainLoop) {
+		internalFrameworkServices.put(EventService.class, getEventService(mainLoop));
 		internalFrameworkServices.put(SessionService.class, getSessionService());
 	}
 
@@ -31,8 +30,8 @@ class ServiceRegistryImpl implements ServiceRegistry {
 		}
 	}
 
-	private EventService getEventService(FrameworkExtensions frameworkExtensions, MainLoop mainLoop) {
-		return EventServiceFactory.createCommandService(mainLoop, frameworkExtensions.getEventConsumer());
+	private EventService getEventService(MainLoop mainLoop) {
+		return EventServiceFactory.createEventService(mainLoop);
 	}
 
 	private SessionService getSessionService() {

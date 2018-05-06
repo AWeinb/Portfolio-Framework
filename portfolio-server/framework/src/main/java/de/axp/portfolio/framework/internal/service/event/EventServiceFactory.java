@@ -4,8 +4,8 @@ import de.axp.portfolio.framework.internal.mainloop.MainLoop;
 
 public class EventServiceFactory {
 
-	public static EventService createCommandService(MainLoop mainLoop, EventService.EventConsumer eventConsumer) {
-		EventServiceImpl eventService = new EventServiceImpl(eventConsumer);
+	public static EventService createEventService(MainLoop mainLoop) {
+		EventServiceImpl eventService = new EventServiceImpl();
 		mainLoop.addPlugin(eventService);
 		return eventService;
 	}

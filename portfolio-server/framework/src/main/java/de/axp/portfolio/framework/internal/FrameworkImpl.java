@@ -1,8 +1,6 @@
 package de.axp.portfolio.framework.internal;
 
 import de.axp.portfolio.framework.api.Framework;
-import de.axp.portfolio.framework.api.FrameworkException;
-import de.axp.portfolio.framework.api.FrameworkExtensions;
 import de.axp.portfolio.framework.api.SessionFramework;
 import de.axp.portfolio.framework.internal.mainloop.MainLoop;
 import de.axp.portfolio.framework.internal.mainloop.MainLoopFactory;
@@ -19,13 +17,9 @@ class FrameworkImpl implements Framework {
 	private MainLoop mainLoop;
 	private ServiceRegistry serviceRegistry;
 
-	FrameworkImpl(FrameworkExtensions frameworkExtensions) {
-		if (!frameworkExtensions.isComplete()) {
-			throw new IncompleteFrameworkExtensionsException();
-		}
-
+	FrameworkImpl() {
 		mainLoop = MainLoopFactory.createMainLoop();
-		serviceRegistry = ServiceFactory.createServiceRegistry(frameworkExtensions, mainLoop);
+		serviceRegistry = ServiceFactory.createServiceRegistry(mainLoop);
 	}
 
 	@Override
@@ -51,9 +45,5 @@ class FrameworkImpl implements Framework {
 
 	ServiceRegistry getServiceRegistry() {
 		return serviceRegistry;
-	}
-
-	public class IncompleteFrameworkExtensionsException extends FrameworkException {
-
 	}
 }
