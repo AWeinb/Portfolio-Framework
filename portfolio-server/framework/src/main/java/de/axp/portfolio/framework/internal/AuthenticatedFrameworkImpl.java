@@ -25,16 +25,6 @@ class AuthenticatedFrameworkImpl implements AuthenticatedFramework, FrameworkEve
 	}
 
 	@Override
-	public void addAttribute(String key, Object value) {
-		framework.addAttribute(key, value);
-	}
-
-	@Override
-	public Object getAttribute(String key) {
-		return framework.getAttribute(key);
-	}
-
-	@Override
 	public String getSessionID() {
 		return sessionID;
 	}
