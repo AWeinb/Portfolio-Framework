@@ -11,7 +11,7 @@ public class InternalFrameworkFactory {
 	}
 
 	static AuthenticatedFramework createAuthenticatedFramework(BaseFramework framework, ServiceRegistry serviceRegistry,
-	                                                           String sessionId) {
+	                                                           AuthenticatedFramework.SessionId sessionId) {
 		return new AuthenticatedFrameworkImpl(framework, serviceRegistry, sessionId);
 	}
 }
