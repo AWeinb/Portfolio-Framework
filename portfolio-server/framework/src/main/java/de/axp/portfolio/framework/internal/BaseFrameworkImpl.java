@@ -24,8 +24,8 @@ class BaseFrameworkImpl implements BaseFramework {
 	}
 
 	@Override
-	public AuthenticatedFramework authenticate(String sessionId) {
-		return InternalFrameworkFactory.createAuthenticatedFramework(this, sessionId);
+	public AuthenticatedFramework authenticate() {
+		return InternalFrameworkFactory.createAuthenticatedFramework(this, "id");
 	}
 
 	ServiceRegistry getServiceRegistry() {
