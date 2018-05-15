@@ -23,35 +23,35 @@ class EventServiceInputListener implements MainLoop.MainLoopListener {
 	@Override
 	public void notify(MainLoopPackage aPackage) {
 		Event inputEvent = (Event) aPackage.getPayload();
-		String sessionID = inputEvent.getSessionID();
+		String sessionId = inputEvent.getSessionId();
 		String context = inputEvent.getContext();
-		String packageID = inputEvent.getPackageID();
+		String packageId = inputEvent.getPackageId();
 		Object content = inputEvent.getData();
 		FrameworkPromise promiseToResolveOrReject = createPromise(inputEvent);
 
-		Event consumerEvent = Event.build(sessionID, context, packageID, content, promiseToResolveOrReject);
-		consumers.get(sessionID).get(context).consume(consumerEvent);
+		Event consumerEvent = Event.build(sessionId, context, packageId, content, promiseToResolveOrReject);
+		consumers.get(sessionId).get(context).consume(consumerEvent);
 	}
 
 	private FrameworkPromise createPromise(Event event) {
 		return FrameworkPromise.whenResolved(future -> {
-			Event response = Event.buildOneWay(event.getSessionID(), event.getContext(), event.getPackageID(),
+			Event response = Event.buildOneWay(event.getSessionId(), event.getContext(), event.getPackageId(),
 					event.getData());
 			MainLoopPackage aPackage = new MainLoopPackage(response, MainLoopPackage.STATE.Resolved);
 			outputBufferAccessor.put(aPackage);
 
 		}).orRejected(future -> {
-			Event response = Event.buildOneWay(event.getSessionID(), event.getContext(), event.getPackageID(),
+			Event response = Event.buildOneWay(event.getSessionId(), event.getContext(), event.getPackageId(),
 					event.getData());
 			MainLoopPackage aPackage = new MainLoopPackage(response, MainLoopPackage.STATE.Rejected);
 			outputBufferAccessor.put(aPackage);
 		});
 	}
 
-	void addEventConsumer(String sessionID, String context, EventService.EventConsumer eventConsumer) {
-		if (!consumers.containsKey(sessionID)) {
-			consumers.put(sessionID, Collections.synchronizedMap(new HashMap<>()));
+	void addEventConsumer(String sessionId, String context, EventService.EventConsumer eventConsumer) {
+		if (!consumers.containsKey(sessionId)) {
+			consumers.put(sessionId, Collections.synchronizedMap(new HashMap<>()));
 		}
-		consumers.get(sessionID).put(context, eventConsumer);
+		consumers.get(sessionId).put(context, eventConsumer);
 	}
 }

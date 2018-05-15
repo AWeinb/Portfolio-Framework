@@ -4,11 +4,11 @@ import de.axp.portfolio.framework.internal.service.InternalFrameworkService;
 
 public interface SessionService extends InternalFrameworkService {
 
-	void initializeSession(String sessionID);
+	void initializeSession(String sessionId);
 
-	void checkID(String sessionID);
+	void checkID(String sessionId);
 
 	int getActiveSessions();
 
-	void disposeSession(String sessionID);
+	void disposeSession(String sessionId);
 }

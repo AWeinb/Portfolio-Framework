@@ -15,21 +15,21 @@ class SessionServiceImpl implements SessionService {
 	}
 
 	@Override
-	public void initializeSession(String sessionID) {
-		if (sessionID == null) {
+	public void initializeSession(String sessionId) {
+		if (sessionId == null) {
 			throw new IllegalArgumentException();
 		}
-		if (sessionIds.contains(sessionID)) {
+		if (sessionIds.contains(sessionId)) {
 			throw new FrameworkSessionAlreadyUsedException();
 		}
 
-		sessionIds.add(sessionID);
+		sessionIds.add(sessionId);
 	}
 
 	@Override
-	public void checkID(String sessionID) {
-		if (!sessionIds.contains(sessionID)) {
-			throw new FrameworkSessionIsUnknownException(sessionID);
+	public void checkID(String sessionId) {
+		if (!sessionIds.contains(sessionId)) {
+			throw new FrameworkSessionIsUnknownException(sessionId);
 		}
 	}
 
@@ -39,8 +39,8 @@ class SessionServiceImpl implements SessionService {
 	}
 
 	@Override
-	public void disposeSession(String sessionID) {
-		sessionIds.remove(sessionID);
+	public void disposeSession(String sessionId) {
+		sessionIds.remove(sessionId);
 	}
 
 	public class FrameworkSessionAlreadyUsedException extends FrameworkException {
@@ -53,15 +53,15 @@ class SessionServiceImpl implements SessionService {
 
 	public class FrameworkSessionIsUnknownException extends FrameworkException {
 
-		private final String sessionID;
+		private final String sessionId;
 
-		public FrameworkSessionIsUnknownException(String sessionID) {
-			this.sessionID = sessionID;
+		public FrameworkSessionIsUnknownException(String sessionId) {
+			this.sessionId = sessionId;
 		}
 
 		@Override
 		public String getMessage() {
-			return "Session ID is unknown! [" + sessionID + "]";
+			return "Session ID is unknown! [" + sessionId + "]";
 		}
 	}
 }

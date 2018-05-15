@@ -12,11 +12,11 @@ import static de.axp.portfolio.framework.internal.service.event.EventService.Eve
 class AuthenticatedFrameworkImpl implements AuthenticatedFramework, FrameworkEventInterface, FrameworkSessionInterface {
 
 	private final BaseFrameworkImpl framework;
-	private final String sessionID;
+	private final String sessionId;
 
-	AuthenticatedFrameworkImpl(BaseFrameworkImpl framework, String sessionID) {
+	AuthenticatedFrameworkImpl(BaseFrameworkImpl framework, String sessionId) {
 		this.framework = framework;
-		this.sessionID = sessionID;
+		this.sessionId = sessionId;
 	}
 
 	@Override
@@ -25,8 +25,8 @@ class AuthenticatedFrameworkImpl implements AuthenticatedFramework, FrameworkEve
 	}
 
 	@Override
-	public String getSessionID() {
-		return sessionID;
+	public String getSessionId() {
+		return sessionId;
 	}
 
 	@Override
@@ -47,10 +47,10 @@ class AuthenticatedFrameworkImpl implements AuthenticatedFramework, FrameworkEve
 	@Override
 	public void addEventConsumerForContext(String context, EventService.EventConsumer eventConsumer) {
 		SessionService sessionService = (SessionService) framework.getServiceRegistry().get(SessionService.class);
-		sessionService.checkID(sessionID);
+		sessionService.checkID(sessionId);
 
 		EventService eventService = (EventService) framework.getServiceRegistry().get(EventService.class);
-		eventService.addEventConsumer(sessionID, context, eventConsumer);
+		eventService.addEventConsumer(sessionId, context, eventConsumer);
 	}
 
 	@Override
@@ -61,9 +61,9 @@ class AuthenticatedFrameworkImpl implements AuthenticatedFramework, FrameworkEve
 	@Override
 	public void dispatchEventInContext(String context, String eventID, Object content, FrameworkPromise promise) {
 		SessionService sessionService = (SessionService) framework.getServiceRegistry().get(SessionService.class);
-		sessionService.checkID(sessionID);
+		sessionService.checkID(sessionId);
 
-		Event event = Event.build(sessionID, context, eventID, content, promise);
+		Event event = Event.build(sessionId, context, eventID, content, promise);
 		EventService eventService = (EventService) framework.getServiceRegistry().get(EventService.class);
 		try {
 			eventService.dispatchEvent(event);
@@ -75,7 +75,7 @@ class AuthenticatedFrameworkImpl implements AuthenticatedFramework, FrameworkEve
 	@Override
 	public void initializeSession() {
 		SessionService sessionService = (SessionService) framework.getServiceRegistry().get(SessionService.class);
-		sessionService.initializeSession(sessionID);
+		sessionService.initializeSession(sessionId);
 	}
 
 	@Override
@@ -87,7 +87,7 @@ class AuthenticatedFrameworkImpl implements AuthenticatedFramework, FrameworkEve
 	@Override
 	public void destroySession() {
 		SessionService sessionService = (SessionService) framework.getServiceRegistry().get(SessionService.class);
-		sessionService.checkID(sessionID);
-		sessionService.disposeSession(sessionID);
+		sessionService.checkID(sessionId);
+		sessionService.disposeSession(sessionId);
 	}
 }

@@ -34,14 +34,14 @@ public class EventServiceImpl implements MainLoop.MainLoopPlugin, EventService {
 	}
 
 	@Override
-	public void addEventConsumer(String sessionID, String context, EventConsumer eventConsumer) {
-		inputListener.addEventConsumer(sessionID, context, eventConsumer);
+	public void addEventConsumer(String sessionId, String context, EventConsumer eventConsumer) {
+		inputListener.addEventConsumer(sessionId, context, eventConsumer);
 	}
 
 	@Override
 	public void dispatchEvent(Event event) throws InterruptedException {
 		if (event.getPromise().isPresent()) {
-			outputListener.registerPromise(event.getSessionID(), event.getPackageID(), event.getPromise().get());
+			outputListener.registerPromise(event.getSessionId(), event.getPackageId(), event.getPromise().get());
 		}
 
 		MainLoopPackage mainLoopPackage = new MainLoopPackage(event, MainLoopPackage.STATE.Unknown);

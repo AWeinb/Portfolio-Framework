@@ -8,26 +8,26 @@ import java.util.Optional;
 
 public interface EventService extends InternalFrameworkService {
 
-	void addEventConsumer(String sessionID, String context, EventConsumer eventConsumer);
+	void addEventConsumer(String sessionId, String context, EventConsumer eventConsumer);
 
 	void dispatchEvent(Event event) throws InterruptedException;
 
 	interface Event {
 
-		static Event build(String sessionID, String context, String packageID, Object content,
+		static Event build(String sessionId, String context, String packageId, Object content,
 		                   FrameworkPromise promise) {
-			return new EventImpl(sessionID, context, packageID, content, promise);
+			return new EventImpl(sessionId, context, packageId, content, promise);
 		}
 
-		static Event buildOneWay(String sessionID, String context, String packageID, Object content) {
-			return new EventImpl(sessionID, context, packageID, content, null);
+		static Event buildOneWay(String sessionId, String context, String packageId, Object content) {
+			return new EventImpl(sessionId, context, packageId, content, null);
 		}
 
-		String getSessionID();
+		String getSessionId();
 
 		String getContext();
 
-		String getPackageID();
+		String getPackageId();
 
 		Object getData();
 

@@ -14,16 +14,16 @@ class EventServiceResponseListener implements MainLoop.MainLoopListener {
 
 	private final Map<String, FrameworkPromise> responsePromises = Collections.synchronizedMap(new HashMap<>());
 
-	void registerPromise(String sessionID, String packageID, FrameworkPromise promise) {
-		responsePromises.put(getKey(sessionID, packageID), promise);
+	void registerPromise(String sessionId, String packageId, FrameworkPromise promise) {
+		responsePromises.put(getKey(sessionId, packageId), promise);
 	}
 
 	@Override
 	public void notify(MainLoopPackage aPackage) {
 		Event response = (Event) aPackage.getPayload();
-		String sessionID = response.getSessionID();
-		String packageID = response.getPackageID();
-		FrameworkPromise promise = responsePromises.remove(getKey(sessionID, packageID));
+		String sessionId = response.getSessionId();
+		String packageId = response.getPackageId();
+		FrameworkPromise promise = responsePromises.remove(getKey(sessionId, packageId));
 
 		if (promise != null) {
 			switch (aPackage.getState()) {
@@ -39,7 +39,7 @@ class EventServiceResponseListener implements MainLoop.MainLoopListener {
 		}
 	}
 
-	private String getKey(String sessionID, String packageID) {
-		return sessionID + "_" + packageID;
+	private String getKey(String sessionId, String packageId) {
+		return sessionId + "_" + packageId;
 	}
 }

@@ -10,5 +10,5 @@ public interface BaseFramework {
 
 	void dispose();
 
-	AuthenticatedFramework adaptForSession(String sessionID);
+	AuthenticatedFramework adaptForSession(String sessionId);
 }
