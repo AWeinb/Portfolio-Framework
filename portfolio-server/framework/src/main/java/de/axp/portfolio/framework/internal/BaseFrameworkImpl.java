@@ -9,8 +9,8 @@ import de.axp.portfolio.framework.internal.service.ServiceRegistry;
 
 class BaseFrameworkImpl implements BaseFramework {
 
-	private MainLoop mainLoop;
-	private ServiceRegistry serviceRegistry;
+	private final MainLoop mainLoop;
+	private final ServiceRegistry serviceRegistry;
 
 	BaseFrameworkImpl() {
 		mainLoop = MainLoopFactory.createMainLoop();
@@ -25,10 +25,6 @@ class BaseFrameworkImpl implements BaseFramework {
 
 	@Override
 	public AuthenticatedFramework authenticate() {
-		return InternalFrameworkFactory.createAuthenticatedFramework(this, "id");
-	}
-
-	ServiceRegistry getServiceRegistry() {
-		return serviceRegistry;
+		return InternalFrameworkFactory.createAuthenticatedFramework(this, serviceRegistry, "id");
 	}
 }
