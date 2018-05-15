@@ -19,6 +19,6 @@ public final class MainLoopPackage {
 	}
 
 	public enum STATE {
-		Unknown, Resolved, Rejected
+		Unknown, Resolved, Rejected, Poisoned
 	}
 }

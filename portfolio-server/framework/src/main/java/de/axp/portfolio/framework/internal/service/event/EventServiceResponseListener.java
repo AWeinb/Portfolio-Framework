@@ -20,6 +20,10 @@ class EventServiceResponseListener implements MainLoop.MainLoopListener {
 
 	@Override
 	public void notify(MainLoopPackage aPackage) {
+		if (aPackage.getState() == MainLoopPackage.STATE.Poisoned) {
+			return;
+		}
+
 		Event response = (Event) aPackage.getPayload();
 		String sessionId = response.getSessionId();
 		String packageId = response.getPackageId();

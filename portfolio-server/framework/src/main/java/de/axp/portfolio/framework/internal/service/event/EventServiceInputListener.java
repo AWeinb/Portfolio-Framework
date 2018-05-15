@@ -22,6 +22,10 @@ class EventServiceInputListener implements MainLoop.MainLoopListener {
 
 	@Override
 	public void notify(MainLoopPackage aPackage) {
+		if (aPackage.getState() == MainLoopPackage.STATE.Poisoned) {
+			return;
+		}
+
 		Event inputEvent = (Event) aPackage.getPayload();
 		String sessionId = inputEvent.getSessionId();
 		String context = inputEvent.getContext();

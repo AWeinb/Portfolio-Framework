@@ -10,13 +10,13 @@ import static de.axp.portfolio.framework.internal.mainloop.MainLoop.MainLoopList
 
 class MainLoopWorker {
 
-	private static final MainLoopPackage POISON = new MainLoopPackage(null, MainLoopPackage.STATE.Unknown);
+	private static final MainLoopPackage POISON = new MainLoopPackage(null, MainLoopPackage.STATE.Poisoned);
 
 	private final WorkerBuffer buffer = new WorkerBuffer();
 	private final Collection<MainLoopListener> listeners = Collections.synchronizedList(new LinkedList<>());
 
 	private Thread thread;
-	private boolean isPoisoned = false;
+	private MainLoopPackage currentThreadPackage;
 
 	void addListener(MainLoopListener loopListener) {
 		listeners.add(loopListener);
@@ -43,22 +43,16 @@ class MainLoopWorker {
 	}
 
 	private void doWork() {
-		while (!isPoisoned) {
-			MainLoopPackage mainLoopPackage = POISON;
-
+		while (currentThreadPackage != POISON) {
 			try {
-				mainLoopPackage = buffer.waitAndGet();
+				currentThreadPackage = buffer.waitAndGet();
 			} catch (InterruptedException e) {
+				currentThreadPackage = POISON;
 				handleException(e);
-			}
-
-			if (mainLoopPackage == POISON) {
-				isPoisoned = true;
-				continue;
-			}
-
-			for (MainLoopListener listener : listeners) {
-				listener.notify(mainLoopPackage);
+			} finally {
+				for (MainLoopListener listener : listeners) {
+					listener.notify(currentThreadPackage);
+				}
 			}
 		}
 	}
