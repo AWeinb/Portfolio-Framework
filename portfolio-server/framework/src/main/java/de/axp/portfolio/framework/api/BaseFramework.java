@@ -10,7 +10,7 @@ public interface BaseFramework {
 
 	void dispose();
 
-	SessionFramework adaptForSession(String sessionID);
+	AuthenticatedFramework adaptForSession(String sessionID);
 
 	void addAttribute(String key, Object value);
 

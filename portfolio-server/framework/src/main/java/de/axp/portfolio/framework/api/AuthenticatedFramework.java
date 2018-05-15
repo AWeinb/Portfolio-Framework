@@ -4,7 +4,7 @@ import de.axp.portfolio.framework.api.interfaces.FrameworkEventInterface;
 import de.axp.portfolio.framework.api.interfaces.FrameworkSessionInterface;
 import de.axp.portfolio.framework.internal.InternalFrameworkFactory;
 
-public interface SessionFramework {
+public interface AuthenticatedFramework {
 
 	static BaseFramework create() {
 		return InternalFrameworkFactory.createBaseFramework();

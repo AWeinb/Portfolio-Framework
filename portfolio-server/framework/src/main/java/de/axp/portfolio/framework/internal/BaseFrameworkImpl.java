@@ -1,7 +1,7 @@
 package de.axp.portfolio.framework.internal;
 
 import de.axp.portfolio.framework.api.BaseFramework;
-import de.axp.portfolio.framework.api.SessionFramework;
+import de.axp.portfolio.framework.api.AuthenticatedFramework;
 import de.axp.portfolio.framework.internal.mainloop.MainLoop;
 import de.axp.portfolio.framework.internal.mainloop.MainLoopFactory;
 import de.axp.portfolio.framework.internal.service.ServiceFactory;
@@ -29,8 +29,8 @@ class BaseFrameworkImpl implements BaseFramework {
 	}
 
 	@Override
-	public SessionFramework adaptForSession(String sessionID) {
-		return new SessionFrameworkImpl(this, sessionID);
+	public AuthenticatedFramework adaptForSession(String sessionID) {
+		return new AuthenticatedFrameworkImpl(this, sessionID);
 	}
 
 	@Override

@@ -1,7 +1,7 @@
 package de.axp.portfolio.framework.internal;
 
+import de.axp.portfolio.framework.api.AuthenticatedFramework;
 import de.axp.portfolio.framework.api.FrameworkPromise;
-import de.axp.portfolio.framework.api.SessionFramework;
 import de.axp.portfolio.framework.api.interfaces.FrameworkEventInterface;
 import de.axp.portfolio.framework.api.interfaces.FrameworkSessionInterface;
 import de.axp.portfolio.framework.internal.service.event.EventService;
@@ -9,12 +9,12 @@ import de.axp.portfolio.framework.internal.service.session.SessionService;
 
 import static de.axp.portfolio.framework.internal.service.event.EventService.Event;
 
-class SessionFrameworkImpl implements SessionFramework, FrameworkEventInterface, FrameworkSessionInterface {
+class AuthenticatedFrameworkImpl implements AuthenticatedFramework, FrameworkEventInterface, FrameworkSessionInterface {
 
 	private final BaseFrameworkImpl framework;
 	private final String sessionID;
 
-	SessionFrameworkImpl(BaseFrameworkImpl framework, String sessionID) {
+	AuthenticatedFrameworkImpl(BaseFrameworkImpl framework, String sessionID) {
 		this.framework = framework;
 		this.sessionID = sessionID;
 	}
