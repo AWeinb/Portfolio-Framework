@@ -11,10 +11,10 @@ import static de.axp.portfolio.framework.internal.service.event.EventService.Eve
 
 class SessionFrameworkImpl implements SessionFramework, FrameworkEventInterface, FrameworkSessionInterface {
 
-	private final FrameworkImpl framework;
+	private final BaseFrameworkImpl framework;
 	private final String sessionID;
 
-	SessionFrameworkImpl(FrameworkImpl framework, String sessionID) {
+	SessionFrameworkImpl(BaseFrameworkImpl framework, String sessionID) {
 		this.framework = framework;
 		this.sessionID = sessionID;
 	}

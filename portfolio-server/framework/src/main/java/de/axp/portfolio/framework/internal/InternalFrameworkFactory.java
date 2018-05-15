@@ -1,10 +1,10 @@
 package de.axp.portfolio.framework.internal;
 
-import de.axp.portfolio.framework.api.Framework;
+import de.axp.portfolio.framework.api.BaseFramework;
 
 public class InternalFrameworkFactory {
 
-	public static Framework createFramework() {
-		return new FrameworkImpl();
+	public static BaseFramework createBaseFramework() {
+		return new BaseFrameworkImpl();
 	}
 }

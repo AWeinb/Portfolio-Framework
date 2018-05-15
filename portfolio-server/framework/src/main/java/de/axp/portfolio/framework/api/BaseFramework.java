@@ -2,10 +2,10 @@ package de.axp.portfolio.framework.api;
 
 import de.axp.portfolio.framework.internal.InternalFrameworkFactory;
 
-public interface Framework {
+public interface BaseFramework {
 
-	static Framework create() {
-		return InternalFrameworkFactory.createFramework();
+	static BaseFramework create() {
+		return InternalFrameworkFactory.createBaseFramework();
 	}
 
 	void dispose();

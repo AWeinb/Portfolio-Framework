@@ -1,13 +1,13 @@
 package de.axp.portfolio.vaadin.servlet;
 
 import com.vaadin.flow.server.SessionInitEvent;
-import de.axp.portfolio.framework.api.Framework;
+import de.axp.portfolio.framework.api.BaseFramework;
 
 class SessionInitListener implements com.vaadin.flow.server.SessionInitListener {
 
-	private final Framework framework;
+	private final BaseFramework framework;
 
-	SessionInitListener(Framework framework) {
+	SessionInitListener(BaseFramework framework) {
 		this.framework = framework;
 	}
 

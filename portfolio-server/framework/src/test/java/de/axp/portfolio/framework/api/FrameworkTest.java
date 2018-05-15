@@ -14,7 +14,7 @@ public class FrameworkTest {
 
 	@Test
 	public void testAll() throws Exception {
-		Framework framework = Framework.create();
+		BaseFramework framework = BaseFramework.create();
 
 		SessionFramework sessionFramework = framework.adaptForSession("123");
 		sessionFramework.getFrameworkSessionInterface().initializeSession();
