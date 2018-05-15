@@ -16,7 +16,9 @@ public class FrameworkTest {
 	public void testAll() throws Exception {
 		BaseFramework framework = BaseFramework.create();
 
-		AuthenticatedFramework sessionFramework = framework.authenticate();
+		BaseFramework.Authentication authentication = new BaseFramework.Authentication() {
+		};
+		AuthenticatedFramework sessionFramework = framework.authenticate(authentication);
 		sessionFramework.getFrameworkSessionInterface().initializeSession();
 		FrameworkEventInterface frameworkEventInterface = sessionFramework.getFrameworkEventInterface();
 		frameworkEventInterface.addEventConsumer(getCommandHandler());

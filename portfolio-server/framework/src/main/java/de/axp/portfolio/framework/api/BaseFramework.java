@@ -10,5 +10,9 @@ public interface BaseFramework {
 
 	void dispose();
 
-	AuthenticatedFramework authenticate();
+	AuthenticatedFramework authenticate(Authentication authentication);
+
+	interface Authentication {
+
+	}
 }
