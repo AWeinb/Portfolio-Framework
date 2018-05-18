@@ -7,14 +7,10 @@ public interface AuthenticatedFramework {
 
 	void dispose();
 
-	SessionId getSessionId();
+	FrameworkSession getSession();
 
 	FrameworkSessionInterface getFrameworkSessionInterface();
 
 	FrameworkEventInterface getFrameworkEventInterface();
-
-	interface SessionId {
-
-	}
 
 }

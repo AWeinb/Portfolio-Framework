@@ -1,6 +1,7 @@
 package de.axp.portfolio.framework.internal;
 
 import de.axp.portfolio.framework.api.AuthenticatedFramework;
+import de.axp.portfolio.framework.api.FrameworkSession;
 import de.axp.portfolio.framework.api.GlobalFramework;
 import de.axp.portfolio.framework.internal.service.ServiceRegistry;
 
@@ -12,7 +13,7 @@ public class InternalFactory {
 
 	static AuthenticatedFramework createAuthenticatedFramework(GlobalFramework framework,
 	                                                           ServiceRegistry serviceRegistry,
-	                                                           AuthenticatedFramework.SessionId sessionId) {
-		return new AuthenticatedFrameworkImpl(framework, serviceRegistry, sessionId);
+	                                                           FrameworkSession session) {
+		return new AuthenticatedFrameworkImpl(framework, serviceRegistry, session);
 	}
 }

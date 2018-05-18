@@ -1,6 +1,7 @@
 package de.axp.portfolio.framework.internal;
 
 import de.axp.portfolio.framework.api.FrameworkAuthentication;
+import de.axp.portfolio.framework.api.FrameworkSession;
 import de.axp.portfolio.framework.api.GlobalFramework;
 import de.axp.portfolio.framework.api.AuthenticatedFramework;
 import de.axp.portfolio.framework.internal.mainloop.MainLoop;
@@ -26,13 +27,13 @@ class GlobalFrameworkImpl implements GlobalFramework {
 
 	@Override
 	public AuthenticatedFramework authenticate(FrameworkAuthentication authentication) {
-		AuthenticatedFramework.SessionId sessionId = new AuthenticatedFramework.SessionId() {
+		FrameworkSession session = new FrameworkSession() {
 		};
-		return InternalFactory.createAuthenticatedFramework(this, serviceRegistry, sessionId);
+		return InternalFactory.createAuthenticatedFramework(this, serviceRegistry, session);
 	}
 
 	@Override
-	public void invalidate(AuthenticatedFramework.SessionId sessionId) {
+	public void invalidate(FrameworkSession session) {
 
 	}
 }
