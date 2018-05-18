@@ -1,40 +1,24 @@
 package de.axp.portfolio.framework.internal.service;
 
-import de.axp.portfolio.framework.internal.mainloop.MainLoop;
-import de.axp.portfolio.framework.internal.service.event.EventService;
-import de.axp.portfolio.framework.internal.service.event.EventServiceFactory;
-import de.axp.portfolio.framework.internal.service.session.SessionFactory;
-import de.axp.portfolio.framework.internal.service.session.SessionService;
-
-import java.util.HashMap;
 import java.util.Map;
 
 class ServiceRegistryImpl implements ServiceRegistry {
 
-	private Map<Class, InternalFrameworkService> internalFrameworkServices = new HashMap<>();
+	private final Map<Class, InternalFrameworkService> serviceMap;
 
-	ServiceRegistryImpl(MainLoop mainLoop) {
-		internalFrameworkServices.put(EventService.class, getEventService(mainLoop));
-		internalFrameworkServices.put(SessionService.class, getSessionService());
+	ServiceRegistryImpl(Map<Class, InternalFrameworkService> serviceMap) {
+		this.serviceMap = serviceMap;
 	}
 
 	@Override
 	public InternalFrameworkService get(Class serviceClass) {
-		return internalFrameworkServices.get(serviceClass);
+		return serviceMap.get(serviceClass);
 	}
 
 	@Override
 	public void disposeAll() {
-		for (InternalFrameworkService internalFrameworkService : internalFrameworkServices.values()) {
+		for (InternalFrameworkService internalFrameworkService : serviceMap.values()) {
 			internalFrameworkService.dispose();
 		}
-	}
-
-	private EventService getEventService(MainLoop mainLoop) {
-		return EventServiceFactory.createEventService(mainLoop);
-	}
-
-	private SessionService getSessionService() {
-		return SessionFactory.createSessionService();
 	}
 }
