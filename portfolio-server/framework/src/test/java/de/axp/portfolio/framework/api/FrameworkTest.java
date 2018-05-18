@@ -14,9 +14,9 @@ public class FrameworkTest {
 
 	@Test
 	public void testAll() throws Exception {
-		BaseFramework framework = BaseFramework.create();
+		GlobalFramework framework = GlobalFramework.create();
 
-		BaseFramework.Authentication authentication = new BaseFramework.Authentication() {
+		GlobalFramework.Authentication authentication = new GlobalFramework.Authentication() {
 		};
 		AuthenticatedFramework sessionFramework = framework.authenticate(authentication);
 		sessionFramework.getFrameworkSessionInterface().initializeSession();

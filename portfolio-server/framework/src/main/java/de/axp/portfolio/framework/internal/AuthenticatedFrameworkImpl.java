@@ -1,7 +1,7 @@
 package de.axp.portfolio.framework.internal;
 
 import de.axp.portfolio.framework.api.AuthenticatedFramework;
-import de.axp.portfolio.framework.api.BaseFramework;
+import de.axp.portfolio.framework.api.GlobalFramework;
 import de.axp.portfolio.framework.api.FrameworkPromise;
 import de.axp.portfolio.framework.api.interfaces.FrameworkEventInterface;
 import de.axp.portfolio.framework.api.interfaces.FrameworkSessionInterface;
@@ -13,11 +13,11 @@ import static de.axp.portfolio.framework.internal.service.event.EventService.Eve
 
 class AuthenticatedFrameworkImpl implements AuthenticatedFramework, FrameworkEventInterface, FrameworkSessionInterface {
 
-	private final BaseFramework framework;
+	private final GlobalFramework framework;
 	private final ServiceRegistry serviceRegistry;
 	private final SessionId sessionId;
 
-	AuthenticatedFrameworkImpl(BaseFramework framework, ServiceRegistry serviceRegistry, SessionId sessionId) {
+	AuthenticatedFrameworkImpl(GlobalFramework framework, ServiceRegistry serviceRegistry, SessionId sessionId) {
 		this.framework = framework;
 		this.serviceRegistry = serviceRegistry;
 		this.sessionId = sessionId;

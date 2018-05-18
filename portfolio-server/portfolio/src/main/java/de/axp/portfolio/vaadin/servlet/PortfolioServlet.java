@@ -1,7 +1,7 @@
 package de.axp.portfolio.vaadin.servlet;
 
 import com.vaadin.flow.server.VaadinServlet;
-import de.axp.portfolio.framework.api.BaseFramework;
+import de.axp.portfolio.framework.api.GlobalFramework;
 
 import javax.servlet.ServletException;
 
@@ -11,7 +11,7 @@ public class PortfolioServlet extends VaadinServlet {
 	protected void servletInitialized() throws ServletException {
 		super.servletInitialized();
 
-		BaseFramework framework = BaseFramework.create();
+		GlobalFramework framework = GlobalFramework.create();
 		getService().addSessionInitListener(new SessionInitListener(framework));
 		getService().addSessionDestroyListener(new SessionDestroyListener(framework));
 	}

@@ -1,18 +1,18 @@
 package de.axp.portfolio.framework.internal;
 
+import de.axp.portfolio.framework.api.GlobalFramework;
 import de.axp.portfolio.framework.api.AuthenticatedFramework;
-import de.axp.portfolio.framework.api.BaseFramework;
 import de.axp.portfolio.framework.internal.mainloop.MainLoop;
 import de.axp.portfolio.framework.internal.mainloop.MainLoopFactory;
 import de.axp.portfolio.framework.internal.service.ServiceFactory;
 import de.axp.portfolio.framework.internal.service.ServiceRegistry;
 
-class BaseFrameworkImpl implements BaseFramework {
+class GlobalFrameworkImpl implements GlobalFramework {
 
 	private final MainLoop mainLoop;
 	private final ServiceRegistry serviceRegistry;
 
-	BaseFrameworkImpl() {
+	GlobalFrameworkImpl() {
 		mainLoop = MainLoopFactory.createMainLoop();
 		serviceRegistry = ServiceFactory.createServiceRegistry(mainLoop);
 	}
@@ -27,6 +27,6 @@ class BaseFrameworkImpl implements BaseFramework {
 	public AuthenticatedFramework authenticate(Authentication authentication) {
 		AuthenticatedFramework.SessionId sessionId = new AuthenticatedFramework.SessionId() {
 		};
-		return InternalFrameworkFactory.createAuthenticatedFramework(this, serviceRegistry, sessionId);
+		return InternalFactory.createAuthenticatedFramework(this, serviceRegistry, sessionId);
 	}
 }
