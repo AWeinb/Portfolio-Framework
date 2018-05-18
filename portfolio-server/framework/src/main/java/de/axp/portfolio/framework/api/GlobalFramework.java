@@ -8,8 +8,10 @@ public interface GlobalFramework {
 		return InternalFactory.createFramework();
 	}
 
+	void dispose();
+
 	AuthenticatedFramework authenticate(FrameworkAuthentication authentication);
 
-	void dispose();
+	void invalidate(AuthenticatedFramework.SessionId sessionId);
 
 }

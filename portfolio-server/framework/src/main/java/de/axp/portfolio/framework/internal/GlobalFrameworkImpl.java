@@ -30,4 +30,9 @@ class GlobalFrameworkImpl implements GlobalFramework {
 		};
 		return InternalFactory.createAuthenticatedFramework(this, serviceRegistry, sessionId);
 	}
+
+	@Override
+	public void invalidate(AuthenticatedFramework.SessionId sessionId) {
+
+	}
 }
