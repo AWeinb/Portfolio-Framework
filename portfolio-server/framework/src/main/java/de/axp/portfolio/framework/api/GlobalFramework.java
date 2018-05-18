@@ -8,11 +8,8 @@ public interface GlobalFramework {
 		return InternalFactory.createFramework();
 	}
 
+	AuthenticatedFramework authenticate(FrameworkAuthentication authentication);
+
 	void dispose();
 
-	AuthenticatedFramework authenticate(Authentication authentication);
-
-	interface Authentication {
-
-	}
 }
