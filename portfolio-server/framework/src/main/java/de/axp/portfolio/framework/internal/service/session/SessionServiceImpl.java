@@ -1,7 +1,6 @@
 package de.axp.portfolio.framework.internal.service.session;
 
 import de.axp.portfolio.framework.api.FrameworkAuthentication;
-import de.axp.portfolio.framework.api.FrameworkException;
 import de.axp.portfolio.framework.api.FrameworkSession;
 
 import java.util.HashSet;
@@ -30,28 +29,11 @@ class SessionServiceImpl implements SessionService {
 	}
 
 	@Override
-	public void checkID(String sessionId) {
-		if (!sessionIds.contains(sessionId)) {
-			throw new FrameworkSessionIsUnknownException(sessionId);
-		}
+	public void checkSession(FrameworkSession session) {
 	}
 
 	@Override
 	public int getActiveSessions() {
 		return sessionIds.size();
-	}
-
-	public class FrameworkSessionIsUnknownException extends FrameworkException {
-
-		private final String sessionId;
-
-		public FrameworkSessionIsUnknownException(String sessionId) {
-			this.sessionId = sessionId;
-		}
-
-		@Override
-		public String getMessage() {
-			return "Session ID is unknown! [" + sessionId + "]";
-		}
 	}
 }

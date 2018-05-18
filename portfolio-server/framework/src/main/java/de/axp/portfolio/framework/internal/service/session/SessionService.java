@@ -10,7 +10,7 @@ public interface SessionService extends InternalFrameworkService {
 
 	void invalidateSession(FrameworkSession session);
 
-	void checkID(String sessionId);
+	void checkSession(FrameworkSession session);
 
 	int getActiveSessions();
 }

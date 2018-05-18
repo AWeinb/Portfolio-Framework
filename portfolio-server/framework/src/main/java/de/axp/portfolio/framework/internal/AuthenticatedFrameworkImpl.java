@@ -46,7 +46,7 @@ class AuthenticatedFrameworkImpl implements AuthenticatedFramework, FrameworkEve
 	@Override
 	public void addEventConsumerForContext(String context, EventService.EventConsumer eventConsumer) {
 		SessionService sessionService = (SessionService) serviceRegistry.get(SessionService.class);
-		sessionService.checkID(session.toString());
+		sessionService.checkSession(session);
 
 		EventService eventService = (EventService) serviceRegistry.get(EventService.class);
 		eventService.addEventConsumer(session.toString(), context, eventConsumer);
@@ -60,7 +60,7 @@ class AuthenticatedFrameworkImpl implements AuthenticatedFramework, FrameworkEve
 	@Override
 	public void dispatchEventInContext(String context, String eventID, Object content, FrameworkPromise promise) {
 		SessionService sessionService = (SessionService) serviceRegistry.get(SessionService.class);
-		sessionService.checkID(session.toString());
+		sessionService.checkSession(session);
 
 		Event event = Event.build(session.toString(), context, eventID, content, promise);
 		EventService eventService = (EventService) serviceRegistry.get(EventService.class);
