@@ -26,6 +26,10 @@ class SessionServiceImpl implements SessionService {
 	}
 
 	@Override
+	public void invalidateSession(FrameworkSession session) {
+	}
+
+	@Override
 	public void checkID(String sessionId) {
 		if (!sessionIds.contains(sessionId)) {
 			throw new FrameworkSessionIsUnknownException(sessionId);
@@ -35,11 +39,6 @@ class SessionServiceImpl implements SessionService {
 	@Override
 	public int getActiveSessions() {
 		return sessionIds.size();
-	}
-
-	@Override
-	public void disposeSession(String sessionId) {
-		sessionIds.remove(sessionId);
 	}
 
 	public class FrameworkSessionIsUnknownException extends FrameworkException {

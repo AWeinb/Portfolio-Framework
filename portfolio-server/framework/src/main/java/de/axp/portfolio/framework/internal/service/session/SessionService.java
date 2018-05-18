@@ -8,9 +8,9 @@ public interface SessionService extends InternalFrameworkService {
 
 	FrameworkSession initializeSession(FrameworkAuthentication authentication);
 
+	void invalidateSession(FrameworkSession session);
+
 	void checkID(String sessionId);
 
 	int getActiveSessions();
-
-	void disposeSession(String sessionId);
 }
