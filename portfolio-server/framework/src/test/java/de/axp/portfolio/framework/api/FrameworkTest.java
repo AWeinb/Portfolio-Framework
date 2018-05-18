@@ -9,17 +9,16 @@ import org.junit.Test;
 public class FrameworkTest {
 
 	@Before
-	public void setUp() throws Exception {
+	public void setUp() {
 	}
 
 	@Test
-	public void testAll() throws Exception {
+	public void testAll() {
 		GlobalFramework framework = GlobalFramework.create();
 
 		FrameworkAuthentication authentication = new FrameworkAuthentication() {
 		};
 		AuthenticatedFramework sessionFramework = framework.authenticate(authentication);
-		sessionFramework.getFrameworkSessionInterface().initializeSession();
 		FrameworkEventInterface frameworkEventInterface = sessionFramework.getFrameworkEventInterface();
 		frameworkEventInterface.addEventConsumer(getCommandHandler());
 

@@ -1,6 +1,8 @@
 package de.axp.portfolio.framework.internal.service.session;
 
+import de.axp.portfolio.framework.api.FrameworkAuthentication;
 import de.axp.portfolio.framework.api.FrameworkException;
+import de.axp.portfolio.framework.api.FrameworkSession;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -15,15 +17,12 @@ class SessionServiceImpl implements SessionService {
 	}
 
 	@Override
-	public void initializeSession(String sessionId) {
-		if (sessionId == null) {
+	public FrameworkSession initializeSession(FrameworkAuthentication authentication) {
+		if (authentication == null) {
 			throw new IllegalArgumentException();
 		}
-		if (sessionIds.contains(sessionId)) {
-			throw new FrameworkSessionAlreadyUsedException();
-		}
-
-		sessionIds.add(sessionId);
+		return new FrameworkSession() {
+		};
 	}
 
 	@Override
@@ -41,14 +40,6 @@ class SessionServiceImpl implements SessionService {
 	@Override
 	public void disposeSession(String sessionId) {
 		sessionIds.remove(sessionId);
-	}
-
-	public class FrameworkSessionAlreadyUsedException extends FrameworkException {
-
-		@Override
-		public String getMessage() {
-			return "Session ID is already in use!";
-		}
 	}
 
 	public class FrameworkSessionIsUnknownException extends FrameworkException {

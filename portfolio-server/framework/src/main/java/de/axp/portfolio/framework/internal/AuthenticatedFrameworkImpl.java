@@ -1,18 +1,17 @@
 package de.axp.portfolio.framework.internal;
 
 import de.axp.portfolio.framework.api.AuthenticatedFramework;
+import de.axp.portfolio.framework.api.FrameworkPromise;
 import de.axp.portfolio.framework.api.FrameworkSession;
 import de.axp.portfolio.framework.api.GlobalFramework;
-import de.axp.portfolio.framework.api.FrameworkPromise;
 import de.axp.portfolio.framework.api.interfaces.FrameworkEventInterface;
-import de.axp.portfolio.framework.api.interfaces.FrameworkSessionInterface;
 import de.axp.portfolio.framework.internal.service.ServiceRegistry;
 import de.axp.portfolio.framework.internal.service.event.EventService;
 import de.axp.portfolio.framework.internal.service.session.SessionService;
 
 import static de.axp.portfolio.framework.internal.service.event.EventService.Event;
 
-class AuthenticatedFrameworkImpl implements AuthenticatedFramework, FrameworkEventInterface, FrameworkSessionInterface {
+class AuthenticatedFrameworkImpl implements AuthenticatedFramework, FrameworkEventInterface {
 
 	private final GlobalFramework framework;
 	private final ServiceRegistry serviceRegistry;
@@ -32,11 +31,6 @@ class AuthenticatedFrameworkImpl implements AuthenticatedFramework, FrameworkEve
 	@Override
 	public FrameworkSession getSession() {
 		return session;
-	}
-
-	@Override
-	public FrameworkSessionInterface getFrameworkSessionInterface() {
-		return this;
 	}
 
 	@Override
@@ -75,24 +69,5 @@ class AuthenticatedFrameworkImpl implements AuthenticatedFramework, FrameworkEve
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
-	}
-
-	@Override
-	public void initializeSession() {
-		SessionService sessionService = (SessionService) serviceRegistry.get(SessionService.class);
-		sessionService.initializeSession(session.toString());
-	}
-
-	@Override
-	public boolean hasFrameworkActiveSessions() {
-		SessionService sessionService = (SessionService) serviceRegistry.get(SessionService.class);
-		return sessionService.getActiveSessions() != 0;
-	}
-
-	@Override
-	public void destroySession() {
-		SessionService sessionService = (SessionService) serviceRegistry.get(SessionService.class);
-		sessionService.checkID(session.toString());
-		sessionService.disposeSession(session.toString());
 	}
 }
