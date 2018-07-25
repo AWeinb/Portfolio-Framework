@@ -1,7 +1,6 @@
 package de.axp.portfolio.framework.api;
 
 import de.axp.portfolio.framework.api.interfaces.FrameworkEventInterface;
-import de.axp.portfolio.framework.internal.service.event.EventService;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -18,23 +17,26 @@ public class FrameworkTest {
 
 		AuthenticatedFramework sessionFramework = framework.authenticate("Hans");
 		FrameworkEventInterface frameworkEventInterface = sessionFramework.getFrameworkEventInterface();
-		frameworkEventInterface.addEventConsumer(getCommandHandler());
+		frameworkEventInterface.addListener(getSomeListener());
 
-		frameworkEventInterface.dispatchEvent("FutureCallback", "A",
-				FrameworkPromise.whenRejected(f -> Assert.assertEquals("A", f)));
+		frameworkEventInterface.fireEvent("FutureCallback", "A",
+				FrameworkEventInterface.EventPromise.builder().onRejection(f -> Assert.assertEquals("A", f)).build());
 
-		frameworkEventInterface.dispatchEvent("FutureCallback", "B",
-				FrameworkPromise.whenResolved(f -> Assert.assertEquals("B", f)));
+		frameworkEventInterface.fireEvent("FutureCallback", "B", (resolution, result) -> {
+			if (resolution == FrameworkEventInterface.EventPromise.EventPromiseResult.SUCCESS) {
+				Assert.assertEquals("B", result);
+			}
+		});
 
 		framework.shutdown();
 	}
 
-	private EventService.EventConsumer getCommandHandler() {
-		return event -> {
+	private FrameworkEventInterface.EventListener getSomeListener() {
+		return (event, answerPromise) -> {
 			if (event.getData().equals("A")) {
-				event.getPromise().ifPresent(e -> e.reject(event.getData()));
+				answerPromise.triggerFailure(event.getData());
 			} else {
-				event.getPromise().ifPresent(e -> e.resolve(event.getData()));
+				answerPromise.triggerSuccess(event.getData());
 			}
 		};
 	}

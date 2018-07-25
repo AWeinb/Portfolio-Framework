@@ -10,7 +10,7 @@ import static de.axp.portfolio.framework.internal.mainloop.MainLoop.MainLoopList
 
 class MainLoopWorker {
 
-	private static final MainLoopPackage POISON = new MainLoopPackage(null, MainLoopPackage.STATE.Poisoned);
+	private static final MainLoopPackage POISON = new MainLoopPackage(null, null, null, MainLoopPackage.STATE.Poisoned);
 
 	private final WorkerBuffer buffer = new WorkerBuffer();
 	private final Collection<MainLoopListener> listeners = Collections.synchronizedList(new LinkedList<>());

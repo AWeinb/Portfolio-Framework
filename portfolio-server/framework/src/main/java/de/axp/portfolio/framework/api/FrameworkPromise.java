@@ -1,45 +1,8 @@
 package de.axp.portfolio.framework.api;
 
-public class FrameworkPromise {
+public interface FrameworkPromise {
 
-	private FutureCallback resolve;
-	private FutureCallback reject;
-
-	public static FrameworkPromise whenResolved(FutureCallback callback) {
-		FrameworkPromise frameworkPromise = new FrameworkPromise();
-		frameworkPromise.resolve = callback;
-		return frameworkPromise;
-	}
-
-	public static FrameworkPromise whenRejected(FutureCallback callback) {
-		FrameworkPromise frameworkPromise = new FrameworkPromise();
-		frameworkPromise.reject = callback;
-		return frameworkPromise;
-	}
-
-	public FrameworkPromise orResolved(FutureCallback callback) {
-		this.resolve = callback;
-		return this;
-	}
-
-	public FrameworkPromise orRejected(FutureCallback callback) {
-		this.reject = callback;
-		return this;
-	}
-
-	public void resolve(Object future) {
-		if (resolve != null) {
-			resolve.execute(future);
-		}
-	}
-
-	public void reject(Object future) {
-		if (reject != null) {
-			reject.execute(future);
-		}
-	}
-
-	public interface FutureCallback {
+	interface FutureCallback {
 
 		void execute(Object future);
 	}
