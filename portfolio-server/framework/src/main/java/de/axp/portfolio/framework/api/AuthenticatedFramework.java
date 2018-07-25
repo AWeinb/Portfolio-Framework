@@ -4,10 +4,10 @@ import de.axp.portfolio.framework.api.interfaces.FrameworkEventInterface;
 
 public interface AuthenticatedFramework {
 
-	void dispose();
-
 	FrameworkSession getSession();
 
 	FrameworkEventInterface getFrameworkEventInterface();
+
+	void invalidate(FrameworkSession session);
 
 }

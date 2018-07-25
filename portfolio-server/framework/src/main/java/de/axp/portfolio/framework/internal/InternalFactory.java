@@ -11,9 +11,8 @@ public class InternalFactory {
 		return new GlobalFrameworkImpl();
 	}
 
-	static AuthenticatedFramework createAuthenticatedFramework(GlobalFramework framework,
-	                                                           ServiceRegistry serviceRegistry,
+	static AuthenticatedFramework createAuthenticatedFramework(ServiceRegistry serviceRegistry,
 	                                                           FrameworkSession session) {
-		return new AuthenticatedFrameworkImpl(framework, serviceRegistry, session);
+		return new AuthenticatedFrameworkImpl(serviceRegistry, session);
 	}
 }

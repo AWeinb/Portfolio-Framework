@@ -32,13 +32,6 @@ class GlobalFrameworkImpl implements GlobalFramework {
 		InternalFrameworkService internalFrameworkService = serviceRegistry.get(SessionService.class);
 		SessionService sessionService = (SessionService) internalFrameworkService;
 		FrameworkSession frameworkSession = sessionService.initializeSession(authentication);
-		return InternalFactory.createAuthenticatedFramework(this, serviceRegistry, frameworkSession);
-	}
-
-	@Override
-	public void invalidate(FrameworkSession session) {
-		InternalFrameworkService internalFrameworkService = serviceRegistry.get(SessionService.class);
-		SessionService sessionService = (SessionService) internalFrameworkService;
-		sessionService.invalidateSession(session);
+		return InternalFactory.createAuthenticatedFramework(serviceRegistry, frameworkSession);
 	}
 }

@@ -12,6 +12,4 @@ public interface GlobalFramework {
 
 	AuthenticatedFramework authenticate(FrameworkAuthentication authentication);
 
-	void invalidate(FrameworkSession session);
-
 }
