@@ -1,4 +1,4 @@
-package de.axp.portfolio.vaadin.servlet;
+package de.axp.portfolio.servlet;
 
 import com.vaadin.flow.server.VaadinServlet;
 import de.axp.portfolio.framework.api.GlobalFramework;

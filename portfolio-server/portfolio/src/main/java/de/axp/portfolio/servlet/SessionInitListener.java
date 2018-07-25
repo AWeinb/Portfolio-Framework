@@ -1,4 +1,4 @@
-package de.axp.portfolio.vaadin.servlet;
+package de.axp.portfolio.servlet;
 
 import com.vaadin.flow.server.SessionInitEvent;
 import de.axp.portfolio.framework.api.GlobalFramework;
@@ -13,5 +13,6 @@ class SessionInitListener implements com.vaadin.flow.server.SessionInitListener 
 
 	@Override
 	public void sessionInit(SessionInitEvent event) {
+		event.getSession().setAttribute(GlobalFramework.class.getSimpleName(), framework);
 	}
 }

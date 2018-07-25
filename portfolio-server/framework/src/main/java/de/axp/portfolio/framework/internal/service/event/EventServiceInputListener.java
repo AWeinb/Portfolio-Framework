@@ -39,14 +39,12 @@ class EventServiceInputListener implements MainLoop.MainLoopListener {
 
 	private FrameworkPromise createPromise(Event event) {
 		return FrameworkPromise.whenResolved(future -> {
-			Event response = Event.buildOneWay(event.getSessionId(), event.getContext(), event.getPackageId(),
-					event.getData());
+			Event response = Event.buildOneWay(event.getSessionId(), event.getContext(), event.getPackageId(), future);
 			MainLoopPackage aPackage = new MainLoopPackage(response, MainLoopPackage.STATE.Resolved);
 			outputBufferAccessor.put(aPackage);
 
 		}).orRejected(future -> {
-			Event response = Event.buildOneWay(event.getSessionId(), event.getContext(), event.getPackageId(),
-					event.getData());
+			Event response = Event.buildOneWay(event.getSessionId(), event.getContext(), event.getPackageId(), future);
 			MainLoopPackage aPackage = new MainLoopPackage(response, MainLoopPackage.STATE.Rejected);
 			outputBufferAccessor.put(aPackage);
 		});
