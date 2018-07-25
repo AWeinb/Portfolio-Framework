@@ -1,7 +1,7 @@
 package de.axp.portfolio.framework.internal.service.session;
 
-import de.axp.portfolio.framework.api.FrameworkAuthentication;
 import de.axp.portfolio.framework.api.FrameworkSession;
+import de.axp.portfolio.framework.internal.authentication.Authentication;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -16,7 +16,7 @@ class SessionServiceImpl implements SessionService {
 	}
 
 	@Override
-	public FrameworkSession initializeSession(FrameworkAuthentication authentication) {
+	public FrameworkSession initializeSession(Authentication authentication) {
 		if (authentication == null) {
 			throw new IllegalArgumentException();
 		}

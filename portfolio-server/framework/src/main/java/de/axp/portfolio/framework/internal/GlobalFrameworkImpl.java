@@ -1,9 +1,9 @@
 package de.axp.portfolio.framework.internal;
 
 import de.axp.portfolio.framework.api.AuthenticatedFramework;
-import de.axp.portfolio.framework.api.FrameworkAuthentication;
 import de.axp.portfolio.framework.api.FrameworkSession;
 import de.axp.portfolio.framework.api.GlobalFramework;
+import de.axp.portfolio.framework.internal.authentication.Authentication;
 import de.axp.portfolio.framework.internal.mainloop.MainLoop;
 import de.axp.portfolio.framework.internal.mainloop.MainLoopFactory;
 import de.axp.portfolio.framework.internal.service.InternalFrameworkService;
@@ -28,9 +28,10 @@ class GlobalFrameworkImpl implements GlobalFramework {
 	}
 
 	@Override
-	public AuthenticatedFramework authenticate(FrameworkAuthentication authentication) {
+	public AuthenticatedFramework authenticate(String username) {
 		InternalFrameworkService internalFrameworkService = serviceRegistry.get(SessionService.class);
 		SessionService sessionService = (SessionService) internalFrameworkService;
+		Authentication authentication = new Authentication(username);
 		FrameworkSession frameworkSession = sessionService.initializeSession(authentication);
 		return InternalFactory.createAuthenticatedFramework(serviceRegistry, frameworkSession);
 	}

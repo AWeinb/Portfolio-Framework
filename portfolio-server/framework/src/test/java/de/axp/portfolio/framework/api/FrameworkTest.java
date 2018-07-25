@@ -16,9 +16,7 @@ public class FrameworkTest {
 	public void testAll() {
 		GlobalFramework framework = GlobalFramework.create();
 
-		FrameworkAuthentication authentication = new FrameworkAuthentication() {
-		};
-		AuthenticatedFramework sessionFramework = framework.authenticate(authentication);
+		AuthenticatedFramework sessionFramework = framework.authenticate("Hans");
 		FrameworkEventInterface frameworkEventInterface = sessionFramework.getFrameworkEventInterface();
 		frameworkEventInterface.addEventConsumer(getCommandHandler());
 

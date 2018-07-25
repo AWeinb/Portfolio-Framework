@@ -8,7 +8,7 @@ public interface GlobalFramework {
 		return InternalFactory.createFramework();
 	}
 
-	AuthenticatedFramework authenticate(FrameworkAuthentication authentication);
+	AuthenticatedFramework authenticate(String user);
 
 	void shutdown();
 
