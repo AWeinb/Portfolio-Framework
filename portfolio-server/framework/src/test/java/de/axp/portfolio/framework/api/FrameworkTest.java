@@ -28,7 +28,7 @@ public class FrameworkTest {
 		frameworkEventInterface.dispatchEvent("FutureCallback", "B",
 				FrameworkPromise.whenResolved(f -> Assert.assertEquals("B", f)));
 
-		framework.dispose();
+		framework.shutdown();
 	}
 
 	private EventService.EventConsumer getCommandHandler() {

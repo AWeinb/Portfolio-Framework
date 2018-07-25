@@ -22,7 +22,7 @@ class GlobalFrameworkImpl implements GlobalFramework {
 	}
 
 	@Override
-	public void dispose() {
+	public void shutdown() {
 		serviceRegistry.disposeAll();
 		mainLoop.dispose();
 	}
