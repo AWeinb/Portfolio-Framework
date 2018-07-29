@@ -25,7 +25,7 @@ class AuthenticatedFrameworkImpl implements AuthenticatedFramework, TaskServiceI
 	}
 
 	@Override
-	public TaskServiceInterface getFrameworkEventInterface() {
+	public TaskServiceInterface getFrameworkTaskService() {
 		return this;
 	}
 
@@ -37,31 +37,31 @@ class AuthenticatedFrameworkImpl implements AuthenticatedFramework, TaskServiceI
 	}
 
 	@Override
-	public void addHandler(TaskHandler taskHandler) {
-		addHandler("", taskHandler);
+	public void addTaskHandler(TaskHandler taskHandler) {
+		addTaskHandler("", taskHandler);
 	}
 
 	@Override
-	public void addHandler(String context, TaskHandler taskHandler) {
+	public void addTaskHandler(String contextId, TaskHandler taskHandler) {
 		SessionService sessionService = (SessionService) serviceRegistry.get(SessionService.class);
 		sessionService.checkSession(session);
 
-		TaskService listenerService = (TaskService) serviceRegistry.get(TaskService.class);
-		listenerService.register(session.toString(), context, taskHandler);
+		TaskService taskService = (TaskService) serviceRegistry.get(TaskService.class);
+		taskService.register(session.toString(), contextId, taskHandler);
 	}
 
 	@Override
-	public void triggerTask(String eventID, Object content, TaskPromise promise) {
-		triggerTask("", eventID, content, promise);
+	public void triggerTask(String taskId, Object content, TaskPromise promise) {
+		triggerTask("", taskId, content, promise);
 	}
 
 	@Override
-	public void triggerTask(String context, String eventID, Object content, TaskPromise promise) {
+	public void triggerTask(String contextId, String taskId, Object content, TaskPromise promise) {
 		SessionService sessionService = (SessionService) serviceRegistry.get(SessionService.class);
 		sessionService.checkSession(session);
 
-		Task event = Task.build(eventID, content);
-		TaskService eventService = (TaskService) serviceRegistry.get(TaskService.class);
-		eventService.trigger(session.toString(), context, event, promise);
+		Task task = Task.build(taskId, content);
+		TaskService taskService = (TaskService) serviceRegistry.get(TaskService.class);
+		taskService.trigger(session.toString(), contextId, task, promise);
 	}
 }

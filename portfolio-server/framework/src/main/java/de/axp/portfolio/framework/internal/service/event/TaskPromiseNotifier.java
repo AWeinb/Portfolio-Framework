@@ -12,40 +12,24 @@ class TaskPromiseNotifier implements MainLoop.MainLoopListener {
 
 	private final Map<String, TaskPromise> taskPromises = Collections.synchronizedMap(new HashMap<>());
 
-	void registerPromise(String sessionId, String taskId, TaskPromise promise) {
-		taskPromises.put(getKey(sessionId, taskId), promise);
+	void registerPromise(String sessionId, String contextId, String taskId, TaskPromise promise) {
+		taskPromises.put(getKey(sessionId, contextId, taskId), promise);
 	}
 
 	@Override
 	public void notify(MainLoopPackage aPackage) {
-		if (aPackage.getState() == MainLoopPackage.STATE.Poisoned) {
-			return;
-		}
-
 		Notification response = (Notification) aPackage.getPayload();
 		String sessionId = aPackage.getSessionId();
-		String id = response.getId();
-		TaskPromise promise = taskPromises.remove(getKey(sessionId, id));
+		String contextId = aPackage.getContextId();
+		String taskId = response.getTaskId();
+		TaskPromise promise = taskPromises.remove(getKey(sessionId, contextId, taskId));
 
 		if (promise != null) {
-			mapPackageStateToPromise(aPackage, response.getData(), promise);
+			promise.on(response.getResolution(), response.getContent());
 		}
 	}
 
-	private String getKey(String sessionId, String packageId) {
-		return sessionId + "_" + packageId;
-	}
-
-	private void mapPackageStateToPromise(MainLoopPackage aPackage, Object responseData, TaskPromise promise) {
-		switch (aPackage.getState()) {
-			case Resolved:
-				promise.on(TaskPromise.TaskResult.SUCCESS, responseData);
-				break;
-			case Rejected:
-				promise.on(TaskPromise.TaskResult.REJECTION, responseData);
-				break;
-			case Unknown:
-				break;
-		}
+	private String getKey(String sessionId, String contextId, String taskId) {
+		return sessionId + "_" + contextId + "_" + taskId;
 	}
 }

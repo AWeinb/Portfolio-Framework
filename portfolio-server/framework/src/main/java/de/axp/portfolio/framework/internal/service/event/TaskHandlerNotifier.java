@@ -1,6 +1,6 @@
 package de.axp.portfolio.framework.internal.service.event;
 
-import de.axp.portfolio.framework.api.FrameworkPromise.FutureCallback;
+import de.axp.portfolio.framework.api.interfaces.TaskServiceInterface;
 import de.axp.portfolio.framework.api.interfaces.TaskServiceInterface.TaskHandler;
 import de.axp.portfolio.framework.internal.mainloop.MainLoop;
 import de.axp.portfolio.framework.internal.mainloop.MainLoopPackage;
@@ -8,8 +8,6 @@ import de.axp.portfolio.framework.internal.mainloop.MainLoopPackage;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
-
-import static de.axp.portfolio.framework.api.interfaces.TaskServiceInterface.TaskHandler.ResultCallback;
 
 class TaskHandlerNotifier implements MainLoop.MainLoopListener {
 
@@ -29,49 +27,20 @@ class TaskHandlerNotifier implements MainLoop.MainLoopListener {
 
 	@Override
 	public void notify(MainLoopPackage aPackage) {
-		if (aPackage.getState() == MainLoopPackage.STATE.Poisoned) {
-			return;
-		}
-
 		Task task = (Task) aPackage.getPayload();
 		String sessionId = aPackage.getSessionId();
-		String context = aPackage.getContext();
-		String id = task.getId();
+		String contextId = aPackage.getContextId();
+		String taskId = task.getTaskId();
 
-		FutureCallback succeed = future -> makePackage(sessionId, context, id, future, MainLoopPackage.STATE.Resolved);
-		FutureCallback fail = future -> makePackage(sessionId, context, id, future, MainLoopPackage.STATE.Rejected);
-		ResultCallback answerCallback = new ResultCallbackImpl(succeed, fail);
+		TaskServiceInterface.TaskPromise callback = (resolution, result) -> {
+			Notification response = Notification.build(taskId, resolution, result);
+			MainLoopPackage packedResponse = new MainLoopPackage(sessionId, contextId, response);
+			outputBufferAccessor.put(packedResponse);
+		};
 
 		Map<String, TaskHandler> handlerMap = handlers.get(aPackage.getSessionId());
-		TaskHandler handler = handlerMap.get(aPackage.getContext());
-		handler.handle(task, answerCallback);
+		TaskHandler handler = handlerMap.get(aPackage.getContextId());
+		handler.handle(task, callback);
 	}
 
-	private void makePackage(String sessionId, String context, String id, Object future,
-	                         MainLoopPackage.STATE resolved) {
-		Notification response = Notification.build(id, future);
-		MainLoopPackage packedResponse = new MainLoopPackage(sessionId, context, response, resolved);
-		outputBufferAccessor.put(packedResponse);
-	}
-
-	class ResultCallbackImpl implements ResultCallback {
-
-		private final FutureCallback successCallback;
-		private final FutureCallback failureCallback;
-
-		ResultCallbackImpl(FutureCallback successCallback, FutureCallback failureCallback) {
-			this.successCallback = successCallback;
-			this.failureCallback = failureCallback;
-		}
-
-		@Override
-		public void triggerSuccess(Object result) {
-			successCallback.execute(result);
-		}
-
-		@Override
-		public void triggerFailure(Object result) {
-			failureCallback.execute(result);
-		}
-	}
 }

@@ -6,7 +6,7 @@ public interface AuthenticatedFramework {
 
 	FrameworkSession getSession();
 
-	TaskServiceInterface getFrameworkEventInterface();
+	TaskServiceInterface getFrameworkTaskService();
 
 	void invalidate(FrameworkSession session);
 

@@ -1,43 +1,33 @@
 package de.axp.portfolio.framework.api.interfaces;
 
 import de.axp.portfolio.framework.api.FrameworkExternalHandler;
-import de.axp.portfolio.framework.api.FrameworkPromise;
 import de.axp.portfolio.framework.internal.service.event.Task;
-import de.axp.portfolio.framework.internal.service.event.TaskPromiseBuilder;
 
 public interface TaskServiceInterface {
 
-	void addHandler(TaskHandler taskHandler);
+	void addTaskHandler(TaskHandler taskHandler);
 
-	void addHandler(String context, TaskHandler taskHandler);
+	void addTaskHandler(String contextId, TaskHandler taskHandler);
 
-	void triggerTask(String eventID, Object content, TaskPromise promise);
+	void triggerTask(String taskId, Object content, TaskPromise promise);
 
-	void triggerTask(String context, String eventID, Object content, TaskPromise promise);
+	void triggerTask(String contextId, String taskId, Object content, TaskPromise promise);
+
+	enum TaskResolution {
+		RESOLVED, REJECTED
+	}
 
 	@FunctionalInterface
 	interface TaskHandler extends FrameworkExternalHandler {
 
-		void handle(Task event, ResultCallback answer);
+		void handle(Task event, TaskPromise answer);
 
-		interface ResultCallback extends FrameworkPromise {
-
-			void triggerSuccess(Object result);
-
-			void triggerFailure(Object result);
-		}
 	}
 
-	interface TaskPromise extends FrameworkPromise {
+	@FunctionalInterface
+	interface TaskPromise {
 
-		static TaskPromiseBuilder builder() {
-			return new TaskPromiseBuilder();
-		}
+		void on(TaskResolution resolution, Object content);
 
-		void on(TaskResult resolution, Object result);
-
-		enum TaskResult {
-			SUCCESS, REJECTION
-		}
 	}
 }

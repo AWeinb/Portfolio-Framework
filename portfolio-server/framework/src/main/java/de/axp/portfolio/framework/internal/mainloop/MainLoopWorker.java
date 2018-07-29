@@ -10,7 +10,7 @@ import static de.axp.portfolio.framework.internal.mainloop.MainLoop.MainLoopList
 
 class MainLoopWorker {
 
-	private static final MainLoopPackage POISON = new MainLoopPackage(null, null, null, MainLoopPackage.STATE.Poisoned);
+	private static final MainLoopPackage POISON = new MainLoopPackage(null, null, null);
 
 	private final WorkerBuffer buffer = new WorkerBuffer();
 	private final Collection<MainLoopListener> listeners = Collections.synchronizedList(new LinkedList<>());
@@ -50,8 +50,10 @@ class MainLoopWorker {
 				currentThreadPackage = POISON;
 				handleException(e);
 			} finally {
-				for (MainLoopListener listener : listeners) {
-					listener.notify(currentThreadPackage);
+				if (currentThreadPackage != POISON) {
+					for (MainLoopListener listener : listeners) {
+						listener.notify(currentThreadPackage);
+					}
 				}
 			}
 		}

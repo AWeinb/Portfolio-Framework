@@ -16,14 +16,17 @@ public class FrameworkTest {
 		GlobalFramework framework = GlobalFramework.create();
 
 		AuthenticatedFramework sessionFramework = framework.authenticate("Hans");
-		TaskServiceInterface frameworkEventInterface = sessionFramework.getFrameworkEventInterface();
-		frameworkEventInterface.addHandler(getSomeListener());
+		TaskServiceInterface frameworkEventInterface = sessionFramework.getFrameworkTaskService();
+		frameworkEventInterface.addTaskHandler(getSomeListener());
 
-		frameworkEventInterface.triggerTask("FutureCallback", "A",
-				TaskServiceInterface.TaskPromise.builder().onRejection(f -> Assert.assertEquals("A", f)).build());
+		frameworkEventInterface.triggerTask("FutureCallback", "A", (resolution, result) -> {
+			if (resolution == TaskServiceInterface.TaskResolution.REJECTED) {
+				Assert.assertEquals("A", result);
+			}
+		});
 
 		frameworkEventInterface.triggerTask("FutureCallback", "B", (resolution, result) -> {
-			if (resolution == TaskServiceInterface.TaskPromise.TaskResult.SUCCESS) {
+			if (resolution == TaskServiceInterface.TaskResolution.RESOLVED) {
 				Assert.assertEquals("B", result);
 			}
 		});
@@ -33,10 +36,10 @@ public class FrameworkTest {
 
 	private TaskServiceInterface.TaskHandler getSomeListener() {
 		return (event, answerPromise) -> {
-			if (event.getData().equals("A")) {
-				answerPromise.triggerFailure(event.getData());
+			if (event.getContent().equals("A")) {
+				answerPromise.on(TaskServiceInterface.TaskResolution.REJECTED, event.getContent());
 			} else {
-				answerPromise.triggerSuccess(event.getData());
+				answerPromise.on(TaskServiceInterface.TaskResolution.RESOLVED, event.getContent());
 			}
 		};
 	}

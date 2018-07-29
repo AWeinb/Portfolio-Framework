@@ -2,21 +2,21 @@ package de.axp.portfolio.framework.internal.service.event;
 
 class TaskImpl implements Task {
 
-	private final String id;
+	private final String taskId;
 	private final Object content;
 
-	TaskImpl(String id, Object content) {
-		this.id = id;
+	TaskImpl(String taskId, Object content) {
+		this.taskId = taskId;
 		this.content = content;
 	}
 
 	@Override
-	public String getId() {
-		return id;
+	public String getTaskId() {
+		return taskId;
 	}
 
 	@Override
-	public Object getData() {
+	public Object getContent() {
 		return content;
 	}
 }

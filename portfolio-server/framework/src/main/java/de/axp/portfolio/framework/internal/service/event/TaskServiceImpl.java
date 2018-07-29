@@ -36,13 +36,13 @@ public class TaskServiceImpl implements MainLoop.MainLoopPlugin, TaskService {
 	}
 
 	@Override
-	public void register(String sessionId, String context, TaskHandler handler) {
-		handlerNotifier.addListener(sessionId, context, handler);
+	public void register(String sessionId, String contextId, TaskHandler handler) {
+		handlerNotifier.addListener(sessionId, contextId, handler);
 	}
 
 	@Override
-	public void trigger(String sessionId, String context, Task task, TaskServiceInterface.TaskPromise promise) {
-		promiseNotifier.registerPromise(sessionId, task.getId(), promise);
-		inputBufferAccessor.put(new MainLoopPackage(sessionId, context, task, MainLoopPackage.STATE.Unknown));
+	public void trigger(String sessionId, String contextId, Task task, TaskServiceInterface.TaskPromise promise) {
+		promiseNotifier.registerPromise(sessionId, contextId, task.getTaskId(), promise);
+		inputBufferAccessor.put(new MainLoopPackage(sessionId, contextId, task));
 	}
 }
