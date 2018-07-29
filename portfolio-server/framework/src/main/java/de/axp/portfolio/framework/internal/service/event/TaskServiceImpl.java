@@ -1,5 +1,6 @@
 package de.axp.portfolio.framework.internal.service.event;
 
+import de.axp.portfolio.framework.api.UserSessionAccessor;
 import de.axp.portfolio.framework.api.interfaces.TaskServiceInterface;
 import de.axp.portfolio.framework.api.interfaces.TaskServiceInterface.TaskHandler;
 import de.axp.portfolio.framework.internal.mainloop.MainLoop;
@@ -33,6 +34,11 @@ public class TaskServiceImpl implements MainLoop.MainLoopPlugin, TaskService {
 	@Override
 	public MainLoop.MainLoopListener getOutputListener() {
 		return promiseNotifier;
+	}
+
+	@Override
+	public void setUserSessionAccessor(UserSessionAccessor accessor) {
+		promiseNotifier.setUserSessionAccessor(accessor);
 	}
 
 	@Override

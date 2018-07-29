@@ -1,5 +1,6 @@
 package de.axp.portfolio.framework.internal.service.event;
 
+import de.axp.portfolio.framework.api.UserSessionAccessor;
 import de.axp.portfolio.framework.api.interfaces.TaskServiceInterface.TaskPromise;
 import de.axp.portfolio.framework.internal.mainloop.MainLoop;
 import de.axp.portfolio.framework.internal.mainloop.MainLoopPackage;
@@ -11,9 +12,14 @@ import java.util.Map;
 class TaskPromiseNotifier implements MainLoop.MainLoopListener {
 
 	private final Map<String, TaskPromise> taskPromises = Collections.synchronizedMap(new HashMap<>());
+	private UserSessionAccessor sessionAccessor;
 
 	void registerPromise(String sessionId, String contextId, String taskId, TaskPromise promise) {
 		taskPromises.put(getKey(sessionId, contextId, taskId), promise);
+	}
+
+	void setUserSessionAccessor(UserSessionAccessor sessionAccessor) {
+		this.sessionAccessor = sessionAccessor;
 	}
 
 	@Override
@@ -25,7 +31,11 @@ class TaskPromiseNotifier implements MainLoop.MainLoopListener {
 		TaskPromise promise = taskPromises.remove(getKey(sessionId, contextId, taskId));
 
 		if (promise != null) {
-			promise.on(response.getResolution(), response.getContent());
+			if (sessionAccessor == null) {
+				promise.on(response.getResolution(), response.getContent());
+			} else {
+				sessionAccessor.makeAsyncToSync(() -> promise.on(response.getResolution(), response.getContent()));
+			}
 		}
 	}
 
