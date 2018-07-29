@@ -19,11 +19,11 @@ public class TestUiRoot extends Div {
 		GlobalFramework framework = (GlobalFramework) attribute;
 		AuthenticatedFramework authenticatedFramework = framework.authenticate("Doge");
 		authenticatedFramework.getFrameworkEventInterface()
-				.addListener((event, answer) -> answer.triggerSuccess("Bar"));
+				.addHandler((event, answer) -> answer.triggerSuccess("Bar"));
 
 		Button button = new Button("Sh*T");
 		button.addClickListener(buttonClickEvent -> authenticatedFramework.getFrameworkEventInterface()
-				.fireEvent("ID", "Something", (resolution, result) -> System.err.println(resolution + " - " + result)));
+				.triggerTask("ID", "Something", (resolution, result) -> System.err.println(resolution + " - " + result)));
 		add(button);
 	}
 }

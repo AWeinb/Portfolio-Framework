@@ -1,9 +1,9 @@
 package de.axp.portfolio.framework.internal.service.event;
 
-public interface Event {
+public interface Task {
 
-	static Event build(String id, Object content) {
-		return new EventImpl(id, content);
+	static Task build(String id, Object content) {
+		return new TaskImpl(id, content);
 	}
 
 	String getId();

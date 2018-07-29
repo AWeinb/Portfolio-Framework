@@ -1,11 +1,11 @@
 package de.axp.portfolio.framework.internal.service.event;
 
-class EventImpl implements Event {
+class TaskImpl implements Task {
 
 	private final String id;
 	private final Object content;
 
-	EventImpl(String id, Object content) {
+	TaskImpl(String id, Object content) {
 		this.id = id;
 		this.content = content;
 	}

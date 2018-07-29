@@ -1,6 +1,6 @@
 package de.axp.portfolio.framework.api;
 
-import de.axp.portfolio.framework.api.interfaces.FrameworkEventInterface;
+import de.axp.portfolio.framework.api.interfaces.TaskServiceInterface;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -16,14 +16,14 @@ public class FrameworkTest {
 		GlobalFramework framework = GlobalFramework.create();
 
 		AuthenticatedFramework sessionFramework = framework.authenticate("Hans");
-		FrameworkEventInterface frameworkEventInterface = sessionFramework.getFrameworkEventInterface();
-		frameworkEventInterface.addListener(getSomeListener());
+		TaskServiceInterface frameworkEventInterface = sessionFramework.getFrameworkEventInterface();
+		frameworkEventInterface.addHandler(getSomeListener());
 
-		frameworkEventInterface.fireEvent("FutureCallback", "A",
-				FrameworkEventInterface.EventPromise.builder().onRejection(f -> Assert.assertEquals("A", f)).build());
+		frameworkEventInterface.triggerTask("FutureCallback", "A",
+				TaskServiceInterface.TaskPromise.builder().onRejection(f -> Assert.assertEquals("A", f)).build());
 
-		frameworkEventInterface.fireEvent("FutureCallback", "B", (resolution, result) -> {
-			if (resolution == FrameworkEventInterface.EventPromise.EventPromiseResult.SUCCESS) {
+		frameworkEventInterface.triggerTask("FutureCallback", "B", (resolution, result) -> {
+			if (resolution == TaskServiceInterface.TaskPromise.TaskResult.SUCCESS) {
 				Assert.assertEquals("B", result);
 			}
 		});
@@ -31,7 +31,7 @@ public class FrameworkTest {
 		framework.shutdown();
 	}
 
-	private FrameworkEventInterface.EventListener getSomeListener() {
+	private TaskServiceInterface.TaskHandler getSomeListener() {
 		return (event, answerPromise) -> {
 			if (event.getData().equals("A")) {
 				answerPromise.triggerFailure(event.getData());

@@ -1,6 +1,6 @@
 package de.axp.portfolio.framework.internal.service.event;
 
-import de.axp.portfolio.framework.api.interfaces.FrameworkEventInterface.EventPromise;
+import de.axp.portfolio.framework.api.interfaces.TaskServiceInterface.TaskPromise;
 import de.axp.portfolio.framework.internal.mainloop.MainLoop;
 import de.axp.portfolio.framework.internal.mainloop.MainLoopPackage;
 
@@ -8,12 +8,12 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
-class PromiseNotifier implements MainLoop.MainLoopListener {
+class TaskPromiseNotifier implements MainLoop.MainLoopListener {
 
-	private final Map<String, EventPromise> responsePromises = Collections.synchronizedMap(new HashMap<>());
+	private final Map<String, TaskPromise> taskPromises = Collections.synchronizedMap(new HashMap<>());
 
-	void registerPromise(String sessionId, String packageId, EventPromise promise) {
-		responsePromises.put(getKey(sessionId, packageId), promise);
+	void registerPromise(String sessionId, String taskId, TaskPromise promise) {
+		taskPromises.put(getKey(sessionId, taskId), promise);
 	}
 
 	@Override
@@ -25,7 +25,7 @@ class PromiseNotifier implements MainLoop.MainLoopListener {
 		Notification response = (Notification) aPackage.getPayload();
 		String sessionId = aPackage.getSessionId();
 		String id = response.getId();
-		EventPromise promise = responsePromises.remove(getKey(sessionId, id));
+		TaskPromise promise = taskPromises.remove(getKey(sessionId, id));
 
 		if (promise != null) {
 			mapPackageStateToPromise(aPackage, response.getData(), promise);
@@ -36,13 +36,13 @@ class PromiseNotifier implements MainLoop.MainLoopListener {
 		return sessionId + "_" + packageId;
 	}
 
-	private void mapPackageStateToPromise(MainLoopPackage aPackage, Object responseData, EventPromise promise) {
+	private void mapPackageStateToPromise(MainLoopPackage aPackage, Object responseData, TaskPromise promise) {
 		switch (aPackage.getState()) {
 			case Resolved:
-				promise.on(EventPromise.EventPromiseResult.SUCCESS, responseData);
+				promise.on(TaskPromise.TaskResult.SUCCESS, responseData);
 				break;
 			case Rejected:
-				promise.on(EventPromise.EventPromiseResult.REJECTION, responseData);
+				promise.on(TaskPromise.TaskResult.REJECTION, responseData);
 				break;
 			case Unknown:
 				break;

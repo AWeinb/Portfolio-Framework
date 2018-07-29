@@ -2,14 +2,14 @@ package de.axp.portfolio.framework.internal;
 
 import de.axp.portfolio.framework.api.AuthenticatedFramework;
 import de.axp.portfolio.framework.api.FrameworkSession;
-import de.axp.portfolio.framework.api.interfaces.FrameworkEventInterface;
+import de.axp.portfolio.framework.api.interfaces.TaskServiceInterface;
 import de.axp.portfolio.framework.internal.service.InternalFrameworkService;
 import de.axp.portfolio.framework.internal.service.ServiceRegistry;
-import de.axp.portfolio.framework.internal.service.event.Event;
-import de.axp.portfolio.framework.internal.service.event.EventService;
+import de.axp.portfolio.framework.internal.service.event.Task;
+import de.axp.portfolio.framework.internal.service.event.TaskService;
 import de.axp.portfolio.framework.internal.service.session.SessionService;
 
-class AuthenticatedFrameworkImpl implements AuthenticatedFramework, FrameworkEventInterface {
+class AuthenticatedFrameworkImpl implements AuthenticatedFramework, TaskServiceInterface {
 
 	private final ServiceRegistry serviceRegistry;
 	private final FrameworkSession session;
@@ -25,7 +25,7 @@ class AuthenticatedFrameworkImpl implements AuthenticatedFramework, FrameworkEve
 	}
 
 	@Override
-	public FrameworkEventInterface getFrameworkEventInterface() {
+	public TaskServiceInterface getFrameworkEventInterface() {
 		return this;
 	}
 
@@ -37,31 +37,31 @@ class AuthenticatedFrameworkImpl implements AuthenticatedFramework, FrameworkEve
 	}
 
 	@Override
-	public void addListener(EventListener listener) {
-		addListener("", listener);
+	public void addHandler(TaskHandler taskHandler) {
+		addHandler("", taskHandler);
 	}
 
 	@Override
-	public void addListener(String context, EventListener listener) {
+	public void addHandler(String context, TaskHandler taskHandler) {
 		SessionService sessionService = (SessionService) serviceRegistry.get(SessionService.class);
 		sessionService.checkSession(session);
 
-		EventService listenerService = (EventService) serviceRegistry.get(EventService.class);
-		listenerService.register(session.toString(), context, listener);
+		TaskService listenerService = (TaskService) serviceRegistry.get(TaskService.class);
+		listenerService.register(session.toString(), context, taskHandler);
 	}
 
 	@Override
-	public void fireEvent(String eventID, Object content, EventPromise promise) {
-		fireEvent("", eventID, content, promise);
+	public void triggerTask(String eventID, Object content, TaskPromise promise) {
+		triggerTask("", eventID, content, promise);
 	}
 
 	@Override
-	public void fireEvent(String context, String eventID, Object content, EventPromise promise) {
+	public void triggerTask(String context, String eventID, Object content, TaskPromise promise) {
 		SessionService sessionService = (SessionService) serviceRegistry.get(SessionService.class);
 		sessionService.checkSession(session);
 
-		Event event = Event.build(eventID, content);
-		EventService eventService = (EventService) serviceRegistry.get(EventService.class);
-		eventService.dispatch(session.toString(), context, event, promise);
+		Task event = Task.build(eventID, content);
+		TaskService eventService = (TaskService) serviceRegistry.get(TaskService.class);
+		eventService.trigger(session.toString(), context, event, promise);
 	}
 }

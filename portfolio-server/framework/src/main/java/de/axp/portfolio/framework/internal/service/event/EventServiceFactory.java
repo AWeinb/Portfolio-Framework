@@ -4,8 +4,8 @@ import de.axp.portfolio.framework.internal.mainloop.MainLoop;
 
 public class EventServiceFactory {
 
-	public static EventService createEventService(MainLoop mainLoop) {
-		EventServiceImpl eventService = new EventServiceImpl();
+	public static TaskService createEventService(MainLoop mainLoop) {
+		TaskServiceImpl eventService = new TaskServiceImpl();
 		mainLoop.addPlugin(eventService);
 		return eventService;
 	}

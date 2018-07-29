@@ -1,39 +1,39 @@
 package de.axp.portfolio.framework.internal.service.event;
 
 import de.axp.portfolio.framework.api.FrameworkPromise;
-import de.axp.portfolio.framework.api.interfaces.FrameworkEventInterface;
+import de.axp.portfolio.framework.api.interfaces.TaskServiceInterface;
 
-public class EventPromiseBuilder {
+public class TaskPromiseBuilder {
 
 	private FrameworkPromise.FutureCallback resolveCallback;
 	private FrameworkPromise.FutureCallback rejectCallback;
 
-	public EventPromiseBuilder onResolution(FrameworkPromise.FutureCallback callback) {
+	public TaskPromiseBuilder onResolution(FrameworkPromise.FutureCallback callback) {
 		this.resolveCallback = callback;
 		return this;
 	}
 
-	public EventPromiseBuilder onRejection(FrameworkPromise.FutureCallback callback) {
+	public TaskPromiseBuilder onRejection(FrameworkPromise.FutureCallback callback) {
 		rejectCallback = callback;
 		return this;
 	}
 
-	public FrameworkEventInterface.EventPromise build() {
-		return new EventPromiseImpl();
+	public TaskServiceInterface.TaskPromise build() {
+		return new TaskPromiseImpl();
 	}
 
-	private class EventPromiseImpl implements FrameworkEventInterface.EventPromise {
+	private class TaskPromiseImpl implements TaskServiceInterface.TaskPromise {
 
 		private final FutureCallback resolveCallback;
 		private final FutureCallback rejectCallback;
 
-		EventPromiseImpl() {
-			resolveCallback = EventPromiseBuilder.this.resolveCallback;
-			rejectCallback = EventPromiseBuilder.this.rejectCallback;
+		TaskPromiseImpl() {
+			resolveCallback = TaskPromiseBuilder.this.resolveCallback;
+			rejectCallback = TaskPromiseBuilder.this.rejectCallback;
 		}
 
 		@Override
-		public void on(EventPromiseResult resolution, Object result) {
+		public void on(TaskResult resolution, Object result) {
 			switch (resolution) {
 				case SUCCESS:
 					if (resolveCallback != null) {
