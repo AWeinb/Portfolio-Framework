@@ -6,8 +6,8 @@ import de.axp.portfolio.framework.api.UserSessionAccessor;
 import de.axp.portfolio.framework.api.interfaces.TaskServiceInterface;
 import de.axp.portfolio.framework.internal.service.InternalFrameworkService;
 import de.axp.portfolio.framework.internal.service.ServiceRegistry;
-import de.axp.portfolio.framework.internal.service.event.Task;
-import de.axp.portfolio.framework.internal.service.event.TaskService;
+import de.axp.portfolio.framework.internal.service.task.Task;
+import de.axp.portfolio.framework.internal.service.task.TaskService;
 import de.axp.portfolio.framework.internal.service.session.SessionService;
 
 class AuthenticatedFrameworkImpl implements AuthenticatedFramework, TaskServiceInterface {

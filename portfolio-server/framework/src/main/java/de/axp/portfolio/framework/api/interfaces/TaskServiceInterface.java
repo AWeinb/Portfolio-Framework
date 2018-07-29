@@ -1,7 +1,7 @@
 package de.axp.portfolio.framework.api.interfaces;
 
 import de.axp.portfolio.framework.api.FrameworkExternalHandler;
-import de.axp.portfolio.framework.internal.service.event.Task;
+import de.axp.portfolio.framework.internal.service.task.Task;
 
 public interface TaskServiceInterface {
 

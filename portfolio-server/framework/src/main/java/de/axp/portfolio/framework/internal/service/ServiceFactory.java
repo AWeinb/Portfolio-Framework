@@ -1,8 +1,8 @@
 package de.axp.portfolio.framework.internal.service;
 
 import de.axp.portfolio.framework.internal.mainloop.MainLoop;
-import de.axp.portfolio.framework.internal.service.event.TaskService;
-import de.axp.portfolio.framework.internal.service.event.TaskServiceFactory;
+import de.axp.portfolio.framework.internal.service.task.TaskService;
+import de.axp.portfolio.framework.internal.service.task.TaskServiceFactory;
 import de.axp.portfolio.framework.internal.service.session.SessionFactory;
 import de.axp.portfolio.framework.internal.service.session.SessionService;
 

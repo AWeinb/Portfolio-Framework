@@ -1,4 +1,4 @@
-package de.axp.portfolio.framework.internal.service.event;
+package de.axp.portfolio.framework.internal.service.task;
 
 public interface Task {
 
