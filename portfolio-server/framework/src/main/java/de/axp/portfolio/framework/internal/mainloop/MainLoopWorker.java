@@ -1,8 +1,6 @@
 package de.axp.portfolio.framework.internal.mainloop;
 
-import java.util.Collection;
-import java.util.Collections;
-import java.util.LinkedList;
+import java.util.*;
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
 
@@ -14,6 +12,7 @@ class MainLoopWorker {
 
 	private final WorkerBuffer buffer = new WorkerBuffer();
 	private final Collection<MainLoopListener> listeners = Collections.synchronizedList(new LinkedList<>());
+	private final List<MainLoopListener> brokenListeners = new ArrayList<>();
 
 	private Thread thread;
 	private MainLoopPackage currentThreadPackage;
@@ -48,19 +47,31 @@ class MainLoopWorker {
 				currentThreadPackage = buffer.waitAndGet();
 			} catch (InterruptedException e) {
 				currentThreadPackage = POISON;
-				handleException(e);
+				logException(e);
 			} finally {
 				if (currentThreadPackage != POISON) {
-					for (MainLoopListener listener : listeners) {
-						listener.notify(currentThreadPackage);
-					}
+					handlePackage();
 				}
 			}
 		}
 	}
 
-	private void handleException(InterruptedException e) {
-		throw new MainLoopBufferException(e);
+	private void handlePackage() {
+		for (MainLoopListener listener : listeners) {
+			try {
+				listener.notify(currentThreadPackage);
+			} catch (Throwable t) {
+				logException(t);
+				System.err.println(listener + " will be removed!");
+				brokenListeners.add(listener);
+			}
+		}
+		listeners.removeAll(brokenListeners);
+		brokenListeners.clear();
+	}
+
+	private void logException(Throwable t) {
+		t.printStackTrace();
 	}
 
 	private class WorkerBuffer {
