@@ -3,6 +3,7 @@ package de.axp.portfolio.framework.internal;
 import de.axp.portfolio.framework.api.AuthenticatedPortfolioFramework;
 import de.axp.portfolio.framework.api.FrameworkSession;
 import de.axp.portfolio.framework.api.MainThreadSynchronization;
+import de.axp.portfolio.framework.api.serviceinterfaces.SessionServiceInterface;
 import de.axp.portfolio.framework.api.serviceinterfaces.TaskServiceInterface;
 import de.axp.portfolio.framework.internal.service.InternalFrameworkService;
 import de.axp.portfolio.framework.internal.service.ServiceRegistry;
@@ -10,7 +11,9 @@ import de.axp.portfolio.framework.internal.service.session.SessionService;
 import de.axp.portfolio.framework.internal.service.task.Task;
 import de.axp.portfolio.framework.internal.service.task.TaskService;
 
-class AuthenticatedPortfolioFrameworkImpl implements AuthenticatedPortfolioFramework, TaskServiceInterface {
+class AuthenticatedPortfolioFrameworkImpl implements AuthenticatedPortfolioFramework,
+		SessionServiceInterface,
+		TaskServiceInterface {
 
 	private final ServiceRegistry serviceRegistry;
 	private final FrameworkSession session;
@@ -18,11 +21,6 @@ class AuthenticatedPortfolioFrameworkImpl implements AuthenticatedPortfolioFrame
 	AuthenticatedPortfolioFrameworkImpl(ServiceRegistry serviceRegistry, FrameworkSession session) {
 		this.serviceRegistry = serviceRegistry;
 		this.session = session;
-	}
-
-	@Override
-	public FrameworkSession getSession() {
-		return session;
 	}
 
 	@Override
@@ -35,12 +33,22 @@ class AuthenticatedPortfolioFrameworkImpl implements AuthenticatedPortfolioFrame
 	}
 
 	@Override
+	public SessionServiceInterface getFrameworkSessionService() {
+		return this;
+	}
+
+	@Override
 	public TaskServiceInterface getFrameworkTaskService() {
 		return this;
 	}
 
 	@Override
-	public void invalidate(FrameworkSession session) {
+	public FrameworkSession getSession() {
+		return session;
+	}
+
+	@Override
+	public void invalidate() {
 		InternalFrameworkService internalFrameworkService = serviceRegistry.get(SessionService.class);
 		SessionService sessionService = (SessionService) internalFrameworkService;
 		sessionService.invalidateSession(session);
