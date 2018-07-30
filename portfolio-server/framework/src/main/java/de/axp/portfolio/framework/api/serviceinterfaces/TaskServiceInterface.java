@@ -19,7 +19,7 @@ public interface TaskServiceInterface {
 	@FunctionalInterface
 	interface TaskHandler {
 
-		void handle(Task event, TaskPromise answer);
+		void handle(Task task, TaskPromise promise);
 
 	}
 
@@ -38,7 +38,7 @@ public interface TaskServiceInterface {
 	@FunctionalInterface
 	interface TaskPromise {
 
-		void on(TaskResolution resolution, Object content);
+		void respond(TaskResolution resolution, Object content);
 
 	}
 }

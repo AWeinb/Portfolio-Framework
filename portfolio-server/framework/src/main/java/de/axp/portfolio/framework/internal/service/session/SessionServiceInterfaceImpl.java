@@ -10,7 +10,7 @@ class SessionServiceInterfaceImpl implements SessionServiceInterface {
 	private final ServiceRegistry serviceRegistry;
 	private final FrameworkSession session;
 
-	public SessionServiceInterfaceImpl(ServiceRegistry serviceRegistry, FrameworkSession session) {
+	SessionServiceInterfaceImpl(ServiceRegistry serviceRegistry, FrameworkSession session) {
 		this.serviceRegistry = serviceRegistry;
 		this.session = session;
 	}

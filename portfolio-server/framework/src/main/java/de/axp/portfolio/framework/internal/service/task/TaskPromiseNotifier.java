@@ -32,9 +32,9 @@ class TaskPromiseNotifier implements MainLoop.MainLoopListener {
 
 		if (promise != null) {
 			if (synchronization == null) {
-				promise.on(response.getResolution(), response.getContent());
+				promise.respond(response.getResolution(), response.getContent());
 			} else {
-				synchronization.makeAsyncToSync(() -> promise.on(response.getResolution(), response.getContent()));
+				synchronization.makeAsyncToSync(() -> promise.respond(response.getResolution(), response.getContent()));
 			}
 		}
 	}

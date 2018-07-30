@@ -35,11 +35,11 @@ public class FrameworkTest {
 	}
 
 	private TaskServiceInterface.TaskHandler getSomeListener() {
-		return (event, answerPromise) -> {
-			if (event.getContent().equals("A")) {
-				answerPromise.on(TaskServiceInterface.TaskResolution.REJECTED, event.getContent());
+		return (task, answerPromise) -> {
+			if (task.getContent().equals("A")) {
+				answerPromise.respond(TaskServiceInterface.TaskResolution.REJECTED, task.getContent());
 			} else {
-				answerPromise.on(TaskServiceInterface.TaskResolution.RESOLVED, event.getContent());
+				answerPromise.respond(TaskServiceInterface.TaskResolution.RESOLVED, task.getContent());
 			}
 		};
 	}

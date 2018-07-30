@@ -23,7 +23,8 @@ public class TestUiRoot extends Div {
 		Object attribute = session.getAttribute(AuthenticatedPortfolioFramework.class.getSimpleName());
 		AuthenticatedPortfolioFramework authenticatedFramework = (AuthenticatedPortfolioFramework) attribute;
 		authenticatedFramework.getFrameworkTaskService()
-				.addTaskHandler((event, answer) -> answer.on(TaskServiceInterface.TaskResolution.RESOLVED, "Bar"));
+				.addTaskHandler(
+						(task, promise) -> promise.respond(TaskServiceInterface.TaskResolution.RESOLVED, "Bar"));
 
 		Label label = new Label();
 		Button button = new Button("Sh*T");
