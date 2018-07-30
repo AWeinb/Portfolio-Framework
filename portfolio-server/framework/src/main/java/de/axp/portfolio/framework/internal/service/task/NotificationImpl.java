@@ -1,6 +1,6 @@
 package de.axp.portfolio.framework.internal.service.task;
 
-import de.axp.portfolio.framework.api.interfaces.TaskServiceInterface;
+import de.axp.portfolio.framework.api.serviceinterfaces.TaskServiceInterface;
 
 class NotificationImpl implements Notification {
 

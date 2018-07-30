@@ -3,7 +3,7 @@ package de.axp.portfolio.framework.internal;
 import de.axp.portfolio.framework.api.AuthenticatedFramework;
 import de.axp.portfolio.framework.api.FrameworkSession;
 import de.axp.portfolio.framework.api.UserSessionAccessor;
-import de.axp.portfolio.framework.api.interfaces.TaskServiceInterface;
+import de.axp.portfolio.framework.api.serviceinterfaces.TaskServiceInterface;
 import de.axp.portfolio.framework.internal.service.InternalFrameworkService;
 import de.axp.portfolio.framework.internal.service.ServiceRegistry;
 import de.axp.portfolio.framework.internal.service.task.Task;

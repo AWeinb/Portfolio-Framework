@@ -1,7 +1,7 @@
 package de.axp.portfolio.framework.internal.service.task;
 
 import de.axp.portfolio.framework.api.UserSessionAccessor;
-import de.axp.portfolio.framework.api.interfaces.TaskServiceInterface.TaskPromise;
+import de.axp.portfolio.framework.api.serviceinterfaces.TaskServiceInterface.TaskPromise;
 import de.axp.portfolio.framework.internal.mainloop.MainLoop;
 import de.axp.portfolio.framework.internal.mainloop.MainLoopPackage;
 

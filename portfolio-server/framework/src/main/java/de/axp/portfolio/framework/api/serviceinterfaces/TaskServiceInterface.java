@@ -1,4 +1,4 @@
-package de.axp.portfolio.framework.api.interfaces;
+package de.axp.portfolio.framework.api.serviceinterfaces;
 
 import de.axp.portfolio.framework.internal.service.task.Task;
 

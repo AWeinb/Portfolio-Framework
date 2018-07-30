@@ -7,7 +7,7 @@ import com.vaadin.flow.component.page.Push;
 import com.vaadin.flow.router.Route;
 import com.vaadin.flow.server.VaadinSession;
 import de.axp.portfolio.framework.api.AuthenticatedFramework;
-import de.axp.portfolio.framework.api.interfaces.TaskServiceInterface;
+import de.axp.portfolio.framework.api.serviceinterfaces.TaskServiceInterface;
 
 @Push
 @Route("")
