@@ -2,7 +2,7 @@ package de.axp.portfolio.framework.api;
 
 import de.axp.portfolio.framework.api.serviceinterfaces.TaskServiceInterface;
 
-public interface AuthenticatedFramework {
+public interface AuthenticatedPortfolioFramework {
 
 	FrameworkSession getSession();
 

@@ -2,13 +2,13 @@ package de.axp.portfolio.framework.api;
 
 import de.axp.portfolio.framework.internal.InternalFactory;
 
-public interface GlobalFramework {
+public interface PortfolioFramework {
 
-	static GlobalFramework create() {
+	static PortfolioFramework create() {
 		return InternalFactory.createFramework();
 	}
 
-	AuthenticatedFramework authenticate(String user);
+	AuthenticatedPortfolioFramework authenticate(String user);
 
 	void shutdown();
 

@@ -1,6 +1,6 @@
 package de.axp.portfolio.framework.internal;
 
-import de.axp.portfolio.framework.api.AuthenticatedFramework;
+import de.axp.portfolio.framework.api.AuthenticatedPortfolioFramework;
 import de.axp.portfolio.framework.api.FrameworkSession;
 import de.axp.portfolio.framework.api.UserSessionAccessor;
 import de.axp.portfolio.framework.api.serviceinterfaces.TaskServiceInterface;
@@ -10,12 +10,12 @@ import de.axp.portfolio.framework.internal.service.task.Task;
 import de.axp.portfolio.framework.internal.service.task.TaskService;
 import de.axp.portfolio.framework.internal.service.session.SessionService;
 
-class AuthenticatedFrameworkImpl implements AuthenticatedFramework, TaskServiceInterface {
+class AuthenticatedPortfolioFrameworkImpl implements AuthenticatedPortfolioFramework, TaskServiceInterface {
 
 	private final ServiceRegistry serviceRegistry;
 	private final FrameworkSession session;
 
-	AuthenticatedFrameworkImpl(ServiceRegistry serviceRegistry, FrameworkSession session) {
+	AuthenticatedPortfolioFrameworkImpl(ServiceRegistry serviceRegistry, FrameworkSession session) {
 		this.serviceRegistry = serviceRegistry;
 		this.session = session;
 	}

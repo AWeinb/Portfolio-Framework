@@ -13,9 +13,9 @@ public class FrameworkTest {
 
 	@Test
 	public void testAll() {
-		GlobalFramework framework = GlobalFramework.create();
+		PortfolioFramework framework = PortfolioFramework.create();
 
-		AuthenticatedFramework sessionFramework = framework.authenticate("Hans");
+		AuthenticatedPortfolioFramework sessionFramework = framework.authenticate("Hans");
 		TaskServiceInterface frameworkEventInterface = sessionFramework.getFrameworkTaskService();
 		frameworkEventInterface.addTaskHandler(getSomeListener());
 

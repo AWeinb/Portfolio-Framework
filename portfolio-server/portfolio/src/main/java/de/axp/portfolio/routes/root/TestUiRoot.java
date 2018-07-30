@@ -6,7 +6,7 @@ import com.vaadin.flow.component.html.Label;
 import com.vaadin.flow.component.page.Push;
 import com.vaadin.flow.router.Route;
 import com.vaadin.flow.server.VaadinSession;
-import de.axp.portfolio.framework.api.AuthenticatedFramework;
+import de.axp.portfolio.framework.api.AuthenticatedPortfolioFramework;
 import de.axp.portfolio.framework.api.serviceinterfaces.TaskServiceInterface;
 
 @Push
@@ -20,8 +20,8 @@ public class TestUiRoot extends Div {
 		add(new LayoutWithTestWidgets());
 
 		VaadinSession session = VaadinSession.getCurrent();
-		Object attribute = session.getAttribute(AuthenticatedFramework.class.getSimpleName());
-		AuthenticatedFramework authenticatedFramework = (AuthenticatedFramework) attribute;
+		Object attribute = session.getAttribute(AuthenticatedPortfolioFramework.class.getSimpleName());
+		AuthenticatedPortfolioFramework authenticatedFramework = (AuthenticatedPortfolioFramework) attribute;
 		authenticatedFramework.getFrameworkTaskService()
 				.addTaskHandler((event, answer) -> answer.on(TaskServiceInterface.TaskResolution.RESOLVED, "Bar"));
 

@@ -1,18 +1,18 @@
 package de.axp.portfolio.framework.internal;
 
-import de.axp.portfolio.framework.api.AuthenticatedFramework;
+import de.axp.portfolio.framework.api.AuthenticatedPortfolioFramework;
 import de.axp.portfolio.framework.api.FrameworkSession;
-import de.axp.portfolio.framework.api.GlobalFramework;
+import de.axp.portfolio.framework.api.PortfolioFramework;
 import de.axp.portfolio.framework.internal.service.ServiceRegistry;
 
 public class InternalFactory {
 
-	public static GlobalFramework createFramework() {
-		return new GlobalFrameworkImpl();
+	public static PortfolioFramework createFramework() {
+		return new PortfolioFrameworkImpl();
 	}
 
-	static AuthenticatedFramework createAuthenticatedFramework(ServiceRegistry serviceRegistry,
-	                                                           FrameworkSession session) {
-		return new AuthenticatedFrameworkImpl(serviceRegistry, session);
+	static AuthenticatedPortfolioFramework createAuthenticatedFramework(ServiceRegistry serviceRegistry,
+	                                                                    FrameworkSession session) {
+		return new AuthenticatedPortfolioFrameworkImpl(serviceRegistry, session);
 	}
 }
