@@ -1,6 +1,5 @@
 package de.axp.portfolio.framework.api.interfaces;
 
-import de.axp.portfolio.framework.api.FrameworkExternalHandler;
 import de.axp.portfolio.framework.internal.service.task.Task;
 
 public interface TaskServiceInterface {
@@ -18,7 +17,7 @@ public interface TaskServiceInterface {
 	}
 
 	@FunctionalInterface
-	interface TaskHandler extends FrameworkExternalHandler {
+	interface TaskHandler {
 
 		void handle(Task event, TaskPromise answer);
 
