@@ -14,6 +14,7 @@ import de.axp.portfolio.framework.api.serviceinterfaces.TaskServiceInterface;
 public class TestUiRoot extends Div {
 
 	private static int i;
+	private static int i2;
 
 	public TestUiRoot() {
 		setHeight("100%");
@@ -31,8 +32,15 @@ public class TestUiRoot extends Div {
 		button.addClickListener(buttonClickEvent -> authenticatedFramework.getFrameworkTaskService()
 				.triggerTask("ID", "Something",
 						(resolution, result) -> label.setText(resolution + " - " + result + " " + i++)));
-
 		add(button);
 		add(label);
+
+		Label label2 = new Label();
+		Button button2 = new Button("Sh*T2");
+		button2.addClickListener(buttonClickEvent -> authenticatedFramework.getFrameworkTaskService()
+				.triggerTask("Doge", "ID2", "Anything",
+						(resolution, result) -> label2.setText(resolution + " - " + result + " " + i2++)));
+		add(button2);
+		add(label2);
 	}
 }
