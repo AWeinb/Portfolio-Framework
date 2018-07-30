@@ -5,22 +5,24 @@ import de.axp.portfolio.framework.api.FrameworkSession;
 import de.axp.portfolio.framework.api.MainThreadSynchronization;
 import de.axp.portfolio.framework.api.serviceinterfaces.SessionServiceInterface;
 import de.axp.portfolio.framework.api.serviceinterfaces.TaskServiceInterface;
-import de.axp.portfolio.framework.internal.service.InternalFrameworkService;
 import de.axp.portfolio.framework.internal.service.ServiceRegistry;
 import de.axp.portfolio.framework.internal.service.session.SessionService;
-import de.axp.portfolio.framework.internal.service.task.Task;
 import de.axp.portfolio.framework.internal.service.task.TaskService;
 
-class AuthenticatedPortfolioFrameworkImpl implements AuthenticatedPortfolioFramework,
-		SessionServiceInterface,
-		TaskServiceInterface {
+class AuthenticatedPortfolioFrameworkImpl implements AuthenticatedPortfolioFramework {
 
 	private final ServiceRegistry serviceRegistry;
 	private final FrameworkSession session;
+	private final SessionServiceInterface sessionServiceInterface;
+	private final TaskServiceInterface taskServiceInterface;
 
-	AuthenticatedPortfolioFrameworkImpl(ServiceRegistry serviceRegistry, FrameworkSession session) {
+	AuthenticatedPortfolioFrameworkImpl(ServiceRegistry serviceRegistry, FrameworkSession session,
+	                                    SessionServiceInterface sessionServiceInterface,
+	                                    TaskServiceInterface taskServiceInterface) {
 		this.serviceRegistry = serviceRegistry;
 		this.session = session;
+		this.sessionServiceInterface = sessionServiceInterface;
+		this.taskServiceInterface = taskServiceInterface;
 	}
 
 	@Override
@@ -34,52 +36,11 @@ class AuthenticatedPortfolioFrameworkImpl implements AuthenticatedPortfolioFrame
 
 	@Override
 	public SessionServiceInterface getFrameworkSessionService() {
-		return this;
+		return sessionServiceInterface;
 	}
 
 	@Override
 	public TaskServiceInterface getFrameworkTaskService() {
-		return this;
-	}
-
-	@Override
-	public FrameworkSession getSession() {
-		return session;
-	}
-
-	@Override
-	public void invalidate() {
-		InternalFrameworkService internalFrameworkService = serviceRegistry.get(SessionService.class);
-		SessionService sessionService = (SessionService) internalFrameworkService;
-		sessionService.invalidateSession(session);
-	}
-
-	@Override
-	public void addTaskHandler(TaskHandler taskHandler) {
-		addTaskHandler("", taskHandler);
-	}
-
-	@Override
-	public void addTaskHandler(String contextId, TaskHandler taskHandler) {
-		SessionService sessionService = (SessionService) serviceRegistry.get(SessionService.class);
-		sessionService.checkSession(session);
-
-		TaskService taskService = (TaskService) serviceRegistry.get(TaskService.class);
-		taskService.register(session.toString(), contextId, taskHandler);
-	}
-
-	@Override
-	public void triggerTask(String taskId, Object content, TaskPromise promise) {
-		triggerTask("", taskId, content, promise);
-	}
-
-	@Override
-	public void triggerTask(String contextId, String taskId, Object content, TaskPromise promise) {
-		SessionService sessionService = (SessionService) serviceRegistry.get(SessionService.class);
-		sessionService.checkSession(session);
-
-		Task task = Task.build(taskId, content);
-		TaskService taskService = (TaskService) serviceRegistry.get(TaskService.class);
-		taskService.trigger(session.toString(), contextId, task, promise);
+		return taskServiceInterface;
 	}
 }
