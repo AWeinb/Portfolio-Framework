@@ -2,13 +2,13 @@ package de.axp.portfolio.framework.internal.service.task;
 
 import de.axp.portfolio.framework.api.serviceinterfaces.TaskServiceInterface;
 
-class NotificationImpl implements Notification {
+class TaskResultImpl implements TaskResult {
 
 	private final String taskId;
 	private final TaskServiceInterface.TaskResolution resolution;
 	private final Object content;
 
-	NotificationImpl(String taskId, TaskServiceInterface.TaskResolution resolution, Object content) {
+	TaskResultImpl(String taskId, TaskServiceInterface.TaskResolution resolution, Object content) {
 		this.taskId = taskId;
 		this.resolution = resolution;
 		this.content = content;

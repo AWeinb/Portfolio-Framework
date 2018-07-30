@@ -33,7 +33,7 @@ class TaskHandlerNotifier implements MainLoop.MainLoopListener {
 		String taskId = task.getTaskId();
 
 		TaskServiceInterface.TaskPromise callback = (resolution, result) -> {
-			Notification response = Notification.build(taskId, resolution, result);
+			TaskResult response = TaskResult.build(taskId, resolution, result);
 			MainLoopPackage packedResponse = new MainLoopPackage(sessionId, contextId, response);
 			outputBufferAccessor.put(packedResponse);
 		};

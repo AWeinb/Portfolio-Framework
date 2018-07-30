@@ -24,7 +24,7 @@ class TaskPromiseNotifier implements MainLoop.MainLoopListener {
 
 	@Override
 	public void notify(MainLoopPackage aPackage) {
-		Notification response = (Notification) aPackage.getPayload();
+		TaskResult response = (TaskResult) aPackage.getPayload();
 		String sessionId = aPackage.getSessionId();
 		String contextId = aPackage.getContextId();
 		String taskId = response.getTaskId();
