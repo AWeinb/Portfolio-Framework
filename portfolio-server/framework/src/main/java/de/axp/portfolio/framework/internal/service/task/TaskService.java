@@ -2,6 +2,7 @@ package de.axp.portfolio.framework.internal.service.task;
 
 import de.axp.portfolio.framework.api.MainThreadSynchronization;
 import de.axp.portfolio.framework.api.serviceinterfaces.TaskServiceInterface;
+import de.axp.portfolio.framework.api.serviceinterfaces.TaskServiceInterface.Task;
 import de.axp.portfolio.framework.internal.service.InternalFrameworkService;
 
 public interface TaskService extends InternalFrameworkService {

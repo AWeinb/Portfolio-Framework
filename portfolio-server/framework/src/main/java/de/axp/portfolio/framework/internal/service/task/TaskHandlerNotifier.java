@@ -27,7 +27,7 @@ class TaskHandlerNotifier implements MainLoop.MainLoopListener {
 
 	@Override
 	public void notify(MainLoopPackage aPackage) {
-		Task task = (Task) aPackage.getPayload();
+		TaskServiceInterface.Task task = (TaskServiceInterface.Task) aPackage.getPayload();
 		String sessionId = aPackage.getSessionId();
 		String contextId = aPackage.getContextId();
 		String taskId = task.getTaskId();

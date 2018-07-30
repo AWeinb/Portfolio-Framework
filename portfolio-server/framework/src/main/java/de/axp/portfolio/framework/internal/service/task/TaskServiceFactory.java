@@ -17,4 +17,8 @@ public class TaskServiceFactory {
 	                                                              FrameworkSession session) {
 		return new TaskServiceInterfaceImpl(serviceRegistry, session);
 	}
+
+	public static TaskServiceInterface.Task createTask(String taskId, Object content) {
+		return new TaskImpl(taskId, content);
+	}
 }

@@ -2,11 +2,12 @@ package de.axp.portfolio.framework.internal.service.task;
 
 import de.axp.portfolio.framework.api.MainThreadSynchronization;
 import de.axp.portfolio.framework.api.serviceinterfaces.TaskServiceInterface;
+import de.axp.portfolio.framework.api.serviceinterfaces.TaskServiceInterface.Task;
 import de.axp.portfolio.framework.api.serviceinterfaces.TaskServiceInterface.TaskHandler;
 import de.axp.portfolio.framework.internal.mainloop.MainLoop;
 import de.axp.portfolio.framework.internal.mainloop.MainLoopPackage;
 
-public class TaskServiceImpl implements MainLoop.MainLoopPlugin, TaskService {
+class TaskServiceImpl implements MainLoop.MainLoopPlugin, TaskService {
 
 	private MainLoop.MainLoopAccessor inputBufferAccessor;
 	private TaskHandlerNotifier handlerNotifier;

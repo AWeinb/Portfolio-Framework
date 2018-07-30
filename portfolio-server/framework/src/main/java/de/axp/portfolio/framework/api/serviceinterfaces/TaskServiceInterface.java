@@ -1,6 +1,6 @@
 package de.axp.portfolio.framework.api.serviceinterfaces;
 
-import de.axp.portfolio.framework.internal.service.task.Task;
+import de.axp.portfolio.framework.internal.service.task.TaskServiceFactory;
 
 public interface TaskServiceInterface {
 
@@ -20,6 +20,18 @@ public interface TaskServiceInterface {
 	interface TaskHandler {
 
 		void handle(Task event, TaskPromise answer);
+
+	}
+
+	interface Task {
+
+		static Task build(String taskId, Object content) {
+			return TaskServiceFactory.createTask(taskId, content);
+		}
+
+		String getTaskId();
+
+		Object getContent();
 
 	}
 
