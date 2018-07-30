@@ -18,7 +18,7 @@ class TaskHandlerNotifier implements MainLoop.MainLoopListener {
 		this.outputBufferAccessor = outputBufferAccessor;
 	}
 
-	void addListener(String sessionId, String context, TaskHandler handler) {
+	void addHandler(String sessionId, String context, TaskHandler handler) {
 		if (!handlers.containsKey(sessionId)) {
 			handlers.put(sessionId, Collections.synchronizedMap(new HashMap<>()));
 		}

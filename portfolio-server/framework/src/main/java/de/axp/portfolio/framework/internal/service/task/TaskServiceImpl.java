@@ -44,7 +44,7 @@ class TaskServiceImpl implements MainLoop.MainLoopPlugin, TaskService {
 
 	@Override
 	public void register(String sessionId, String contextId, TaskHandler handler) {
-		handlerNotifier.addListener(sessionId, contextId, handler);
+		handlerNotifier.addHandler(sessionId, contextId, handler);
 	}
 
 	@Override
