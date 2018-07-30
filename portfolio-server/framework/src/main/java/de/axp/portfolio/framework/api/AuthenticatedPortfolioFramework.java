@@ -6,7 +6,7 @@ public interface AuthenticatedPortfolioFramework {
 
 	FrameworkSession getSession();
 
-	void setUserSessionAccessor(UserSessionAccessor accessor);
+	void setMainThreadSynchronization(MainThreadSynchronization synchronization);
 
 	TaskServiceInterface getFrameworkTaskService();
 

@@ -1,7 +1,7 @@
 package de.axp.portfolio.framework.api;
 
 @FunctionalInterface
-public interface UserSessionAccessor {
+public interface MainThreadSynchronization {
 
 	void makeAsyncToSync(Runnable runnable);
 
