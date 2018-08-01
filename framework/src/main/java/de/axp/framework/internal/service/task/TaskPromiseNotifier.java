@@ -1,6 +1,6 @@
 package de.axp.framework.internal.service.task;
 
-import de.axp.framework.api.MainThreadSynchronization;
+import de.axp.framework.api.FrameworkThreadSynchronizer;
 import de.axp.framework.api.services.TaskService.TaskPromise;
 import de.axp.framework.internal.mainloop.MainLoop;
 import de.axp.framework.internal.mainloop.MainLoopPackage;
@@ -12,13 +12,13 @@ import java.util.Map;
 class TaskPromiseNotifier implements MainLoop.MainLoopListener {
 
 	private final Map<String, TaskPromise> taskPromises = Collections.synchronizedMap(new HashMap<>());
-	private MainThreadSynchronization synchronization;
+	private FrameworkThreadSynchronizer synchronization;
 
 	void registerPromise(String sessionId, String taskId, TaskPromise promise) {
 		taskPromises.put(getKey(sessionId, taskId), promise);
 	}
 
-	void setMainThreadSynchronization(MainThreadSynchronization synchronization) {
+	void setMainThreadSynchronization(FrameworkThreadSynchronizer synchronization) {
 		this.synchronization = synchronization;
 	}
 

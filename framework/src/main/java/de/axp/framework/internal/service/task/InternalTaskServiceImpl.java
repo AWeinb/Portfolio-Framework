@@ -1,6 +1,6 @@
 package de.axp.framework.internal.service.task;
 
-import de.axp.framework.api.MainThreadSynchronization;
+import de.axp.framework.api.FrameworkThreadSynchronizer;
 import de.axp.framework.api.services.TaskService;
 import de.axp.framework.api.services.TaskService.Task;
 import de.axp.framework.api.services.TaskService.TaskHandler;
@@ -40,7 +40,7 @@ class InternalTaskServiceImpl implements MainLoop.MainLoopPlugin, InternalTaskSe
 	}
 
 	@Override
-	public void setMainThreadSynchronization(MainThreadSynchronization synchronization) {
+	public void setMainThreadSynchronization(FrameworkThreadSynchronizer synchronization) {
 		promiseNotifier.setMainThreadSynchronization(synchronization);
 	}
 

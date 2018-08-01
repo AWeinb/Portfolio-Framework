@@ -5,7 +5,7 @@ import de.axp.framework.api.services.TaskService;
 
 public interface AuthenticatedPortfolioFramework {
 
-	void setMainThreadSynchronization(MainThreadSynchronization synchronization);
+	void setMainThreadSynchronization(FrameworkThreadSynchronizer synchronization);
 
 	SessionService getFrameworkSessionService();
 

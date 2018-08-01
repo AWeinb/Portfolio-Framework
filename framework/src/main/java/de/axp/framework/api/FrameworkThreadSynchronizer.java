@@ -1,7 +1,7 @@
 package de.axp.framework.api;
 
 @FunctionalInterface
-public interface MainThreadSynchronization {
+public interface FrameworkThreadSynchronizer {
 
 	void makeAsyncToSync(Runnable runnable);
 

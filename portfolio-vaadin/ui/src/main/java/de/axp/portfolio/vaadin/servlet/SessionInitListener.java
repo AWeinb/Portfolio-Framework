@@ -2,7 +2,7 @@ package de.axp.portfolio.vaadin.servlet;
 
 import com.vaadin.flow.server.SessionInitEvent;
 import de.axp.framework.api.AuthenticatedPortfolioFramework;
-import de.axp.framework.api.MainThreadSynchronization;
+import de.axp.framework.api.FrameworkThreadSynchronizer;
 import de.axp.framework.api.PortfolioFramework;
 
 class SessionInitListener implements com.vaadin.flow.server.SessionInitListener {
@@ -17,7 +17,7 @@ class SessionInitListener implements com.vaadin.flow.server.SessionInitListener 
 	public void sessionInit(SessionInitEvent event) {
 		AuthenticatedPortfolioFramework authenticatedFramework = framework.authenticate(
 				event.getSession().getCsrfToken());
-		MainThreadSynchronization synchronization = runnable -> event.getSession().access(runnable::run);
+		FrameworkThreadSynchronizer synchronization = runnable -> event.getSession().access(runnable::run);
 		authenticatedFramework.setMainThreadSynchronization(synchronization);
 		event.getSession().setAttribute(AuthenticatedPortfolioFramework.class.getSimpleName(), authenticatedFramework);
 	}

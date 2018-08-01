@@ -1,7 +1,7 @@
 package de.axp.framework.internal;
 
 import de.axp.framework.api.AuthenticatedPortfolioFramework;
-import de.axp.framework.api.MainThreadSynchronization;
+import de.axp.framework.api.FrameworkThreadSynchronizer;
 import de.axp.framework.api.services.SessionService;
 import de.axp.framework.api.services.TaskService;
 import de.axp.framework.internal.service.ServiceRegistry;
@@ -24,7 +24,7 @@ class AuthenticatedPortfolioFrameworkImpl implements AuthenticatedPortfolioFrame
 	}
 
 	@Override
-	public void setMainThreadSynchronization(MainThreadSynchronization synchronization) {
+	public void setMainThreadSynchronization(FrameworkThreadSynchronizer synchronization) {
 		InternalSessionService internalSessionService = (InternalSessionService) serviceRegistry.get(
 				InternalSessionService.class);
 		internalSessionService.checkSession(session);
