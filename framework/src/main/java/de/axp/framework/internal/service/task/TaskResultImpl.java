@@ -28,4 +28,9 @@ class TaskResultImpl implements TaskResult {
 	public Object getContent() {
 		return content;
 	}
+
+	@Override
+	public String toString() {
+		return super.toString() + "(" + getTaskId() + ", " + resolution + ", " + getContent() + ")";
+	}
 }
