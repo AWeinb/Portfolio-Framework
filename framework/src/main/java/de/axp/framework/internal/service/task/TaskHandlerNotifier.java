@@ -32,19 +32,26 @@ class TaskHandlerNotifier implements MainLoop.MainLoopListener {
 		String contextId = task.getContextId();
 		String taskId = task.getTaskId();
 
-		TaskServiceInterface.TaskPromise callback = (resolution, result) -> {
-			TaskResult response = TaskResult.build(taskId, resolution, result);
-			MainLoopPackage packedResponse = new MainLoopPackage(sessionId, response);
-			outputBufferAccessor.put(packedResponse);
-		};
-
-		Map<String, TaskHandler> handlerMap = handlers.get(sessionId);
-		TaskHandler handler = handlerMap.get(contextId);
+		TaskHandler handler = getTaskHandler(sessionId, contextId);
+		TaskServiceInterface.TaskPromise callback = createAnswerPromise(sessionId, taskId);
 
 		if (handler != null) {
 			handler.handle(task, callback);
 		} else {
 			callback.respond(TaskServiceInterface.TaskResolution.UNHANDLED, task);
 		}
+	}
+
+	private TaskHandler getTaskHandler(String sessionId, String contextId) {
+		Map<String, TaskHandler> handlerMap = handlers.get(sessionId);
+		return handlerMap.get(contextId);
+	}
+
+	private TaskServiceInterface.TaskPromise createAnswerPromise(String sessionId, String taskId) {
+		return (resolution, result) -> {
+			TaskResult response = TaskResult.build(taskId, resolution, result);
+			MainLoopPackage packedResponse = new MainLoopPackage(sessionId, response);
+			outputBufferAccessor.put(packedResponse);
+		};
 	}
 }
