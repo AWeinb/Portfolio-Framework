@@ -1,4 +1,4 @@
-package de.axp.framework.internal.service.interfaces;
+package de.axp.framework.internal.service.task;
 
 import de.axp.framework.api.services.SessionService;
 import de.axp.framework.api.services.TaskService;

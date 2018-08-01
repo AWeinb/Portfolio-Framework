@@ -10,7 +10,8 @@ import de.axp.framework.internal.mainloop.MainLoop;
 import de.axp.framework.internal.mainloop.MainLoopFactory;
 import de.axp.framework.internal.service.ServiceFactory;
 import de.axp.framework.internal.service.ServiceRegistry;
-import de.axp.framework.internal.service.interfaces.InterfaceFactory;
+import de.axp.framework.internal.service.session.SessionServiceFactory;
+import de.axp.framework.internal.service.task.TaskServiceFactory;
 
 import java.util.List;
 
@@ -26,8 +27,8 @@ public class InternalFactory {
 	static AuthenticatedPortfolioFramework createAuthenticatedFramework(ServiceRegistry serviceRegistry,
 	                                                                    List<PortfolioFrameworkPlugIn> plugIns,
 	                                                                    SessionService.FrameworkSession session) {
-		SessionService sessionService = InterfaceFactory.createSessionServiceInterface(serviceRegistry, session);
-		TaskService taskService = InterfaceFactory.createTaskServiceInterface(serviceRegistry, session);
+		SessionService sessionService = SessionServiceFactory.createSessionService(serviceRegistry, session);
+		TaskService taskService = TaskServiceFactory.createTaskService(serviceRegistry, session);
 
 		AuthenticatedPortfolioFrameworkImpl authenticatedPortfolioFramework = new AuthenticatedPortfolioFrameworkImpl(
 				serviceRegistry, session, sessionService, taskService);
