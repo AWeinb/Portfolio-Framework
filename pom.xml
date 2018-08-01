@@ -22,7 +22,7 @@
 
     <modules>
         <module>framework</module>
-        <module>plugins</module>
+        <module>framework-plugins</module>
         <module>portfolio-vaadin</module>
     </modules>
 

@@ -3,18 +3,21 @@
          xmlns="http://maven.apache.org/POM/4.0.0"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-
     <parent>
-        <artifactId>portfolio-framework</artifactId>
+        <artifactId>framework-plugins</artifactId>
         <groupId>de.axp.portfolio-framework</groupId>
         <version>1.0-SNAPSHOT</version>
     </parent>
 
-    <artifactId>plugins</artifactId>
-    <packaging>pom</packaging>
+    <artifactId>test-plugin</artifactId>
 
-    <modules>
-        <module>test-plugin</module>
-    </modules>
+    <dependencies>
+        <dependency>
+            <groupId>de.axp.portfolio-framework</groupId>
+            <artifactId>framework</artifactId>
+            <version>1.0-SNAPSHOT</version>
+            <scope>compile</scope>
+        </dependency>
+    </dependencies>
 
 </project>
