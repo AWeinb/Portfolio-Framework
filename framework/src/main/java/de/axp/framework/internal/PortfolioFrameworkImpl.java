@@ -1,14 +1,14 @@
 package de.axp.framework.internal;
 
-import de.axp.framework.internal.mainloop.MainLoop;
-import de.axp.framework.internal.service.InternalFrameworkService;
-import de.axp.framework.internal.service.ServiceRegistry;
-import de.axp.framework.internal.service.session.SessionService;
 import de.axp.framework.api.AuthenticatedPortfolioFramework;
 import de.axp.framework.api.FrameworkSession;
 import de.axp.framework.api.PortfolioFramework;
 import de.axp.framework.api.extension.PortfolioFrameworkPlugIn;
 import de.axp.framework.internal.authentication.Authentication;
+import de.axp.framework.internal.mainloop.MainLoop;
+import de.axp.framework.internal.service.InternalFrameworkService;
+import de.axp.framework.internal.service.ServiceRegistry;
+import de.axp.framework.internal.service.session.InternalSessionService;
 
 import java.util.List;
 
@@ -32,10 +32,10 @@ class PortfolioFrameworkImpl implements PortfolioFramework {
 
 	@Override
 	public AuthenticatedPortfolioFramework authenticate(String username) {
-		InternalFrameworkService internalFrameworkService = serviceRegistry.get(SessionService.class);
-		SessionService sessionService = (SessionService) internalFrameworkService;
+		InternalFrameworkService service = serviceRegistry.get(InternalSessionService.class);
+		InternalSessionService internalSessionService = (InternalSessionService) service;
 		Authentication authentication = new Authentication(username);
-		FrameworkSession frameworkSession = sessionService.initializeSession(authentication);
+		FrameworkSession frameworkSession = internalSessionService.initializeSession(authentication);
 		return InternalFactory.createAuthenticatedFramework(serviceRegistry, plugIns, frameworkSession);
 	}
 }

@@ -1,13 +1,13 @@
 package de.axp.framework.internal;
 
-import de.axp.framework.api.services.SessionServiceInterface;
-import de.axp.framework.api.services.TaskServiceInterface;
-import de.axp.framework.internal.service.ServiceRegistry;
-import de.axp.framework.internal.service.session.SessionService;
-import de.axp.framework.internal.service.task.TaskService;
 import de.axp.framework.api.AuthenticatedPortfolioFramework;
 import de.axp.framework.api.FrameworkSession;
 import de.axp.framework.api.MainThreadSynchronization;
+import de.axp.framework.api.services.SessionServiceInterface;
+import de.axp.framework.api.services.TaskServiceInterface;
+import de.axp.framework.internal.service.ServiceRegistry;
+import de.axp.framework.internal.service.session.InternalSessionService;
+import de.axp.framework.internal.service.task.InternalTaskService;
 
 class AuthenticatedPortfolioFrameworkImpl implements AuthenticatedPortfolioFramework {
 
@@ -27,11 +27,12 @@ class AuthenticatedPortfolioFrameworkImpl implements AuthenticatedPortfolioFrame
 
 	@Override
 	public void setMainThreadSynchronization(MainThreadSynchronization synchronization) {
-		SessionService sessionService = (SessionService) serviceRegistry.get(SessionService.class);
-		sessionService.checkSession(session);
+		InternalSessionService internalSessionService = (InternalSessionService) serviceRegistry.get(
+				InternalSessionService.class);
+		internalSessionService.checkSession(session);
 
-		TaskService taskService = (TaskService) serviceRegistry.get(TaskService.class);
-		taskService.setMainThreadSynchronization(synchronization);
+		InternalTaskService internalTaskService = (InternalTaskService) serviceRegistry.get(InternalTaskService.class);
+		internalTaskService.setMainThreadSynchronization(synchronization);
 	}
 
 	@Override

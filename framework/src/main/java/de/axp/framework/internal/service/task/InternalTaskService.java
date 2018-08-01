@@ -5,7 +5,7 @@ import de.axp.framework.api.services.TaskServiceInterface;
 import de.axp.framework.api.services.TaskServiceInterface.Task;
 import de.axp.framework.internal.service.InternalFrameworkService;
 
-public interface TaskService extends InternalFrameworkService {
+public interface InternalTaskService extends InternalFrameworkService {
 
 	void setMainThreadSynchronization(MainThreadSynchronization synchronization);
 

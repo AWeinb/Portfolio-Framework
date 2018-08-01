@@ -3,8 +3,8 @@ package de.axp.framework.internal.service.interfaces;
 import de.axp.framework.api.FrameworkSession;
 import de.axp.framework.api.services.TaskServiceInterface;
 import de.axp.framework.internal.service.ServiceRegistry;
-import de.axp.framework.internal.service.session.SessionService;
-import de.axp.framework.internal.service.task.TaskService;
+import de.axp.framework.internal.service.session.InternalSessionService;
+import de.axp.framework.internal.service.task.InternalTaskService;
 
 class TaskServiceInterfaceImpl implements TaskServiceInterface {
 
@@ -23,11 +23,12 @@ class TaskServiceInterfaceImpl implements TaskServiceInterface {
 
 	@Override
 	public void addTaskHandler(String contextId, TaskHandler taskHandler) {
-		SessionService sessionService = (SessionService) serviceRegistry.get(SessionService.class);
-		sessionService.checkSession(session);
+		InternalSessionService internalSessionService = (InternalSessionService) serviceRegistry.get(
+				InternalSessionService.class);
+		internalSessionService.checkSession(session);
 
-		TaskService taskService = (TaskService) serviceRegistry.get(TaskService.class);
-		taskService.register(session.toString(), contextId, taskHandler);
+		InternalTaskService internalTaskService = (InternalTaskService) serviceRegistry.get(InternalTaskService.class);
+		internalTaskService.register(session.toString(), contextId, taskHandler);
 	}
 
 	@Override
@@ -37,11 +38,12 @@ class TaskServiceInterfaceImpl implements TaskServiceInterface {
 
 	@Override
 	public void triggerTask(String contextId, String taskId, Object content, TaskPromise promise) {
-		SessionService sessionService = (SessionService) serviceRegistry.get(SessionService.class);
-		sessionService.checkSession(session);
+		InternalSessionService internalSessionService = (InternalSessionService) serviceRegistry.get(
+				InternalSessionService.class);
+		internalSessionService.checkSession(session);
 
 		Task task = Task.build(contextId, taskId, content);
-		TaskService taskService = (TaskService) serviceRegistry.get(TaskService.class);
-		taskService.trigger(session.toString(), task, promise);
+		InternalTaskService internalTaskService = (InternalTaskService) serviceRegistry.get(InternalTaskService.class);
+		internalTaskService.trigger(session.toString(), task, promise);
 	}
 }

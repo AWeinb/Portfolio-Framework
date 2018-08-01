@@ -5,10 +5,10 @@ import de.axp.framework.internal.mainloop.MainLoop;
 
 public final class TaskServiceFactory {
 
-	public static TaskService createTaskService(MainLoop mainLoop) {
-		TaskServiceImpl taskService = new TaskServiceImpl();
-		mainLoop.addPlugin(taskService);
-		return taskService;
+	public static InternalTaskService createInternalTaskService(MainLoop mainLoop) {
+		InternalTaskServiceImpl internalTaskService = new InternalTaskServiceImpl();
+		mainLoop.addPlugin(internalTaskService);
+		return internalTaskService;
 	}
 
 	public static TaskServiceInterface.Task createTask(String contextId, String taskId, Object content) {

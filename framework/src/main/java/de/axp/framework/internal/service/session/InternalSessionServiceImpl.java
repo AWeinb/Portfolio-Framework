@@ -6,7 +6,7 @@ import de.axp.framework.internal.authentication.Authentication;
 import java.util.HashSet;
 import java.util.Set;
 
-class SessionServiceImpl implements SessionService {
+class InternalSessionServiceImpl implements InternalSessionService {
 
 	private final Set<String> sessionIds = new HashSet<>();
 

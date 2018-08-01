@@ -4,7 +4,7 @@ import de.axp.framework.api.FrameworkSession;
 import de.axp.framework.internal.authentication.Authentication;
 import de.axp.framework.internal.service.InternalFrameworkService;
 
-public interface SessionService extends InternalFrameworkService {
+public interface InternalSessionService extends InternalFrameworkService {
 
 	FrameworkSession initializeSession(Authentication authentication);
 
