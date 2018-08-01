@@ -1,7 +1,6 @@
 package de.axp.framework.internal;
 
 import de.axp.framework.api.AuthenticatedPortfolioFramework;
-import de.axp.framework.api.FrameworkSession;
 import de.axp.framework.api.PortfolioFramework;
 import de.axp.framework.api.extension.PortfolioFrameworkPlugIn;
 import de.axp.framework.api.services.SessionService;
@@ -26,7 +25,7 @@ public class InternalFactory {
 
 	static AuthenticatedPortfolioFramework createAuthenticatedFramework(ServiceRegistry serviceRegistry,
 	                                                                    List<PortfolioFrameworkPlugIn> plugIns,
-	                                                                    FrameworkSession session) {
+	                                                                    SessionService.FrameworkSession session) {
 		SessionService sessionService = InterfaceFactory.createSessionServiceInterface(serviceRegistry, session);
 		TaskService taskService = InterfaceFactory.createTaskServiceInterface(serviceRegistry, session);
 

@@ -1,6 +1,5 @@
 package de.axp.framework.internal.service.interfaces;
 
-import de.axp.framework.api.FrameworkSession;
 import de.axp.framework.api.services.SessionService;
 import de.axp.framework.internal.service.InternalFrameworkService;
 import de.axp.framework.internal.service.ServiceRegistry;

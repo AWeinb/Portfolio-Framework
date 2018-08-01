@@ -1,6 +1,6 @@
 package de.axp.framework.internal.service.session;
 
-import de.axp.framework.api.FrameworkSession;
+import de.axp.framework.api.services.SessionService;
 import de.axp.framework.internal.authentication.Authentication;
 
 import java.util.HashSet;
@@ -16,20 +16,20 @@ class InternalSessionServiceImpl implements InternalSessionService {
 	}
 
 	@Override
-	public FrameworkSession initializeSession(Authentication authentication) {
+	public SessionService.FrameworkSession initializeSession(Authentication authentication) {
 		if (authentication == null) {
 			throw new IllegalArgumentException();
 		}
-		return new FrameworkSession() {
+		return new SessionService.FrameworkSession() {
 		};
 	}
 
 	@Override
-	public void invalidateSession(FrameworkSession session) {
+	public void invalidateSession(SessionService.FrameworkSession session) {
 	}
 
 	@Override
-	public void checkSession(FrameworkSession session) {
+	public void checkSession(SessionService.FrameworkSession session) {
 	}
 
 	@Override
