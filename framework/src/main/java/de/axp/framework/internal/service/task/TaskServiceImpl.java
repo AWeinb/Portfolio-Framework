@@ -1,11 +1,11 @@
 package de.axp.framework.internal.service.task;
 
-import de.axp.framework.internal.mainloop.MainLoop;
-import de.axp.framework.internal.mainloop.MainLoopPackage;
 import de.axp.framework.api.MainThreadSynchronization;
 import de.axp.framework.api.serviceinterfaces.TaskServiceInterface;
 import de.axp.framework.api.serviceinterfaces.TaskServiceInterface.Task;
 import de.axp.framework.api.serviceinterfaces.TaskServiceInterface.TaskHandler;
+import de.axp.framework.internal.mainloop.MainLoop;
+import de.axp.framework.internal.mainloop.MainLoopPackage;
 
 class TaskServiceImpl implements MainLoop.MainLoopPlugin, TaskService {
 
@@ -48,8 +48,8 @@ class TaskServiceImpl implements MainLoop.MainLoopPlugin, TaskService {
 	}
 
 	@Override
-	public void trigger(String sessionId, String contextId, Task task, TaskServiceInterface.TaskPromise promise) {
-		promiseNotifier.registerPromise(sessionId, contextId, task.getTaskId(), promise);
-		inputBufferAccessor.put(new MainLoopPackage(sessionId, contextId, task));
+	public void trigger(String sessionId, Task task, TaskServiceInterface.TaskPromise promise) {
+		promiseNotifier.registerPromise(sessionId, task.getTaskId(), promise);
+		inputBufferAccessor.put(new MainLoopPackage(sessionId, task));
 	}
 }

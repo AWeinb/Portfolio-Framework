@@ -1,8 +1,8 @@
 package de.axp.framework.internal.service.task;
 
-import de.axp.framework.internal.mainloop.MainLoop;
 import de.axp.framework.api.FrameworkSession;
 import de.axp.framework.api.serviceinterfaces.TaskServiceInterface;
+import de.axp.framework.internal.mainloop.MainLoop;
 import de.axp.framework.internal.service.ServiceRegistry;
 
 public class TaskServiceFactory {
@@ -18,7 +18,7 @@ public class TaskServiceFactory {
 		return new TaskServiceInterfaceImpl(serviceRegistry, session);
 	}
 
-	public static TaskServiceInterface.Task createTask(String taskId, Object content) {
-		return new TaskImpl(taskId, content);
+	public static TaskServiceInterface.Task createTask(String contextId, String taskId, Object content) {
+		return new TaskImpl(contextId, taskId, content);
 	}
 }

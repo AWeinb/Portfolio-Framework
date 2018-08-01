@@ -1,9 +1,9 @@
 package de.axp.framework.internal.service.task;
 
-import de.axp.framework.internal.service.session.SessionService;
 import de.axp.framework.api.FrameworkSession;
 import de.axp.framework.api.serviceinterfaces.TaskServiceInterface;
 import de.axp.framework.internal.service.ServiceRegistry;
+import de.axp.framework.internal.service.session.SessionService;
 
 class TaskServiceInterfaceImpl implements TaskServiceInterface {
 
@@ -39,8 +39,8 @@ class TaskServiceInterfaceImpl implements TaskServiceInterface {
 		SessionService sessionService = (SessionService) serviceRegistry.get(SessionService.class);
 		sessionService.checkSession(session);
 
-		Task task = Task.build(taskId, content);
+		Task task = Task.build(contextId, taskId, content);
 		TaskService taskService = (TaskService) serviceRegistry.get(TaskService.class);
-		taskService.trigger(session.toString(), contextId, task, promise);
+		taskService.trigger(session.toString(), task, promise);
 	}
 }

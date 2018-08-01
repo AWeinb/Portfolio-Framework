@@ -25,9 +25,11 @@ public interface TaskServiceInterface {
 
 	interface Task {
 
-		static Task build(String taskId, Object content) {
-			return TaskServiceFactory.createTask(taskId, content);
+		static Task build(String contextId, String taskId, Object content) {
+			return TaskServiceFactory.createTask(contextId, taskId, content);
 		}
+
+		String getContextId();
 
 		String getTaskId();
 

@@ -6,10 +6,17 @@ class TaskImpl implements TaskServiceInterface.Task {
 
 	private final String taskId;
 	private final Object content;
+	private final String contextId;
 
-	TaskImpl(String taskId, Object content) {
+	TaskImpl(String contextId, String taskId, Object content) {
 		this.taskId = taskId;
 		this.content = content;
+		this.contextId = contextId;
+	}
+
+	@Override
+	public String getContextId() {
+		return contextId;
 	}
 
 	@Override
@@ -24,6 +31,6 @@ class TaskImpl implements TaskServiceInterface.Task {
 
 	@Override
 	public String toString() {
-		return super.toString() + "(" + getTaskId() + ", " + getContent() + ")";
+		return super.toString() + "(" + getContextId() + ", " + getTaskId() + ", " + getContent() + ")";
 	}
 }

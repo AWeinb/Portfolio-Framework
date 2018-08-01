@@ -11,5 +11,5 @@ public interface TaskService extends InternalFrameworkService {
 
 	void register(String sessionId, String contextId, TaskServiceInterface.TaskHandler handler);
 
-	void trigger(String sessionId, String contextId, Task task, TaskServiceInterface.TaskPromise promise);
+	void trigger(String sessionId, Task task, TaskServiceInterface.TaskPromise promise);
 }

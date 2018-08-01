@@ -8,7 +8,7 @@ import static de.axp.framework.internal.mainloop.MainLoop.MainLoopListener;
 
 class MainLoopWorker {
 
-	private static final MainLoopPackage POISON = new MainLoopPackage(null, null, null);
+	private static final MainLoopPackage POISON = new MainLoopPackage(null, null);
 
 	private final WorkerBuffer buffer = new WorkerBuffer();
 	private final Collection<MainLoopListener> listeners = Collections.synchronizedList(new LinkedList<>());
