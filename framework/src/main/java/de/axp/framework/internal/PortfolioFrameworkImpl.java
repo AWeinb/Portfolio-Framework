@@ -2,7 +2,7 @@ package de.axp.framework.internal;
 
 import de.axp.framework.api.AuthenticatedPortfolioFramework;
 import de.axp.framework.api.PortfolioFramework;
-import de.axp.framework.api.extension.PortfolioFrameworkPlugIn;
+import de.axp.framework.api.extension.FrameworkPlugIn;
 import de.axp.framework.api.services.SessionService;
 import de.axp.framework.internal.authentication.Authentication;
 import de.axp.framework.internal.mainloop.MainLoop;
@@ -16,9 +16,9 @@ class PortfolioFrameworkImpl implements PortfolioFramework {
 
 	private final MainLoop mainLoop;
 	private final ServiceRegistry serviceRegistry;
-	private final List<PortfolioFrameworkPlugIn> plugIns;
+	private final List<FrameworkPlugIn> plugIns;
 
-	PortfolioFrameworkImpl(MainLoop mainLoop, ServiceRegistry serviceRegistry, List<PortfolioFrameworkPlugIn> plugIns) {
+	PortfolioFrameworkImpl(MainLoop mainLoop, ServiceRegistry serviceRegistry, List<FrameworkPlugIn> plugIns) {
 		this.mainLoop = mainLoop;
 		this.serviceRegistry = serviceRegistry;
 		this.plugIns = plugIns;

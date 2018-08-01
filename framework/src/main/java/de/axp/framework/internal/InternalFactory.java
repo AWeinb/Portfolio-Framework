@@ -2,7 +2,7 @@ package de.axp.framework.internal;
 
 import de.axp.framework.api.AuthenticatedPortfolioFramework;
 import de.axp.framework.api.PortfolioFramework;
-import de.axp.framework.api.extension.PortfolioFrameworkPlugIn;
+import de.axp.framework.api.extension.FrameworkPlugIn;
 import de.axp.framework.api.services.SessionService;
 import de.axp.framework.api.services.TaskService;
 import de.axp.framework.internal.extension.ExtensionFactory;
@@ -31,12 +31,12 @@ public class InternalFactory {
 				SessionServiceFactory.createInternalSessionService());
 
 		ServiceRegistry serviceRegistry = new ServiceRegistry(internalFrameworkServices);
-		List<PortfolioFrameworkPlugIn> plugIns = ExtensionFactory.getPlugIns();
+		List<FrameworkPlugIn> plugIns = ExtensionFactory.getPlugIns();
 		return new PortfolioFrameworkImpl(mainLoop, serviceRegistry, plugIns);
 	}
 
 	static AuthenticatedPortfolioFramework createAuthenticatedFramework(ServiceRegistry serviceRegistry,
-	                                                                    List<PortfolioFrameworkPlugIn> plugIns,
+	                                                                    List<FrameworkPlugIn> plugIns,
 	                                                                    SessionService.FrameworkSession session) {
 		SessionService sessionService = SessionServiceFactory.createSessionService(serviceRegistry, session);
 		TaskService taskService = TaskServiceFactory.createTaskService(serviceRegistry, session);
@@ -44,7 +44,7 @@ public class InternalFactory {
 		AuthenticatedPortfolioFrameworkImpl authenticatedPortfolioFramework = new AuthenticatedPortfolioFrameworkImpl(
 				serviceRegistry, session, sessionService, taskService);
 
-		for (PortfolioFrameworkPlugIn plugIn : plugIns) {
+		for (FrameworkPlugIn plugIn : plugIns) {
 			plugIn.initialize(authenticatedPortfolioFramework);
 		}
 

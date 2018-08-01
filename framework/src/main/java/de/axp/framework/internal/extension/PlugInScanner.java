@@ -1,6 +1,6 @@
 package de.axp.framework.internal.extension;
 
-import de.axp.framework.api.extension.PortfolioFrameworkPlugIn;
+import de.axp.framework.api.extension.FrameworkPlugIn;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -9,12 +9,12 @@ import java.util.ServiceLoader;
 
 class PlugInScanner {
 
-	List<PortfolioFrameworkPlugIn> getPlugIns() {
-		ServiceLoader<PortfolioFrameworkPlugIn> serviceLoader = ServiceLoader.load(PortfolioFrameworkPlugIn.class);
-		ArrayList<PortfolioFrameworkPlugIn> plugIns = new ArrayList<>();
+	List<FrameworkPlugIn> getPlugIns() {
+		ServiceLoader<FrameworkPlugIn> serviceLoader = ServiceLoader.load(FrameworkPlugIn.class);
+		ArrayList<FrameworkPlugIn> plugIns = new ArrayList<>();
 
 		try {
-			for (PortfolioFrameworkPlugIn plugIn : serviceLoader) {
+			for (FrameworkPlugIn plugIn : serviceLoader) {
 				plugIns.add(plugIn);
 			}
 		} catch (ServiceConfigurationError e) {
