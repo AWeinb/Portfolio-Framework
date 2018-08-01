@@ -1,9 +1,9 @@
 package de.axp.framework.internal.service.task;
 
-import de.axp.framework.internal.mainloop.MainLoop;
-import de.axp.framework.internal.mainloop.MainLoopPackage;
 import de.axp.framework.api.serviceinterfaces.TaskServiceInterface;
 import de.axp.framework.api.serviceinterfaces.TaskServiceInterface.TaskHandler;
+import de.axp.framework.internal.mainloop.MainLoop;
+import de.axp.framework.internal.mainloop.MainLoopPackage;
 
 import java.util.Collections;
 import java.util.HashMap;
@@ -40,7 +40,11 @@ class TaskHandlerNotifier implements MainLoop.MainLoopListener {
 
 		Map<String, TaskHandler> handlerMap = handlers.get(aPackage.getSessionId());
 		TaskHandler handler = handlerMap.get(aPackage.getContextId());
-		handler.handle(task, callback);
-	}
 
+		if (handler != null) {
+			handler.handle(task, callback);
+		} else {
+			callback.respond(TaskServiceInterface.TaskResolution.UNHANDLED, task);
+		}
+	}
 }

@@ -21,4 +21,9 @@ class TaskImpl implements TaskServiceInterface.Task {
 	public Object getContent() {
 		return content;
 	}
+
+	@Override
+	public String toString() {
+		return super.toString() + "(" + getTaskId() + ", " + getContent() + ")";
+	}
 }

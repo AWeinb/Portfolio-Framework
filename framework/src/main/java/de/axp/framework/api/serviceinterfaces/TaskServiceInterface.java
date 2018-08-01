@@ -13,7 +13,7 @@ public interface TaskServiceInterface {
 	void triggerTask(String contextId, String taskId, Object content, TaskPromise promise);
 
 	enum TaskResolution {
-		RESOLVED, REJECTED
+		RESOLVED, REJECTED, UNHANDLED
 	}
 
 	@FunctionalInterface
