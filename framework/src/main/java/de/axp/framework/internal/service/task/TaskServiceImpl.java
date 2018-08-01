@@ -10,6 +10,7 @@ import de.axp.framework.internal.mainloop.MainLoopPackage;
 class TaskServiceImpl implements MainLoop.MainLoopPlugin, TaskService {
 
 	private MainLoop.MainLoopAccessor inputBufferAccessor;
+	private TaskHandlerRegistry handlerRegistry;
 	private TaskHandlerNotifier handlerNotifier;
 	private TaskPromiseNotifier promiseNotifier;
 
@@ -18,7 +19,8 @@ class TaskServiceImpl implements MainLoop.MainLoopPlugin, TaskService {
 	                       MainLoop.MainLoopAccessor outputBufferAccessor) {
 		this.inputBufferAccessor = inputBufferAccessor;
 
-		handlerNotifier = new TaskHandlerNotifier(outputBufferAccessor);
+		handlerRegistry = new TaskHandlerRegistry();
+		handlerNotifier = new TaskHandlerNotifier(handlerRegistry, outputBufferAccessor);
 		promiseNotifier = new TaskPromiseNotifier();
 	}
 
@@ -44,7 +46,7 @@ class TaskServiceImpl implements MainLoop.MainLoopPlugin, TaskService {
 
 	@Override
 	public void register(String sessionId, String contextId, TaskHandler handler) {
-		handlerNotifier.addHandler(sessionId, contextId, handler);
+		handlerRegistry.setHandler(sessionId, contextId, handler);
 	}
 
 	@Override
