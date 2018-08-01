@@ -26,7 +26,6 @@ class PortfolioFrameworkImpl implements PortfolioFramework {
 
 	@Override
 	public void shutdown() {
-		serviceRegistry.disposeAll();
 		mainLoop.dispose();
 	}
 

@@ -8,18 +8,29 @@ import de.axp.framework.api.services.TaskService;
 import de.axp.framework.internal.extension.ExtensionFactory;
 import de.axp.framework.internal.mainloop.MainLoop;
 import de.axp.framework.internal.mainloop.MainLoopFactory;
-import de.axp.framework.internal.service.ServiceFactory;
+import de.axp.framework.internal.service.InternalFrameworkService;
 import de.axp.framework.internal.service.ServiceRegistry;
+import de.axp.framework.internal.service.session.InternalSessionService;
 import de.axp.framework.internal.service.session.SessionServiceFactory;
+import de.axp.framework.internal.service.task.InternalTaskService;
 import de.axp.framework.internal.service.task.TaskServiceFactory;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class InternalFactory {
 
 	public static PortfolioFramework createFramework() {
 		MainLoop mainLoop = MainLoopFactory.createMainLoop();
-		ServiceRegistry serviceRegistry = ServiceFactory.createServiceRegistry(mainLoop);
+
+		Map<Class, InternalFrameworkService> internalFrameworkServices = new HashMap<>();
+		internalFrameworkServices.put(InternalTaskService.class,
+				TaskServiceFactory.createInternalTaskService(mainLoop));
+		internalFrameworkServices.put(InternalSessionService.class,
+				SessionServiceFactory.createInternalSessionService());
+
+		ServiceRegistry serviceRegistry = new ServiceRegistry(internalFrameworkServices);
 		List<PortfolioFrameworkPlugIn> plugIns = ExtensionFactory.getPlugIns();
 		return new PortfolioFrameworkImpl(mainLoop, serviceRegistry, plugIns);
 	}

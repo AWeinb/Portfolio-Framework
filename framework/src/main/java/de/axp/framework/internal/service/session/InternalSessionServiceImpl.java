@@ -11,11 +11,6 @@ class InternalSessionServiceImpl implements InternalSessionService {
 	private final Set<String> sessionIds = new HashSet<>();
 
 	@Override
-	public void dispose() {
-		sessionIds.clear();
-	}
-
-	@Override
 	public SessionService.FrameworkSession initializeSession(Authentication authentication) {
 		if (authentication == null) {
 			throw new IllegalArgumentException();

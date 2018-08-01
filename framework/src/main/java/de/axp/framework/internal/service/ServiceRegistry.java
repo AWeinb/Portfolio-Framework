@@ -1,8 +1,16 @@
 package de.axp.framework.internal.service;
 
-public interface ServiceRegistry {
+import java.util.Map;
 
-	InternalFrameworkService get(Class serviceClass);
+public class ServiceRegistry {
 
-	void disposeAll();
+	private final Map<Class, InternalFrameworkService> serviceMap;
+
+	public ServiceRegistry(Map<Class, InternalFrameworkService> serviceMap) {
+		this.serviceMap = serviceMap;
+	}
+
+	public InternalFrameworkService get(Class serviceClass) {
+		return serviceMap.get(serviceClass);
+	}
 }
