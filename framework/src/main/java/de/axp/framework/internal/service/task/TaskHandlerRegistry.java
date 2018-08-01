@@ -4,7 +4,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
-import static de.axp.framework.api.services.TaskServiceInterface.TaskHandler;
+import static de.axp.framework.api.services.TaskService.TaskHandler;
 
 class TaskHandlerRegistry {
 

@@ -3,8 +3,8 @@ package de.axp.framework.internal;
 import de.axp.framework.api.AuthenticatedPortfolioFramework;
 import de.axp.framework.api.FrameworkSession;
 import de.axp.framework.api.MainThreadSynchronization;
-import de.axp.framework.api.services.SessionServiceInterface;
-import de.axp.framework.api.services.TaskServiceInterface;
+import de.axp.framework.api.services.SessionService;
+import de.axp.framework.api.services.TaskService;
 import de.axp.framework.internal.service.ServiceRegistry;
 import de.axp.framework.internal.service.session.InternalSessionService;
 import de.axp.framework.internal.service.task.InternalTaskService;
@@ -13,16 +13,15 @@ class AuthenticatedPortfolioFrameworkImpl implements AuthenticatedPortfolioFrame
 
 	private final ServiceRegistry serviceRegistry;
 	private final FrameworkSession session;
-	private final SessionServiceInterface sessionServiceInterface;
-	private final TaskServiceInterface taskServiceInterface;
+	private final SessionService sessionService;
+	private final TaskService taskService;
 
 	AuthenticatedPortfolioFrameworkImpl(ServiceRegistry serviceRegistry, FrameworkSession session,
-	                                    SessionServiceInterface sessionServiceInterface,
-	                                    TaskServiceInterface taskServiceInterface) {
+	                                    SessionService sessionService, TaskService taskService) {
 		this.serviceRegistry = serviceRegistry;
 		this.session = session;
-		this.sessionServiceInterface = sessionServiceInterface;
-		this.taskServiceInterface = taskServiceInterface;
+		this.sessionService = sessionService;
+		this.taskService = taskService;
 	}
 
 	@Override
@@ -36,12 +35,12 @@ class AuthenticatedPortfolioFrameworkImpl implements AuthenticatedPortfolioFrame
 	}
 
 	@Override
-	public SessionServiceInterface getFrameworkSessionService() {
-		return sessionServiceInterface;
+	public SessionService getFrameworkSessionService() {
+		return sessionService;
 	}
 
 	@Override
-	public TaskServiceInterface getFrameworkTaskService() {
-		return taskServiceInterface;
+	public TaskService getFrameworkTaskService() {
+		return taskService;
 	}
 }

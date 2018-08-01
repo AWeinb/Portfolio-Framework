@@ -2,7 +2,7 @@ package de.axp.framework.api.services;
 
 import de.axp.framework.internal.service.task.TaskServiceFactory;
 
-public interface TaskServiceInterface {
+public interface TaskService {
 
 	void addTaskHandler(TaskHandler taskHandler);
 

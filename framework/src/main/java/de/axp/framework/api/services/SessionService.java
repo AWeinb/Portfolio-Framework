@@ -2,7 +2,7 @@ package de.axp.framework.api.services;
 
 import de.axp.framework.api.FrameworkSession;
 
-public interface SessionServiceInterface {
+public interface SessionService {
 
 	FrameworkSession getSession();
 

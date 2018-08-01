@@ -1,8 +1,8 @@
 package de.axp.framework.internal.service.task;
 
-import de.axp.framework.api.services.TaskServiceInterface;
+import de.axp.framework.api.services.TaskService;
 
-class TaskImpl implements TaskServiceInterface.Task {
+class TaskImpl implements TaskService.Task {
 
 	private final String taskId;
 	private final Object content;

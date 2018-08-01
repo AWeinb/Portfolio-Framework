@@ -1,16 +1,16 @@
 package de.axp.framework.internal.service.task;
 
-import de.axp.framework.api.services.TaskServiceInterface;
+import de.axp.framework.api.services.TaskService;
 
 interface TaskResult {
 
-	static TaskResult build(String taskId, TaskServiceInterface.TaskResolution resolution, Object content) {
+	static TaskResult build(String taskId, TaskService.TaskResolution resolution, Object content) {
 		return new TaskResultImpl(taskId, resolution, content);
 	}
 
 	String getTaskId();
 
-	TaskServiceInterface.TaskResolution getResolution();
+	TaskService.TaskResolution getResolution();
 
 	Object getContent();
 }

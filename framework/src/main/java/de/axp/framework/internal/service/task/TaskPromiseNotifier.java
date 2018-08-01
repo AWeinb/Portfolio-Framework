@@ -1,7 +1,7 @@
 package de.axp.framework.internal.service.task;
 
 import de.axp.framework.api.MainThreadSynchronization;
-import de.axp.framework.api.services.TaskServiceInterface.TaskPromise;
+import de.axp.framework.api.services.TaskService.TaskPromise;
 import de.axp.framework.internal.mainloop.MainLoop;
 import de.axp.framework.internal.mainloop.MainLoopPackage;
 

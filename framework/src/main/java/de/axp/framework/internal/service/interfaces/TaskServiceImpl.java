@@ -1,17 +1,17 @@
 package de.axp.framework.internal.service.interfaces;
 
 import de.axp.framework.api.FrameworkSession;
-import de.axp.framework.api.services.TaskServiceInterface;
+import de.axp.framework.api.services.TaskService;
 import de.axp.framework.internal.service.ServiceRegistry;
 import de.axp.framework.internal.service.session.InternalSessionService;
 import de.axp.framework.internal.service.task.InternalTaskService;
 
-class TaskServiceInterfaceImpl implements TaskServiceInterface {
+class TaskServiceImpl implements TaskService {
 
 	private ServiceRegistry serviceRegistry;
 	private FrameworkSession session;
 
-	TaskServiceInterfaceImpl(ServiceRegistry serviceRegistry, FrameworkSession session) {
+	TaskServiceImpl(ServiceRegistry serviceRegistry, FrameworkSession session) {
 		this.serviceRegistry = serviceRegistry;
 		this.session = session;
 	}

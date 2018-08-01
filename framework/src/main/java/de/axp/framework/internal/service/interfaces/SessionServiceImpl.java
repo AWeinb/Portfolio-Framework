@@ -1,17 +1,17 @@
 package de.axp.framework.internal.service.interfaces;
 
 import de.axp.framework.api.FrameworkSession;
-import de.axp.framework.api.services.SessionServiceInterface;
+import de.axp.framework.api.services.SessionService;
 import de.axp.framework.internal.service.InternalFrameworkService;
 import de.axp.framework.internal.service.ServiceRegistry;
 import de.axp.framework.internal.service.session.InternalSessionService;
 
-class SessionServiceInterfaceImpl implements SessionServiceInterface {
+class SessionServiceImpl implements SessionService {
 
 	private final ServiceRegistry serviceRegistry;
 	private final FrameworkSession session;
 
-	SessionServiceInterfaceImpl(ServiceRegistry serviceRegistry, FrameworkSession session) {
+	SessionServiceImpl(ServiceRegistry serviceRegistry, FrameworkSession session) {
 		this.serviceRegistry = serviceRegistry;
 		this.session = session;
 	}

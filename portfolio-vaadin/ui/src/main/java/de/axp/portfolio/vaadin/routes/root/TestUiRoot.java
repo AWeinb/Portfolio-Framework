@@ -7,7 +7,7 @@ import com.vaadin.flow.component.page.Push;
 import com.vaadin.flow.router.Route;
 import com.vaadin.flow.server.VaadinSession;
 import de.axp.framework.api.AuthenticatedPortfolioFramework;
-import de.axp.framework.api.services.TaskServiceInterface;
+import de.axp.framework.api.services.TaskService;
 
 @Push
 @Route("")
@@ -25,7 +25,7 @@ public class TestUiRoot extends Div {
 		AuthenticatedPortfolioFramework authenticatedFramework = (AuthenticatedPortfolioFramework) attribute;
 		authenticatedFramework.getFrameworkTaskService()
 				.addTaskHandler(
-						(task, promise) -> promise.respond(TaskServiceInterface.TaskResolution.RESOLVED, "Bar"));
+						(task, promise) -> promise.respond(TaskService.TaskResolution.RESOLVED, "Bar"));
 
 		Label label = new Label();
 		Button button = new Button("Sh*T");
