@@ -1,10 +1,10 @@
 package de.axp.framework.testplugin;
 
 import de.axp.framework.api.AuthenticatedPortfolioFramework;
-import de.axp.framework.api.extension.FrameworkPlugIn;
+import de.axp.framework.api.extension.FrameworkPlugin;
 import de.axp.framework.api.services.TaskService;
 
-public class TestPlugIn implements FrameworkPlugIn {
+public class TestPlugin implements FrameworkPlugin {
 
 	@Override
 	public void initialize(AuthenticatedPortfolioFramework framework) {

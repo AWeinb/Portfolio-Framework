@@ -2,7 +2,7 @@ package de.axp.framework.internal;
 
 import de.axp.framework.api.AuthenticatedPortfolioFramework;
 import de.axp.framework.api.PortfolioFramework;
-import de.axp.framework.api.extension.FrameworkPlugIn;
+import de.axp.framework.api.extension.FrameworkPlugin;
 import de.axp.framework.api.services.SessionService;
 import de.axp.framework.internal.authentication.Authentication;
 import de.axp.framework.internal.mainloop.MainLoop;
@@ -16,12 +16,12 @@ class PortfolioFrameworkImpl implements PortfolioFramework {
 
 	private final MainLoop mainLoop;
 	private final ServiceRegistry serviceRegistry;
-	private final List<FrameworkPlugIn> plugIns;
+	private final List<FrameworkPlugin> plugins;
 
-	PortfolioFrameworkImpl(MainLoop mainLoop, ServiceRegistry serviceRegistry, List<FrameworkPlugIn> plugIns) {
+	PortfolioFrameworkImpl(MainLoop mainLoop, ServiceRegistry serviceRegistry, List<FrameworkPlugin> plugins) {
 		this.mainLoop = mainLoop;
 		this.serviceRegistry = serviceRegistry;
-		this.plugIns = plugIns;
+		this.plugins = plugins;
 	}
 
 	@Override
@@ -35,6 +35,6 @@ class PortfolioFrameworkImpl implements PortfolioFramework {
 		InternalSessionService internalSessionService = (InternalSessionService) service;
 		Authentication authentication = new Authentication(username);
 		SessionService.FrameworkSession frameworkSession = internalSessionService.initializeSession(authentication);
-		return InternalFactory.createAuthenticatedFramework(serviceRegistry, plugIns, frameworkSession);
+		return InternalFactory.createAuthenticatedFramework(serviceRegistry, plugins, frameworkSession);
 	}
 }

@@ -2,9 +2,9 @@ package de.axp.framework.internal.extension;
 
 import de.axp.framework.api.FrameworkException;
 
-public class FrameworkPlugInException extends FrameworkException {
+public class FrameworkPluginException extends FrameworkException {
 
-	FrameworkPlugInException(Throwable t) {
+	FrameworkPluginException(Throwable t) {
 		super(t);
 	}
 }
