@@ -1,6 +1,6 @@
 package de.axp.framework.internal.service.task;
 
-import de.axp.framework.api.serviceinterfaces.TaskServiceInterface;
+import de.axp.framework.api.services.TaskServiceInterface;
 
 interface TaskResult {
 

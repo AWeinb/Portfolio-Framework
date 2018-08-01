@@ -1,7 +1,7 @@
 package de.axp.framework.api;
 
-import de.axp.framework.api.serviceinterfaces.SessionServiceInterface;
-import de.axp.framework.api.serviceinterfaces.TaskServiceInterface;
+import de.axp.framework.api.services.SessionServiceInterface;
+import de.axp.framework.api.services.TaskServiceInterface;
 
 public interface AuthenticatedPortfolioFramework {
 

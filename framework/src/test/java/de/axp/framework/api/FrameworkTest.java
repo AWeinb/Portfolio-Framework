@@ -1,6 +1,6 @@
 package de.axp.framework.api;
 
-import de.axp.framework.api.serviceinterfaces.TaskServiceInterface;
+import de.axp.framework.api.services.TaskServiceInterface;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;

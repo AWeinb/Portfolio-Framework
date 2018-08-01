@@ -1,9 +1,10 @@
-package de.axp.framework.internal.service.session;
+package de.axp.framework.internal.service.interfaces;
 
 import de.axp.framework.api.FrameworkSession;
-import de.axp.framework.api.serviceinterfaces.SessionServiceInterface;
+import de.axp.framework.api.services.SessionServiceInterface;
 import de.axp.framework.internal.service.InternalFrameworkService;
 import de.axp.framework.internal.service.ServiceRegistry;
+import de.axp.framework.internal.service.session.SessionService;
 
 class SessionServiceInterfaceImpl implements SessionServiceInterface {
 

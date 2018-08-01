@@ -1,8 +1,8 @@
 package de.axp.framework.internal.service.task;
 
 import de.axp.framework.api.MainThreadSynchronization;
-import de.axp.framework.api.serviceinterfaces.TaskServiceInterface;
-import de.axp.framework.api.serviceinterfaces.TaskServiceInterface.Task;
+import de.axp.framework.api.services.TaskServiceInterface;
+import de.axp.framework.api.services.TaskServiceInterface.Task;
 import de.axp.framework.internal.service.InternalFrameworkService;
 
 public interface TaskService extends InternalFrameworkService {

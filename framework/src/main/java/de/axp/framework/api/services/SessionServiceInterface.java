@@ -1,4 +1,4 @@
-package de.axp.framework.api.serviceinterfaces;
+package de.axp.framework.api.services;
 
 import de.axp.framework.api.FrameworkSession;
 

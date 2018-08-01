@@ -2,7 +2,7 @@ package de.axp.framework.testplugin;
 
 import de.axp.framework.api.AuthenticatedPortfolioFramework;
 import de.axp.framework.api.extension.PortfolioFrameworkPlugIn;
-import de.axp.framework.api.serviceinterfaces.TaskServiceInterface;
+import de.axp.framework.api.services.TaskServiceInterface;
 
 public class TestPlugIn implements PortfolioFrameworkPlugIn {
 

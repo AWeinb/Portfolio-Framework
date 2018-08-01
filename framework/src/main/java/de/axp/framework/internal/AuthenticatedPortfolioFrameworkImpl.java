@@ -1,7 +1,7 @@
 package de.axp.framework.internal;
 
-import de.axp.framework.api.serviceinterfaces.SessionServiceInterface;
-import de.axp.framework.api.serviceinterfaces.TaskServiceInterface;
+import de.axp.framework.api.services.SessionServiceInterface;
+import de.axp.framework.api.services.TaskServiceInterface;
 import de.axp.framework.internal.service.ServiceRegistry;
 import de.axp.framework.internal.service.session.SessionService;
 import de.axp.framework.internal.service.task.TaskService;
