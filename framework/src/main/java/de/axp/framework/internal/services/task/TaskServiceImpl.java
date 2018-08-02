@@ -1,6 +1,5 @@
 package de.axp.framework.internal.services.task;
 
-import de.axp.framework.api.FrameworkThreadSynchronizer;
 import de.axp.framework.api.services.SessionService;
 import de.axp.framework.api.services.TaskService;
 import de.axp.framework.internal.services.BaseServiceRegistry;
@@ -14,11 +13,6 @@ class TaskServiceImpl implements TaskService {
 	TaskServiceImpl(BaseServiceRegistry serviceRegistry, SessionService.FrameworkSession session) {
 		this.serviceRegistry = serviceRegistry;
 		this.session = session;
-	}
-
-	@Override
-	public void setMainThreadSynchronization(FrameworkThreadSynchronizer synchronization) {
-
 	}
 
 	@Override

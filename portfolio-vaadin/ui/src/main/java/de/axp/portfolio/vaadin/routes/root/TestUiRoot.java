@@ -24,22 +24,21 @@ public class TestUiRoot extends Div {
 		Object attribute = session.getAttribute(PortfolioFramework.class.getSimpleName());
 		PortfolioFramework authenticatedFramework = (PortfolioFramework) attribute;
 		authenticatedFramework.getFrameworkTaskService()
-				.addTaskHandler(
-						(task, promise) -> promise.respond(TaskService.TaskResolution.RESOLVED, "Bar"));
+				.addTaskHandler((task, promise) -> promise.respond(TaskService.TaskResolution.RESOLVED, "Bar"));
 
 		Label label = new Label();
 		Button button = new Button("Sh*T");
 		button.addClickListener(buttonClickEvent -> authenticatedFramework.getFrameworkTaskService()
-				.triggerTask("ID", "Something",
-						(resolution, result) -> label.setText(resolution + " - " + result + " " + i++)));
+				.triggerTask("ID", "Something", (resolution, result) -> session.access(
+						() -> label.setText(resolution + " - " + result + " " + i++))));
 		add(button);
 		add(label);
 
 		Label label2 = new Label();
 		Button button2 = new Button("Sh*T2");
 		button2.addClickListener(buttonClickEvent -> authenticatedFramework.getFrameworkTaskService()
-				.triggerTask("Doge", "ID2", "Anything",
-						(resolution, result) -> label2.setText(resolution + " - " + result + " " + i2++)));
+				.triggerTask("Doge", "ID2", "Anything", (resolution, result) -> session.access(
+						() -> label2.setText(resolution + " - " + result + " " + i2++))));
 		add(button2);
 		add(label2);
 	}

@@ -1,6 +1,5 @@
 package de.axp.framework.internal.services.task;
 
-import de.axp.framework.api.FrameworkThreadSynchronizer;
 import de.axp.framework.api.services.TaskService;
 import de.axp.framework.api.services.TaskService.Task;
 import de.axp.framework.api.services.TaskService.TaskHandler;
@@ -37,11 +36,6 @@ class BaseTaskServiceImpl implements MainLoop.MainLoopPlugin, BaseTaskService {
 	@Override
 	public MainLoop.MainLoopListener getOutputListener() {
 		return promiseNotifier;
-	}
-
-	@Override
-	public void setMainThreadSynchronization(FrameworkThreadSynchronizer synchronization) {
-		promiseNotifier.setMainThreadSynchronization(synchronization);
 	}
 
 	@Override

@@ -17,8 +17,7 @@ public interface PortfolioFramework {
 
 	interface BasePortfolioFramework {
 
-		PortfolioFramework adaptToUser(Authentication authentication,
-		                               FrameworkThreadSynchronizer synchronization);
+		PortfolioFramework adaptToUser(Authentication authentication);
 
 		void shutdown();
 

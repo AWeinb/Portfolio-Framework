@@ -18,12 +18,13 @@ public interface MainLoop {
 
 	interface MainLoopPlugin {
 
-		void initialize(MainLoopAccessor input, MainLoopAccessor output);
+		void initialize(MainLoopAccessor inputBufferAccessor, MainLoopAccessor outputBufferAccessor);
 
 		void dispose();
 
 		MainLoopListener getInputListener();
 
 		MainLoopListener getOutputListener();
+
 	}
 }
