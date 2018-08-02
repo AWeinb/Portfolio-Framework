@@ -6,6 +6,8 @@ public interface SessionService extends FrameworkService {
 
 	FrameworkSession getSession();
 
+	void validate();
+
 	void invalidate();
 
 	interface FrameworkSession {

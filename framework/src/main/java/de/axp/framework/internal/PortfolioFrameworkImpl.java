@@ -15,11 +15,17 @@ class PortfolioFrameworkImpl implements PortfolioFramework {
 
 	@Override
 	public SessionService getFrameworkSessionService() {
-		return serviceRegistry.getService(SessionService.class);
+		SessionService sessionService = serviceRegistry.getService(SessionService.class);
+		sessionService.validate();
+
+		return sessionService;
 	}
 
 	@Override
 	public TaskService getFrameworkTaskService() {
+		SessionService sessionService = serviceRegistry.getService(SessionService.class);
+		sessionService.validate();
+
 		return serviceRegistry.getService(TaskService.class);
 	}
 }

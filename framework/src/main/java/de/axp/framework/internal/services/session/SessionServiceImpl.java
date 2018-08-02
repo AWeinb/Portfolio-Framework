@@ -19,6 +19,11 @@ class SessionServiceImpl implements SessionService {
 	}
 
 	@Override
+	public void validate() {
+
+	}
+
+	@Override
 	public void invalidate() {
 		BaseSessionService internalSessionService = serviceRegistry.getBaseService(BaseSessionService.class);
 		internalSessionService.invalidateSession(session);
