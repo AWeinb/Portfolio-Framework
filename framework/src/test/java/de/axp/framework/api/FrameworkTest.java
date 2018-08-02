@@ -13,7 +13,7 @@ public class FrameworkTest {
 
 	@Test
 	public void testAll() {
-		BasePortfolioFramework framework = BasePortfolioFramework.create();
+		PortfolioFramework.BasePortfolioFramework framework = PortfolioFramework.createBaseFramework();
 
 		PortfolioFramework sessionFramework = framework.authenticate("Hans");
 		TaskService frameworkEventInterface = sessionFramework.getFrameworkTaskService();

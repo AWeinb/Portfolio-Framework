@@ -1,6 +1,5 @@
 package de.axp.framework.internal;
 
-import de.axp.framework.api.BasePortfolioFramework;
 import de.axp.framework.api.FrameworkPlugin;
 import de.axp.framework.api.PortfolioFramework;
 import de.axp.framework.api.services.SessionService;
@@ -14,7 +13,7 @@ import de.axp.framework.internal.services.session.InternalSessionService;
 import de.axp.framework.internal.services.session.SessionServiceFactory;
 import de.axp.framework.internal.services.task.TaskServiceFactory;
 
-class BasePortfolioFrameworkImpl implements BasePortfolioFramework {
+class BasePortfolioFrameworkImpl implements PortfolioFramework.BasePortfolioFramework {
 
 	private final MainLoop mainLoop;
 	private final ServiceRegistry serviceRegistry;

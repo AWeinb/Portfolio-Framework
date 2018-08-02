@@ -1,13 +1,13 @@
 package de.axp.portfolio.vaadin.servlet;
 
 import com.vaadin.flow.server.SessionDestroyEvent;
-import de.axp.framework.api.BasePortfolioFramework;
+import de.axp.framework.api.PortfolioFramework;
 
 class SessionDestroyListener implements com.vaadin.flow.server.SessionDestroyListener {
 
-	private final BasePortfolioFramework framework;
+	private final PortfolioFramework.BasePortfolioFramework framework;
 
-	SessionDestroyListener(BasePortfolioFramework framework) {
+	SessionDestroyListener(PortfolioFramework.BasePortfolioFramework framework) {
 		this.framework = framework;
 	}
 
