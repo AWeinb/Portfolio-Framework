@@ -7,7 +7,6 @@ import de.axp.framework.api.services.TaskService;
 import de.axp.framework.internal.authentication.Authentication;
 import de.axp.framework.internal.infrastructure.mainloop.MainLoop;
 import de.axp.framework.internal.plugin.PluginRegistry;
-import de.axp.framework.internal.services.InternalFrameworkService;
 import de.axp.framework.internal.services.ServiceRegistry;
 import de.axp.framework.internal.services.session.InternalSessionService;
 import de.axp.framework.internal.services.session.SessionServiceFactory;
@@ -27,8 +26,7 @@ class BasePortfolioFrameworkImpl implements PortfolioFramework.BasePortfolioFram
 
 	@Override
 	public PortfolioFramework adaptToUser(String username) {
-		InternalFrameworkService service = serviceRegistry.get(InternalSessionService.class);
-		InternalSessionService internalSessionService = (InternalSessionService) service;
+		InternalSessionService internalSessionService = serviceRegistry.get(InternalSessionService.class);
 		Authentication authentication = new Authentication(username);
 		SessionService.FrameworkSession session = internalSessionService.initializeSession(authentication);
 

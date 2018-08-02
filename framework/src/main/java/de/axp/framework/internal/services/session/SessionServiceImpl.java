@@ -1,7 +1,6 @@
 package de.axp.framework.internal.services.session;
 
 import de.axp.framework.api.services.SessionService;
-import de.axp.framework.internal.services.InternalFrameworkService;
 import de.axp.framework.internal.services.ServiceRegistry;
 
 class SessionServiceImpl implements SessionService {
@@ -21,8 +20,7 @@ class SessionServiceImpl implements SessionService {
 
 	@Override
 	public void invalidate() {
-		InternalFrameworkService service = serviceRegistry.get(InternalSessionService.class);
-		InternalSessionService internalFrameworkService = (InternalSessionService) service;
-		internalFrameworkService.invalidateSession(session);
+		InternalSessionService internalSessionService = serviceRegistry.get(InternalSessionService.class);
+		internalSessionService.invalidateSession(session);
 	}
 }

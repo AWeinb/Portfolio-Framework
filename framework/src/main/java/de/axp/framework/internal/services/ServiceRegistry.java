@@ -18,7 +18,7 @@ public class ServiceRegistry {
 		serviceMap.put(InternalSessionService.class, SessionServiceFactory.createInternalSessionService());
 	}
 
-	public InternalFrameworkService get(Class serviceClass) {
-		return serviceMap.get(serviceClass);
+	public <T extends InternalFrameworkService> T get(Class<T> serviceClass) {
+		return (T) serviceMap.get(serviceClass);
 	}
 }

@@ -22,11 +22,10 @@ class TaskServiceImpl implements TaskService {
 
 	@Override
 	public void addTaskHandler(String contextId, TaskHandler taskHandler) {
-		InternalSessionService internalSessionService = (InternalSessionService) serviceRegistry.get(
-				InternalSessionService.class);
+		InternalSessionService internalSessionService = serviceRegistry.get(InternalSessionService.class);
 		internalSessionService.checkSession(session);
 
-		InternalTaskService internalTaskService = (InternalTaskService) serviceRegistry.get(InternalTaskService.class);
+		InternalTaskService internalTaskService = serviceRegistry.get(InternalTaskService.class);
 		internalTaskService.register(session.toString(), contextId, taskHandler);
 	}
 
@@ -37,12 +36,11 @@ class TaskServiceImpl implements TaskService {
 
 	@Override
 	public void triggerTask(String contextId, String taskId, Object content, TaskPromise promise) {
-		InternalSessionService internalSessionService = (InternalSessionService) serviceRegistry.get(
-				InternalSessionService.class);
+		InternalSessionService internalSessionService = serviceRegistry.get(InternalSessionService.class);
 		internalSessionService.checkSession(session);
 
 		Task task = Task.build(contextId, taskId, content);
-		InternalTaskService internalTaskService = (InternalTaskService) serviceRegistry.get(InternalTaskService.class);
+		InternalTaskService internalTaskService = serviceRegistry.get(InternalTaskService.class);
 		internalTaskService.trigger(session.toString(), task, promise);
 	}
 }
