@@ -18,7 +18,7 @@ public interface PortfolioFramework {
 
 	interface BasePortfolioFramework {
 
-		PortfolioFramework authenticate(String user);
+		PortfolioFramework adaptToUser(String user);
 
 		void shutdown();
 

@@ -14,7 +14,7 @@ class SessionInitListener implements com.vaadin.flow.server.SessionInitListener 
 
 	@Override
 	public void sessionInit(SessionInitEvent event) {
-		PortfolioFramework authenticatedFramework = framework.authenticate(event.getSession().getCsrfToken());
+		PortfolioFramework authenticatedFramework = framework.adaptToUser(event.getSession().getCsrfToken());
 		FrameworkThreadSynchronizer synchronization = runnable -> event.getSession().access(runnable::run);
 		authenticatedFramework.setMainThreadSynchronization(synchronization);
 		event.getSession().setAttribute(PortfolioFramework.class.getSimpleName(), authenticatedFramework);

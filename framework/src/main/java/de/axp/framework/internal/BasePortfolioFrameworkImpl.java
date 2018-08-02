@@ -26,7 +26,7 @@ class BasePortfolioFrameworkImpl implements PortfolioFramework.BasePortfolioFram
 	}
 
 	@Override
-	public PortfolioFramework authenticate(String username) {
+	public PortfolioFramework adaptToUser(String username) {
 		InternalFrameworkService service = serviceRegistry.get(InternalSessionService.class);
 		InternalSessionService internalSessionService = (InternalSessionService) service;
 		Authentication authentication = new Authentication(username);
