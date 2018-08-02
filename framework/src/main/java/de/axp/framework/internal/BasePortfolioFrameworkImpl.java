@@ -1,8 +1,8 @@
 package de.axp.framework.internal;
 
-import de.axp.framework.api.PortfolioFramework;
 import de.axp.framework.api.BasePortfolioFramework;
 import de.axp.framework.api.FrameworkPlugin;
+import de.axp.framework.api.PortfolioFramework;
 import de.axp.framework.api.services.SessionService;
 import de.axp.framework.internal.authentication.Authentication;
 import de.axp.framework.internal.infrastructure.mainloop.MainLoop;
@@ -25,16 +25,16 @@ class BasePortfolioFrameworkImpl implements BasePortfolioFramework {
 	}
 
 	@Override
-	public void shutdown() {
-		mainLoop.dispose();
-	}
-
-	@Override
 	public PortfolioFramework authenticate(String username) {
 		InternalFrameworkService service = serviceRegistry.get(InternalSessionService.class);
 		InternalSessionService internalSessionService = (InternalSessionService) service;
 		Authentication authentication = new Authentication(username);
 		SessionService.FrameworkSession frameworkSession = internalSessionService.initializeSession(authentication);
 		return InternalFactory.createAuthenticatedFramework(serviceRegistry, plugins, frameworkSession);
+	}
+
+	@Override
+	public void shutdown() {
+		mainLoop.dispose();
 	}
 }
