@@ -8,7 +8,7 @@ public class TestPlugin implements FrameworkPlugin {
 
 	@Override
 	public void initialize(PortfolioFramework framework) {
-		framework.getFrameworkTaskService()
+		framework.getTaskService()
 				.addTaskHandler("Doge",
 						(task, promise) -> promise.respond(TaskService.TaskResolution.REJECTED, "Foo"));
 	}

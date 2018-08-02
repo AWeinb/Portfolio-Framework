@@ -14,7 +14,7 @@ class PortfolioFrameworkImpl implements PortfolioFramework {
 	}
 
 	@Override
-	public SessionService getFrameworkSessionService() {
+	public SessionService getSessionService() {
 		SessionService sessionService = serviceRegistry.getService(SessionService.class);
 		sessionService.validate();
 
@@ -22,7 +22,7 @@ class PortfolioFrameworkImpl implements PortfolioFramework {
 	}
 
 	@Override
-	public TaskService getFrameworkTaskService() {
+	public TaskService getTaskService() {
 		SessionService sessionService = serviceRegistry.getService(SessionService.class);
 		sessionService.validate();
 

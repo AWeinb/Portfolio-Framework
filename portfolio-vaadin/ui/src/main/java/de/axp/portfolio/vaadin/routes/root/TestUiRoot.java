@@ -23,12 +23,13 @@ public class TestUiRoot extends Div {
 		VaadinSession session = VaadinSession.getCurrent();
 		Object attribute = session.getAttribute(PortfolioFramework.class.getSimpleName());
 		PortfolioFramework authenticatedFramework = (PortfolioFramework) attribute;
-		authenticatedFramework.getFrameworkTaskService()
+
+		authenticatedFramework.getTaskService()
 				.addTaskHandler((task, promise) -> promise.respond(TaskService.TaskResolution.RESOLVED, "Bar"));
 
 		Label label = new Label();
 		Button button = new Button("Sh*T");
-		button.addClickListener(buttonClickEvent -> authenticatedFramework.getFrameworkTaskService()
+		button.addClickListener(buttonClickEvent -> authenticatedFramework.getTaskService()
 				.triggerTask("ID", "Something", (resolution, result) -> session.access(
 						() -> label.setText(resolution + " - " + result + " " + i++))));
 		add(button);
@@ -36,7 +37,7 @@ public class TestUiRoot extends Div {
 
 		Label label2 = new Label();
 		Button button2 = new Button("Sh*T2");
-		button2.addClickListener(buttonClickEvent -> authenticatedFramework.getFrameworkTaskService()
+		button2.addClickListener(buttonClickEvent -> authenticatedFramework.getTaskService()
 				.triggerTask("Doge", "ID2", "Anything", (resolution, result) -> session.access(
 						() -> label2.setText(resolution + " - " + result + " " + i2++))));
 		add(button2);

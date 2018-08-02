@@ -11,9 +11,9 @@ public interface PortfolioFramework {
 		return InternalFactory.createFramework();
 	}
 
-	SessionService getFrameworkSessionService();
+	SessionService getSessionService();
 
-	TaskService getFrameworkTaskService();
+	TaskService getTaskService();
 
 	interface BasePortfolioFramework {
 

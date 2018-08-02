@@ -18,7 +18,7 @@ public class FrameworkTest {
 
 		Authentication authentication = new Authentication("Doge");
 		PortfolioFramework sessionFramework = framework.adaptToUser(authentication);
-		TaskService frameworkEventInterface = sessionFramework.getFrameworkTaskService();
+		TaskService frameworkEventInterface = sessionFramework.getTaskService();
 		frameworkEventInterface.addTaskHandler(getSomeListener());
 
 		frameworkEventInterface.triggerTask("FutureCallback", "A", (resolution, result) -> {
