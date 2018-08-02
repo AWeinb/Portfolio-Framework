@@ -1,8 +1,8 @@
-package de.axp.framework.internal.service.session;
+package de.axp.framework.internal.services.session;
 
 import de.axp.framework.api.services.SessionService;
 import de.axp.framework.internal.authentication.Authentication;
-import de.axp.framework.internal.service.InternalFrameworkService;
+import de.axp.framework.internal.services.InternalFrameworkService;
 
 public interface InternalSessionService extends InternalFrameworkService {
 

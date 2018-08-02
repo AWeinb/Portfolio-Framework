@@ -1,4 +1,4 @@
-package de.axp.framework.internal.service.task;
+package de.axp.framework.internal.services.task;
 
 import java.util.Collections;
 import java.util.HashMap;

@@ -1,10 +1,9 @@
-package de.axp.framework.internal.service.task;
+package de.axp.framework.internal.services.task;
 
 import de.axp.framework.api.services.SessionService;
 import de.axp.framework.api.services.TaskService;
-import de.axp.framework.internal.service.ServiceRegistry;
-import de.axp.framework.internal.service.session.InternalSessionService;
-import de.axp.framework.internal.service.task.InternalTaskService;
+import de.axp.framework.internal.services.ServiceRegistry;
+import de.axp.framework.internal.services.session.InternalSessionService;
 
 class TaskServiceImpl implements TaskService {
 

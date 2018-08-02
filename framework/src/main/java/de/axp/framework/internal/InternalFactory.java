@@ -8,12 +8,12 @@ import de.axp.framework.api.services.TaskService;
 import de.axp.framework.internal.plugin.ExtensionFactory;
 import de.axp.framework.internal.mainloop.MainLoop;
 import de.axp.framework.internal.mainloop.MainLoopFactory;
-import de.axp.framework.internal.service.InternalFrameworkService;
-import de.axp.framework.internal.service.ServiceRegistry;
-import de.axp.framework.internal.service.session.InternalSessionService;
-import de.axp.framework.internal.service.session.SessionServiceFactory;
-import de.axp.framework.internal.service.task.InternalTaskService;
-import de.axp.framework.internal.service.task.TaskServiceFactory;
+import de.axp.framework.internal.services.InternalFrameworkService;
+import de.axp.framework.internal.services.ServiceRegistry;
+import de.axp.framework.internal.services.session.InternalSessionService;
+import de.axp.framework.internal.services.session.SessionServiceFactory;
+import de.axp.framework.internal.services.task.InternalTaskService;
+import de.axp.framework.internal.services.task.TaskServiceFactory;
 
 import java.util.HashMap;
 import java.util.List;

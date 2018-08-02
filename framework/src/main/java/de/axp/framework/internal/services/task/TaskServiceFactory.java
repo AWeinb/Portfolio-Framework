@@ -1,10 +1,10 @@
-package de.axp.framework.internal.service.task;
+package de.axp.framework.internal.services.task;
 
 import de.axp.framework.api.services.SessionService;
 import de.axp.framework.api.services.TaskService;
 import de.axp.framework.internal.mainloop.MainLoop;
-import de.axp.framework.internal.service.InternalFrameworkService;
-import de.axp.framework.internal.service.ServiceRegistry;
+import de.axp.framework.internal.services.InternalFrameworkService;
+import de.axp.framework.internal.services.ServiceRegistry;
 
 public final class TaskServiceFactory {
 

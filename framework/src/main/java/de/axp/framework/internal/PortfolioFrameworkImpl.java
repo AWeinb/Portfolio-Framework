@@ -6,9 +6,9 @@ import de.axp.framework.api.FrameworkPlugin;
 import de.axp.framework.api.services.SessionService;
 import de.axp.framework.internal.authentication.Authentication;
 import de.axp.framework.internal.mainloop.MainLoop;
-import de.axp.framework.internal.service.InternalFrameworkService;
-import de.axp.framework.internal.service.ServiceRegistry;
-import de.axp.framework.internal.service.session.InternalSessionService;
+import de.axp.framework.internal.services.InternalFrameworkService;
+import de.axp.framework.internal.services.ServiceRegistry;
+import de.axp.framework.internal.services.session.InternalSessionService;
 
 import java.util.List;
 
