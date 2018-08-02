@@ -1,4 +1,4 @@
-package de.axp.framework.internal.extension;
+package de.axp.framework.internal.plugin;
 
 import de.axp.framework.api.FrameworkException;
 

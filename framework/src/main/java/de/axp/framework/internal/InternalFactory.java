@@ -5,7 +5,7 @@ import de.axp.framework.api.PortfolioFramework;
 import de.axp.framework.api.FrameworkPlugin;
 import de.axp.framework.api.services.SessionService;
 import de.axp.framework.api.services.TaskService;
-import de.axp.framework.internal.extension.ExtensionFactory;
+import de.axp.framework.internal.plugin.ExtensionFactory;
 import de.axp.framework.internal.mainloop.MainLoop;
 import de.axp.framework.internal.mainloop.MainLoopFactory;
 import de.axp.framework.internal.service.InternalFrameworkService;
