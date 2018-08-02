@@ -1,6 +1,7 @@
 package de.axp.framework.api;
 
 import de.axp.framework.api.services.TaskService;
+import de.axp.framework.internal.authentication.Authentication;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -15,6 +16,7 @@ public class FrameworkTest {
 	public void testAll() {
 		PortfolioFramework.BasePortfolioFramework framework = PortfolioFramework.createBaseFramework();
 
+		Authentication authentication = new Authentication("Doge");
 		PortfolioFramework sessionFramework = framework.adaptToAuthentication(authentication);
 		TaskService frameworkEventInterface = sessionFramework.getFrameworkTaskService();
 		frameworkEventInterface.addTaskHandler(getSomeListener());

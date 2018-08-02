@@ -1,5 +1,8 @@
 package de.axp.framework.internal.services;
 
+import de.axp.framework.api.FrameworkService;
+import de.axp.framework.api.services.SessionService;
+import de.axp.framework.api.services.TaskService;
 import de.axp.framework.internal.infrastructure.mainloop.MainLoop;
 import de.axp.framework.internal.services.session.BaseSessionService;
 import de.axp.framework.internal.services.session.SessionServiceFactory;
@@ -20,5 +23,27 @@ public class BaseServiceRegistry {
 
 	public <T extends BaseFrameworkService> T getBaseService(Class<T> serviceClass) {
 		return (T) serviceMap.get(serviceClass);
+	}
+
+	public AuthenticatedServiceRegistry adaptToSession(SessionService.FrameworkSession session,
+	                                                   BaseServiceRegistry serviceRegistry) {
+		return new AuthenticatedServiceRegistry(session, serviceRegistry);
+	}
+
+	public class AuthenticatedServiceRegistry {
+
+		private final Map<Class, FrameworkService> authenticatedServiceMap = new HashMap<>();
+
+		AuthenticatedServiceRegistry(SessionService.FrameworkSession session, BaseServiceRegistry baseServiceRegistry) {
+			SessionService sessionService = SessionServiceFactory.createSessionService(baseServiceRegistry, session);
+			TaskService taskService = TaskServiceFactory.createTaskService(baseServiceRegistry, session);
+
+			authenticatedServiceMap.put(SessionService.class, sessionService);
+			authenticatedServiceMap.put(TaskService.class, taskService);
+		}
+
+		public <T extends FrameworkService> T getService(Class<T> serviceClass) {
+			return (T) authenticatedServiceMap.get(serviceClass);
+		}
 	}
 }
