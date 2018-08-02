@@ -11,15 +11,14 @@ public interface PortfolioFramework {
 		return InternalFactory.createFramework();
 	}
 
-	void setMainThreadSynchronization(FrameworkThreadSynchronizer synchronization);
-
 	SessionService getFrameworkSessionService();
 
 	TaskService getFrameworkTaskService();
 
 	interface BasePortfolioFramework {
 
-		PortfolioFramework adaptToAuthentication(Authentication authentication);
+		PortfolioFramework adaptToAuthentication(Authentication authentication,
+		                                         FrameworkThreadSynchronizer synchronization);
 
 		void shutdown();
 

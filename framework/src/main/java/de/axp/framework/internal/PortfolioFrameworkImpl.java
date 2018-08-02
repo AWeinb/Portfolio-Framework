@@ -1,6 +1,5 @@
 package de.axp.framework.internal;
 
-import de.axp.framework.api.FrameworkThreadSynchronizer;
 import de.axp.framework.api.PortfolioFramework;
 import de.axp.framework.api.services.SessionService;
 import de.axp.framework.api.services.TaskService;
@@ -15,15 +14,6 @@ class PortfolioFrameworkImpl implements PortfolioFramework {
 	                       BaseServiceRegistry.AuthenticatedServiceRegistry serviceRegistry) {
 		this.session = session;
 		this.serviceRegistry = serviceRegistry;
-	}
-
-	@Override
-	public void setMainThreadSynchronization(FrameworkThreadSynchronizer synchronization) {
-		//		BaseSessionService internalSessionService = serviceRegistry.getBaseService(BaseSessionService.class);
-		//		internalSessionService.checkSession(session);
-		//
-		//		BaseTaskService internalTaskService = serviceRegistry.getBaseService(BaseTaskService.class);
-		//		internalTaskService.setMainThreadSynchronization(synchronization);
 	}
 
 	@Override

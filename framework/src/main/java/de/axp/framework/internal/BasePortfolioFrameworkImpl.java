@@ -1,6 +1,7 @@
 package de.axp.framework.internal;
 
 import de.axp.framework.api.FrameworkPlugin;
+import de.axp.framework.api.FrameworkThreadSynchronizer;
 import de.axp.framework.api.PortfolioFramework;
 import de.axp.framework.api.services.SessionService;
 import de.axp.framework.internal.authentication.Authentication;
@@ -23,7 +24,8 @@ class BasePortfolioFrameworkImpl implements PortfolioFramework.BasePortfolioFram
 	}
 
 	@Override
-	public PortfolioFramework adaptToAuthentication(Authentication authentication) {
+	public PortfolioFramework adaptToAuthentication(Authentication authentication,
+	                                                FrameworkThreadSynchronizer synchronization) {
 		BaseSessionService internalSessionService = baseServiceRegistry.getBaseService(BaseSessionService.class);
 		SessionService.FrameworkSession session = internalSessionService.initializeSession(authentication);
 
