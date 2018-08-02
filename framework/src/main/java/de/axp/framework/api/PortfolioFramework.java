@@ -1,15 +1,14 @@
 package de.axp.framework.api;
 
-import de.axp.framework.internal.InternalFactory;
+import de.axp.framework.api.services.SessionService;
+import de.axp.framework.api.services.TaskService;
 
 public interface PortfolioFramework {
 
-	static PortfolioFramework create() {
-		return InternalFactory.createFramework();
-	}
+	void setMainThreadSynchronization(FrameworkThreadSynchronizer synchronization);
 
-	AuthenticatedPortfolioFramework authenticate(String user);
+	SessionService getFrameworkSessionService();
 
-	void shutdown();
+	TaskService getFrameworkTaskService();
 
 }

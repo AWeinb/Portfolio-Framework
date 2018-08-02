@@ -1,40 +1,45 @@
 package de.axp.framework.internal;
 
-import de.axp.framework.api.AuthenticatedPortfolioFramework;
 import de.axp.framework.api.PortfolioFramework;
-import de.axp.framework.api.FrameworkPlugin;
+import de.axp.framework.api.FrameworkThreadSynchronizer;
 import de.axp.framework.api.services.SessionService;
-import de.axp.framework.internal.authentication.Authentication;
-import de.axp.framework.internal.infrastructure.mainloop.MainLoop;
-import de.axp.framework.internal.services.InternalFrameworkService;
+import de.axp.framework.api.services.TaskService;
 import de.axp.framework.internal.services.ServiceRegistry;
 import de.axp.framework.internal.services.session.InternalSessionService;
-
-import java.util.List;
+import de.axp.framework.internal.services.task.InternalTaskService;
 
 class PortfolioFrameworkImpl implements PortfolioFramework {
 
-	private final MainLoop mainLoop;
 	private final ServiceRegistry serviceRegistry;
-	private final List<FrameworkPlugin> plugins;
+	private final SessionService.FrameworkSession session;
+	private final SessionService sessionService;
+	private final TaskService taskService;
 
-	PortfolioFrameworkImpl(MainLoop mainLoop, ServiceRegistry serviceRegistry, List<FrameworkPlugin> plugins) {
-		this.mainLoop = mainLoop;
+	PortfolioFrameworkImpl(ServiceRegistry serviceRegistry, SessionService.FrameworkSession session,
+	                       SessionService sessionService, TaskService taskService) {
 		this.serviceRegistry = serviceRegistry;
-		this.plugins = plugins;
+		this.session = session;
+		this.sessionService = sessionService;
+		this.taskService = taskService;
 	}
 
 	@Override
-	public void shutdown() {
-		mainLoop.dispose();
+	public void setMainThreadSynchronization(FrameworkThreadSynchronizer synchronization) {
+		InternalSessionService internalSessionService = (InternalSessionService) serviceRegistry.get(
+				InternalSessionService.class);
+		internalSessionService.checkSession(session);
+
+		InternalTaskService internalTaskService = (InternalTaskService) serviceRegistry.get(InternalTaskService.class);
+		internalTaskService.setMainThreadSynchronization(synchronization);
 	}
 
 	@Override
-	public AuthenticatedPortfolioFramework authenticate(String username) {
-		InternalFrameworkService service = serviceRegistry.get(InternalSessionService.class);
-		InternalSessionService internalSessionService = (InternalSessionService) service;
-		Authentication authentication = new Authentication(username);
-		SessionService.FrameworkSession frameworkSession = internalSessionService.initializeSession(authentication);
-		return InternalFactory.createAuthenticatedFramework(serviceRegistry, plugins, frameworkSession);
+	public SessionService getFrameworkSessionService() {
+		return sessionService;
+	}
+
+	@Override
+	public TaskService getFrameworkTaskService() {
+		return taskService;
 	}
 }
