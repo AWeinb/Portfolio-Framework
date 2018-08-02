@@ -30,7 +30,7 @@ class BasePortfolioFrameworkImpl implements PortfolioFramework.BasePortfolioFram
 		BaseServiceRegistry.AuthenticatedServiceRegistry authenticatedServiceRegistry = baseServiceRegistry.adaptToSession(
 				session, baseServiceRegistry);
 
-		PortfolioFrameworkImpl authenticatedPortfolioFramework = new PortfolioFrameworkImpl(session,
+		PortfolioFrameworkImpl authenticatedPortfolioFramework = new PortfolioFrameworkImpl(
 				authenticatedServiceRegistry);
 
 		for (FrameworkPlugin plugin : pluginRegistry.getPlugins()) {

@@ -7,12 +7,9 @@ import de.axp.framework.internal.services.BaseServiceRegistry;
 
 class PortfolioFrameworkImpl implements PortfolioFramework {
 
-	private final SessionService.FrameworkSession session;
 	private final BaseServiceRegistry.AuthenticatedServiceRegistry serviceRegistry;
 
-	PortfolioFrameworkImpl(SessionService.FrameworkSession session,
-	                       BaseServiceRegistry.AuthenticatedServiceRegistry serviceRegistry) {
-		this.session = session;
+	PortfolioFrameworkImpl(BaseServiceRegistry.AuthenticatedServiceRegistry serviceRegistry) {
 		this.serviceRegistry = serviceRegistry;
 	}
 
