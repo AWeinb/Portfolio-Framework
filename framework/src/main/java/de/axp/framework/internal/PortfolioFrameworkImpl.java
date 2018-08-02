@@ -2,7 +2,7 @@ package de.axp.framework.internal;
 
 import de.axp.framework.api.AuthenticatedPortfolioFramework;
 import de.axp.framework.api.PortfolioFramework;
-import de.axp.framework.api.extension.FrameworkPlugin;
+import de.axp.framework.api.FrameworkPlugin;
 import de.axp.framework.api.services.SessionService;
 import de.axp.framework.internal.authentication.Authentication;
 import de.axp.framework.internal.mainloop.MainLoop;

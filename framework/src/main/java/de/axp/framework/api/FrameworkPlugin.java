@@ -1,4 +1,4 @@
-package de.axp.framework.api.extension;
+package de.axp.framework.api;
 
 import de.axp.framework.api.AuthenticatedPortfolioFramework;
 

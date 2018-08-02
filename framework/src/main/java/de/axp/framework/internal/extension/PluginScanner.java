@@ -1,6 +1,6 @@
 package de.axp.framework.internal.extension;
 
-import de.axp.framework.api.extension.FrameworkPlugin;
+import de.axp.framework.api.FrameworkPlugin;
 
 import java.util.ArrayList;
 import java.util.List;
