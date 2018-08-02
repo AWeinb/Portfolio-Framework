@@ -17,8 +17,8 @@ public class BaseServiceRegistry {
 	private final Map<Class, BaseFrameworkService> serviceMap = new HashMap<>();
 
 	public BaseServiceRegistry(MainLoop mainLoop) {
-		serviceMap.put(BaseSessionService.class, SessionServiceFactory.createBaseSessionService());
-		serviceMap.put(BaseTaskService.class, TaskServiceFactory.createBaseTaskService(mainLoop));
+		serviceMap.put(BaseSessionService.class, new BaseSessionService());
+		serviceMap.put(BaseTaskService.class, new BaseTaskService(mainLoop));
 	}
 
 	public <T extends BaseFrameworkService> T getBaseService(Class<T> serviceClass) {

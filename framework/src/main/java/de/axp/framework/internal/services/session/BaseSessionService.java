@@ -4,13 +4,28 @@ import de.axp.framework.api.services.SessionService;
 import de.axp.framework.internal.authentication.Authentication;
 import de.axp.framework.internal.services.BaseFrameworkService;
 
-public interface BaseSessionService extends BaseFrameworkService {
+import java.util.HashSet;
+import java.util.Set;
 
-	SessionService.FrameworkSession initializeSession(Authentication authentication);
+public class BaseSessionService implements BaseFrameworkService {
 
-	void invalidateSession(SessionService.FrameworkSession session);
+	private final Set<String> sessionIds = new HashSet<>();
 
-	void checkSession(SessionService.FrameworkSession session);
+	public SessionService.FrameworkSession initializeSession(Authentication authentication) {
+		if (authentication == null) {
+			throw new IllegalArgumentException();
+		}
+		return new SessionService.FrameworkSession() {
+		};
+	}
 
-	int getActiveSessions();
+	public void invalidateSession(SessionService.FrameworkSession session) {
+	}
+
+	public void checkSession(SessionService.FrameworkSession session) {
+	}
+
+	public int getActiveSessions() {
+		return sessionIds.size();
+	}
 }
