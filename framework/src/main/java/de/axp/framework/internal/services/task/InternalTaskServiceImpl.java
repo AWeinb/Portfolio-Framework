@@ -4,8 +4,8 @@ import de.axp.framework.api.FrameworkThreadSynchronizer;
 import de.axp.framework.api.services.TaskService;
 import de.axp.framework.api.services.TaskService.Task;
 import de.axp.framework.api.services.TaskService.TaskHandler;
-import de.axp.framework.internal.mainloop.MainLoop;
-import de.axp.framework.internal.mainloop.MainLoopPackage;
+import de.axp.framework.internal.infrastructure.mainloop.MainLoop;
+import de.axp.framework.internal.infrastructure.mainloop.MainLoopPackage;
 
 class InternalTaskServiceImpl implements MainLoop.MainLoopPlugin, InternalTaskService {
 

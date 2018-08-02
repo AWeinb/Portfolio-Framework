@@ -1,10 +1,10 @@
-package de.axp.framework.internal.mainloop;
+package de.axp.framework.internal.infrastructure.mainloop;
 
 import java.util.*;
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
 
-import static de.axp.framework.internal.mainloop.MainLoop.MainLoopListener;
+import static de.axp.framework.internal.infrastructure.mainloop.MainLoop.MainLoopListener;
 
 class MainLoopWorker {
 

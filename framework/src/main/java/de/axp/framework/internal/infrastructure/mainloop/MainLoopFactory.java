@@ -1,4 +1,4 @@
-package de.axp.framework.internal.mainloop;
+package de.axp.framework.internal.infrastructure.mainloop;
 
 public class MainLoopFactory {
 

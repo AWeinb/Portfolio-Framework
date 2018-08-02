@@ -2,8 +2,8 @@ package de.axp.framework.internal.services.task;
 
 import de.axp.framework.api.FrameworkThreadSynchronizer;
 import de.axp.framework.api.services.TaskService.TaskPromise;
-import de.axp.framework.internal.mainloop.MainLoop;
-import de.axp.framework.internal.mainloop.MainLoopPackage;
+import de.axp.framework.internal.infrastructure.mainloop.MainLoop;
+import de.axp.framework.internal.infrastructure.mainloop.MainLoopPackage;
 
 import java.util.Collections;
 import java.util.HashMap;
