@@ -15,7 +15,7 @@ public class FrameworkTest {
 	public void testAll() {
 		PortfolioFramework.BasePortfolioFramework framework = PortfolioFramework.createBaseFramework();
 
-		PortfolioFramework sessionFramework = framework.adaptToUser("Hans");
+		PortfolioFramework sessionFramework = framework.adaptToAuthentication(authentication);
 		TaskService frameworkEventInterface = sessionFramework.getFrameworkTaskService();
 		frameworkEventInterface.addTaskHandler(getSomeListener());
 

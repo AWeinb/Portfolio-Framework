@@ -3,6 +3,7 @@ package de.axp.framework.api;
 import de.axp.framework.api.services.SessionService;
 import de.axp.framework.api.services.TaskService;
 import de.axp.framework.internal.InternalFactory;
+import de.axp.framework.internal.authentication.Authentication;
 
 public interface PortfolioFramework {
 
@@ -18,7 +19,7 @@ public interface PortfolioFramework {
 
 	interface BasePortfolioFramework {
 
-		PortfolioFramework adaptToUser(String user);
+		PortfolioFramework adaptToAuthentication(Authentication authentication);
 
 		void shutdown();
 
