@@ -1,14 +1,14 @@
 package de.axp.framework.internal.services.session;
 
 import de.axp.framework.api.services.SessionService;
-import de.axp.framework.internal.services.ServiceRegistry;
+import de.axp.framework.internal.services.BaseServiceRegistry;
 
 class SessionServiceImpl implements SessionService {
 
-	private final ServiceRegistry serviceRegistry;
+	private final BaseServiceRegistry serviceRegistry;
 	private final FrameworkSession session;
 
-	SessionServiceImpl(ServiceRegistry serviceRegistry, FrameworkSession session) {
+	SessionServiceImpl(BaseServiceRegistry serviceRegistry, FrameworkSession session) {
 		this.serviceRegistry = serviceRegistry;
 		this.session = session;
 	}
@@ -20,7 +20,7 @@ class SessionServiceImpl implements SessionService {
 
 	@Override
 	public void invalidate() {
-		InternalSessionService internalSessionService = serviceRegistry.get(InternalSessionService.class);
+		BaseSessionService internalSessionService = serviceRegistry.getBaseService(BaseSessionService.class);
 		internalSessionService.invalidateSession(session);
 	}
 }

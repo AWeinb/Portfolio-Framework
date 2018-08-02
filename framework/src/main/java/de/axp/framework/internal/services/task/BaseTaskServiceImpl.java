@@ -7,7 +7,7 @@ import de.axp.framework.api.services.TaskService.TaskHandler;
 import de.axp.framework.internal.infrastructure.mainloop.MainLoop;
 import de.axp.framework.internal.infrastructure.mainloop.MainLoopPackage;
 
-class InternalTaskServiceImpl implements MainLoop.MainLoopPlugin, InternalTaskService {
+class BaseTaskServiceImpl implements MainLoop.MainLoopPlugin, BaseTaskService {
 
 	private MainLoop.MainLoopAccessor inputBufferAccessor;
 	private TaskHandlerRegistry handlerRegistry;

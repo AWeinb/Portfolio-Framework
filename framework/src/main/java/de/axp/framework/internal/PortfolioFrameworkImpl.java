@@ -4,18 +4,18 @@ import de.axp.framework.api.FrameworkThreadSynchronizer;
 import de.axp.framework.api.PortfolioFramework;
 import de.axp.framework.api.services.SessionService;
 import de.axp.framework.api.services.TaskService;
-import de.axp.framework.internal.services.ServiceRegistry;
-import de.axp.framework.internal.services.session.InternalSessionService;
-import de.axp.framework.internal.services.task.InternalTaskService;
+import de.axp.framework.internal.services.BaseServiceRegistry;
+import de.axp.framework.internal.services.session.BaseSessionService;
+import de.axp.framework.internal.services.task.BaseTaskService;
 
 class PortfolioFrameworkImpl implements PortfolioFramework {
 
-	private final ServiceRegistry serviceRegistry;
+	private final BaseServiceRegistry serviceRegistry;
 	private final SessionService.FrameworkSession session;
 	private final SessionService sessionService;
 	private final TaskService taskService;
 
-	PortfolioFrameworkImpl(ServiceRegistry serviceRegistry, SessionService.FrameworkSession session,
+	PortfolioFrameworkImpl(BaseServiceRegistry serviceRegistry, SessionService.FrameworkSession session,
 	                       SessionService sessionService, TaskService taskService) {
 		this.serviceRegistry = serviceRegistry;
 		this.session = session;
@@ -25,10 +25,10 @@ class PortfolioFrameworkImpl implements PortfolioFramework {
 
 	@Override
 	public void setMainThreadSynchronization(FrameworkThreadSynchronizer synchronization) {
-		InternalSessionService internalSessionService = serviceRegistry.get(InternalSessionService.class);
+		BaseSessionService internalSessionService = serviceRegistry.getBaseService(BaseSessionService.class);
 		internalSessionService.checkSession(session);
 
-		InternalTaskService internalTaskService = serviceRegistry.get(InternalTaskService.class);
+		BaseTaskService internalTaskService = serviceRegistry.getBaseService(BaseTaskService.class);
 		internalTaskService.setMainThreadSynchronization(synchronization);
 	}
 

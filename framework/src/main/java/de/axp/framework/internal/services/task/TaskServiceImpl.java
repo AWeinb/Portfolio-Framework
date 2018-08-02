@@ -2,15 +2,15 @@ package de.axp.framework.internal.services.task;
 
 import de.axp.framework.api.services.SessionService;
 import de.axp.framework.api.services.TaskService;
-import de.axp.framework.internal.services.ServiceRegistry;
-import de.axp.framework.internal.services.session.InternalSessionService;
+import de.axp.framework.internal.services.BaseServiceRegistry;
+import de.axp.framework.internal.services.session.BaseSessionService;
 
 class TaskServiceImpl implements TaskService {
 
-	private ServiceRegistry serviceRegistry;
+	private BaseServiceRegistry serviceRegistry;
 	private SessionService.FrameworkSession session;
 
-	TaskServiceImpl(ServiceRegistry serviceRegistry, SessionService.FrameworkSession session) {
+	TaskServiceImpl(BaseServiceRegistry serviceRegistry, SessionService.FrameworkSession session) {
 		this.serviceRegistry = serviceRegistry;
 		this.session = session;
 	}
@@ -22,10 +22,10 @@ class TaskServiceImpl implements TaskService {
 
 	@Override
 	public void addTaskHandler(String contextId, TaskHandler taskHandler) {
-		InternalSessionService internalSessionService = serviceRegistry.get(InternalSessionService.class);
+		BaseSessionService internalSessionService = serviceRegistry.getBaseService(BaseSessionService.class);
 		internalSessionService.checkSession(session);
 
-		InternalTaskService internalTaskService = serviceRegistry.get(InternalTaskService.class);
+		BaseTaskService internalTaskService = serviceRegistry.getBaseService(BaseTaskService.class);
 		internalTaskService.register(session.toString(), contextId, taskHandler);
 	}
 
@@ -36,11 +36,11 @@ class TaskServiceImpl implements TaskService {
 
 	@Override
 	public void triggerTask(String contextId, String taskId, Object content, TaskPromise promise) {
-		InternalSessionService internalSessionService = serviceRegistry.get(InternalSessionService.class);
+		BaseSessionService internalSessionService = serviceRegistry.getBaseService(BaseSessionService.class);
 		internalSessionService.checkSession(session);
 
 		Task task = Task.build(contextId, taskId, content);
-		InternalTaskService internalTaskService = serviceRegistry.get(InternalTaskService.class);
+		BaseTaskService internalTaskService = serviceRegistry.getBaseService(BaseTaskService.class);
 		internalTaskService.trigger(session.toString(), task, promise);
 	}
 }

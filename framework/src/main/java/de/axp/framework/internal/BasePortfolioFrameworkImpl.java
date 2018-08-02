@@ -7,33 +7,34 @@ import de.axp.framework.api.services.TaskService;
 import de.axp.framework.internal.authentication.Authentication;
 import de.axp.framework.internal.infrastructure.mainloop.MainLoop;
 import de.axp.framework.internal.plugin.PluginRegistry;
-import de.axp.framework.internal.services.ServiceRegistry;
-import de.axp.framework.internal.services.session.InternalSessionService;
+import de.axp.framework.internal.services.BaseServiceRegistry;
+import de.axp.framework.internal.services.session.BaseSessionService;
 import de.axp.framework.internal.services.session.SessionServiceFactory;
 import de.axp.framework.internal.services.task.TaskServiceFactory;
 
 class BasePortfolioFrameworkImpl implements PortfolioFramework.BasePortfolioFramework {
 
 	private final MainLoop mainLoop;
-	private final ServiceRegistry serviceRegistry;
+	private final BaseServiceRegistry baseServiceRegistry;
 	private final PluginRegistry pluginRegistry;
 
-	BasePortfolioFrameworkImpl(MainLoop mainLoop, ServiceRegistry serviceRegistry, PluginRegistry pluginRegistry) {
+	BasePortfolioFrameworkImpl(MainLoop mainLoop, BaseServiceRegistry baseServiceRegistry,
+	                           PluginRegistry pluginRegistry) {
 		this.mainLoop = mainLoop;
-		this.serviceRegistry = serviceRegistry;
+		this.baseServiceRegistry = baseServiceRegistry;
 		this.pluginRegistry = pluginRegistry;
 	}
 
 	@Override
 	public PortfolioFramework adaptToAuthentication(Authentication authentication) {
-		InternalSessionService internalSessionService = serviceRegistry.get(InternalSessionService.class);
+		BaseSessionService internalSessionService = baseServiceRegistry.getBaseService(BaseSessionService.class);
 		SessionService.FrameworkSession session = internalSessionService.initializeSession(authentication);
 
-		SessionService sessionService = SessionServiceFactory.createSessionService(serviceRegistry, session);
-		TaskService taskService = TaskServiceFactory.createTaskService(serviceRegistry, session);
+		SessionService sessionService = SessionServiceFactory.createSessionService(baseServiceRegistry, session);
+		TaskService taskService = TaskServiceFactory.createTaskService(baseServiceRegistry, session);
 
-		PortfolioFrameworkImpl authenticatedPortfolioFramework = new PortfolioFrameworkImpl(serviceRegistry, session,
-				sessionService, taskService);
+		PortfolioFrameworkImpl authenticatedPortfolioFramework = new PortfolioFrameworkImpl(baseServiceRegistry,
+				session, sessionService, taskService);
 
 		for (FrameworkPlugin plugin : pluginRegistry.getPlugins()) {
 			plugin.initialize(authenticatedPortfolioFramework);

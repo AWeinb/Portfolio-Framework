@@ -3,18 +3,18 @@ package de.axp.framework.internal.services.task;
 import de.axp.framework.api.services.SessionService;
 import de.axp.framework.api.services.TaskService;
 import de.axp.framework.internal.infrastructure.mainloop.MainLoop;
-import de.axp.framework.internal.services.InternalFrameworkService;
-import de.axp.framework.internal.services.ServiceRegistry;
+import de.axp.framework.internal.services.BaseFrameworkService;
+import de.axp.framework.internal.services.BaseServiceRegistry;
 
 public final class TaskServiceFactory {
 
-	public static TaskService createTaskService(ServiceRegistry serviceRegistry,
+	public static TaskService createTaskService(BaseServiceRegistry serviceRegistry,
 	                                            SessionService.FrameworkSession session) {
 		return new TaskServiceImpl(serviceRegistry, session);
 	}
 
-	public static InternalFrameworkService createInternalTaskService(MainLoop mainLoop) {
-		InternalTaskServiceImpl internalTaskService = new InternalTaskServiceImpl();
+	public static BaseFrameworkService createBaseTaskService(MainLoop mainLoop) {
+		BaseTaskServiceImpl internalTaskService = new BaseTaskServiceImpl();
 		mainLoop.addPlugin(internalTaskService);
 		return internalTaskService;
 	}
