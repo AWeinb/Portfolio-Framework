@@ -1,13 +1,15 @@
 package de.axp.framework.internal;
 
-import de.axp.framework.api.FrameworkPlugin;
 import de.axp.framework.api.PortfolioFramework;
 import de.axp.framework.api.services.SessionService;
 import de.axp.framework.internal.authentication.Authentication;
 import de.axp.framework.internal.infrastructure.mainloop.MainLoop;
-import de.axp.framework.internal.plugin.PluginRegistry;
+import de.axp.framework.internal.infrastructure.plugin.FrameworkPlugin;
+import de.axp.framework.internal.infrastructure.plugin.PluginRegistry;
 import de.axp.framework.internal.services.BaseServiceRegistry;
 import de.axp.framework.internal.services.session.BaseSessionService;
+
+import java.util.Collection;
 
 class BasePortfolioFrameworkImpl implements PortfolioFramework.BasePortfolioFramework {
 
@@ -33,9 +35,11 @@ class BasePortfolioFrameworkImpl implements PortfolioFramework.BasePortfolioFram
 		PortfolioFrameworkImpl authenticatedPortfolioFramework = new PortfolioFrameworkImpl(
 				authenticatedServiceRegistry);
 
-		for (FrameworkPlugin plugin : pluginRegistry.getPlugins()) {
+		Collection<? extends FrameworkPlugin> plugins = pluginRegistry.getPlugins();
+		for (FrameworkPlugin plugin : plugins) {
 			plugin.initialize(authenticatedPortfolioFramework);
 		}
+
 		return authenticatedPortfolioFramework;
 	}
 

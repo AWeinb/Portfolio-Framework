@@ -1,7 +1,7 @@
 package de.axp.framework.testplugin;
 
 import de.axp.framework.api.PortfolioFramework;
-import de.axp.framework.api.FrameworkPlugin;
+import de.axp.framework.internal.infrastructure.plugin.FrameworkPlugin;
 import de.axp.framework.api.services.TaskService;
 
 public class TestPlugin implements FrameworkPlugin {
