@@ -22,7 +22,6 @@
 
     <modules>
         <module>framework</module>
-        <module>framework-plugins</module>
         <module>portfolio-vaadin</module>
     </modules>
 
