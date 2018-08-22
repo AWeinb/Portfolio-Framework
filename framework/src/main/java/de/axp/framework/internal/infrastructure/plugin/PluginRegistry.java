@@ -22,7 +22,7 @@ public class PluginRegistry {
 		return allPlugins;
 	}
 
-	public Set<? extends FrameworkPlugin> getPluginsOfType(Class<? extends FrameworkPlugin> type) {
-		return plugins.get(type);
+	public <P extends FrameworkPlugin> Set<P> getPluginsOfType(Class<P> type) {
+		return (Set<P>) plugins.get(type);
 	}
 }

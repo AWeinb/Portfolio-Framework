@@ -4,6 +4,7 @@ import de.axp.framework.api.FrameworkService;
 import de.axp.framework.api.services.SessionService;
 import de.axp.framework.api.services.TaskService;
 import de.axp.framework.internal.infrastructure.mainloop.MainLoop;
+import de.axp.framework.internal.infrastructure.plugin.PluginRegistry;
 import de.axp.framework.internal.services.session.BaseSessionService;
 import de.axp.framework.internal.services.session.SessionServiceFactory;
 import de.axp.framework.internal.services.task.BaseTaskService;
@@ -35,6 +36,8 @@ public class BaseServiceRegistry {
 		private final Map<Class, FrameworkService> authenticatedServiceMap = new HashMap<>();
 
 		AuthenticatedServiceRegistry(SessionService.FrameworkSession session, BaseServiceRegistry baseServiceRegistry) {
+			PluginRegistry pluginRegistry = new PluginRegistry();
+
 			SessionService sessionService = SessionServiceFactory.createSessionService(baseServiceRegistry, session);
 			TaskService taskService = TaskServiceFactory.createTaskService(baseServiceRegistry, session);
 
