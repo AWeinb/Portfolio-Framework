@@ -1,4 +1,4 @@
-package de.axp.framework.api.interfaces.data;
+package de.axp.framework.api.extensions;
 
 import de.axp.framework.internal.infrastructure.plugin.FrameworkPlugin;
 
