@@ -1,7 +1,5 @@
 package de.axp.framework.internal.infrastructure.plugin;
 
-import de.axp.framework.api.interfaces.data.DataHandler;
-
 import java.util.*;
 
 public class PluginRegistry {
@@ -9,7 +7,6 @@ public class PluginRegistry {
 	private final Map<Class<? extends FrameworkPlugin>, Set<? extends FrameworkPlugin>> plugins = new HashMap<>();
 
 	public PluginRegistry() {
-		addPluginsOfType(DataHandler.class);
 	}
 
 	private void addPluginsOfType(Class<? extends FrameworkPlugin> aClass) {
@@ -24,7 +21,7 @@ public class PluginRegistry {
 		return allPlugins;
 	}
 
-	public Set<? extends FrameworkPlugin> getPluginsOfType(Class<? extends FrameworkPlugin> type) {
-		return plugins.get(type);
+	public <P extends FrameworkPlugin> Set<P> getPluginsOfType(Class<P> type) {
+		return (Set<P>) plugins.get(type);
 	}
 }

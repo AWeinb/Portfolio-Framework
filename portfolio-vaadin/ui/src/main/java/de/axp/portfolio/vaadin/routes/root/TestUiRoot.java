@@ -7,7 +7,6 @@ import com.vaadin.flow.component.page.Push;
 import com.vaadin.flow.router.Route;
 import com.vaadin.flow.server.VaadinSession;
 import de.axp.framework.api.PortfolioFramework;
-import de.axp.framework.api.services.TaskService;
 
 @Push
 @Route("")
@@ -23,9 +22,6 @@ public class TestUiRoot extends Div {
 		VaadinSession session = VaadinSession.getCurrent();
 		Object attribute = session.getAttribute(PortfolioFramework.class.getSimpleName());
 		PortfolioFramework authenticatedFramework = (PortfolioFramework) attribute;
-
-		authenticatedFramework.getTaskService()
-				.addTaskHandler((task, promise) -> promise.respond(TaskService.TaskResolution.RESOLVED, "Bar"));
 
 		Label label = new Label();
 		Button button = new Button("Sh*T");

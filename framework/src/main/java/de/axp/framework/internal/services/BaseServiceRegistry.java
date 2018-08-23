@@ -35,11 +35,11 @@ public class BaseServiceRegistry {
 
 		private final Map<Class, FrameworkService> authenticatedServiceMap = new HashMap<>();
 
-		AuthenticatedServiceRegistry(SessionService.FrameworkSession session, BaseServiceRegistry baseServiceRegistry) {
+		AuthenticatedServiceRegistry(SessionService.FrameworkSession session, BaseServiceRegistry serviceRegistry) {
 			PluginRegistry pluginRegistry = new PluginRegistry();
 
-			SessionService sessionService = SessionServiceFactory.createSessionService(baseServiceRegistry, session);
-			TaskService taskService = TaskServiceFactory.createTaskService(baseServiceRegistry, session);
+			SessionService sessionService = SessionServiceFactory.createSessionService(serviceRegistry, session);
+			TaskService taskService = TaskServiceFactory.createTaskService(serviceRegistry, pluginRegistry, session);
 
 			authenticatedServiceMap.put(SessionService.class, sessionService);
 			authenticatedServiceMap.put(TaskService.class, taskService);

@@ -38,11 +38,19 @@ public class FrameworkTest {
 	}
 
 	private TaskHandler getSomeListener() {
-		return (task, answerPromise) -> {
-			if (task.getContent().equals("A")) {
-				answerPromise.respond(TaskService.TaskResolution.REJECTED, task.getContent());
-			} else {
-				answerPromise.respond(TaskService.TaskResolution.RESOLVED, task.getContent());
+		return new TaskHandler() {
+			@Override
+			public void handle(TaskService.Task task, TaskService.TaskPromise promise) {
+				if (task.getContent().equals("A")) {
+					promise.respond(TaskService.TaskResolution.REJECTED, task.getContent());
+				} else {
+					promise.respond(TaskService.TaskResolution.RESOLVED, task.getContent());
+				}
+			}
+
+			@Override
+			public String provideIdentifier() {
+				return "";
 			}
 		};
 	}

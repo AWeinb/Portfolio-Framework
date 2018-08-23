@@ -8,8 +8,6 @@ public interface TaskService extends FrameworkService {
 
 	void addTaskHandler(TaskHandler taskHandler);
 
-	void addTaskHandler(String contextId, TaskHandler taskHandler);
-
 	void triggerTask(String taskId, Object content, TaskPromise promise);
 
 	void triggerTask(String contextId, String taskId, Object content, TaskPromise promise);
