@@ -1,7 +1,7 @@
 package de.axp.framework.internal.services.task;
 
 import de.axp.framework.api.services.TaskService;
-import de.axp.framework.api.services.TaskService.TaskHandler;
+import de.axp.framework.api.extensions.TaskHandler;
 import de.axp.framework.internal.infrastructure.mainloop.MainLoop;
 import de.axp.framework.internal.infrastructure.mainloop.MainLoopPackage;
 

@@ -1,5 +1,6 @@
 package de.axp.framework.api;
 
+import de.axp.framework.api.extensions.TaskHandler;
 import de.axp.framework.api.services.TaskService;
 import de.axp.framework.internal.authentication.Authentication;
 import org.junit.Assert;
@@ -36,7 +37,7 @@ public class FrameworkTest {
 		framework.shutdown();
 	}
 
-	private TaskService.TaskHandler getSomeListener() {
+	private TaskHandler getSomeListener() {
 		return (task, answerPromise) -> {
 			if (task.getContent().equals("A")) {
 				answerPromise.respond(TaskService.TaskResolution.REJECTED, task.getContent());

@@ -1,6 +1,7 @@
 package de.axp.framework.api.services;
 
 import de.axp.framework.api.FrameworkService;
+import de.axp.framework.api.extensions.TaskHandler;
 import de.axp.framework.internal.services.task.TaskServiceFactory;
 
 public interface TaskService extends FrameworkService {
@@ -15,13 +16,6 @@ public interface TaskService extends FrameworkService {
 
 	enum TaskResolution {
 		RESOLVED, REJECTED, UNHANDLED
-	}
-
-	@FunctionalInterface
-	interface TaskHandler {
-
-		void handle(Task task, TaskPromise promise);
-
 	}
 
 	interface Task {

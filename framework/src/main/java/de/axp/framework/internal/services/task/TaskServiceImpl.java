@@ -1,5 +1,6 @@
 package de.axp.framework.internal.services.task;
 
+import de.axp.framework.api.extensions.TaskHandler;
 import de.axp.framework.api.services.SessionService;
 import de.axp.framework.api.services.TaskService;
 import de.axp.framework.internal.services.BaseServiceRegistry;
