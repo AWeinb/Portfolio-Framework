@@ -6,12 +6,14 @@ import java.util.*;
 
 public class PluginRegistry {
 
-	private final Map<Class, Set<? extends FrameworkPlugin>> plugins = new HashMap<>();
+	private final Map<Class<? extends FrameworkPlugin>, Set<? extends FrameworkPlugin>> plugins = new HashMap<>();
 
 	public PluginRegistry() {
-		PluginScanner pluginScanner = new PluginScanner();
+		addPluginsOfType(DataHandler.class);
+	}
 
-		plugins.put(DataHandler.class, pluginScanner.getPlugins(DataHandler.class));
+	private void addPluginsOfType(Class<? extends FrameworkPlugin> aClass) {
+		plugins.put(aClass, PluginScanner.getPlugins(aClass));
 	}
 
 	public Collection<? extends FrameworkPlugin> getPlugins() {
@@ -22,7 +24,7 @@ public class PluginRegistry {
 		return allPlugins;
 	}
 
-	public <P extends FrameworkPlugin> Set<P> getPluginsOfType(Class<P> type) {
-		return (Set<P>) plugins.get(type);
+	public Set<? extends FrameworkPlugin> getPluginsOfType(Class<? extends FrameworkPlugin> type) {
+		return plugins.get(type);
 	}
 }

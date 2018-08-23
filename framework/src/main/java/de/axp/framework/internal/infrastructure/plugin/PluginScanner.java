@@ -5,9 +5,12 @@ import java.util.ServiceConfigurationError;
 import java.util.ServiceLoader;
 import java.util.Set;
 
-class PluginScanner {
+final class PluginScanner {
 
-	<P extends FrameworkPlugin> Set<P> getPlugins(Class<P> service) {
+	private PluginScanner() {
+	}
+
+	static <P extends FrameworkPlugin> Set<P> getPlugins(Class<P> service) {
 		ServiceLoader<P> serviceLoader = ServiceLoader.load(service);
 		Set<P> plugins = new HashSet<>();
 
