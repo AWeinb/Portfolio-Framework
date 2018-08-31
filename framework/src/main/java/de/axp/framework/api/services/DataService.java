@@ -1,10 +1,9 @@
 package de.axp.framework.api.services;
 
-public interface DataService {
+import de.axp.framework.api.FrameworkService;
+import de.axp.framework.api.extensions.DataHandler;
 
-	void load(String id);
+public interface DataService extends FrameworkService {
 
-	void save(String id);
-
-	void invalidate(String id);
+	void addDataHandler(DataHandler dataHandler);
 }

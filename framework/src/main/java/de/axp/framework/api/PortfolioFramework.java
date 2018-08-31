@@ -1,5 +1,6 @@
 package de.axp.framework.api;
 
+import de.axp.framework.api.services.DataService;
 import de.axp.framework.api.services.TaskService;
 import de.axp.framework.internal.InternalFactory;
 import de.axp.framework.internal.authentication.Authentication;
@@ -11,6 +12,8 @@ public interface PortfolioFramework {
 	}
 
 	TaskService getTaskService();
+
+	DataService getDataService();
 
 	interface FrameworkSession {
 

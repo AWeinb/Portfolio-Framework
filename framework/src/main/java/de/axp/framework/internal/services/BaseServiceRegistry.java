@@ -2,9 +2,12 @@ package de.axp.framework.internal.services;
 
 import de.axp.framework.api.FrameworkService;
 import de.axp.framework.api.PortfolioFramework.FrameworkSession;
+import de.axp.framework.api.services.DataService;
 import de.axp.framework.api.services.TaskService;
 import de.axp.framework.internal.infrastructure.mainloop.MainLoop;
 import de.axp.framework.internal.infrastructure.plugin.PluginRegistry;
+import de.axp.framework.internal.services.data.BaseDataService;
+import de.axp.framework.internal.services.data.DataServiceFactory;
 import de.axp.framework.internal.services.task.BaseTaskService;
 import de.axp.framework.internal.services.task.TaskServiceFactory;
 
@@ -17,6 +20,7 @@ public class BaseServiceRegistry {
 
 	public BaseServiceRegistry(MainLoop mainLoop) {
 		serviceMap.put(BaseTaskService.class, new BaseTaskService(mainLoop));
+		serviceMap.put(BaseDataService.class, new BaseDataService(mainLoop));
 	}
 
 	public <T extends BaseFrameworkService> T getBaseService(Class<T> serviceClass) {
@@ -35,8 +39,10 @@ public class BaseServiceRegistry {
 			PluginRegistry pluginRegistry = new PluginRegistry();
 
 			TaskService taskService = TaskServiceFactory.createTaskService(serviceRegistry, pluginRegistry, session);
+			DataService dataService = DataServiceFactory.createDataService(serviceRegistry, pluginRegistry, session);
 
 			authenticatedServiceMap.put(TaskService.class, taskService);
+			authenticatedServiceMap.put(DataService.class, dataService);
 		}
 
 		public <T extends FrameworkService> T getService(Class<T> serviceClass) {
