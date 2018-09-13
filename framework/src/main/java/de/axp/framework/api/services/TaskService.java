@@ -1,12 +1,9 @@
 package de.axp.framework.api.services;
 
 import de.axp.framework.api.FrameworkService;
-import de.axp.framework.api.extensions.TaskHandler;
 import de.axp.framework.internal.services.task.TaskServiceFactory;
 
 public interface TaskService extends FrameworkService {
-
-	void addTaskHandler(TaskHandler taskHandler);
 
 	void triggerTask(Task task, TaskPromise promise);
 

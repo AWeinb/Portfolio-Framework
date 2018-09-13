@@ -1,6 +1,6 @@
 package de.axp.framework.internal.services.data;
 
-import de.axp.framework.api.extensions.DataHandler;
+import de.axp.framework.api.plugins.DataHandler;
 import de.axp.framework.api.services.DataService;
 import de.axp.framework.internal.infrastructure.plugin.PluginRegistry;
 import de.axp.framework.internal.services.ServiceRegistry;

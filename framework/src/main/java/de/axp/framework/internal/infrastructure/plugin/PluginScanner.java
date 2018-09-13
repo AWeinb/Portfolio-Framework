@@ -10,12 +10,12 @@ final class PluginScanner {
 	private PluginScanner() {
 	}
 
-	static <P extends FrameworkPlugin> Set<P> getPlugins(Class<P> service) {
-		ServiceLoader<P> serviceLoader = ServiceLoader.load(service);
-		Set<P> plugins = new HashSet<>();
+	static Set<FrameworkPlugin> getPlugins(Class<? extends FrameworkPlugin> service) {
+		ServiceLoader<? extends FrameworkPlugin> serviceLoader = ServiceLoader.load(service);
+		Set<FrameworkPlugin> plugins = new HashSet<>();
 
 		try {
-			for (P plugin : serviceLoader) {
+			for (FrameworkPlugin plugin : serviceLoader) {
 				plugins.add(plugin);
 			}
 		} catch (ServiceConfigurationError e) {

@@ -1,4 +1,4 @@
-package de.axp.framework.api.extensions;
+package de.axp.framework.api.plugins;
 
 import de.axp.framework.api.services.TaskService;
 import de.axp.framework.internal.infrastructure.plugin.FrameworkPlugin;

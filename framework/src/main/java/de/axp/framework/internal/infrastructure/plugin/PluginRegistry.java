@@ -1,27 +1,31 @@
 package de.axp.framework.internal.infrastructure.plugin;
 
+import de.axp.framework.api.plugins.DataHandler;
+import de.axp.framework.api.plugins.TaskHandler;
+
 import java.util.*;
 
 public class PluginRegistry {
 
-	private final Map<Class<? extends FrameworkPlugin>, Set<? extends FrameworkPlugin>> plugins = new HashMap<>();
+	private final Map<Class<?>, Set<FrameworkPlugin>> plugins = new HashMap<>();
 
 	public PluginRegistry() {
+		initPluginsOfType(DataHandler.class);
+		initPluginsOfType(TaskHandler.class);
 	}
 
-	private void addPluginsOfType(Class<? extends FrameworkPlugin> aClass) {
-		plugins.put(aClass, PluginScanner.getPlugins(aClass));
+	private void initPluginsOfType(Class<? extends FrameworkPlugin> type) {
+		PluginScanner.getPlugins(type).forEach(p -> this.addPlugin(type, p));
 	}
 
-	public Collection<? extends FrameworkPlugin> getPlugins() {
-		Set<FrameworkPlugin> allPlugins = new HashSet<>();
-		for (Set<? extends FrameworkPlugin> value : plugins.values()) {
-			allPlugins.addAll(value);
+	public void addPlugin(Class<? extends FrameworkPlugin> type, FrameworkPlugin frameworkPlugin) {
+		if (!plugins.containsKey(type)) {
+			plugins.put(type, new HashSet<>());
 		}
-		return allPlugins;
+		plugins.get(type).add(frameworkPlugin);
 	}
 
-	public <P extends FrameworkPlugin> Set<P> getPluginsOfType(Class<P> type) {
-		return (Set<P>) plugins.get(type);
+	public <T extends FrameworkPlugin> Set<T> getPlugins(Class<T> type) {
+		return (Set<T>) plugins.getOrDefault(type, Collections.emptySet());
 	}
 }

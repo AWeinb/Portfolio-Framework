@@ -2,6 +2,7 @@ package de.axp.framework.internal;
 
 import de.axp.framework.api.PortfolioFramework;
 import de.axp.framework.api.services.DataService;
+import de.axp.framework.api.services.PluginService;
 import de.axp.framework.api.services.TaskService;
 import de.axp.framework.internal.infrastructure.mainloop.MainLoop;
 import de.axp.framework.internal.services.ServiceRegistry;
@@ -14,6 +15,11 @@ class PortfolioFrameworkImpl implements PortfolioFramework {
 	PortfolioFrameworkImpl(MainLoop mainLoop, ServiceRegistry serviceRegistry) {
 		this.mainLoop = mainLoop;
 		this.serviceRegistry = serviceRegistry;
+	}
+
+	@Override
+	public PluginService getPluginService() {
+		return serviceRegistry.getService(PluginService.class);
 	}
 
 	@Override
