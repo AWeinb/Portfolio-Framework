@@ -19,13 +19,15 @@ public class FrameworkTest {
 		TaskService frameworkEventInterface = framework.getTaskService();
 		frameworkEventInterface.addTaskHandler(getSomeListener());
 
-		frameworkEventInterface.triggerTask("FutureCallback", "A", (resolution, result) -> {
+		TaskService.Task task1 = TaskService.Task.build("", "FutureCallback", "A");
+		frameworkEventInterface.triggerTask(task1, (resolution, result) -> {
 			if (resolution == TaskService.TaskResolution.REJECTED) {
 				Assert.assertEquals("A", result);
 			}
 		});
 
-		frameworkEventInterface.triggerTask("FutureCallback", "B", (resolution, result) -> {
+		TaskService.Task task2 = TaskService.Task.build("", "FutureCallback", "B");
+		frameworkEventInterface.triggerTask(task2, (resolution, result) -> {
 			if (resolution == TaskService.TaskResolution.RESOLVED) {
 				Assert.assertEquals("B", result);
 			}

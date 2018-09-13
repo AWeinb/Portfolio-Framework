@@ -53,13 +53,7 @@ class TaskServiceImpl implements MainLoop.MainLoopPlugin, TaskService {
 	}
 
 	@Override
-	public void triggerTask(String taskId, Object content, TaskPromise promise) {
-		triggerTask("", taskId, content, promise);
-	}
-
-	@Override
-	public void triggerTask(String contextId, String taskId, Object content, TaskPromise promise) {
-		Task task = Task.build(contextId, taskId, content);
+	public void triggerTask(Task task, TaskPromise promise) {
 		promiseNotifier.registerPromise(task.getTaskId(), promise);
 		inputBufferAccessor.put(new MainLoopPackage(task));
 	}

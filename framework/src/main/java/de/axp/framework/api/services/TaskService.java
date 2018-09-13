@@ -8,9 +8,7 @@ public interface TaskService extends FrameworkService {
 
 	void addTaskHandler(TaskHandler taskHandler);
 
-	void triggerTask(String taskId, Object content, TaskPromise promise);
-
-	void triggerTask(String contextId, String taskId, Object content, TaskPromise promise);
+	void triggerTask(Task task, TaskPromise promise);
 
 	enum TaskResolution {
 		RESOLVED, REJECTED, UNHANDLED
