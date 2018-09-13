@@ -7,12 +7,12 @@ import de.axp.framework.internal.infrastructure.mainloop.MainLoopPackage;
 
 class TaskHandlerNotifier implements MainLoop.MainLoopListener {
 
+	private final MainLoop mainLoop;
 	private final TaskHandlerRegistry handlerRegistry;
-	private final MainLoop.MainLoopAccessor outputBufferAccessor;
 
-	TaskHandlerNotifier(TaskHandlerRegistry handlerRegistry, MainLoop.MainLoopAccessor outputBufferAccessor) {
+	TaskHandlerNotifier(MainLoop mainLoop, TaskHandlerRegistry handlerRegistry) {
+		this.mainLoop = mainLoop;
 		this.handlerRegistry = handlerRegistry;
-		this.outputBufferAccessor = outputBufferAccessor;
 	}
 
 	@Override
@@ -35,7 +35,7 @@ class TaskHandlerNotifier implements MainLoop.MainLoopListener {
 		return (resolution, result) -> {
 			TaskResult response = TaskResult.build(taskId, resolution, result);
 			MainLoopPackage packedResponse = new MainLoopPackage(response);
-			outputBufferAccessor.put(packedResponse);
+			mainLoop.addOutput(packedResponse);
 		};
 	}
 }

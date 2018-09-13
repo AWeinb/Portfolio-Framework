@@ -16,14 +16,8 @@ public class ServiceRegistry {
 	private final Map<Class<? extends FrameworkService>, FrameworkService> serviceMap = new HashMap<>();
 
 	public ServiceRegistry(MainLoop mainLoop, PluginRegistry pluginRegistry) {
-		serviceMap.put(TaskService.class, TaskServiceFactory.createTaskService(this, pluginRegistry));
-		serviceMap.put(DataService.class, DataServiceFactory.createDataService(this, pluginRegistry));
-
-		for (FrameworkService service : serviceMap.values()) {
-			if (service instanceof MainLoop.MainLoopPlugin) {
-				mainLoop.addPlugin((MainLoop.MainLoopPlugin) service);
-			}
-		}
+		serviceMap.put(TaskService.class, TaskServiceFactory.createTaskService(mainLoop, this, pluginRegistry));
+		serviceMap.put(DataService.class, DataServiceFactory.createDataService(mainLoop, this, pluginRegistry));
 	}
 
 	public <T extends FrameworkService> T getService(Class<T> serviceClass) {

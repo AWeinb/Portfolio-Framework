@@ -7,44 +7,22 @@ import de.axp.framework.internal.infrastructure.mainloop.MainLoopPackage;
 import de.axp.framework.internal.infrastructure.plugin.PluginRegistry;
 import de.axp.framework.internal.services.ServiceRegistry;
 
-class TaskServiceImpl implements MainLoop.MainLoopPlugin, TaskService {
+class TaskServiceImpl implements TaskService {
 
+	private final MainLoop mainLoop;
 	private final ServiceRegistry serviceRegistry;
-
-	private MainLoop.MainLoopAccessor inputBufferAccessor;
 	private TaskHandlerRegistry handlerRegistry;
-	private TaskHandlerNotifier handlerNotifier;
 	private TaskPromiseNotifier promiseNotifier;
 
-	TaskServiceImpl(ServiceRegistry serviceRegistry, PluginRegistry pluginRegistry) {
+	TaskServiceImpl(MainLoop mainLoop, ServiceRegistry serviceRegistry, PluginRegistry pluginRegistry) {
+		this.mainLoop = mainLoop;
 		this.serviceRegistry = serviceRegistry;
 
-		pluginRegistry.getPluginsOfType(TaskHandler.class).forEach(this::addTaskHandler);
-	}
-
-	@Override
-	public void initialize(MainLoop.MainLoopAccessor inputBufferAccessor,
-			MainLoop.MainLoopAccessor outputBufferAccessor) {
-		this.inputBufferAccessor = inputBufferAccessor;
-
 		handlerRegistry = new TaskHandlerRegistry();
-		handlerNotifier = new TaskHandlerNotifier(handlerRegistry, outputBufferAccessor);
+		TaskHandlerNotifier handlerNotifier = new TaskHandlerNotifier(mainLoop, handlerRegistry);
 		promiseNotifier = new TaskPromiseNotifier();
-	}
-
-	@Override
-	public void dispose() {
-
-	}
-
-	@Override
-	public MainLoop.MainLoopListener getInputListener() {
-		return handlerNotifier;
-	}
-
-	@Override
-	public MainLoop.MainLoopListener getOutputListener() {
-		return promiseNotifier;
+		mainLoop.addListeners(handlerNotifier, promiseNotifier);
+		pluginRegistry.getPluginsOfType(TaskHandler.class).forEach(this::addTaskHandler);
 	}
 
 	@Override
@@ -55,6 +33,6 @@ class TaskServiceImpl implements MainLoop.MainLoopPlugin, TaskService {
 	@Override
 	public void triggerTask(Task task, TaskPromise promise) {
 		promiseNotifier.registerPromise(task.getTaskId(), promise);
-		inputBufferAccessor.put(new MainLoopPackage(task));
+		mainLoop.addInput(new MainLoopPackage(task));
 	}
 }

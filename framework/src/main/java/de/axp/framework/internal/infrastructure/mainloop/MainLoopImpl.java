@@ -1,10 +1,7 @@
 package de.axp.framework.internal.infrastructure.mainloop;
 
-import java.util.ArrayList;
-
 class MainLoopImpl implements MainLoop {
 
-	private final ArrayList<MainLoopPlugin> mainLoopPlugins = new ArrayList<>();
 	private MainLoopWorker inputWorker;
 	private MainLoopWorker outputWorker;
 
@@ -17,10 +14,6 @@ class MainLoopImpl implements MainLoop {
 
 	@Override
 	public void dispose() {
-		for (MainLoopPlugin mainLoopPlugin : mainLoopPlugins) {
-			mainLoopPlugin.dispose();
-		}
-
 		try {
 			inputWorker.stopWorking();
 			outputWorker.stopWorking();
@@ -30,10 +23,18 @@ class MainLoopImpl implements MainLoop {
 	}
 
 	@Override
-	public void addPlugin(MainLoopPlugin plugin) {
-		plugin.initialize(inputWorker.getAccessor(), outputWorker.getAccessor());
-		inputWorker.addListener(plugin.getInputListener());
-		outputWorker.addListener(plugin.getOutputListener());
-		mainLoopPlugins.add(plugin);
+	public void addListeners(MainLoopListener inputListener, MainLoopListener outputListener) {
+		inputWorker.addListener(inputListener);
+		outputWorker.addListener(outputListener);
+	}
+
+	@Override
+	public void addInput(MainLoopPackage request) {
+		inputWorker.getAccessor().put(request);
+	}
+
+	@Override
+	public void addOutput(MainLoopPackage response) {
+		outputWorker.getAccessor().put(response);
 	}
 }

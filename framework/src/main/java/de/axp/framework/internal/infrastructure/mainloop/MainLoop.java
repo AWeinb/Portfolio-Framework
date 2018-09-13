@@ -4,7 +4,11 @@ public interface MainLoop {
 
 	void dispose();
 
-	void addPlugin(MainLoopPlugin plugin);
+	void addListeners(MainLoopListener inputListener, MainLoopListener outputListener);
+
+	void addInput(MainLoopPackage request);
+
+	void addOutput(MainLoopPackage response);
 
 	interface MainLoopListener {
 
@@ -14,17 +18,5 @@ public interface MainLoop {
 	interface MainLoopAccessor {
 
 		void put(MainLoopPackage aPackage);
-	}
-
-	interface MainLoopPlugin {
-
-		void initialize(MainLoopAccessor inputBufferAccessor, MainLoopAccessor outputBufferAccessor);
-
-		void dispose();
-
-		MainLoopListener getInputListener();
-
-		MainLoopListener getOutputListener();
-
 	}
 }
