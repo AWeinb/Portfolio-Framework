@@ -1,12 +1,13 @@
 package de.axp.framework.internal.services.task;
 
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.Map;
-
+import de.axp.framework.api.services.TaskService;
 import de.axp.framework.api.services.TaskService.TaskPromise;
 import de.axp.framework.internal.infrastructure.mainloop.MainLoop;
 import de.axp.framework.internal.infrastructure.mainloop.MainLoopPackage;
+
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.Map;
 
 class TaskPromiseNotifier implements MainLoop.MainLoopListener {
 
@@ -18,12 +19,9 @@ class TaskPromiseNotifier implements MainLoop.MainLoopListener {
 
 	@Override
 	public void notify(MainLoopPackage aPackage) {
-		TaskResult response = (TaskResult) aPackage.getPayload();
+		TaskService.TaskResponse response = (TaskService.TaskResponse) aPackage.getPayload();
 		String taskId = response.getTaskId();
 		TaskPromise promise = taskPromises.remove(taskId);
-
-		if (promise != null) {
-			promise.respond(response.getResolution(), response.getContent());
-		}
+		promise.respond(response);
 	}
 }

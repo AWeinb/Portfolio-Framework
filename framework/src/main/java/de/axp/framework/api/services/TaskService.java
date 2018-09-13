@@ -25,10 +25,26 @@ public interface TaskService extends FrameworkService {
 
 	}
 
+	interface TaskResponse {
+
+		static TaskResponse build(String contextId, String taskId, TaskResolution resolution, Object content) {
+			return TaskServiceFactory.createTaskResponse(contextId, taskId, resolution, content);
+		}
+
+		String getContextId();
+
+		String getTaskId();
+
+		TaskResolution getResolution();
+
+		Object getContent();
+
+	}
+
 	@FunctionalInterface
 	interface TaskPromise {
 
-		void respond(TaskResolution resolution, Object content);
+		void respond(TaskResponse response);
 
 	}
 }

@@ -22,18 +22,18 @@ public class FrameworkTest {
 		TaskService frameworkEventInterface = framework.getTaskService();
 
 		TaskService.Task task1 = TaskService.Task.build("", "Foo", "A");
-		frameworkEventInterface.triggerTask(task1, (resolution, result) -> {
-			if (resolution == TaskService.TaskResolution.REJECTED) {
-				Assert.assertEquals("A", result);
+		frameworkEventInterface.triggerTask(task1, response -> {
+			if (response.getResolution() == TaskService.TaskResolution.REJECTED) {
+				Assert.assertEquals("A", response.getContent());
 			} else {
 				Assert.fail();
 			}
 		});
 
 		TaskService.Task task2 = TaskService.Task.build("", "Bar", "B");
-		frameworkEventInterface.triggerTask(task2, (resolution, result) -> {
-			if (resolution == TaskService.TaskResolution.RESOLVED) {
-				Assert.assertEquals("B", result);
+		frameworkEventInterface.triggerTask(task2, response -> {
+			if (response.getResolution() == TaskService.TaskResolution.RESOLVED) {
+				Assert.assertEquals("B", response.getContent());
 			} else {
 				Assert.fail();
 			}
@@ -48,9 +48,13 @@ public class FrameworkTest {
 			@Override
 			public void handle(TaskService.Task task, TaskService.TaskPromise promise) {
 				if (task.getContent().equals("A")) {
-					promise.respond(TaskService.TaskResolution.REJECTED, task.getContent());
+					TaskService.TaskResponse taskResponse = TaskService.TaskResponse.build(task.getContextId(),
+							task.getTaskId(), TaskService.TaskResolution.REJECTED, task.getContent());
+					promise.respond(taskResponse);
 				} else {
-					promise.respond(TaskService.TaskResolution.RESOLVED, task.getContent());
+					TaskService.TaskResponse taskResponse = TaskService.TaskResponse.build(task.getContextId(),
+							task.getTaskId(), TaskService.TaskResolution.RESOLVED, task.getContent());
+					promise.respond(taskResponse);
 				}
 			}
 
