@@ -6,8 +6,8 @@ import de.axp.framework.internal.infrastructure.mainloop.MainLoop;
 import de.axp.framework.internal.infrastructure.mainloop.MainLoopPackage;
 import de.axp.framework.internal.infrastructure.plugin.PluginRegistry;
 
-import java.util.Optional;
-import java.util.Set;
+import java.util.List;
+import java.util.stream.Collectors;
 
 class TaskHandlerNotifier implements MainLoop.MainLoopListener {
 
@@ -25,16 +25,13 @@ class TaskHandlerNotifier implements MainLoop.MainLoopListener {
 		String contextId = task.getContextId();
 		String taskId = task.getTaskId();
 
-		Set<TaskHandler> taskHandlers = pluginRegistry.getPlugins(TaskHandler.class);
-		Optional<TaskHandler> taskHandler = taskHandlers.stream() //
-				.filter(h -> h.provideIdentifier().equals(contextId)) //
-				.findFirst();
+		List<TaskHandler> handlers = pluginRegistry.getPlugins(TaskHandler.class).stream() //
+				.filter(h -> h.isRelevant(contextId, taskId)) //
+				.collect(Collectors.toList());
 
-		if (taskHandler.isPresent()) {
-			TaskService.TaskPromise callback = response -> mainLoop.addOutput(new MainLoopPackage(response));
-			taskHandler.get().handle(task, callback);
+		handlers.forEach(h -> h.handle(task, response -> mainLoop.addOutput(new MainLoopPackage(response))));
 
-		} else {
+		if (handlers.isEmpty()) {
 			TaskService.TaskResponse taskResponse = TaskService.TaskResponse.build(contextId, taskId,
 					TaskService.TaskResolution.UNHANDLED, null);
 			mainLoop.addOutput(new MainLoopPackage(taskResponse));

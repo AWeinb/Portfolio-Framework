@@ -46,6 +46,11 @@ public class FrameworkTest {
 		return new TaskHandler() {
 
 			@Override
+			public boolean isRelevant(String contextId, String taskId) {
+				return true;
+			}
+
+			@Override
 			public void handle(TaskService.Task task, TaskService.TaskPromise promise) {
 				if (task.getContent().equals("A")) {
 					TaskService.TaskResponse taskResponse = TaskService.TaskResponse.build(task.getContextId(),
@@ -56,11 +61,6 @@ public class FrameworkTest {
 							task.getTaskId(), TaskService.TaskResolution.RESOLVED, task.getContent());
 					promise.respond(taskResponse);
 				}
-			}
-
-			@Override
-			public String provideIdentifier() {
-				return "";
 			}
 		};
 	}
