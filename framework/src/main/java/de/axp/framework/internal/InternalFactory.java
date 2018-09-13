@@ -1,15 +1,16 @@
 package de.axp.framework.internal;
 
-import de.axp.framework.api.PortfolioFramework;
 import de.axp.framework.internal.infrastructure.mainloop.MainLoop;
 import de.axp.framework.internal.infrastructure.mainloop.MainLoopFactory;
-import de.axp.framework.internal.services.BaseServiceRegistry;
+import de.axp.framework.internal.infrastructure.plugin.PluginRegistry;
+import de.axp.framework.internal.services.ServiceRegistry;
 
 public class InternalFactory {
 
-	public static PortfolioFramework.BasePortfolioFramework createFramework() {
+	public static PortfolioFrameworkImpl createFramework() {
 		MainLoop mainLoop = MainLoopFactory.createMainLoop();
-		BaseServiceRegistry baseServiceRegistry = new BaseServiceRegistry(mainLoop);
-		return new BasePortfolioFrameworkImpl(mainLoop, baseServiceRegistry);
+		PluginRegistry pluginRegistry = new PluginRegistry();
+		ServiceRegistry serviceRegistry = new ServiceRegistry(mainLoop, pluginRegistry);
+		return new PortfolioFrameworkImpl(mainLoop, serviceRegistry);
 	}
 }

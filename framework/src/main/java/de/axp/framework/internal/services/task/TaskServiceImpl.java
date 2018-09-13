@@ -1,39 +1,55 @@
 package de.axp.framework.internal.services.task;
 
-import de.axp.framework.api.PortfolioFramework.FrameworkSession;
 import de.axp.framework.api.extensions.TaskHandler;
 import de.axp.framework.api.services.TaskService;
+import de.axp.framework.internal.infrastructure.mainloop.MainLoop;
+import de.axp.framework.internal.infrastructure.mainloop.MainLoopPackage;
 import de.axp.framework.internal.infrastructure.plugin.PluginRegistry;
-import de.axp.framework.internal.services.BaseServiceRegistry;
+import de.axp.framework.internal.services.ServiceRegistry;
 
-import java.util.Set;
+class TaskServiceImpl implements MainLoop.MainLoopPlugin, TaskService {
 
-class TaskServiceImpl implements TaskService {
+	private final ServiceRegistry serviceRegistry;
 
-	private final BaseServiceRegistry serviceRegistry;
-	private final PluginRegistry pluginRegistry;
-	private final FrameworkSession session;
+	private MainLoop.MainLoopAccessor inputBufferAccessor;
+	private TaskHandlerRegistry handlerRegistry;
+	private TaskHandlerNotifier handlerNotifier;
+	private TaskPromiseNotifier promiseNotifier;
 
-	TaskServiceImpl(BaseServiceRegistry serviceRegistry, PluginRegistry pluginRegistry, FrameworkSession session) {
+	TaskServiceImpl(ServiceRegistry serviceRegistry, PluginRegistry pluginRegistry) {
 		this.serviceRegistry = serviceRegistry;
-		this.pluginRegistry = pluginRegistry;
-		this.session = session;
 
-		addPredefinedTaskHandlers();
+		pluginRegistry.getPluginsOfType(TaskHandler.class).forEach(this::addTaskHandler);
 	}
 
-	private void addPredefinedTaskHandlers() {
-		BaseTaskService internalTaskService = serviceRegistry.getBaseService(BaseTaskService.class);
-		Set<? extends TaskHandler> taskHandlers = pluginRegistry.getPluginsOfType(TaskHandler.class);
-		for (TaskHandler taskHandler : taskHandlers) {
-			internalTaskService.register(session.toString(), taskHandler.provideIdentifier(), taskHandler);
-		}
+	@Override
+	public void initialize(MainLoop.MainLoopAccessor inputBufferAccessor,
+			MainLoop.MainLoopAccessor outputBufferAccessor) {
+		this.inputBufferAccessor = inputBufferAccessor;
+
+		handlerRegistry = new TaskHandlerRegistry();
+		handlerNotifier = new TaskHandlerNotifier(handlerRegistry, outputBufferAccessor);
+		promiseNotifier = new TaskPromiseNotifier();
+	}
+
+	@Override
+	public void dispose() {
+
+	}
+
+	@Override
+	public MainLoop.MainLoopListener getInputListener() {
+		return handlerNotifier;
+	}
+
+	@Override
+	public MainLoop.MainLoopListener getOutputListener() {
+		return promiseNotifier;
 	}
 
 	@Override
 	public void addTaskHandler(TaskHandler taskHandler) {
-		BaseTaskService internalTaskService = serviceRegistry.getBaseService(BaseTaskService.class);
-		internalTaskService.register(session.toString(), taskHandler.provideIdentifier(), taskHandler);
+		handlerRegistry.setHandler(taskHandler.provideIdentifier(), taskHandler);
 	}
 
 	@Override
@@ -44,7 +60,7 @@ class TaskServiceImpl implements TaskService {
 	@Override
 	public void triggerTask(String contextId, String taskId, Object content, TaskPromise promise) {
 		Task task = Task.build(contextId, taskId, content);
-		BaseTaskService internalTaskService = serviceRegistry.getBaseService(BaseTaskService.class);
-		internalTaskService.trigger(session.toString(), task, promise);
+		promiseNotifier.registerPromise(task.getTaskId(), promise);
+		inputBufferAccessor.put(new MainLoopPackage(task));
 	}
 }

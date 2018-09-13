@@ -1,14 +1,18 @@
 package de.axp.framework.internal.infrastructure.mainloop;
 
-import java.util.*;
+import static de.axp.framework.internal.infrastructure.mainloop.MainLoop.MainLoopListener;
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
 
-import static de.axp.framework.internal.infrastructure.mainloop.MainLoop.MainLoopListener;
-
 class MainLoopWorker {
 
-	private static final MainLoopPackage POISON = new MainLoopPackage(null, null);
+	private static final MainLoopPackage POISON = new MainLoopPackage(null);
 
 	private final WorkerBuffer buffer = new WorkerBuffer();
 	private final Collection<MainLoopListener> listeners = Collections.synchronizedList(new LinkedList<>());
