@@ -4,24 +4,17 @@ import de.axp.framework.api.services.TaskService;
 
 class TaskImpl implements TaskService.Task {
 
-	private final String taskId;
+	private final String id;
 	private final Object content;
-	private final String contextId;
 
-	TaskImpl(String contextId, String taskId, Object content) {
-		this.taskId = taskId;
+	TaskImpl(String id, Object content) {
+		this.id = id;
 		this.content = content;
-		this.contextId = contextId;
 	}
 
 	@Override
-	public String getContextId() {
-		return contextId;
-	}
-
-	@Override
-	public String getTaskId() {
-		return taskId;
+	public String getId() {
+		return id;
 	}
 
 	@Override
@@ -31,6 +24,6 @@ class TaskImpl implements TaskService.Task {
 
 	@Override
 	public String toString() {
-		return super.toString() + "(" + getContextId() + ", " + getTaskId() + ", " + getContent() + ")";
+		return super.toString() + "(" + getId() + ", " + getContent() + ")";
 	}
 }

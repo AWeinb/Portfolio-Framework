@@ -1,13 +1,14 @@
 package de.axp.framework.internal.services.task;
 
 import de.axp.framework.api.plugins.TaskHandler;
-import de.axp.framework.api.services.TaskService;
 import de.axp.framework.internal.infrastructure.mainloop.MainLoop;
 import de.axp.framework.internal.infrastructure.mainloop.MainLoopPackage;
 import de.axp.framework.internal.infrastructure.plugin.PluginRegistry;
 
 import java.util.List;
 import java.util.stream.Collectors;
+
+import static de.axp.framework.api.services.TaskService.*;
 
 class TaskHandlerNotifier implements MainLoop.MainLoopListener {
 
@@ -21,19 +22,17 @@ class TaskHandlerNotifier implements MainLoop.MainLoopListener {
 
 	@Override
 	public void notify(MainLoopPackage aPackage) {
-		TaskService.Task task = (TaskService.Task) aPackage.getPayload();
-		String contextId = task.getContextId();
-		String taskId = task.getTaskId();
+		Task task = (Task) aPackage.getPayload();
+		String id = task.getId();
 
 		List<TaskHandler> handlers = pluginRegistry.getPlugins(TaskHandler.class).stream() //
-				.filter(h -> h.isRelevant(contextId, taskId)) //
+				.filter(h -> h.isRelevant(id)) //
 				.collect(Collectors.toList());
 
 		handlers.forEach(h -> h.handle(task, response -> mainLoop.addOutput(new MainLoopPackage(response))));
 
 		if (handlers.isEmpty()) {
-			TaskService.TaskResponse taskResponse = TaskService.TaskResponse.build(contextId, taskId,
-					TaskService.TaskResolution.UNHANDLED, null);
+			TaskResponse taskResponse = TaskResponse.build(id, TaskResolution.UNHANDLED, null);
 			mainLoop.addOutput(new MainLoopPackage(taskResponse));
 		}
 	}

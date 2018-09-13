@@ -5,7 +5,7 @@ import de.axp.framework.internal.infrastructure.plugin.FrameworkPlugin;
 
 public interface TaskHandler extends FrameworkPlugin {
 
-	boolean isRelevant(String contextId, String taskId);
+	boolean isRelevant(String id);
 
 	void handle(TaskService.Task task, TaskService.TaskPromise promise);
 

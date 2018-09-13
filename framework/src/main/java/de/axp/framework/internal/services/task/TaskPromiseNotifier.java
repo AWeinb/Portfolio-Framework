@@ -20,8 +20,8 @@ class TaskPromiseNotifier implements MainLoop.MainLoopListener {
 	@Override
 	public void notify(MainLoopPackage aPackage) {
 		TaskService.TaskResponse response = (TaskService.TaskResponse) aPackage.getPayload();
-		String taskId = response.getTaskId();
-		TaskPromise promise = taskPromises.remove(taskId);
+		String id = response.getId();
+		TaskPromise promise = taskPromises.remove(id);
 		promise.respond(response);
 	}
 }

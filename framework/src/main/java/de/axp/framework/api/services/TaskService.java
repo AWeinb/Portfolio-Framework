@@ -13,13 +13,11 @@ public interface TaskService extends FrameworkService {
 
 	interface Task {
 
-		static Task build(String contextId, String taskId, Object content) {
-			return TaskServiceFactory.createTask(contextId, taskId, content);
+		static Task build(String id, Object content) {
+			return TaskServiceFactory.createTask(id, content);
 		}
 
-		String getContextId();
-
-		String getTaskId();
+		String getId();
 
 		Object getContent();
 
@@ -27,13 +25,11 @@ public interface TaskService extends FrameworkService {
 
 	interface TaskResponse {
 
-		static TaskResponse build(String contextId, String taskId, TaskResolution resolution, Object content) {
-			return TaskServiceFactory.createTaskResponse(contextId, taskId, resolution, content);
+		static TaskResponse build(String id, Object content, TaskResolution resolution) {
+			return TaskServiceFactory.createTaskResponse(id, content, resolution);
 		}
 
-		String getContextId();
-
-		String getTaskId();
+		String getId();
 
 		TaskResolution getResolution();
 
