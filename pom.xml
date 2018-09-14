@@ -22,7 +22,7 @@
 
     <modules>
         <module>framework</module>
-        <module>portfolio-vaadin</module>
+        <module>vaadin-ui</module>
     </modules>
 
     <dependencies>
