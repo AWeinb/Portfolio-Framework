@@ -15,12 +15,12 @@ public final class TaskServiceFactory {
 		return new TaskServiceImpl(mainLoop, serviceRegistry, pluginRegistry);
 	}
 
-	public static TaskService.Task createTask(String id, Object content) {
-		return new TaskImpl(id, content);
+	public static TaskService.Task createTask(String taskId, Object content) {
+		return new TaskImpl(taskId, content);
 	}
 
-	public static TaskService.TaskResponse createTaskResponse(String id, Object content,
+	public static TaskService.TaskResponse createTaskResponse(String taskId, Object content,
 			TaskService.TaskResolution resolution) {
-		return new TaskResponseImpl(id, content, resolution);
+		return new TaskResponseImpl(taskId, content, resolution);
 	}
 }

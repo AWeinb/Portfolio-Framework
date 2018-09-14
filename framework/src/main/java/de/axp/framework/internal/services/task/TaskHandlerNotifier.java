@@ -24,7 +24,7 @@ class TaskHandlerNotifier implements MainLoopListener {
 	@Override
 	public void notify(MainLoopPackage aPackage) {
 		Task task = (Task) aPackage.getPayload();
-		String id = task.getId();
+		String taskId = task.getTaskId();
 
 		List<TaskHandler> handlers = pluginRegistry.getPlugins(TaskHandler.class).stream() //
 				.filter(h -> h.isRelevant(id)) //
@@ -33,7 +33,7 @@ class TaskHandlerNotifier implements MainLoopListener {
 		handlers.forEach(h -> h.handle(task, response -> mainLoop.addOutput(new MainLoopPackage(response))));
 
 		if (handlers.isEmpty()) {
-			TaskResponse taskResponse = TaskResponse.build(id, TaskResolution.UNHANDLED, null);
+			TaskResponse taskResponse = TaskResponse.build(taskId, TaskResolution.UNHANDLED, null);
 			mainLoop.addOutput(new MainLoopPackage(taskResponse));
 		}
 	}
