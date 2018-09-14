@@ -1,7 +1,5 @@
 package de.axp.framework.internal.infrastructure.mainloop;
 
-import static de.axp.framework.internal.infrastructure.mainloop.MainLoop.MainLoopListener;
-
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;

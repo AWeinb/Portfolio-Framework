@@ -2,14 +2,14 @@ package de.axp.framework.internal.services.task;
 
 import de.axp.framework.api.services.TaskService;
 import de.axp.framework.api.services.TaskService.TaskPromise;
-import de.axp.framework.internal.infrastructure.mainloop.MainLoop;
+import de.axp.framework.internal.infrastructure.mainloop.MainLoopListener;
 import de.axp.framework.internal.infrastructure.mainloop.MainLoopPackage;
 
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
-class TaskPromiseNotifier implements MainLoop.MainLoopListener {
+class TaskPromiseNotifier implements MainLoopListener {
 
 	private final Map<String, TaskPromise> taskPromises = Collections.synchronizedMap(new HashMap<>());
 

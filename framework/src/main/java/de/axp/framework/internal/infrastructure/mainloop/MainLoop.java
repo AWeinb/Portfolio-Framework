@@ -1,18 +1,37 @@
 package de.axp.framework.internal.infrastructure.mainloop;
 
-public interface MainLoop {
+public class MainLoop {
 
-	void dispose();
+	private MainLoopWorker inputWorker;
+	private MainLoopWorker outputWorker;
 
-	void addListeners(MainLoopListener inputListener, MainLoopListener outputListener);
+	public MainLoop() {
+		inputWorker = new MainLoopWorker();
+		inputWorker.startWorking();
+		outputWorker = new MainLoopWorker();
+		outputWorker.startWorking();
+	}
 
-	void addInput(MainLoopPackage request);
+	public void dispose() {
+		try {
+			inputWorker.stopWorking();
+			outputWorker.stopWorking();
+		} catch (InterruptedException e) {
+			throw new MainLoopBufferException(e);
+		}
+	}
 
-	void addOutput(MainLoopPackage response);
+	public void addListeners(MainLoopListener inputListener, MainLoopListener outputListener) {
+		inputWorker.addListener(inputListener);
+		outputWorker.addListener(outputListener);
+	}
 
-	interface MainLoopListener {
+	public void addInput(MainLoopPackage request) {
+		inputWorker.getAccessor().put(request);
+	}
 
-		void notify(MainLoopPackage aPackage);
+	public void addOutput(MainLoopPackage response) {
+		outputWorker.getAccessor().put(response);
 	}
 
 	interface MainLoopAccessor {
