@@ -1,11 +1,11 @@
 package de.axp.framework.internal.infrastructure.mainloop;
 
-class MainLoopImpl implements MainLoop {
+public class MainLoopImpl implements MainLoop {
 
 	private MainLoopWorker inputWorker;
 	private MainLoopWorker outputWorker;
 
-	MainLoopImpl() {
+	public MainLoopImpl() {
 		inputWorker = new MainLoopWorker();
 		inputWorker.startWorking();
 		outputWorker = new MainLoopWorker();

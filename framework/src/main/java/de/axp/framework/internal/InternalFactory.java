@@ -5,7 +5,10 @@ import de.axp.framework.internal.infrastructure.mainloop.MainLoopFactory;
 import de.axp.framework.internal.infrastructure.plugin.PluginRegistry;
 import de.axp.framework.internal.services.ServiceRegistry;
 
-public class InternalFactory {
+public final class InternalFactory {
+
+	private InternalFactory() {
+	}
 
 	public static PortfolioFrameworkImpl createFramework() {
 		MainLoop mainLoop = MainLoopFactory.createMainLoop();

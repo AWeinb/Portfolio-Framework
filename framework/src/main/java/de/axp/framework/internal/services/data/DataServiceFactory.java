@@ -5,7 +5,10 @@ import de.axp.framework.internal.infrastructure.mainloop.MainLoop;
 import de.axp.framework.internal.infrastructure.plugin.PluginRegistry;
 import de.axp.framework.internal.services.ServiceRegistry;
 
-public class DataServiceFactory {
+public final class DataServiceFactory {
+
+	private DataServiceFactory() {
+	}
 
 	public static DataService createDataService(MainLoop mainLoop, ServiceRegistry serviceRegistry,
 			PluginRegistry pluginRegistry) {
