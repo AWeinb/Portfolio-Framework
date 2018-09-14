@@ -13,11 +13,13 @@ public interface TaskService extends FrameworkService {
 
 	interface Task {
 
-		static Task build(String taskId, Object content) {
-			return TaskServiceFactory.createTask(taskId, content);
+		static Task build(String taskId, String handlerId, Object content) {
+			return TaskServiceFactory.createTask(taskId, handlerId, content);
 		}
 
 		String getTaskId();
+
+		String getHandlerId();
 
 		Object getContent();
 

@@ -15,8 +15,8 @@ public final class TaskServiceFactory {
 		return new TaskServiceImpl(mainLoop, serviceRegistry, pluginRegistry);
 	}
 
-	public static TaskService.Task createTask(String taskId, Object content) {
-		return new TaskImpl(taskId, content);
+	public static TaskService.Task createTask(String taskId, String handlerId, Object content) {
+		return new TaskImpl(taskId, handlerId, content);
 	}
 
 	public static TaskService.TaskResponse createTaskResponse(String taskId, Object content,

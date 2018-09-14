@@ -1,11 +1,12 @@
 package de.axp.framework.api;
 
-import de.axp.framework.api.plugins.TaskHandler;
-import de.axp.framework.api.services.PluginService;
-import de.axp.framework.api.services.TaskService;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+
+import de.axp.framework.api.plugins.TaskHandler;
+import de.axp.framework.api.services.PluginService;
+import de.axp.framework.api.services.TaskService;
 
 public class FrameworkTest {
 
@@ -21,7 +22,7 @@ public class FrameworkTest {
 
 		TaskService frameworkEventInterface = framework.getTaskService();
 
-		TaskService.Task task1 = TaskService.Task.build("Foo", "A");
+		TaskService.Task task1 = TaskService.Task.build("Foo", "Buzz", "A");
 		frameworkEventInterface.triggerTask(task1, response -> {
 			if (response.getResolution() == TaskService.TaskResolution.REJECTED) {
 				Assert.assertEquals("A", response.getContent());
@@ -30,7 +31,7 @@ public class FrameworkTest {
 			}
 		});
 
-		TaskService.Task task2 = TaskService.Task.build("Bar", "B");
+		TaskService.Task task2 = TaskService.Task.build("Bar", "Buzz", "B");
 		frameworkEventInterface.triggerTask(task2, response -> {
 			if (response.getResolution() == TaskService.TaskResolution.RESOLVED) {
 				Assert.assertEquals("B", response.getContent());
@@ -46,18 +47,18 @@ public class FrameworkTest {
 		return new TaskHandler() {
 
 			@Override
-			public boolean isRelevant(String id) {
-				return true;
+			public String pluginId() {
+				return "Buzz";
 			}
 
 			@Override
 			public void handle(TaskService.Task task, TaskService.TaskPromise promise) {
 				if (task.getContent().equals("A")) {
-					TaskService.TaskResponse taskResponse = TaskService.TaskResponse.build(task.getId(),
+					TaskService.TaskResponse taskResponse = TaskService.TaskResponse.build(task.getTaskId(),
 							task.getContent(), TaskService.TaskResolution.REJECTED);
 					promise.respond(taskResponse);
 				} else {
-					TaskService.TaskResponse taskResponse = TaskService.TaskResponse.build(task.getId(),
+					TaskService.TaskResponse taskResponse = TaskService.TaskResponse.build(task.getTaskId(),
 							task.getContent(), TaskService.TaskResolution.RESOLVED);
 					promise.respond(taskResponse);
 				}
