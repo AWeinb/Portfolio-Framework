@@ -9,6 +9,7 @@ public final class DataServiceFactory {
 	}
 
 	public static DataService createDataService(ServiceService serviceService) {
-		return null;
+		DataCache dataCache = new DataCache();
+		return new DataServiceImpl(dataCache);
 	}
 }
