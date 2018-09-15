@@ -6,7 +6,6 @@ import de.axp.framework.api.services.ServiceService;
 import de.axp.framework.api.services.TaskService;
 import de.axp.framework.internal.services.data.DataServiceFactory;
 import de.axp.framework.internal.services.plugin.PluginServiceFactory;
-import de.axp.framework.internal.services.service.ServiceRegistry;
 import de.axp.framework.internal.services.service.ServiceServiceFactory;
 import de.axp.framework.internal.services.task.TaskServiceFactory;
 
@@ -16,18 +15,16 @@ public final class InternalFactory {
 	}
 
 	public static PortfolioFrameworkImpl createFramework() {
-		ServiceRegistry serviceRegistry = new ServiceRegistry();
-
-		ServiceService serviceService = ServiceServiceFactory.createServiceService(serviceRegistry);
+		ServiceService serviceService = ServiceServiceFactory.createServiceService();
 		PluginService pluginService = PluginServiceFactory.createPluginService();
-		TaskService taskService = TaskServiceFactory.createTaskService(serviceRegistry);
-		DataService dataService = DataServiceFactory.createDataService(serviceRegistry);
+		TaskService taskService = TaskServiceFactory.createTaskService(serviceService);
+		DataService dataService = DataServiceFactory.createDataService(serviceService);
 
-		serviceRegistry.putService(ServiceService.class, serviceService);
-		serviceRegistry.putService(PluginService.class, pluginService);
-		serviceRegistry.putService(TaskService.class, taskService);
-		serviceRegistry.putService(DataService.class, dataService);
+		serviceService.registerNewService(ServiceService.class, serviceService);
+		serviceService.registerNewService(PluginService.class, pluginService);
+		serviceService.registerNewService(TaskService.class, taskService);
+		serviceService.registerNewService(DataService.class, dataService);
 
-		return new PortfolioFrameworkImpl(serviceRegistry);
+		return new PortfolioFrameworkImpl(serviceService);
 	}
 }

@@ -7,7 +7,8 @@ public final class ServiceServiceFactory {
 	private ServiceServiceFactory() {
 	}
 
-	public static ServiceService createServiceService(ServiceRegistry serviceRegistry) {
+	public static ServiceService createServiceService() {
+		ServiceRegistry serviceRegistry = new ServiceRegistry();
 		return new ServiceServiceImpl(serviceRegistry);
 	}
 }

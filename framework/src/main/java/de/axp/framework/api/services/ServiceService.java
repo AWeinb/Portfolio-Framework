@@ -4,5 +4,9 @@ import de.axp.framework.api.FrameworkService;
 
 public interface ServiceService extends FrameworkService {
 
-	<T extends FrameworkService> void registerNewService(Class<T> a, T v);
+	<T extends FrameworkService> void registerNewService(Class<T> type, T service);
+
+	<T extends FrameworkService> T getService(Class<T> type);
+
+	void disposeServices();
 }

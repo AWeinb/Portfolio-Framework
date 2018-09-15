@@ -2,7 +2,7 @@ package de.axp.framework.internal.services.task;
 
 import de.axp.framework.api.plugins.TaskHandler;
 import de.axp.framework.api.services.PluginService;
-import de.axp.framework.internal.services.service.ServiceRegistry;
+import de.axp.framework.api.services.ServiceService;
 import de.axp.framework.internal.services.task.mainloop.MainLoop;
 import de.axp.framework.internal.services.task.mainloop.MainLoopListener;
 import de.axp.framework.internal.services.task.mainloop.MainLoopPackage;
@@ -15,11 +15,11 @@ import static de.axp.framework.api.services.TaskService.*;
 class TaskHandlerNotifier implements MainLoopListener {
 
 	private final MainLoop mainLoop;
-	private final ServiceRegistry serviceRegistry;
+	private final ServiceService serviceService;
 
-	TaskHandlerNotifier(MainLoop mainLoop, ServiceRegistry serviceRegistry) {
+	TaskHandlerNotifier(MainLoop mainLoop, ServiceService serviceService) {
 		this.mainLoop = mainLoop;
-		this.serviceRegistry = serviceRegistry;
+		this.serviceService = serviceService;
 	}
 
 	@Override
@@ -28,7 +28,7 @@ class TaskHandlerNotifier implements MainLoopListener {
 		String taskId = task.getTaskId();
 		String handlerId = task.getHandlerId();
 
-		PluginService pluginService = serviceRegistry.getService(PluginService.class);
+		PluginService pluginService = serviceService.getService(PluginService.class);
 		List<TaskHandler> handlers = pluginService.getPlugins(TaskHandler.class).stream() //
 				.filter(h -> h.pluginId().equals(handlerId)) //
 				.collect(Collectors.toList());
