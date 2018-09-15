@@ -1,7 +1,7 @@
 package de.axp.framework.api.plugins;
 
+import de.axp.framework.api.FrameworkPlugin;
 import de.axp.framework.api.services.TaskService;
-import de.axp.framework.internal.infrastructure.plugin.FrameworkPlugin;
 
 public interface TaskHandler extends FrameworkPlugin {
 

@@ -1,5 +1,7 @@
 package de.axp.framework.internal.infrastructure.plugin;
 
+import de.axp.framework.api.FrameworkPlugin;
+
 import java.util.HashSet;
 import java.util.ServiceConfigurationError;
 import java.util.ServiceLoader;

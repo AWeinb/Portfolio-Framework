@@ -1,5 +1,6 @@
 package de.axp.framework.internal.infrastructure.plugin;
 
+import de.axp.framework.api.FrameworkPlugin;
 import de.axp.framework.api.plugins.DataHandler;
 import de.axp.framework.api.plugins.TaskHandler;
 

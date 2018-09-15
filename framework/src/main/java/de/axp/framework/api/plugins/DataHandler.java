@@ -1,6 +1,6 @@
 package de.axp.framework.api.plugins;
 
-import de.axp.framework.internal.infrastructure.plugin.FrameworkPlugin;
+import de.axp.framework.api.FrameworkPlugin;
 
 public interface DataHandler extends FrameworkPlugin {
 
