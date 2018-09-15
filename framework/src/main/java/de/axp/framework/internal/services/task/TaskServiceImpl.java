@@ -1,23 +1,23 @@
 package de.axp.framework.internal.services.task;
 
 import de.axp.framework.api.services.TaskService;
-import de.axp.framework.internal.infrastructure.mainloop.MainLoop;
-import de.axp.framework.internal.infrastructure.mainloop.MainLoopPackage;
-import de.axp.framework.internal.infrastructure.plugin.PluginRegistry;
-import de.axp.framework.internal.infrastructure.service.ServiceRegistry;
+import de.axp.framework.internal.services.plugin.PluginRegistry;
+import de.axp.framework.internal.services.service.ServiceRegistry;
+import de.axp.framework.internal.services.task.mainloop.MainLoop;
+import de.axp.framework.internal.services.task.mainloop.MainLoopPackage;
 
 class TaskServiceImpl implements TaskService {
 
-	private final MainLoop mainLoop;
 	private final ServiceRegistry serviceRegistry;
 	private final PluginRegistry pluginRegistry;
+	private final MainLoop mainLoop;
 
 	private TaskPromiseNotifier promiseNotifier;
 
-	TaskServiceImpl(MainLoop mainLoop, ServiceRegistry serviceRegistry, PluginRegistry pluginRegistry) {
-		this.mainLoop = mainLoop;
+	TaskServiceImpl(ServiceRegistry serviceRegistry, PluginRegistry pluginRegistry) {
 		this.serviceRegistry = serviceRegistry;
 		this.pluginRegistry = pluginRegistry;
+		mainLoop = new MainLoop();
 
 		TaskHandlerNotifier handlerNotifier = new TaskHandlerNotifier(mainLoop, pluginRegistry);
 		promiseNotifier = new TaskPromiseNotifier();

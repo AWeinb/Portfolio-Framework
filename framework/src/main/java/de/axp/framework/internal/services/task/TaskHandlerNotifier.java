@@ -1,10 +1,10 @@
 package de.axp.framework.internal.services.task;
 
 import de.axp.framework.api.plugins.TaskHandler;
-import de.axp.framework.internal.infrastructure.mainloop.MainLoop;
-import de.axp.framework.internal.infrastructure.mainloop.MainLoopListener;
-import de.axp.framework.internal.infrastructure.mainloop.MainLoopPackage;
-import de.axp.framework.internal.infrastructure.plugin.PluginRegistry;
+import de.axp.framework.internal.services.task.mainloop.MainLoop;
+import de.axp.framework.internal.services.task.mainloop.MainLoopListener;
+import de.axp.framework.internal.services.task.mainloop.MainLoopPackage;
+import de.axp.framework.internal.services.plugin.PluginRegistry;
 
 import java.util.List;
 import java.util.stream.Collectors;

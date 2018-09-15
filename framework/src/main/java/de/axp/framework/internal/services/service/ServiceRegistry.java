@@ -1,4 +1,4 @@
-package de.axp.framework.internal.infrastructure.service;
+package de.axp.framework.internal.services.service;
 
 import de.axp.framework.api.FrameworkService;
 
@@ -15,5 +15,9 @@ public class ServiceRegistry {
 
 	public <T extends FrameworkService> void putService(Class<T> serviceClass, T service) {
 		serviceMap.put(serviceClass, service);
+	}
+
+	public void disposeAll() {
+
 	}
 }

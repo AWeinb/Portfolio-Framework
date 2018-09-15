@@ -1,4 +1,4 @@
-package de.axp.framework.internal.infrastructure.mainloop;
+package de.axp.framework.internal.services.task.mainloop;
 
 import de.axp.framework.api.FrameworkException;
 

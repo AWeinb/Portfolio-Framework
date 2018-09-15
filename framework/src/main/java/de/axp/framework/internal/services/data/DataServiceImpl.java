@@ -1,8 +1,8 @@
 package de.axp.framework.internal.services.data;
 
 import de.axp.framework.api.services.DataService;
-import de.axp.framework.internal.infrastructure.plugin.PluginRegistry;
-import de.axp.framework.internal.infrastructure.service.ServiceRegistry;
+import de.axp.framework.internal.services.plugin.PluginRegistry;
+import de.axp.framework.internal.services.service.ServiceRegistry;
 
 class DataServiceImpl implements DataService {
 

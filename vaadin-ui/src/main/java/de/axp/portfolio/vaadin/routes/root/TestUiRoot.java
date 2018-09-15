@@ -26,7 +26,7 @@ public class TestUiRoot extends Div {
 
 		Label label = new Label();
 		Button button = new Button("Sh*T");
-		TaskService.Task task1 = TaskService.Task.build("ID", "Something");
+		TaskService.Task task1 = TaskService.Task.build("", "ID", "Something");
 		button.addClickListener(buttonClickEvent -> authenticatedFramework.getTaskService()
 				.triggerTask(task1, response -> session.access(
 						() -> label.setText(response.getResolution() + " - " + response.getContent() + " " + i++))));
@@ -35,7 +35,7 @@ public class TestUiRoot extends Div {
 
 		Label label2 = new Label();
 		Button button2 = new Button("Sh*T2");
-		TaskService.Task task2 = TaskService.Task.build("ID2", "Anything");
+		TaskService.Task task2 = TaskService.Task.build("", "ID2", "Anything");
 		button2.addClickListener(buttonClickEvent -> authenticatedFramework.getTaskService()
 				.triggerTask(task2, response -> session.access(
 						() -> label2.setText(response.getResolution() + " - " + response.getContent() + " " + i2++))));

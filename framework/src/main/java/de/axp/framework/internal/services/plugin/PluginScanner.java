@@ -1,4 +1,4 @@
-package de.axp.framework.internal.infrastructure.plugin;
+package de.axp.framework.internal.services.plugin;
 
 import de.axp.framework.api.FrameworkPlugin;
 

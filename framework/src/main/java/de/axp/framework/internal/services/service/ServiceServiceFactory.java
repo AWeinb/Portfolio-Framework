@@ -1,7 +1,6 @@
 package de.axp.framework.internal.services.service;
 
 import de.axp.framework.api.services.ServiceService;
-import de.axp.framework.internal.infrastructure.service.ServiceRegistry;
 
 public final class ServiceServiceFactory {
 

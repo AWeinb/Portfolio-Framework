@@ -6,8 +6,8 @@ import java.util.Map;
 
 import de.axp.framework.api.services.TaskService;
 import de.axp.framework.api.services.TaskService.TaskPromise;
-import de.axp.framework.internal.infrastructure.mainloop.MainLoopListener;
-import de.axp.framework.internal.infrastructure.mainloop.MainLoopPackage;
+import de.axp.framework.internal.services.task.mainloop.MainLoopListener;
+import de.axp.framework.internal.services.task.mainloop.MainLoopPackage;
 
 class TaskPromiseNotifier implements MainLoopListener {
 

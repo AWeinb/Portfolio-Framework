@@ -6,16 +6,13 @@ import de.axp.framework.api.services.DataService;
 import de.axp.framework.api.services.PluginService;
 import de.axp.framework.api.services.ServiceService;
 import de.axp.framework.api.services.TaskService;
-import de.axp.framework.internal.infrastructure.mainloop.MainLoop;
-import de.axp.framework.internal.infrastructure.service.ServiceRegistry;
+import de.axp.framework.internal.services.service.ServiceRegistry;
 
 class PortfolioFrameworkImpl implements PortfolioFramework {
 
-	private final MainLoop mainLoop;
 	private final ServiceRegistry serviceRegistry;
 
-	PortfolioFrameworkImpl(MainLoop mainLoop, ServiceRegistry serviceRegistry) {
-		this.mainLoop = mainLoop;
+	PortfolioFrameworkImpl(ServiceRegistry serviceRegistry) {
 		this.serviceRegistry = serviceRegistry;
 	}
 
@@ -46,6 +43,6 @@ class PortfolioFrameworkImpl implements PortfolioFramework {
 
 	@Override
 	public void shutdown() {
-		mainLoop.dispose();
+		serviceRegistry.disposeAll();
 	}
 }

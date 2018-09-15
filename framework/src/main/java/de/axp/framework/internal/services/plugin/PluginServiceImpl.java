@@ -2,7 +2,6 @@ package de.axp.framework.internal.services.plugin;
 
 import de.axp.framework.api.services.PluginService;
 import de.axp.framework.api.FrameworkPlugin;
-import de.axp.framework.internal.infrastructure.plugin.PluginRegistry;
 
 class PluginServiceImpl implements PluginService {
 
