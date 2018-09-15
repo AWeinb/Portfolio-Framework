@@ -4,7 +4,7 @@ import de.axp.framework.api.services.TaskService;
 import de.axp.framework.internal.infrastructure.mainloop.MainLoop;
 import de.axp.framework.internal.infrastructure.mainloop.MainLoopPackage;
 import de.axp.framework.internal.infrastructure.plugin.PluginRegistry;
-import de.axp.framework.internal.services.ServiceRegistry;
+import de.axp.framework.internal.infrastructure.service.ServiceRegistry;
 
 class TaskServiceImpl implements TaskService {
 

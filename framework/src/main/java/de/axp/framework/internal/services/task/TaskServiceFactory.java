@@ -3,7 +3,7 @@ package de.axp.framework.internal.services.task;
 import de.axp.framework.api.services.TaskService;
 import de.axp.framework.internal.infrastructure.mainloop.MainLoop;
 import de.axp.framework.internal.infrastructure.plugin.PluginRegistry;
-import de.axp.framework.internal.services.ServiceRegistry;
+import de.axp.framework.internal.infrastructure.service.ServiceRegistry;
 
 public final class TaskServiceFactory {
 
@@ -11,7 +11,7 @@ public final class TaskServiceFactory {
 	}
 
 	public static TaskService createTaskService(MainLoop mainLoop, ServiceRegistry serviceRegistry,
-			PluginRegistry pluginRegistry) {
+	                                            PluginRegistry pluginRegistry) {
 		return new TaskServiceImpl(mainLoop, serviceRegistry, pluginRegistry);
 	}
 
@@ -20,7 +20,7 @@ public final class TaskServiceFactory {
 	}
 
 	public static TaskService.TaskResponse createTaskResponse(String taskId, Object content,
-			TaskService.TaskResolution resolution) {
+	                                                          TaskService.TaskResolution resolution) {
 		return new TaskResponseImpl(taskId, content, resolution);
 	}
 }

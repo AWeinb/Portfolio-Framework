@@ -3,7 +3,7 @@ package de.axp.framework.internal.services.data;
 import de.axp.framework.api.services.DataService;
 import de.axp.framework.internal.infrastructure.mainloop.MainLoop;
 import de.axp.framework.internal.infrastructure.plugin.PluginRegistry;
-import de.axp.framework.internal.services.ServiceRegistry;
+import de.axp.framework.internal.infrastructure.service.ServiceRegistry;
 
 public final class DataServiceFactory {
 
@@ -11,7 +11,7 @@ public final class DataServiceFactory {
 	}
 
 	public static DataService createDataService(MainLoop mainLoop, ServiceRegistry serviceRegistry,
-			PluginRegistry pluginRegistry) {
+	                                            PluginRegistry pluginRegistry) {
 		return null;
 	}
 }
