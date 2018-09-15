@@ -6,11 +6,11 @@ import de.axp.framework.api.plugins.TaskHandler;
 
 import java.util.*;
 
-public class PluginRegistry {
+class PluginRegistry {
 
 	private final Map<Class<?>, Set<FrameworkPlugin>> plugins = new HashMap<>();
 
-	public PluginRegistry() {
+	PluginRegistry() {
 		initPluginsOfType(DataHandler.class);
 		initPluginsOfType(TaskHandler.class);
 	}
@@ -19,14 +19,14 @@ public class PluginRegistry {
 		PluginScanner.getPlugins(type).forEach(p -> this.addPlugin(type, p));
 	}
 
-	public void addPlugin(Class<? extends FrameworkPlugin> type, FrameworkPlugin frameworkPlugin) {
+	void addPlugin(Class<? extends FrameworkPlugin> type, FrameworkPlugin frameworkPlugin) {
 		if (!plugins.containsKey(type)) {
 			plugins.put(type, new HashSet<>());
 		}
 		plugins.get(type).add(frameworkPlugin);
 	}
 
-	public <T extends FrameworkPlugin> Set<T> getPlugins(Class<T> type) {
+	<T extends FrameworkPlugin> Set<T> getPlugins(Class<T> type) {
 		return (Set<T>) plugins.getOrDefault(type, Collections.emptySet());
 	}
 }
