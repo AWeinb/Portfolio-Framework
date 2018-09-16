@@ -10,6 +10,6 @@ public final class DataServiceFactory {
 
 	public static DataService createDataService(ServiceService serviceService) {
 		DataCache dataCache = new DataCache();
-		return new DataServiceImpl(dataCache);
+		return new DataServiceImpl(serviceService, dataCache);
 	}
 }

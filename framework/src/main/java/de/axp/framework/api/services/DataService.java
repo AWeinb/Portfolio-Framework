@@ -4,8 +4,11 @@ import de.axp.framework.api.FrameworkService;
 
 public interface DataService extends FrameworkService {
 
-	String get(String id);
+	void load(String dataId, TaskService.TaskPromise promise);
 
-	void set(String id, String data);
+	void save(String dataId, TaskService.TaskPromise promise);
 
+	Object get(String dataId);
+
+	void set(String dataId, String data);
 }

@@ -6,7 +6,9 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
+import de.axp.framework.api.plugins.DataDefinition;
 import de.axp.framework.api.plugins.TaskHandler;
+import de.axp.framework.api.services.DataService;
 import de.axp.framework.api.services.PluginService;
 import de.axp.framework.api.services.TaskService;
 
@@ -45,6 +47,34 @@ public class FrameworkTest {
 			}
 			isCalled.set(true);
 		});
+
+		pluginService.addPlugin(DataDefinition.class, new DataDefinition() {
+
+			@Override
+			public String dataId() {
+				return "Foo";
+			}
+
+			@Override
+			public TaskService.Task getLoadTask() {
+				return TaskService.Task.build("Buzz", "asfasfa");
+			}
+
+			@Override
+			public TaskService.Task getSaveTask() {
+				return TaskService.Task.build("Buzz", "213213");
+			}
+		});
+
+		DataService dataService = framework.getDataService();
+		dataService.load("Foo", response -> {
+			System.err.println(response);
+		});
+		dataService.save("Foo", response -> {
+			System.err.println(response);
+		});
+
+		System.err.println(dataService.get("Foo"));
 
 		framework.shutdown();
 
