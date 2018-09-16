@@ -11,6 +11,11 @@ class DataServiceImpl implements DataService {
 	}
 
 	@Override
+	public void disposeService() {
+
+	}
+
+	@Override
 	public String get(String id) {
 		return dataCache.get(id);
 	}

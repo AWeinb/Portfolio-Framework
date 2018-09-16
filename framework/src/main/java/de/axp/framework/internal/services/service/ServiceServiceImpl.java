@@ -12,6 +12,11 @@ class ServiceServiceImpl implements ServiceService {
 	}
 
 	@Override
+	public void disposeService() {
+
+	}
+
+	@Override
 	public <T extends FrameworkService> void registerNewService(Class<T> type, T service) {
 		serviceRegistry.putService(type, service);
 	}

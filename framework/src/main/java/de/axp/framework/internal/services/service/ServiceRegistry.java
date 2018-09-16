@@ -1,9 +1,9 @@
 package de.axp.framework.internal.services.service;
 
-import de.axp.framework.api.FrameworkService;
-
 import java.util.HashMap;
 import java.util.Map;
+
+import de.axp.framework.api.FrameworkService;
 
 class ServiceRegistry {
 
@@ -18,6 +18,6 @@ class ServiceRegistry {
 	}
 
 	void disposeAll() {
-		serviceMap.clear();
+		serviceMap.values().forEach(FrameworkService::disposeService);
 	}
 }

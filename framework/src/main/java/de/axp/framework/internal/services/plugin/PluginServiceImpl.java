@@ -1,9 +1,9 @@
 package de.axp.framework.internal.services.plugin;
 
+import java.util.Set;
+
 import de.axp.framework.api.FrameworkPlugin;
 import de.axp.framework.api.services.PluginService;
-
-import java.util.Set;
 
 class PluginServiceImpl implements PluginService {
 
@@ -11,6 +11,11 @@ class PluginServiceImpl implements PluginService {
 
 	PluginServiceImpl(PluginRegistry pluginRegistry) {
 		this.pluginRegistry = pluginRegistry;
+	}
+
+	@Override
+	public void disposeService() {
+
 	}
 
 	@Override
