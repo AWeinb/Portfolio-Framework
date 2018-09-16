@@ -47,7 +47,7 @@ public class FrameworkTest {
 		return new TaskHandler() {
 
 			@Override
-			public String pluginId() {
+			public String handlerId() {
 				return "Buzz";
 			}
 

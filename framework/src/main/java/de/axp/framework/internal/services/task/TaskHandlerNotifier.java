@@ -30,7 +30,7 @@ class TaskHandlerNotifier implements MainLoopListener {
 
 		PluginService pluginService = serviceService.getService(PluginService.class);
 		List<TaskHandler> handlers = pluginService.getPlugins(TaskHandler.class).stream() //
-				.filter(h -> h.pluginId().equals(handlerId)) //
+				.filter(h -> h.handlerId().equals(handlerId)) //
 				.collect(Collectors.toList());
 
 		handlers.forEach(h -> h.handle(task, response -> mainLoop.addOutput(new MainLoopPackage(response))));
