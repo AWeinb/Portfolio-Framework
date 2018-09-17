@@ -1,0 +1,28 @@
+/*        .
+*        '#'         .  .
+*      ___:____     | \/ |
+*    ,´        `.    \  /
+*    |  0        \___/  |
+*  ~^~^~^~^~^~^~^~^~^~^~^~^~
+*/
+
+.pf-startpage {
+	border-top: 120px solid #427b5f;
+}
+
+.pf-startpage .selector {
+	display: grid;
+	grid-gap: 4vw;
+	grid-template-columns: repeat(auto-fit, 240px);
+	grid-auto-rows: 240px;
+    padding: 4vh 4vw;
+    box-sizing: border-box;
+}
+
+.pf-startpage .selector .button {
+	height: 100%;
+	width: 100%;
+	background: gray;
+	border-radius: 8px;
+	cursor: pointer;
+}
