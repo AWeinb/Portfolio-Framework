@@ -4,19 +4,13 @@ import de.axp.framework.api.services.TaskService;
 
 class TaskResponseImpl implements TaskService.TaskResponse {
 
-	private final String taskId;
 	private final Object content;
 	private final TaskService.TaskResolution resolution;
+	private String taskId;
 
-	TaskResponseImpl(String taskId, Object content, TaskService.TaskResolution resolution) {
-		this.taskId = taskId;
+	TaskResponseImpl(Object content, TaskService.TaskResolution resolution) {
 		this.content = content;
 		this.resolution = resolution;
-	}
-
-	@Override
-	public String getTaskId() {
-		return taskId;
 	}
 
 	@Override
@@ -29,8 +23,16 @@ class TaskResponseImpl implements TaskService.TaskResponse {
 		return resolution;
 	}
 
+	void setTaskId(String taskId) {
+		this.taskId = taskId;
+	}
+
+	String getTaskId() {
+		return taskId;
+	}
+
 	@Override
 	public String toString() {
-		return super.toString() + "(" + getTaskId() + ", " + getContent() + ", " + resolution + ")";
+		return super.toString() + "(" + getContent() + ", " + resolution + ")";
 	}
 }

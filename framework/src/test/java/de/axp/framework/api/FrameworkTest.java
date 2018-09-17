@@ -1,5 +1,7 @@
 package de.axp.framework.api;
 
+import java.util.concurrent.atomic.AtomicBoolean;
+
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -22,25 +24,33 @@ public class FrameworkTest {
 
 		TaskService frameworkEventInterface = framework.getTaskService();
 
-		TaskService.Task task1 = TaskService.Task.build("Foo", "Buzz", "A");
+		AtomicBoolean isCalled = new AtomicBoolean(false);
+
+		TaskService.Task task1 = TaskService.Task.build("Buzz", "A");
 		frameworkEventInterface.triggerTask(task1, response -> {
 			if (response.getResolution() == TaskService.TaskResolution.REJECTED) {
 				Assert.assertEquals("A", response.getContent());
 			} else {
 				Assert.fail();
 			}
+			isCalled.set(true);
 		});
 
-		TaskService.Task task2 = TaskService.Task.build("Bar", "Buzz", "B");
+		TaskService.Task task2 = TaskService.Task.build("Buzz", "B");
 		frameworkEventInterface.triggerTask(task2, response -> {
 			if (response.getResolution() == TaskService.TaskResolution.RESOLVED) {
 				Assert.assertEquals("B", response.getContent());
 			} else {
 				Assert.fail();
 			}
+			isCalled.set(true);
 		});
 
 		framework.shutdown();
+
+		if (!isCalled.get()) {
+			Assert.fail();
+		}
 	}
 
 	private TaskHandler getSomeListener() {
@@ -54,12 +64,12 @@ public class FrameworkTest {
 			@Override
 			public void handle(TaskService.Task task, TaskService.TaskPromise promise) {
 				if (task.getContent().equals("A")) {
-					TaskService.TaskResponse taskResponse = TaskService.TaskResponse.build(task.getTaskId(),
-							task.getContent(), TaskService.TaskResolution.REJECTED);
+					TaskService.TaskResponse taskResponse = TaskService.TaskResponse.build(task.getContent(),
+							TaskService.TaskResolution.REJECTED);
 					promise.respond(taskResponse);
 				} else {
-					TaskService.TaskResponse taskResponse = TaskService.TaskResponse.build(task.getTaskId(),
-							task.getContent(), TaskService.TaskResolution.RESOLVED);
+					TaskService.TaskResponse taskResponse = TaskService.TaskResponse.build(task.getContent(),
+							TaskService.TaskResolution.RESOLVED);
 					promise.respond(taskResponse);
 				}
 			}

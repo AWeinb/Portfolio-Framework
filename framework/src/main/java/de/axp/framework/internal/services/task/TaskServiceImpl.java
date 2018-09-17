@@ -26,7 +26,7 @@ class TaskServiceImpl implements TaskService {
 
 	@Override
 	public void triggerTask(Task task, TaskPromise promise) {
-		promiseNotifier.registerPromise(task.getTaskId(), promise);
+		promiseNotifier.registerPromise(task, promise);
 		mainLoop.addInput(new MainLoopPackage(task));
 	}
 }

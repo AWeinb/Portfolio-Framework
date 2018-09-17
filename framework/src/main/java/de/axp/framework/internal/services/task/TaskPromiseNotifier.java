@@ -13,13 +13,13 @@ class TaskPromiseNotifier implements MainLoopListener {
 
 	private final Map<String, TaskPromise> taskPromises = Collections.synchronizedMap(new HashMap<>());
 
-	void registerPromise(String taskId, TaskPromise promise) {
-		taskPromises.put(taskId, promise);
+	void registerPromise(TaskService.Task task, TaskPromise promise) {
+		taskPromises.put(((TaskImpl) task).getTaskId(), promise);
 	}
 
 	@Override
 	public void notify(MainLoopPackage aPackage) {
-		TaskService.TaskResponse response = (TaskService.TaskResponse) aPackage.getPayload();
+		TaskResponseImpl response = (TaskResponseImpl) aPackage.getPayload();
 		String taskId = response.getTaskId();
 		TaskPromise promise = taskPromises.remove(taskId);
 		promise.respond(response);

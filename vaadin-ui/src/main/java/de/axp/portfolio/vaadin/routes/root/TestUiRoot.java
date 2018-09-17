@@ -6,6 +6,7 @@ import com.vaadin.flow.component.html.Label;
 import com.vaadin.flow.component.page.Push;
 import com.vaadin.flow.router.Route;
 import com.vaadin.flow.server.VaadinSession;
+
 import de.axp.framework.api.PortfolioFramework;
 import de.axp.framework.api.services.TaskService;
 
@@ -26,18 +27,18 @@ public class TestUiRoot extends Div {
 
 		Label label = new Label();
 		Button button = new Button("Sh*T");
-		TaskService.Task task1 = TaskService.Task.build("", "ID", "Something");
-		button.addClickListener(buttonClickEvent -> authenticatedFramework.getTaskService()
-				.triggerTask(task1, response -> session.access(
+		TaskService.Task task1 = TaskService.Task.build("", "Something");
+		button.addClickListener(buttonClickEvent -> authenticatedFramework.getTaskService().triggerTask(task1,
+				response -> session.access(
 						() -> label.setText(response.getResolution() + " - " + response.getContent() + " " + i++))));
 		add(button);
 		add(label);
 
 		Label label2 = new Label();
 		Button button2 = new Button("Sh*T2");
-		TaskService.Task task2 = TaskService.Task.build("", "ID2", "Anything");
-		button2.addClickListener(buttonClickEvent -> authenticatedFramework.getTaskService()
-				.triggerTask(task2, response -> session.access(
+		TaskService.Task task2 = TaskService.Task.build("", "Anything");
+		button2.addClickListener(buttonClickEvent -> authenticatedFramework.getTaskService().triggerTask(task2,
+				response -> session.access(
 						() -> label2.setText(response.getResolution() + " - " + response.getContent() + " " + i2++))));
 		add(button2);
 		add(label2);
