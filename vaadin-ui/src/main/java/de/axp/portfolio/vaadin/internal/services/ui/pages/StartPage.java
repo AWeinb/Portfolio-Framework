@@ -1,5 +1,7 @@
 package de.axp.portfolio.vaadin.internal.services.ui.pages;
 
+import java.util.Set;
+
 import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.dependency.StyleSheet;
 import com.vaadin.flow.component.html.Div;
@@ -16,27 +18,32 @@ import de.axp.portfolio.vaadin.internal.services.ui.pages.portfolio.PortfolioPag
 public class StartPage extends Div {
 
 	private static final long serialVersionUID = -2132241652252682848L;
-	private static final String BUTTON_CLASSNAME = "button";
-
-	private final Section selector = new Section();
 
 	{
 		setClassName("pf-startpage");
-		selector.setClassName("selector");
 		initContent();
 	}
 
 	private void initContent() {
-		add(selector);
+		Section selectorContainer = new Section();
+		selectorContainer.setClassName("selector");
 
 		PortfolioFramework framework = UI.getCurrent().getSession().getAttribute(PortfolioFramework.class);
 		UiService uiService = framework.getServiceByType(UiService.class);
-		uiService.getPortfolioDefinitions().forEach(this::addSelector);
+		Set<UiService.PortfolioDefinition> portfolioDefinitions = uiService.getPortfolioDefinitions();
+		portfolioDefinitions.forEach(d -> addSelector(selectorContainer, d));
+
+		if (portfolioDefinitions.isEmpty()) {
+			addClassName("empty");
+			setText("No Portfolios are registered.");
+		} else {
+			add(selectorContainer);
+		}
 	}
 
-	private void addSelector(UiService.PortfolioDefinition definition) {
+	private void addSelector(Section selectorContainer, UiService.PortfolioDefinition definition) {
 		RouterLink routerLink = new RouterLink("", PortfolioPage.class, definition.getPortfolioId());
-		routerLink.setClassName(BUTTON_CLASSNAME);
-		selector.add(routerLink);
+		routerLink.setClassName("button");
+		selectorContainer.add(routerLink);
 	}
 }

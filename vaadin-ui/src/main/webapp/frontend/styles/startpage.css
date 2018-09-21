@@ -26,3 +26,8 @@
 	border-radius: 8px;
 	cursor: pointer;
 }
+
+.pf-startpage.empty {
+    text-align: center;
+    padding-top: 24px;
+}
