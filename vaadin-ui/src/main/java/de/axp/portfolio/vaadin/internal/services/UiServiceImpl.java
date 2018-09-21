@@ -1,11 +1,11 @@
-package de.axp.portfolio.vaadin.services.ui;
+package de.axp.portfolio.vaadin.internal.services;
 
 import java.util.Set;
 
 import de.axp.framework.api.PortfolioFramework;
 import de.axp.framework.api.services.PluginService;
-import de.axp.portfolio.vaadin.services.ui.api.PortfolioDefinition;
-import de.axp.portfolio.vaadin.services.ui.api.UiService;
+import de.axp.portfolio.vaadin.api.plugins.PortfolioDefinition;
+import de.axp.portfolio.vaadin.api.services.UiService;
 
 class UiServiceImpl implements UiService {
 

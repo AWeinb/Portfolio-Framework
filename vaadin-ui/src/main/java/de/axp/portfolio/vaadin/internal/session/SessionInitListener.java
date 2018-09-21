@@ -1,4 +1,4 @@
-package de.axp.portfolio.vaadin.session;
+package de.axp.portfolio.vaadin.internal.session;
 
 import com.vaadin.flow.server.SessionInitEvent;
 

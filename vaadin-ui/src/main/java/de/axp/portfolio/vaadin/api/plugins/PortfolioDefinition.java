@@ -1,4 +1,4 @@
-package de.axp.portfolio.vaadin.services.ui.api;
+package de.axp.portfolio.vaadin.api.plugins;
 
 import java.util.List;
 

@@ -1,4 +1,4 @@
-package de.axp.portfolio.vaadin.services.ui;
+package de.axp.portfolio.vaadin.internal.services;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -6,7 +6,7 @@ import java.util.List;
 import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.html.Label;
 
-import de.axp.portfolio.vaadin.services.ui.api.PortfolioDefinition;
+import de.axp.portfolio.vaadin.api.plugins.PortfolioDefinition;
 
 class FallbackPortfolioDefinition implements PortfolioDefinition {
 

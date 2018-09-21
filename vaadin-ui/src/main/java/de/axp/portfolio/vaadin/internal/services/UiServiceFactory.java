@@ -1,7 +1,7 @@
-package de.axp.portfolio.vaadin.services.ui;
+package de.axp.portfolio.vaadin.internal.services;
 
 import de.axp.framework.api.PortfolioFramework;
-import de.axp.portfolio.vaadin.services.ui.api.UiService;
+import de.axp.portfolio.vaadin.api.services.UiService;
 
 public final class UiServiceFactory {
 

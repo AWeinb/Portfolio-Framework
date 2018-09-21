@@ -1,9 +1,9 @@
-package de.axp.portfolio.vaadin.services.ui.internal.pages.portfolio.nav;
+package de.axp.portfolio.vaadin.internal.services.pages.portfolio.nav;
 
 import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.button.Button;
 
-import de.axp.portfolio.vaadin.services.ui.internal.pages.portfolio.PortfolioPageState;
+import de.axp.portfolio.vaadin.internal.services.pages.portfolio.PortfolioPageState;
 
 abstract class NavigationButton extends Button {
 

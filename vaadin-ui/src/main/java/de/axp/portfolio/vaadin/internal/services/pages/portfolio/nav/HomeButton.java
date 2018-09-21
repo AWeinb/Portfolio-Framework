@@ -1,10 +1,10 @@
-package de.axp.portfolio.vaadin.services.ui.internal.pages.portfolio.nav;
+package de.axp.portfolio.vaadin.internal.services.pages.portfolio.nav;
 
 import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.icon.Icon;
 import com.vaadin.flow.component.icon.VaadinIcons;
 
-import de.axp.portfolio.vaadin.services.ui.internal.pages.portfolio.PortfolioPageState;
+import de.axp.portfolio.vaadin.internal.services.pages.portfolio.PortfolioPageState;
 
 class HomeButton extends NavigationButton {
 

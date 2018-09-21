@@ -1,4 +1,4 @@
-package de.axp.portfolio.vaadin.services.ui.internal.pages.portfolio;
+package de.axp.portfolio.vaadin.internal.services.pages.portfolio;
 
 import java.util.List;
 
@@ -14,10 +14,10 @@ import com.vaadin.flow.router.Route;
 import com.vaadin.flow.router.WildcardParameter;
 
 import de.axp.framework.api.PortfolioFramework;
-import de.axp.portfolio.vaadin.services.ui.api.PortfolioDefinition;
-import de.axp.portfolio.vaadin.services.ui.api.UiService;
-import de.axp.portfolio.vaadin.services.ui.internal.pages.portfolio.content.ContentLayout;
-import de.axp.portfolio.vaadin.services.ui.internal.pages.portfolio.nav.PortfolioPageNavigation;
+import de.axp.portfolio.vaadin.api.plugins.PortfolioDefinition;
+import de.axp.portfolio.vaadin.api.services.UiService;
+import de.axp.portfolio.vaadin.internal.services.pages.portfolio.content.ContentLayout;
+import de.axp.portfolio.vaadin.internal.services.pages.portfolio.nav.PortfolioPageNavigation;
 
 @Route(value = "portfolio")
 @StyleSheet("frontend://styles/portfoliopage.css")

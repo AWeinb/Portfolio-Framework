@@ -1,13 +1,14 @@
-package de.axp.portfolio.vaadin;
-
-import com.vaadin.flow.server.VaadinServlet;
-import de.axp.framework.api.PortfolioFramework;
-import de.axp.portfolio.vaadin.services.ui.UiServiceFactory;
-import de.axp.portfolio.vaadin.services.ui.api.UiService;
-import de.axp.portfolio.vaadin.session.SessionDestroyListener;
-import de.axp.portfolio.vaadin.session.SessionInitListener;
+package de.axp.portfolio.vaadin.internal;
 
 import javax.servlet.ServletException;
+
+import com.vaadin.flow.server.VaadinServlet;
+
+import de.axp.framework.api.PortfolioFramework;
+import de.axp.portfolio.vaadin.api.services.UiService;
+import de.axp.portfolio.vaadin.internal.services.UiServiceFactory;
+import de.axp.portfolio.vaadin.internal.session.SessionDestroyListener;
+import de.axp.portfolio.vaadin.internal.session.SessionInitListener;
 
 public class PortfolioServlet extends VaadinServlet {
 

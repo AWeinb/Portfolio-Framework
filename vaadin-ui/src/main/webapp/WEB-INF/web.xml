@@ -14,7 +14,7 @@
 
     <servlet>
         <servlet-name>PortfolioServlet</servlet-name>
-        <servlet-class>de.axp.portfolio.vaadin.PortfolioServlet</servlet-class>
+        <servlet-class>de.axp.portfolio.vaadin.internal.PortfolioServlet</servlet-class>
     </servlet>
 
     <servlet-mapping>
