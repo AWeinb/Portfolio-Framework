@@ -1,4 +1,4 @@
-package de.axp.portfolio.vaadin.internal.services;
+package de.axp.portfolio.vaadin.internal.services.ui;
 
 import de.axp.framework.api.PortfolioFramework;
 import de.axp.portfolio.vaadin.api.services.UiService;

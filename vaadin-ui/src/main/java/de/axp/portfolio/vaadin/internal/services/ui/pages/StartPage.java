@@ -1,4 +1,4 @@
-package de.axp.portfolio.vaadin.internal.services.pages;
+package de.axp.portfolio.vaadin.internal.services.ui.pages;
 
 import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.dependency.StyleSheet;
@@ -9,7 +9,7 @@ import com.vaadin.flow.router.RouterLink;
 
 import de.axp.framework.api.PortfolioFramework;
 import de.axp.portfolio.vaadin.api.services.UiService;
-import de.axp.portfolio.vaadin.internal.services.pages.portfolio.PortfolioPage;
+import de.axp.portfolio.vaadin.internal.services.ui.pages.portfolio.PortfolioPage;
 
 @Route("")
 @StyleSheet("frontend://styles/startpage.css")

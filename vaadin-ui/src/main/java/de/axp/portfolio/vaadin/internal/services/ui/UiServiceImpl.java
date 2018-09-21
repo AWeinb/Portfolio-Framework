@@ -1,4 +1,4 @@
-package de.axp.portfolio.vaadin.internal.services;
+package de.axp.portfolio.vaadin.internal.services.ui;
 
 import java.util.Set;
 
