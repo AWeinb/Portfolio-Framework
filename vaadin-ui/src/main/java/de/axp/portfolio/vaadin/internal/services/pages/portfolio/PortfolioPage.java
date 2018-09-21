@@ -14,7 +14,6 @@ import com.vaadin.flow.router.Route;
 import com.vaadin.flow.router.WildcardParameter;
 
 import de.axp.framework.api.PortfolioFramework;
-import de.axp.portfolio.vaadin.api.plugins.PortfolioDefinition;
 import de.axp.portfolio.vaadin.api.services.UiService;
 import de.axp.portfolio.vaadin.internal.services.pages.portfolio.content.ContentLayout;
 import de.axp.portfolio.vaadin.internal.services.pages.portfolio.nav.PortfolioPageNavigation;
@@ -60,7 +59,7 @@ public class PortfolioPage extends Div implements HasUrlParameter<String>, After
 		navigation.update();
 
 		String pageSegment = currentState.getPageSegment();
-		PortfolioDefinition currentDefinition = uiService.getPortfolioDefinition(pageSegment);
+		UiService.PortfolioDefinition currentDefinition = uiService.getPortfolioDefinition(pageSegment);
 		List<Class<? extends Component>> portfolioParts = currentDefinition.getPortfolioParts();
 
 		try {

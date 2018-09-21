@@ -8,7 +8,6 @@ import com.vaadin.flow.router.Route;
 import com.vaadin.flow.router.RouterLink;
 
 import de.axp.framework.api.PortfolioFramework;
-import de.axp.portfolio.vaadin.api.plugins.PortfolioDefinition;
 import de.axp.portfolio.vaadin.api.services.UiService;
 import de.axp.portfolio.vaadin.internal.services.pages.portfolio.PortfolioPage;
 
@@ -35,7 +34,7 @@ public class StartPage extends Div {
 		uiService.getPortfolioDefinitions().forEach(this::addSelector);
 	}
 
-	private void addSelector(PortfolioDefinition definition) {
+	private void addSelector(UiService.PortfolioDefinition definition) {
 		RouterLink routerLink = new RouterLink("", PortfolioPage.class, definition.getPortfolioId());
 		routerLink.setClassName(BUTTON_CLASSNAME);
 		selector.add(routerLink);

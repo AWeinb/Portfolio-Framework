@@ -1,7 +1,7 @@
 package de.axp.framework.api.services;
 
+import de.axp.framework.api.FrameworkPlugin;
 import de.axp.framework.api.FrameworkService;
-import de.axp.framework.api.plugins.DataDefinition;
 
 public interface DataService extends FrameworkService {
 
@@ -14,4 +14,14 @@ public interface DataService extends FrameworkService {
 	Object get(String dataId);
 
 	void set(String dataId, String data);
+
+	interface DataDefinition extends FrameworkPlugin {
+
+		String dataId();
+
+		TaskService.Task getLoadTask();
+
+		TaskService.Task getSaveTask();
+
+	}
 }

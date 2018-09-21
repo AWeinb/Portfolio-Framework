@@ -6,8 +6,6 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import de.axp.framework.api.plugins.DataDefinition;
-import de.axp.framework.api.plugins.TaskHandler;
 import de.axp.framework.api.services.DataService;
 import de.axp.framework.api.services.PluginService;
 import de.axp.framework.api.services.TaskService;
@@ -22,7 +20,7 @@ public class FrameworkTest {
 	public void testAll() {
 		PortfolioFramework framework = PortfolioFramework.createFramework();
 		PluginService pluginService = framework.getPluginService();
-		pluginService.addPlugin(TaskHandler.class, getSomeListener());
+		pluginService.addPlugin(TaskService.TaskHandler.class, getSomeListener());
 
 		TaskService frameworkEventInterface = framework.getTaskService();
 
@@ -48,7 +46,7 @@ public class FrameworkTest {
 			isCalled.set(true);
 		});
 
-		pluginService.addPlugin(DataDefinition.class, new DataDefinition() {
+		pluginService.addPlugin(DataService.DataDefinition.class, new DataService.DataDefinition() {
 
 			@Override
 			public String dataId() {
@@ -83,8 +81,8 @@ public class FrameworkTest {
 		}
 	}
 
-	private TaskHandler getSomeListener() {
-		return new TaskHandler() {
+	private TaskService.TaskHandler getSomeListener() {
+		return new TaskService.TaskHandler() {
 
 			@Override
 			public String handlerId() {

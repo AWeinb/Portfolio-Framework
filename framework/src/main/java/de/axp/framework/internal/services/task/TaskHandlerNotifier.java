@@ -6,7 +6,6 @@ import java.util.List;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.stream.Collectors;
 
-import de.axp.framework.api.plugins.TaskHandler;
 import de.axp.framework.api.services.PluginService;
 import de.axp.framework.api.services.ServiceService;
 import de.axp.framework.api.services.TaskService;
@@ -30,7 +29,7 @@ class TaskHandlerNotifier implements MainLoopListener {
 		String handlerId = task.target();
 
 		PluginService pluginService = serviceService.getService(PluginService.class);
-		List<TaskHandler> handlers = pluginService.getPlugins(TaskHandler.class).stream() //
+		List<TaskService.TaskHandler> handlers = pluginService.getPlugins(TaskService.TaskHandler.class).stream() //
 				.filter(h -> h.handlerId().equals(handlerId)) //
 				.collect(Collectors.toList());
 
@@ -41,8 +40,8 @@ class TaskHandlerNotifier implements MainLoopListener {
 		}
 	}
 
-	private void triggerHandlers(TaskImpl task, List<TaskHandler> handlers, AtomicBoolean isCalled) {
-		for (TaskHandler handler : handlers) {
+	private void triggerHandlers(TaskImpl task, List<TaskService.TaskHandler> handlers, AtomicBoolean isCalled) {
+		for (TaskService.TaskHandler handler : handlers) {
 			TaskService.TaskPromise taskPromise = response -> {
 				((TaskResponseImpl) response).setTaskId(task.getTaskId());
 				mainLoop.addOutput(new MainLoopPackage(response));

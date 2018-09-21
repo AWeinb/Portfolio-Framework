@@ -6,9 +6,9 @@ import java.util.List;
 import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.html.Label;
 
-import de.axp.portfolio.vaadin.api.plugins.PortfolioDefinition;
+import de.axp.portfolio.vaadin.api.services.UiService;
 
-class FallbackPortfolioDefinition implements PortfolioDefinition {
+class FallbackPortfolioDefinition implements UiService.PortfolioDefinition {
 
 	@Override
 	public String getPortfolioId() {

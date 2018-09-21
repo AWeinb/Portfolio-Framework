@@ -2,7 +2,6 @@ package de.axp.framework.internal.services.data;
 
 import java.util.Set;
 
-import de.axp.framework.api.plugins.DataDefinition;
 import de.axp.framework.api.services.DataService;
 import de.axp.framework.api.services.PluginService;
 import de.axp.framework.api.services.ServiceService;

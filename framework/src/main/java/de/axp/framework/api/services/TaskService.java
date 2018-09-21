@@ -1,7 +1,7 @@
 package de.axp.framework.api.services;
 
+import de.axp.framework.api.FrameworkPlugin;
 import de.axp.framework.api.FrameworkService;
-import de.axp.framework.api.plugins.TaskHandler;
 import de.axp.framework.internal.services.task.TaskServiceFactory;
 
 public interface TaskService extends FrameworkService {
@@ -43,5 +43,12 @@ public interface TaskService extends FrameworkService {
 
 		void respond(TaskResponse response);
 
+	}
+
+	interface TaskHandler extends FrameworkPlugin {
+
+		String handlerId();
+
+		void handle(Task task, TaskPromise promise);
 	}
 }
