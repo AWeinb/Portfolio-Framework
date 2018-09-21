@@ -1,12 +1,12 @@
 package de.axp.framework.internal.services.data;
 
+import java.util.Set;
+
 import de.axp.framework.api.plugins.DataDefinition;
 import de.axp.framework.api.services.DataService;
 import de.axp.framework.api.services.PluginService;
 import de.axp.framework.api.services.ServiceService;
 import de.axp.framework.api.services.TaskService;
-
-import java.util.Set;
 
 class DataServiceImpl implements DataService {
 
@@ -21,6 +21,12 @@ class DataServiceImpl implements DataService {
 	@Override
 	public void disposeService() {
 
+	}
+
+	@Override
+	public void registerDataDefinition(DataDefinition definition) {
+		PluginService pluginService = serviceService.getService(PluginService.class);
+		pluginService.addPlugin(DataDefinition.class, definition);
 	}
 
 	@Override

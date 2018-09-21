@@ -21,6 +21,12 @@ class UiServiceImpl implements UiService {
 	}
 
 	@Override
+	public void registerPortfolioDefinition(PortfolioDefinition definition) {
+		PluginService pluginService = framework.getPluginService();
+		pluginService.addPlugin(PortfolioDefinition.class, definition);
+	}
+
+	@Override
 	public Set<PortfolioDefinition> getPortfolioDefinitions() {
 		PluginService pluginService = framework.getPluginService();
 		return pluginService.getPlugins(PortfolioDefinition.class);

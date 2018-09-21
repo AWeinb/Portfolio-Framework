@@ -6,6 +6,8 @@ import de.axp.framework.api.FrameworkService;
 
 public interface UiService extends FrameworkService {
 
+	void registerPortfolioDefinition(PortfolioDefinition definition);
+
 	Set<PortfolioDefinition> getPortfolioDefinitions();
 
 	PortfolioDefinition getPortfolioDefinition(String portfolioId);
