@@ -22,7 +22,7 @@
 
 	<modules>
 		<module>framework-base</module>
-		<module>vaadin-ui</module>
+		<module>framework-ui</module>
 		<module>feature-library</module>
 	</modules>
 
