@@ -21,7 +21,7 @@
 	</properties>
 
 	<modules>
-		<module>framework</module>
+		<module>framework-base</module>
 		<module>vaadin-ui</module>
 		<module>feature-library</module>
 	</modules>
