@@ -10,7 +10,7 @@ import de.axp.portfolio.vaadin.internal.services.ui.UiServiceFactory;
 import de.axp.portfolio.vaadin.internal.session.SessionDestroyListener;
 import de.axp.portfolio.vaadin.internal.session.SessionInitListener;
 
-public class PortfolioServlet extends VaadinServlet {
+public abstract class PortfolioVaadinServlet extends VaadinServlet {
 
 	private static final long serialVersionUID = -713474004104403527L;
 

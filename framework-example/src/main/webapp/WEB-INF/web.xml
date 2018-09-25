@@ -13,12 +13,12 @@
     </context-param>
 
     <servlet>
-        <servlet-name>PortfolioServlet</servlet-name>
-        <servlet-class>de.axp.portfolio.vaadin.internal.PortfolioServlet</servlet-class>
+        <servlet-name>FooServlet</servlet-name>
+        <servlet-class>de.axp.px.FooServlet</servlet-class>
     </servlet>
 
     <servlet-mapping>
-        <servlet-name>PortfolioServlet</servlet-name>
+        <servlet-name>FooServlet</servlet-name>
         <url-pattern>/*</url-pattern>
     </servlet-mapping>
 
