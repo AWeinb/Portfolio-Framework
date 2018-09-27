@@ -1,14 +1,11 @@
 package de.axp.portfolio.vaadin;
 
-import javax.servlet.ServletException;
-
 import com.vaadin.flow.server.VaadinServlet;
-
 import de.axp.framework.api.PortfolioFramework;
-import de.axp.framework.api.services.UiService;
-import de.axp.framework.internal.services.ui.UiServiceFactory;
 import de.axp.portfolio.vaadin.internal.session.SessionDestroyListener;
 import de.axp.portfolio.vaadin.internal.session.SessionInitListener;
+
+import javax.servlet.ServletException;
 
 public abstract class PortfolioVaadinServlet extends VaadinServlet {
 
@@ -19,8 +16,6 @@ public abstract class PortfolioVaadinServlet extends VaadinServlet {
 		super.servletInitialized();
 
 		PortfolioFramework framework = PortfolioFramework.createFramework();
-		framework.getServiceService().registerNewService(UiService.class, UiServiceFactory.createUiService(framework));
-
 		getService().addSessionInitListener(new SessionInitListener(framework));
 		getService().addSessionDestroyListener(new SessionDestroyListener(framework));
 	}

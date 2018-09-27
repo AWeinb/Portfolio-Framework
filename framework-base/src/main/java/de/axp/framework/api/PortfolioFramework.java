@@ -1,9 +1,6 @@
 package de.axp.framework.api;
 
-import de.axp.framework.api.services.DataService;
-import de.axp.framework.api.services.PluginService;
-import de.axp.framework.api.services.ServiceService;
-import de.axp.framework.api.services.TaskService;
+import de.axp.framework.api.services.*;
 import de.axp.framework.internal.InternalFactory;
 
 public interface PortfolioFramework {
@@ -21,6 +18,8 @@ public interface PortfolioFramework {
 	TaskService getTaskService();
 
 	DataService getDataService();
+
+	UiService getUiService();
 
 	void shutdown();
 }

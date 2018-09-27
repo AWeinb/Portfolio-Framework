@@ -1,18 +1,18 @@
 package de.axp.framework.internal.services.ui;
 
+import de.axp.framework.api.services.PluginService;
+import de.axp.framework.api.services.ServiceService;
+import de.axp.framework.api.services.UiService;
+
 import java.util.Optional;
 import java.util.Set;
 
-import de.axp.framework.api.PortfolioFramework;
-import de.axp.framework.api.services.PluginService;
-import de.axp.framework.api.services.UiService;
-
 class UiServiceImpl implements UiService {
 
-	private final PortfolioFramework framework;
+	private final ServiceService serviceService;
 
-	UiServiceImpl(PortfolioFramework framework) {
-		this.framework = framework;
+	UiServiceImpl(ServiceService serviceService) {
+		this.serviceService = serviceService;
 	}
 
 	@Override
@@ -22,13 +22,13 @@ class UiServiceImpl implements UiService {
 
 	@Override
 	public void registerPortfolioDefinition(PortfolioDefinition definition) {
-		PluginService pluginService = framework.getPluginService();
+		PluginService pluginService = serviceService.getService(PluginService.class);
 		pluginService.addPlugin(PortfolioDefinition.class, definition);
 	}
 
 	@Override
 	public Set<PortfolioDefinition> getPortfolioDefinitions() {
-		PluginService pluginService = framework.getPluginService();
+		PluginService pluginService = serviceService.getService(PluginService.class);
 		return pluginService.getPlugins(PortfolioDefinition.class);
 	}
 

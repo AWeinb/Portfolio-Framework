@@ -2,10 +2,7 @@ package de.axp.framework.internal;
 
 import de.axp.framework.api.FrameworkService;
 import de.axp.framework.api.PortfolioFramework;
-import de.axp.framework.api.services.DataService;
-import de.axp.framework.api.services.PluginService;
-import de.axp.framework.api.services.ServiceService;
-import de.axp.framework.api.services.TaskService;
+import de.axp.framework.api.services.*;
 
 class PortfolioFrameworkImpl implements PortfolioFramework {
 
@@ -38,6 +35,11 @@ class PortfolioFrameworkImpl implements PortfolioFramework {
 	@Override
 	public DataService getDataService() {
 		return serviceService.getService(DataService.class);
+	}
+
+	@Override
+	public UiService getUiService() {
+		return serviceService.getService(UiService.class);
 	}
 
 	@Override
