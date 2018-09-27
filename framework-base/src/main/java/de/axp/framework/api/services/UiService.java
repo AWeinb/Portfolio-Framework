@@ -1,6 +1,7 @@
 package de.axp.framework.api.services;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 
 import de.axp.framework.api.FrameworkPlugin;
@@ -12,7 +13,7 @@ public interface UiService extends FrameworkService {
 
 	Set<PortfolioDefinition> getPortfolioDefinitions();
 
-	PortfolioDefinition getPortfolioDefinition(String portfolioId);
+	Optional<PortfolioDefinition> getPortfolioDefinition(String portfolioId);
 
 	interface PortfolioDefinition extends FrameworkPlugin {
 
@@ -23,6 +24,8 @@ public interface UiService extends FrameworkService {
 	}
 
 	interface PortfolioPart {
+
+		String getPartId();
 
 	}
 }

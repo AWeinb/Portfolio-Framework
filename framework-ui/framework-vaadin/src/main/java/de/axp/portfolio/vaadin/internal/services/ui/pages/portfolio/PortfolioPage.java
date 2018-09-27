@@ -1,6 +1,10 @@
 package de.axp.portfolio.vaadin.internal.services.ui.pages.portfolio;
 
+import static de.axp.framework.api.services.UiService.PortfolioDefinition;
+import static de.axp.framework.api.services.UiService.PortfolioPart;
+
 import java.util.List;
+import java.util.Optional;
 
 import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.UI;
@@ -59,9 +63,10 @@ public class PortfolioPage extends Div implements HasUrlParameter<String>, After
 		navigation.update();
 
 		String pageSegment = currentState.getPageSegment();
-		UiService.PortfolioDefinition currentDefinition = uiService.getPortfolioDefinition(pageSegment);
-		List<Class<? extends UiService.PortfolioPart>> portfolioParts = currentDefinition.getPortfolioParts();
-		Class<? extends UiService.PortfolioPart> aClass = portfolioParts.get(currentState.getPageIndex());
+		Optional<PortfolioDefinition> portfolioDefinition = uiService.getPortfolioDefinition(pageSegment);
+		PortfolioDefinition currentDefinition = portfolioDefinition.orElse(new FallbackPortfolioDefinition());
+		List<Class<? extends PortfolioPart>> portfolioParts = currentDefinition.getPortfolioParts();
+		Class<? extends PortfolioPart> aClass = portfolioParts.get(currentState.getPageIndex());
 
 		try {
 			contentLayout.removeAll();

@@ -1,5 +1,7 @@
 package de.axp.portfolio.vaadin.internal.services.ui.pages.portfolio;
 
+import java.util.Optional;
+
 import de.axp.framework.api.services.UiService;
 
 public final class PortfolioPageState {
@@ -18,7 +20,8 @@ public final class PortfolioPageState {
 
 	public void update(String rootSegment, String pageSegment, int partIndex) {
 		partIndexMin = 0;
-		partIndexMax = uiService.getPortfolioDefinition(pageSegment).getPortfolioParts().size() - 1;
+		Optional<UiService.PortfolioDefinition> portfolioDefinition = uiService.getPortfolioDefinition(pageSegment);
+		partIndexMax = portfolioDefinition.orElse(new FallbackPortfolioDefinition()).getPortfolioParts().size() - 1;
 		this.rootSegment = rootSegment;
 		this.pageSegment = pageSegment;
 		this.partIndex = wrapPartIndex(partIndex);

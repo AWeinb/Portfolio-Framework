@@ -1,5 +1,6 @@
 package de.axp.framework.internal.services.ui;
 
+import java.util.Optional;
 import java.util.Set;
 
 import de.axp.framework.api.PortfolioFramework;
@@ -32,10 +33,9 @@ class UiServiceImpl implements UiService {
 	}
 
 	@Override
-	public PortfolioDefinition getPortfolioDefinition(String portfolioId) {
+	public Optional<PortfolioDefinition> getPortfolioDefinition(String portfolioId) {
 		return getPortfolioDefinitions().stream() //
 				.filter(d -> d.getPortfolioId().equals(portfolioId)) //
-				.findFirst() //
-				.orElse(new FallbackPortfolioDefinition());
+				.findFirst();
 	}
 }

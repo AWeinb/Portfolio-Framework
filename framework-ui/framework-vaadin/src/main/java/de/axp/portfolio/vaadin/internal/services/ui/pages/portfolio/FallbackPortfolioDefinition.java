@@ -1,7 +1,9 @@
-package de.axp.framework.internal.services.ui;
+package de.axp.portfolio.vaadin.internal.services.ui.pages.portfolio;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import com.vaadin.flow.component.html.Label;
 
 import de.axp.framework.api.services.UiService;
 
@@ -19,7 +21,17 @@ class FallbackPortfolioDefinition implements UiService.PortfolioDefinition {
 		return parts;
 	}
 
-	public static class FallbackPortfolioPart implements UiService.PortfolioPart {
+	public class FallbackPortfolioPart extends Label implements UiService.PortfolioPart {
 
+		private static final long serialVersionUID = -9156630648629447374L;
+
+		public FallbackPortfolioPart() {
+			setText("Upps! There is nothing like that!");
+		}
+
+		@Override
+		public String getPartId() {
+			return "";
+		}
 	}
 }
