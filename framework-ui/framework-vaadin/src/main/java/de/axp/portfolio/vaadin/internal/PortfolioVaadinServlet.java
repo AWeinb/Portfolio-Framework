@@ -5,8 +5,8 @@ import javax.servlet.ServletException;
 import com.vaadin.flow.server.VaadinServlet;
 
 import de.axp.framework.api.PortfolioFramework;
-import de.axp.portfolio.vaadin.api.services.UiService;
-import de.axp.portfolio.vaadin.internal.services.ui.UiServiceFactory;
+import de.axp.framework.api.services.UiService;
+import de.axp.framework.internal.services.ui.UiServiceFactory;
 import de.axp.portfolio.vaadin.internal.session.SessionDestroyListener;
 import de.axp.portfolio.vaadin.internal.session.SessionInitListener;
 

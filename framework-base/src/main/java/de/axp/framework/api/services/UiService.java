@@ -1,9 +1,7 @@
-package de.axp.portfolio.vaadin.api.services;
+package de.axp.framework.api.services;
 
 import java.util.List;
 import java.util.Set;
-
-import com.vaadin.flow.component.Component;
 
 import de.axp.framework.api.FrameworkPlugin;
 import de.axp.framework.api.FrameworkService;
@@ -20,7 +18,11 @@ public interface UiService extends FrameworkService {
 
 		String getPortfolioId();
 
-		List<Class<? extends Component>> getPortfolioParts();
+		List<Class<? extends PortfolioPart>> getPortfolioParts();
+
+	}
+
+	interface PortfolioPart {
 
 	}
 }

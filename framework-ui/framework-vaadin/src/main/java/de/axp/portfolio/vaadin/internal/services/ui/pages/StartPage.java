@@ -10,7 +10,7 @@ import com.vaadin.flow.router.Route;
 import com.vaadin.flow.router.RouterLink;
 
 import de.axp.framework.api.PortfolioFramework;
-import de.axp.portfolio.vaadin.api.services.UiService;
+import de.axp.framework.api.services.UiService;
 import de.axp.portfolio.vaadin.internal.services.ui.pages.portfolio.PortfolioPage;
 
 @Route("")

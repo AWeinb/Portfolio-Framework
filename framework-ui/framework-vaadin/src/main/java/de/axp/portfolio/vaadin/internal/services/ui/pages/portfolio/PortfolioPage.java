@@ -14,7 +14,7 @@ import com.vaadin.flow.router.Route;
 import com.vaadin.flow.router.WildcardParameter;
 
 import de.axp.framework.api.PortfolioFramework;
-import de.axp.portfolio.vaadin.api.services.UiService;
+import de.axp.framework.api.services.UiService;
 import de.axp.portfolio.vaadin.internal.services.ui.pages.portfolio.content.ContentLayout;
 import de.axp.portfolio.vaadin.internal.services.ui.pages.portfolio.nav.PortfolioPageNavigation;
 
@@ -60,11 +60,12 @@ public class PortfolioPage extends Div implements HasUrlParameter<String>, After
 
 		String pageSegment = currentState.getPageSegment();
 		UiService.PortfolioDefinition currentDefinition = uiService.getPortfolioDefinition(pageSegment);
-		List<Class<? extends Component>> portfolioParts = currentDefinition.getPortfolioParts();
+		List<Class<? extends UiService.PortfolioPart>> portfolioParts = currentDefinition.getPortfolioParts();
+		Class<? extends UiService.PortfolioPart> aClass = portfolioParts.get(currentState.getPageIndex());
 
 		try {
 			contentLayout.removeAll();
-			contentLayout.add(portfolioParts.get(currentState.getPageIndex()).newInstance());
+			contentLayout.add((Component) aClass.newInstance());
 		} catch (InstantiationException | IllegalAccessException e) {
 			e.printStackTrace();
 		}
