@@ -1,5 +1,5 @@
-package de.axp.portfolio.vaadin.internal.services.ui.pages.portfolio;
 
+package de.axp.portfolio.vaadin.internal.pages.portfolio;
 import java.util.ArrayList;
 import java.util.List;
 

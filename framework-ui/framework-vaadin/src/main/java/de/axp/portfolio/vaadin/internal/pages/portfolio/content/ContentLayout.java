@@ -1,4 +1,4 @@
-package de.axp.portfolio.vaadin.internal.services.ui.pages.portfolio.content;
+package de.axp.portfolio.vaadin.internal.pages.pages.portfolio.content;
 
 import com.vaadin.flow.component.dependency.StyleSheet;
 import com.vaadin.flow.component.html.Section;

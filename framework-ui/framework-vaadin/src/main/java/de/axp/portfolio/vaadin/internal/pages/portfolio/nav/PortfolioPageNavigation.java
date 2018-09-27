@@ -1,12 +1,12 @@
-package de.axp.portfolio.vaadin.internal.services.ui.pages.portfolio.nav;
+package de.axp.portfolio.vaadin.internal.pages.portfolio.nav;
 
 import java.util.HashMap;
 import java.util.Map;
 
 import com.vaadin.flow.component.dependency.StyleSheet;
 import com.vaadin.flow.component.html.Nav;
+import de.axp.portfolio.vaadin.internal.pages.portfolio.PortfolioPageState;
 
-import de.axp.portfolio.vaadin.internal.services.ui.pages.portfolio.PortfolioPageState;
 
 @StyleSheet("frontend://styles/navigation.css")
 public class PortfolioPageNavigation extends Nav {

@@ -1,4 +1,4 @@
-package de.axp.portfolio.vaadin.internal;
+package de.axp.portfolio.vaadin;
 
 import javax.servlet.ServletException;
 

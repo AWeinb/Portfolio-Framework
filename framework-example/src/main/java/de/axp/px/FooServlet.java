@@ -2,7 +2,7 @@ package de.axp.px;
 
 import javax.servlet.ServletException;
 
-import de.axp.portfolio.vaadin.internal.PortfolioVaadinServlet;
+import de.axp.portfolio.vaadin.PortfolioVaadinServlet;
 
 public class FooServlet extends PortfolioVaadinServlet {
 
