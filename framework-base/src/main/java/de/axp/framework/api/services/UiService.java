@@ -1,11 +1,11 @@
 package de.axp.framework.api.services;
 
+import de.axp.framework.api.FrameworkPlugin;
+import de.axp.framework.api.FrameworkService;
+
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
-
-import de.axp.framework.api.FrameworkPlugin;
-import de.axp.framework.api.FrameworkService;
 
 public interface UiService extends FrameworkService {
 
@@ -19,13 +19,14 @@ public interface UiService extends FrameworkService {
 
 		String getPortfolioId();
 
-		List<Class<? extends PortfolioPart>> getPortfolioParts();
+		List<? extends PortfolioPart> getPortfolioParts();
 
 	}
 
-	interface PortfolioPart {
+	interface PortfolioPart<T> {
 
 		String getPartId();
 
+		T getUiComponent();
 	}
 }

@@ -11,12 +11,18 @@ public abstract class PortfolioVaadinServlet extends VaadinServlet {
 
 	private static final long serialVersionUID = -713474004104403527L;
 
+	private PortfolioFramework framework;
+
 	@Override
 	protected void servletInitialized() throws ServletException {
 		super.servletInitialized();
 
-		PortfolioFramework framework = PortfolioFramework.createFramework();
+		framework = PortfolioFramework.createFramework();
 		getService().addSessionInitListener(new SessionInitListener(framework));
 		getService().addSessionDestroyListener(new SessionDestroyListener(framework));
+	}
+
+	public PortfolioFramework getFrameworkInstance() {
+		return framework;
 	}
 }

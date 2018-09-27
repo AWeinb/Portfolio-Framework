@@ -1,8 +1,8 @@
 package de.axp.portfolio.vaadin.internal.pages.portfolio;
 
-import java.util.Optional;
-
 import de.axp.framework.api.services.UiService;
+
+import java.util.Optional;
 
 public final class PortfolioPageState {
 

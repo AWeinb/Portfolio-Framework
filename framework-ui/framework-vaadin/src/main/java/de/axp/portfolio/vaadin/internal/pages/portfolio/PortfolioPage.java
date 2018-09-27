@@ -1,26 +1,20 @@
 package de.axp.portfolio.vaadin.internal.pages.portfolio;
 
-import static de.axp.framework.api.services.UiService.PortfolioDefinition;
-import static de.axp.framework.api.services.UiService.PortfolioPart;
-
-import java.util.List;
-import java.util.Optional;
-
 import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.dependency.StyleSheet;
 import com.vaadin.flow.component.html.Div;
-import com.vaadin.flow.router.AfterNavigationEvent;
-import com.vaadin.flow.router.AfterNavigationObserver;
-import com.vaadin.flow.router.BeforeEvent;
-import com.vaadin.flow.router.HasUrlParameter;
-import com.vaadin.flow.router.Route;
-import com.vaadin.flow.router.WildcardParameter;
-
+import com.vaadin.flow.router.*;
 import de.axp.framework.api.PortfolioFramework;
 import de.axp.framework.api.services.UiService;
 import de.axp.portfolio.vaadin.internal.pages.pages.portfolio.content.ContentLayout;
 import de.axp.portfolio.vaadin.internal.pages.portfolio.nav.PortfolioPageNavigation;
+
+import java.util.List;
+import java.util.Optional;
+
+import static de.axp.framework.api.services.UiService.PortfolioDefinition;
+import static de.axp.framework.api.services.UiService.PortfolioPart;
 
 @Route(value = "portfolio")
 @StyleSheet("frontend://styles/portfoliopage.css")
@@ -65,14 +59,10 @@ public class PortfolioPage extends Div implements HasUrlParameter<String>, After
 		String pageSegment = currentState.getPageSegment();
 		Optional<PortfolioDefinition> portfolioDefinition = uiService.getPortfolioDefinition(pageSegment);
 		PortfolioDefinition currentDefinition = portfolioDefinition.orElse(new FallbackPortfolioDefinition());
-		List<Class<? extends PortfolioPart>> portfolioParts = currentDefinition.getPortfolioParts();
-		Class<? extends PortfolioPart> aClass = portfolioParts.get(currentState.getPageIndex());
+		List<? extends PortfolioPart> portfolioParts = currentDefinition.getPortfolioParts();
+		PortfolioPart<Component> part = portfolioParts.get(currentState.getPageIndex());
 
-		try {
-			contentLayout.removeAll();
-			contentLayout.add((Component) aClass.newInstance());
-		} catch (InstantiationException | IllegalAccessException e) {
-			e.printStackTrace();
-		}
+		contentLayout.removeAll();
+		contentLayout.add(part.getUiComponent());
 	}
 }
