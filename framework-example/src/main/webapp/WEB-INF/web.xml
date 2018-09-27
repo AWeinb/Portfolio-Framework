@@ -2,9 +2,7 @@
 <web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xmlns="http://java.sun.com/xml/ns/javaee"
          xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
-         id="PortfolioServlet_ID" version="2.4">
-
-    <display-name>PortfolioServlet</display-name>
+         version="3.0">
 
     <context-param>
         <description>Vaadin production mode</description>
@@ -13,12 +11,12 @@
     </context-param>
 
     <servlet>
-        <servlet-name>FooServlet</servlet-name>
-        <servlet-class>de.axp.px.FooServlet</servlet-class>
+        <servlet-name>ExampleAppServlet</servlet-name>
+        <servlet-class>de.axp.example.ExampleAppServlet</servlet-class>
     </servlet>
 
     <servlet-mapping>
-        <servlet-name>FooServlet</servlet-name>
+        <servlet-name>ExampleAppServlet</servlet-name>
         <url-pattern>/*</url-pattern>
     </servlet-mapping>
 
