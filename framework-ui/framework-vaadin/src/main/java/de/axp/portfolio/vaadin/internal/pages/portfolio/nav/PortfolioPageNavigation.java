@@ -1,13 +1,12 @@
 package de.axp.portfolio.vaadin.internal.pages.portfolio.nav;
 
-import com.vaadin.flow.component.dependency.StyleSheet;
-import com.vaadin.flow.component.html.Nav;
-import de.axp.portfolio.vaadin.internal.pages.portfolio.PortfolioPageState;
-
 import java.util.HashMap;
 import java.util.Map;
 
-@StyleSheet("frontend://styles/navigation.css")
+import com.vaadin.flow.component.html.Nav;
+
+import de.axp.portfolio.vaadin.internal.pages.portfolio.PortfolioPageState;
+
 public class PortfolioPageNavigation extends Nav {
 
 	private static final long serialVersionUID = -4212171098990270530L;
@@ -18,11 +17,12 @@ public class PortfolioPageNavigation extends Nav {
 	public PortfolioPageNavigation(PortfolioPageState currentState) {
 		this.currentState = currentState;
 
-		setClassName("pf-navigation");
+		setClassName("navigation");
 
 		buttons.put(Type.HOME, new HomeButton(currentState));
-		buttons.put(Type.BACK, new BackButton(currentState));
 		buttons.put(Type.FORWARD, new ForwardButton(currentState));
+		buttons.put(Type.BACK, new BackButton(currentState));
+
 		for (Type type : Type.values()) {
 			add(buttons.get(type));
 		}
@@ -49,6 +49,6 @@ public class PortfolioPageNavigation extends Nav {
 	}
 
 	public enum Type {
-		HOME, BACK, FORWARD
+		HOME, FORWARD, BACK
 	}
 }

@@ -1,26 +1,37 @@
 package de.axp.portfolio.vaadin.internal.pages.start;
 
+import java.util.Set;
+
 import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.dependency.StyleSheet;
 import com.vaadin.flow.component.html.Div;
+import com.vaadin.flow.component.html.Label;
 import com.vaadin.flow.component.html.Section;
+import com.vaadin.flow.component.icon.Icon;
+import com.vaadin.flow.component.icon.VaadinIcons;
 import com.vaadin.flow.router.Route;
 import com.vaadin.flow.router.RouterLink;
+
 import de.axp.framework.api.PortfolioFramework;
 import de.axp.framework.api.services.UiService;
 import de.axp.portfolio.vaadin.internal.pages.portfolio.PortfolioPage;
 
-import java.util.Set;
-
 @Route("")
-@StyleSheet("frontend://styles/startpage.css")
+@StyleSheet("frontend://styles/start.css")
 public class StartPage extends Div {
 
 	private static final long serialVersionUID = -2132241652252682848L;
 
 	{
-		setClassName("pf-startpage");
+		setClassName("start");
+		initHeader();
 		initContent();
+	}
+
+	private void initHeader() {
+		Div header = new Div();
+		header.setClassName("header");
+		add(header);
 	}
 
 	private void initContent() {

@@ -1,0 +1,85 @@
+/*        .
+*        '#'         .  .
+*      ___:____     | \/ |
+*    ,´        `.    \  /
+*    |  0        \___/  |
+*  ~^~^~^~^~^~^~^~^~^~^~^~^~
+*/
+
+.start {
+	display: flex;
+	height: 100%;
+	width: 100%;
+	overflow: hidden;
+}
+
+
+.start .header {
+	height: 100%;
+	min-width: 148px;
+    background: #f5f5f5;
+    margin-right: 1vw;
+    border-right: 1px solid #ccc;
+}
+
+.start .selector {
+	display: grid;
+	grid-gap: 1vw;
+	grid-template-columns: repeat(auto-fit, 300px);
+	grid-auto-rows: 240px;
+    height: auto;
+	width: 100%;
+	padding: 4vw 0vw;
+	justify-content: center;
+	overflow-y: scroll;
+}
+
+.start .selector .button {
+	cursor: pointer;
+	display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+	height: 240px;
+	width: 300px;
+	border: 1px solid #ccc;
+	overflow: hidden;
+	border-radius: 4px;
+}
+
+.start .selector .button .icon {
+	cursor: pointer;
+	width: 100%;
+    margin: 8px;
+    flex-grow: 1;
+}
+
+.start .selector .button .caption {
+	cursor: pointer;
+	width: 80%;
+	text-align: center;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+	color: #333;
+}
+
+.start .selector .button .description {
+	cursor: pointer;
+	width: 100%;
+	max-height: 30%;
+    margin: 8px;
+	text-align: center;
+    overflow: hidden;
+	color: #333;
+}
+
+.start .selector .button:hover {
+	background-color: rgba(25, 59, 103, 0.05);
+	text-decoration: none;
+}
+
+.start.empty {
+    text-align: center;
+    padding-top: 24px;
+}

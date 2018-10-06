@@ -1,9 +1,7 @@
-package de.axp.portfolio.vaadin.internal.pages.pages.portfolio.content;
+package de.axp.portfolio.vaadin.internal.pages.portfolio.content;
 
-import com.vaadin.flow.component.dependency.StyleSheet;
 import com.vaadin.flow.component.html.Section;
 
-@StyleSheet("frontend://styles/contentlayout.css")
 public class ContentLayout extends Section {
 
 	private static final long serialVersionUID = 1482215989642569717L;

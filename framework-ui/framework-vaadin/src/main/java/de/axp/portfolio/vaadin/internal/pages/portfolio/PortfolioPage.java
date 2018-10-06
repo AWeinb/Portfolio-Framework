@@ -7,7 +7,7 @@ import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.router.*;
 import de.axp.framework.api.PortfolioFramework;
 import de.axp.framework.api.services.UiService;
-import de.axp.portfolio.vaadin.internal.pages.pages.portfolio.content.ContentLayout;
+import de.axp.portfolio.vaadin.internal.pages.portfolio.content.ContentLayout;
 import de.axp.portfolio.vaadin.internal.pages.portfolio.nav.PortfolioPageNavigation;
 
 import java.util.List;
@@ -17,7 +17,7 @@ import static de.axp.framework.api.services.UiService.PortfolioDefinition;
 import static de.axp.framework.api.services.UiService.PortfolioPart;
 
 @Route(value = "portfolio")
-@StyleSheet("frontend://styles/portfoliopage.css")
+@StyleSheet("frontend://styles/portfolio.css")
 public class PortfolioPage extends Div implements HasUrlParameter<String>, AfterNavigationObserver {
 
 	private static final long serialVersionUID = 3217286454817153835L;
@@ -33,7 +33,7 @@ public class PortfolioPage extends Div implements HasUrlParameter<String>, After
 		currentState = new PortfolioPageState(uiService);
 		navigation = new PortfolioPageNavigation(currentState);
 
-		setClassName("pf-portfoliopage");
+		setClassName("portfolio");
 		add(navigation);
 		add(contentLayout);
 	}
