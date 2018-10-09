@@ -15,6 +15,11 @@ public class FallbackPortfolioDefinition implements UiService.PortfolioDefinitio
 	}
 
 	@Override
+	public UiService.PortfolioPreview getPortfolioPreview() {
+		return null;
+	}
+
+	@Override
 	public List<? extends UiService.PortfolioPart> getPortfolioParts() {
 		List<FallbackPortfolioPart> parts = new ArrayList<>();
 		parts.add(new FallbackPortfolioPart());

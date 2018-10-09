@@ -19,8 +19,15 @@ public interface UiService extends FrameworkService {
 
 		String getPortfolioId();
 
+		PortfolioPreview getPortfolioPreview();
+
 		List<? extends PortfolioPart> getPortfolioParts();
 
+	}
+
+	interface PortfolioPreview<T> {
+
+		T getUiComponent();
 	}
 
 	interface PortfolioPart<T> {
@@ -28,5 +35,6 @@ public interface UiService extends FrameworkService {
 		String getPartId();
 
 		T getUiComponent();
+
 	}
 }
