@@ -6,7 +6,7 @@
 *  ~^~^~^~^~^~^~^~^~^~^~^~^~
 */
 
-.portfolio-generic-preview {
+.generic-preview {
 	cursor: pointer;
 	display: flex;
     flex-direction: column;
@@ -16,14 +16,14 @@
 	width: 100%;
 }
 
-.portfolio-generic-preview .icon {
+.generic-preview .icon {
 	cursor: pointer;
     max-height: 50%;
     margin: 8px;
     flex-grow: 1;
 }
 
-.portfolio-generic-preview .caption {
+.generic-preview .caption {
 	cursor: pointer;
 	width: 80%;
 	text-align: center;
@@ -33,7 +33,7 @@
 	color: #333;
 }
 
-.portfolio-generic-preview .description {
+.generic-preview .description {
 	cursor: pointer;
 	width: 100%;
 	max-height: 30%;

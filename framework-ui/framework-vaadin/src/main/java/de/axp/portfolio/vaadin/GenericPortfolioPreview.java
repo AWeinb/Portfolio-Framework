@@ -7,11 +7,11 @@ import com.vaadin.flow.component.html.Image;
 import com.vaadin.flow.component.html.Label;
 import de.axp.framework.api.services.UiService;
 
-@StyleSheet("frontend://styles/portfoliogenericpreview.css")
+@StyleSheet("frontend://styles/portfolio-generic-preview.css")
 public class GenericPortfolioPreview extends Div implements UiService.PortfolioPreview<Component> {
 
 	public GenericPortfolioPreview(String icon, String caption, String description) {
-		setClassName("portfolio-generic-preview");
+		setClassName("generic-preview");
 
 		Image iconComponent = new Image(icon, "");
 		iconComponent.setClassName("icon");
