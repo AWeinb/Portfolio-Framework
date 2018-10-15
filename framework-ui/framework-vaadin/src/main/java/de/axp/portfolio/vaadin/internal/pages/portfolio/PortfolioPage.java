@@ -7,14 +7,13 @@ import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.router.*;
 import de.axp.framework.api.PortfolioFramework;
 import de.axp.framework.api.services.UiService;
+import de.axp.framework.api.services.UiService.PortfolioDefinition;
+import de.axp.framework.api.services.UiService.PortfolioPart;
 import de.axp.portfolio.vaadin.internal.pages.portfolio.content.ContentLayout;
-import de.axp.portfolio.vaadin.internal.pages.portfolio.nav.PortfolioPageNavigation;
+import de.axp.portfolio.vaadin.internal.pages.portfolio.navigation.PortfolioNavigationManager;
 
 import java.util.List;
 import java.util.Optional;
-
-import static de.axp.framework.api.services.UiService.PortfolioDefinition;
-import static de.axp.framework.api.services.UiService.PortfolioPart;
 
 @Route(value = "portfolio")
 @StyleSheet("frontend://styles/portfolio.css")
@@ -23,46 +22,40 @@ public class PortfolioPage extends Div implements HasUrlParameter<String>, After
 	private static final long serialVersionUID = 3217286454817153835L;
 
 	private final UiService uiService;
-	private final PortfolioPageState currentState;
-	private final PortfolioPageNavigation navigation;
+	private final UrlStateManager urlStateManager;
+	private final PortfolioNavigationManager navigationManager;
 	private final ContentLayout contentLayout = new ContentLayout();
 
 	{
 		PortfolioFramework framework = UI.getCurrent().getSession().getAttribute(PortfolioFramework.class);
 		uiService = framework.getServiceByType(UiService.class);
-		currentState = new PortfolioPageState(uiService);
-		navigation = new PortfolioPageNavigation(currentState);
+		urlStateManager = new UrlStateManager(uiService);
+		navigationManager = new PortfolioNavigationManager(urlStateManager.getUrlState());
 
 		setClassName("portfolio");
-		add(navigation);
+		add(navigationManager.getNavigationComponent());
 		add(contentLayout);
 	}
 
 	@Override
 	public void setParameter(BeforeEvent event, @WildcardParameter String parameter) {
-		String rootSegment = event.getLocation().getFirstSegment();
-		String[] split = parameter.split("/");
-		String pageSegment = split.length > 0 ? split[0] : "";
-		int partIndex = 0;
-		try {
-			partIndex = Integer.parseInt(split.length > 1 ? split[1] : "0");
-		} catch (NumberFormatException e) {
-			System.err.println(e.getMessage());
-		}
-		currentState.update(rootSegment, pageSegment, partIndex);
+		urlStateManager.updateRootSegment(event.getLocation().getFirstSegment());
+		urlStateManager.updateParameterSegment(parameter);
 	}
 
 	@Override
 	public void afterNavigation(AfterNavigationEvent event) {
-		navigation.update();
+		navigationManager.updateNavigationComponent();
+		contentLayout.removeAll();
+		contentLayout.add(getPortfolioPartComponent());
+	}
 
-		String pageSegment = currentState.getPageSegment();
+	private Component getPortfolioPartComponent() {
+		String pageSegment = urlStateManager.getUrlState().getPageSegment();
 		Optional<PortfolioDefinition> portfolioDefinition = uiService.getPortfolioDefinition(pageSegment);
 		PortfolioDefinition currentDefinition = portfolioDefinition.orElse(new FallbackPortfolioDefinition());
 		List<? extends PortfolioPart> portfolioParts = currentDefinition.getPortfolioParts();
-		PortfolioPart<Component> part = portfolioParts.get(currentState.getPageIndex());
-
-		contentLayout.removeAll();
-		contentLayout.add(part.getUiComponent());
+		PortfolioPart<Component> portfolioPart = portfolioParts.get(urlStateManager.getUrlState().getPartIndex());
+		return portfolioPart.getUiComponent();
 	}
 }

@@ -1,0 +1,27 @@
+/*        .
+*        '#'         .  .
+*      ___:____     | \/ |
+*    ,´        `.    \  /
+*    |  0        \___/  |
+*  ~^~^~^~^~^~^~^~^~^~^~^~^~
+*/
+
+.simple-navigation {
+	display: flex;
+	flex-direction: column;
+	height: 100%;
+    background: #f5f5f5;
+    margin-right: 1vw;
+    border-right: 1px solid #ccc;
+}
+
+.simple-navigation .button {
+	height: 100px;
+	width: 100px;
+    margin: 24px;
+    cursor: pointer;
+}
+
+.simple-navigation .button[disabled] img {
+	filter: opacity(0.2);
+}

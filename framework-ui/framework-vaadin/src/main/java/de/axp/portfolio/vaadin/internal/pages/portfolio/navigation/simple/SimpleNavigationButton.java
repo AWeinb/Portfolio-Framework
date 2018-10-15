@@ -1,16 +1,17 @@
-package de.axp.portfolio.vaadin.internal.pages.portfolio.nav;
+package de.axp.portfolio.vaadin.internal.pages.portfolio.navigation.simple;
 
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.html.Image;
-import de.axp.portfolio.vaadin.internal.pages.portfolio.PortfolioPageState;
 
-abstract class NavigationButton extends Button {
+import de.axp.portfolio.vaadin.internal.pages.portfolio.UrlState;
+
+abstract class SimpleNavigationButton extends Button {
 
 	private static final long serialVersionUID = -3125822137857286516L;
 
-	private final PortfolioPageState currentState;
+	private final UrlState currentState;
 
-	NavigationButton(PortfolioPageState currentState) {
+	SimpleNavigationButton(UrlState currentState) {
 		this.currentState = currentState;
 
 		setClassName("button");
@@ -18,11 +19,13 @@ abstract class NavigationButton extends Button {
 		addClickListener(e -> handleClick());
 	}
 
-	PortfolioPageState getPortfolioPageState() {
+	UrlState getPageState() {
 		return currentState;
 	}
 
 	abstract String getImageLocation();
 
 	abstract void handleClick();
+
+	abstract void update();
 }
