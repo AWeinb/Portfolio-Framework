@@ -1,4 +1,4 @@
-package de.axp.portfolio.vaadin.internal.pages.portfolio;
+package de.axp.portfolio.vaadin;
 
 import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.html.Label;

@@ -6,10 +6,9 @@ import com.vaadin.flow.component.dependency.StyleSheet;
 import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.html.Section;
 import com.vaadin.flow.router.Route;
-import com.vaadin.flow.router.RouterLink;
 import de.axp.framework.api.PortfolioFramework;
 import de.axp.framework.api.services.UiService;
-import de.axp.portfolio.vaadin.internal.pages.portfolio.PortfolioPage;
+import de.axp.portfolio.vaadin.internal.pages.shared.PortfolioSelector;
 
 import java.util.Set;
 
@@ -44,15 +43,14 @@ public class StartPage extends Div {
 
 		Section selectorContainer = new Section();
 		selectorContainer.setClassName("selector");
-
 		portfolioDefinitions.forEach(d -> addSelector(selectorContainer, d));
 		add(selectorContainer);
 	}
 
 	private void addSelector(Section selectorContainer, UiService.PortfolioDefinition definition) {
-		RouterLink routerLink = new RouterLink("", PortfolioPage.class, definition.getPortfolioId());
-		routerLink.setClassName("button");
-		routerLink.add((Component) definition.getPortfolioPreview().getUiComponent());
-		selectorContainer.add(routerLink);
+		PortfolioSelector portfolioSelector = new PortfolioSelector(definition);
+		portfolioSelector.add((Component) definition.getPortfolioPreview().getUiComponent());
+		portfolioSelector.update();
+		selectorContainer.add(portfolioSelector);
 	}
 }

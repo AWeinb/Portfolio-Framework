@@ -1,34 +1,32 @@
 package de.axp.portfolio.vaadin.internal.pages.portfolio.navigation.simple;
 
 import com.vaadin.flow.component.dependency.StyleSheet;
-import de.axp.portfolio.vaadin.internal.pages.portfolio.UrlState;
-import de.axp.portfolio.vaadin.internal.pages.portfolio.navigation.PortfolioNavigationComponent;
-import de.axp.portfolio.vaadin.internal.pages.portfolio.navigation.shared.BackButton;
-import de.axp.portfolio.vaadin.internal.pages.portfolio.navigation.shared.ForwardButton;
-import de.axp.portfolio.vaadin.internal.pages.portfolio.navigation.shared.HomeButton;
+import de.axp.portfolio.vaadin.internal.pages.portfolio.PortfolioPageState;
+import de.axp.portfolio.vaadin.internal.pages.portfolio.navigation.PortfolioNav;
+import de.axp.portfolio.vaadin.internal.pages.shared.PortfolioBackSelector;
+import de.axp.portfolio.vaadin.internal.pages.shared.PortfolioForwardSelector;
+import de.axp.portfolio.vaadin.internal.pages.shared.StartPageSelector;
 
 @StyleSheet("frontend://styles/portfolio-simple-navigation.css")
-public final class SimpleNavigation extends PortfolioNavigationComponent {
+public final class SimpleNavigation extends PortfolioNav {
 
 	private static final long serialVersionUID = -4212171098990270530L;
 
-	private final HomeButton homeButton;
-	private final ForwardButton forwardButton;
-	private final BackButton backButton;
+	private final PortfolioForwardSelector forwardButton;
+	private final PortfolioBackSelector backButton;
 
-	public SimpleNavigation(UrlState state) {
-		homeButton = new HomeButton();
-		forwardButton = new ForwardButton(state);
-		backButton = new BackButton(state);
+	public SimpleNavigation(PortfolioPageState state) {
+		StartPageSelector menuButton = new StartPageSelector();
+		forwardButton = new PortfolioForwardSelector(state);
+		backButton = new PortfolioBackSelector(state);
 
-		add(homeButton, forwardButton, backButton);
+		add(menuButton, forwardButton, backButton);
 
 		setClassName("simple-navigation");
 	}
 
 	@Override
 	public void update() {
-		homeButton.update();
 		forwardButton.update();
 		backButton.update();
 	}

@@ -6,12 +6,31 @@
 *  ~^~^~^~^~^~^~^~^~^~^~^~^~
 */
 
-.navigation-base .button {
-    cursor: pointer;
+.navigation-base {
+    height: 100%;
 }
 
-.navigation-base .button[disabled] img {
+.navigation-base .button {
+    cursor: pointer;
+    padding: 8px;
+}
+
+.navigation-base .button img {
+    height: 100%;
+    width: 100%;
+}
+
+.navigation-base .button:hover {
+	background: rgba(22, 118, 243, 0.05);
+}
+
+.navigation-base .button[disabled] {
+    cursor: default;
 	filter: opacity(0.2);
+}
+
+.navigation-base .button[disabled]:hover {
+	background: transparent;
 }
 
 .navigation-base .navigation-toggle-btn {
