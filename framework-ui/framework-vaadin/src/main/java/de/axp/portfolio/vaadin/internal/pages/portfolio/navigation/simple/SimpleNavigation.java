@@ -14,7 +14,7 @@ public final class SimpleNavigation extends PortfolioNavigationComponent {
 	private final BackButton backButton;
 
 	public SimpleNavigation(UrlState state) {
-		homeButton = new HomeButton(state);
+		homeButton = new HomeButton();
 		forwardButton = new ForwardButton(state);
 		backButton = new BackButton(state);
 

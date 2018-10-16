@@ -1,28 +1,25 @@
 package de.axp.portfolio.vaadin.internal.pages.portfolio.navigation.simple;
 
 import com.vaadin.flow.component.UI;
+import com.vaadin.flow.component.button.Button;
+import com.vaadin.flow.component.html.Image;
 
-import de.axp.portfolio.vaadin.internal.pages.portfolio.UrlState;
-
-class HomeButton extends SimpleNavigationButton {
+class HomeButton extends Button implements SimpleNavigationButton {
 
 	private static final long serialVersionUID = 2668356250682560949L;
 
-	HomeButton(UrlState pageState) {
-		super(pageState);
+	HomeButton() {
+		setClassName("button");
+		setIcon(new Image("frontend/images/arrows_squares.svg", ""));
+		addClickListener(e -> handleClick());
 	}
 
-	@Override
-	String getImageLocation() {
-		return "frontend/images/arrows_squares.svg";
-	}
-
-	@Override
-	void handleClick() {
+	private void handleClick() {
 		UI.getCurrent().navigate("");
 	}
 
 	@Override
-	void update() {
+	public void update() {
+
 	}
 }
