@@ -1,0 +1,29 @@
+/*        .
+*        '#'         .  .
+*      ___:____     | \/ |
+*    ,´        `.    \  /
+*    |  0        \___/  |
+*  ~^~^~^~^~^~^~^~^~^~^~^~^~
+*/
+
+.navigation-base .button {
+    cursor: pointer;
+}
+
+.navigation-base .button[disabled] img {
+	filter: opacity(0.2);
+}
+
+.navigation-base .navigation-toggle-btn {
+	position: absolute;
+	height: 50px;
+	width: 50px;
+    margin: 0 8px;
+	bottom: 0;
+    background: transparent;
+}
+
+.navigation-base .navigation-toggle-btn img {
+	height: 30px;
+	width: 30px;
+}

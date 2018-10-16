@@ -19,9 +19,4 @@
 	height: 100px;
 	width: 100px;
     margin: 24px;
-    cursor: pointer;
-}
-
-.simple-navigation .button[disabled] img {
-	filter: opacity(0.2);
 }
