@@ -1,33 +1,33 @@
-package de.axp.portfolio.vaadin.internal.pages.portfolio.navigation.simple;
+package de.axp.portfolio.vaadin.internal.pages.portfolio.navigation.shared;
 
 import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.html.Image;
 import de.axp.portfolio.vaadin.internal.pages.portfolio.UrlState;
 
-class BackButton extends Button implements SimpleNavigationButton {
+public class ForwardButton extends Button implements NavigationButton {
 
-	private static final long serialVersionUID = 4715771664378002357L;
+	private static final long serialVersionUID = -1787353288877153330L;
 
 	private final UrlState state;
 
-	BackButton(UrlState state) {
+	public ForwardButton(UrlState state) {
 		this.state = state;
 
 		setClassName("button");
-		setIcon(new Image("frontend/images/arrows_left_double.svg", ""));
+		setIcon(new Image("frontend/images/arrows_right_double.svg", ""));
 		addClickListener(e -> handleClick());
 	}
 
 	private void handleClick() {
-		int index = Math.max(state.getFirstPartIndex(), state.getPartIndex() - 1);
+		int index = Math.min(state.getLastPartIndex(), state.getPartIndex() + 1);
 		String url = state.getRootSegment() + "/" + state.getPageSegment() + "/" + index;
 		UI.getCurrent().navigate(url);
 	}
 
 	@Override
 	public void update() {
-		boolean isAtFirstPart = state.getFirstPartIndex() == state.getPartIndex();
-		setEnabled(!isAtFirstPart);
+		boolean isAtLastPart = state.getLastPartIndex() == state.getPartIndex();
+		setEnabled(!isAtLastPart);
 	}
 }
