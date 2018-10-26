@@ -3,11 +3,11 @@ package de.axp.example;
 import de.axp.example.portfolio.ExamplePortfolioDefinition;
 import de.axp.framework.api.PortfolioFramework;
 import de.axp.framework.api.services.UiService;
-import de.axp.portfolio.vaadin.PortfolioVaadinServlet;
+import de.axp.portfolio.vaadin.VaadinFrameworkServlet;
 
 import javax.servlet.ServletException;
 
-public class ExampleAppServlet extends PortfolioVaadinServlet {
+public class ExampleAppServlet extends VaadinFrameworkServlet {
 
 	private static final long serialVersionUID = -713474004104403527L;
 

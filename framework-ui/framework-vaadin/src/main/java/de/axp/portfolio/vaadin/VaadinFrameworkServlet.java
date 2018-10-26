@@ -7,7 +7,7 @@ import de.axp.portfolio.vaadin.internal.session.SessionInitListener;
 
 import javax.servlet.ServletException;
 
-public abstract class PortfolioVaadinServlet extends VaadinServlet {
+public abstract class VaadinFrameworkServlet extends VaadinServlet {
 
 	private static final long serialVersionUID = -713474004104403527L;
 
