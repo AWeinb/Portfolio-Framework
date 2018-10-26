@@ -20,14 +20,20 @@ public class PortfolioPage extends Div implements HasUrlParameter<String>, After
 
 	private static final long serialVersionUID = 3217286454817153835L;
 
+	private final PortfolioFramework framework;
 	private final PortfolioPageState state;
 	private final PortfolioNavigationManager navigationManager;
 	private final PortfolioContentManager contentManager;
+	private final FallbackPortfolioDefinition fallbackPortfolioDefinition;
 
 	{
+		framework = UI.getCurrent().getSession().getAttribute(PortfolioFramework.class);
 		state = new PortfolioPageState();
 		navigationManager = new PortfolioNavigationManager(state);
 		contentManager = new PortfolioContentManager(state);
+		fallbackPortfolioDefinition = new FallbackPortfolioDefinition(framework);
+
+		state.setPortfolioDefinition(fallbackPortfolioDefinition);
 
 		setClassName("portfolio");
 		add(navigationManager.getNavigationComponent());
@@ -40,7 +46,6 @@ public class PortfolioPage extends Div implements HasUrlParameter<String>, After
 		String portfolioId = QueryParametersUtil.extractPortfolioId(queryParameters);
 		String partId = QueryParametersUtil.extractPartId(queryParameters);
 
-		PortfolioFramework framework = UI.getCurrent().getSession().getAttribute(PortfolioFramework.class);
 		UiService uiService = framework.getServiceByType(UiService.class);
 
 		PortfolioDefinition portfolioDefinition = state.getPortfolioDefinition();
@@ -48,7 +53,7 @@ public class PortfolioPage extends Div implements HasUrlParameter<String>, After
 			portfolioDefinition = uiService.getPortfolioDefinitions().stream() //
 					.filter(d -> d.getPortfolioId().equals(portfolioId)) //
 					.findFirst() //
-					.orElse(new FallbackPortfolioDefinition());
+					.orElse(fallbackPortfolioDefinition);
 			state.setPortfolioDefinition(portfolioDefinition);
 		}
 

@@ -20,6 +20,8 @@ public abstract class PortfolioVaadinServlet extends VaadinServlet {
 		framework = PortfolioFramework.createFramework();
 		getService().addSessionInitListener(new SessionInitListener(framework));
 		getService().addSessionDestroyListener(new SessionDestroyListener(framework));
+
+		framework.getTranslationService().registerTranslator(new VaadinFrameworkTranslator());
 	}
 
 	public PortfolioFramework getFrameworkInstance() {

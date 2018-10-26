@@ -7,7 +7,9 @@ import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.html.Section;
 import com.vaadin.flow.router.Route;
 import de.axp.framework.api.PortfolioFramework;
+import de.axp.framework.api.services.TranslationService;
 import de.axp.framework.api.services.UiService;
+import de.axp.portfolio.vaadin.VaadinFrameworkTranslator;
 import de.axp.portfolio.vaadin.internal.pages.shared.links.PortfolioLink;
 
 import java.util.Set;
@@ -37,14 +39,15 @@ public class StartPage extends Div {
 
 		if (portfolioDefinitions.isEmpty()) {
 			addClassName("empty");
-			setText("No Portfolios are registered.");
-			return;
+			TranslationService translationService = framework.getTranslationService();
+			String translatorId = VaadinFrameworkTranslator.class.getSimpleName();
+			setText(translationService.translate(translatorId, "no-portfolios-registered"));
+		} else {
+			Section menuContainer = new Section();
+			menuContainer.setClassName("portfolio-menu");
+			portfolioDefinitions.forEach(d -> createLink(menuContainer, d));
+			add(menuContainer);
 		}
-
-		Section menuContainer = new Section();
-		menuContainer.setClassName("portfolio-menu");
-		portfolioDefinitions.forEach(d -> createLink(menuContainer, d));
-		add(menuContainer);
 	}
 
 	private void createLink(Section container, UiService.PortfolioDefinition definition) {
