@@ -7,7 +7,7 @@ import com.vaadin.flow.component.html.Image;
 import com.vaadin.flow.component.html.Label;
 import de.axp.framework.api.services.UiService;
 
-@StyleSheet("frontend://styles/portfolio-generic-preview.css")
+@StyleSheet("frontend://styles/portfolio-preview-generic.css")
 public class GenericPortfolioPreview extends Div implements UiService.PortfolioPreview<Component> {
 
 	public GenericPortfolioPreview(String icon, String caption, String description) {

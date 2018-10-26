@@ -10,7 +10,7 @@ import de.axp.portfolio.vaadin.internal.pages.shared.links.NextPartLink;
 import de.axp.portfolio.vaadin.internal.pages.shared.links.PortfolioLink;
 import de.axp.portfolio.vaadin.internal.pages.shared.links.StartPageLink;
 
-@StyleSheet("frontend://styles/portfolio-list-navigation.css")
+@StyleSheet("frontend://styles/portfolio-navigation-list.css")
 public final class ListNavigation extends PortfolioNav {
 
 	private static final long serialVersionUID = -4212171098990270530L;
