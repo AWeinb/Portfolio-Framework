@@ -37,22 +37,28 @@ public class StartPage extends Div {
 		UiService uiService = framework.getServiceByType(UiService.class);
 		Set<UiService.PortfolioDefinition> portfolioDefinitions = uiService.getPortfolioDefinitions();
 
-		if (portfolioDefinitions.isEmpty()) {
-			addClassName("empty");
-			TranslationService translationService = framework.getTranslationService();
-			String translatorId = VaadinFrameworkTranslator.class.getSimpleName();
-			setText(translationService.translate(translatorId, "no-portfolios-registered"));
+		if (!portfolioDefinitions.isEmpty()) {
+			fillMenu(portfolioDefinitions);
 		} else {
-			Section menuContainer = new Section();
-			menuContainer.setClassName("portfolio-menu");
-			portfolioDefinitions.forEach(d -> createLink(menuContainer, d));
-			add(menuContainer);
+			handleEmptyMenu(framework);
 		}
 	}
 
-	private void createLink(Section container, UiService.PortfolioDefinition definition) {
-		PortfolioLink link = new PortfolioLink(definition);
-		link.add((Component) definition.getPortfolioPreview().getUiComponent());
-		container.add(link);
+	private void fillMenu(Set<UiService.PortfolioDefinition> portfolioDefinitions) {
+		Section menuContainer = new Section();
+		menuContainer.setClassName("portfolio-menu");
+		for (UiService.PortfolioDefinition d : portfolioDefinitions) {
+			PortfolioLink link = new PortfolioLink(d);
+			link.add((Component) d.getPortfolioPreview().getUiComponent());
+			menuContainer.add(link);
+		}
+		add(menuContainer);
+	}
+
+	private void handleEmptyMenu(PortfolioFramework framework) {
+		addClassName("empty");
+		TranslationService translationService = framework.getTranslationService();
+		String translatorId = VaadinFrameworkTranslator.class.getSimpleName();
+		setText(translationService.translate(translatorId, "no-portfolios-registered"));
 	}
 }
