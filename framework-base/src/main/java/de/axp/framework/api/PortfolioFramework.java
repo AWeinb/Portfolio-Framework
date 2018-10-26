@@ -21,5 +21,7 @@ public interface PortfolioFramework {
 
 	UiService getUiService();
 
+	TranslationService getTranslationService();
+
 	void shutdown();
 }

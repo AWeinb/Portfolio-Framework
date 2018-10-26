@@ -43,6 +43,11 @@ class PortfolioFrameworkImpl implements PortfolioFramework {
 	}
 
 	@Override
+	public TranslationService getTranslationService() {
+		return serviceService.getService(TranslationService.class);
+	}
+
+	@Override
 	public void shutdown() {
 		serviceService.disposeServices();
 	}
