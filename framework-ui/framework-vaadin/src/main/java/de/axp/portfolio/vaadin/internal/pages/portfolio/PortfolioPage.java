@@ -11,6 +11,8 @@ import de.axp.portfolio.vaadin.internal.pages.QueryParametersUtil;
 import de.axp.portfolio.vaadin.internal.pages.portfolio.content.PortfolioContentManager;
 import de.axp.portfolio.vaadin.internal.pages.portfolio.navigation.PortfolioNavigationManager;
 
+import java.util.Objects;
+
 import static de.axp.framework.api.services.UiService.PortfolioDefinition;
 import static de.axp.framework.api.services.UiService.PortfolioPart;
 
@@ -43,28 +45,36 @@ public class PortfolioPage extends Div implements HasUrlParameter<String>, After
 	@Override
 	public void setParameter(BeforeEvent event, @WildcardParameter String parameter) {
 		QueryParameters queryParameters = event.getLocation().getQueryParameters();
-		String portfolioId = QueryParametersUtil.extractPortfolioId(queryParameters);
-		String partId = QueryParametersUtil.extractPartId(queryParameters);
+		setPortfolioDefinitionToState(QueryParametersUtil.extractPortfolioId(queryParameters));
+		setPortfolioPartIndexToState(QueryParametersUtil.extractPartId(queryParameters));
+	}
 
-		UiService uiService = framework.getServiceByType(UiService.class);
-
-		PortfolioDefinition portfolioDefinition = state.getPortfolioDefinition();
-		if (!portfolioDefinition.getPortfolioId().equals(portfolioId)) {
-			portfolioDefinition = uiService.getPortfolioDefinitions().stream() //
-					.filter(d -> d.getPortfolioId().equals(portfolioId)) //
-					.findFirst() //
-					.orElse(fallbackPortfolioDefinition);
-			state.setPortfolioDefinition(portfolioDefinition);
+	private void setPortfolioDefinitionToState(String portfolioId) {
+		PortfolioDefinition oldPortfolioDefinition = state.getPortfolioDefinition();
+		if (Objects.equals(oldPortfolioDefinition.getPortfolioId(), portfolioId)) {
+			return;
 		}
 
-		PortfolioPart portfolioPart = portfolioDefinition.getPortfolioParts().get(state.getPortfolioPartIndex());
-		if (!portfolioPart.getPartId().equals(partId)) {
-			for (int i = 0; i < portfolioDefinition.getPortfolioParts().size(); i++) {
-				PortfolioPart part = portfolioDefinition.getPortfolioParts().get(i);
-				if (partId.equals(part.getPartId())) {
-					state.setPortfolioPartIndex(i);
-					break;
-				}
+		UiService uiService = framework.getServiceByType(UiService.class);
+		PortfolioDefinition newPortfolioDefinition = uiService.getPortfolioDefinitions().stream() //
+				.filter(d -> d.getPortfolioId().equals(portfolioId)) //
+				.findFirst() //
+				.orElse(fallbackPortfolioDefinition);
+		state.setPortfolioDefinition(newPortfolioDefinition);
+	}
+
+	private void setPortfolioPartIndexToState(String partId) {
+		PortfolioDefinition portfolioDefinition = state.getPortfolioDefinition();
+		PortfolioPart oldPortfolioPart = portfolioDefinition.getPortfolioParts().get(state.getPortfolioPartIndex());
+		if (Objects.equals(oldPortfolioPart.getPartId(), partId)) {
+			return;
+		}
+
+		for (int i = 0; i < portfolioDefinition.getPortfolioParts().size(); i++) {
+			PortfolioPart part = portfolioDefinition.getPortfolioParts().get(i);
+			if (partId.equals(part.getPartId())) {
+				state.setPortfolioPartIndex(i);
+				break;
 			}
 		}
 	}
