@@ -50,7 +50,6 @@ public class StartPage extends Div {
 	private void addSelector(Section selectorContainer, UiService.PortfolioDefinition definition) {
 		PortfolioSelector portfolioSelector = new PortfolioSelector(definition);
 		portfolioSelector.add((Component) definition.getPortfolioPreview().getUiComponent());
-		portfolioSelector.update();
 		selectorContainer.add(portfolioSelector);
 	}
 }

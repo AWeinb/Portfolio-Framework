@@ -17,6 +17,8 @@ public class PortfolioSelector extends PortfolioRouterLink {
 	public PortfolioSelector(PortfolioDefinition portfolioDefinition, PortfolioPart<?> portfolioPart) {
 		this.portfolioDefinition = portfolioDefinition;
 		this.portfolioPart = portfolioPart;
+
+		update();
 	}
 
 	@Override

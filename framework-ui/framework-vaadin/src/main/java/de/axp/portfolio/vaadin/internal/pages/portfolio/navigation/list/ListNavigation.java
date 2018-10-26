@@ -2,7 +2,6 @@ package de.axp.portfolio.vaadin.internal.pages.portfolio.navigation.list;
 
 import com.vaadin.flow.component.dependency.StyleSheet;
 import com.vaadin.flow.component.html.Div;
-
 import de.axp.framework.api.services.UiService;
 import de.axp.portfolio.vaadin.internal.pages.portfolio.PortfolioPageState;
 import de.axp.portfolio.vaadin.internal.pages.portfolio.navigation.PortfolioNav;
@@ -58,7 +57,6 @@ public final class ListNavigation extends PortfolioNav {
 			UiService.PortfolioDefinition portfolioDefinition = state.getPortfolioDefinition();
 			PortfolioSelector portfolioSelector = new PortfolioSelector(portfolioDefinition, part);
 			portfolioSelector.setText(part.getPartId());
-			portfolioSelector.update();
 			partSelectorContainer.add(portfolioSelector);
 		}
 	}
