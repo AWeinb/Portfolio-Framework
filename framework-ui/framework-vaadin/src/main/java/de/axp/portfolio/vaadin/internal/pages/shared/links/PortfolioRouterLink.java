@@ -1,14 +1,13 @@
 package de.axp.portfolio.vaadin.internal.pages.shared.links;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 import com.vaadin.flow.router.RouterLink;
-
 import de.axp.framework.api.services.UiService;
 import de.axp.portfolio.vaadin.internal.pages.QueryParametersUtil;
 import de.axp.portfolio.vaadin.internal.pages.portfolio.PortfolioPage;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 abstract class PortfolioRouterLink extends RouterLink {
 

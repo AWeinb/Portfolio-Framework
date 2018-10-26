@@ -4,9 +4,9 @@ import com.vaadin.flow.component.html.Image;
 import com.vaadin.flow.router.RouterLink;
 import de.axp.portfolio.vaadin.internal.pages.start.StartPage;
 
-public class StartPageSelector extends RouterLink {
+public class StartPageLink extends RouterLink {
 
-	public StartPageSelector() {
+	public StartPageLink() {
 		super("", StartPage.class);
 
 		setClassName("button");

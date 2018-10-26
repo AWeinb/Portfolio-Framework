@@ -3,31 +3,31 @@ package de.axp.portfolio.vaadin.internal.pages.portfolio.navigation.simple;
 import com.vaadin.flow.component.dependency.StyleSheet;
 import de.axp.portfolio.vaadin.internal.pages.portfolio.PortfolioPageState;
 import de.axp.portfolio.vaadin.internal.pages.portfolio.navigation.PortfolioNav;
-import de.axp.portfolio.vaadin.internal.pages.shared.links.PortfolioBackSelector;
-import de.axp.portfolio.vaadin.internal.pages.shared.links.PortfolioForwardSelector;
-import de.axp.portfolio.vaadin.internal.pages.shared.links.StartPageSelector;
+import de.axp.portfolio.vaadin.internal.pages.shared.links.PreviousPartLink;
+import de.axp.portfolio.vaadin.internal.pages.shared.links.NextPartLink;
+import de.axp.portfolio.vaadin.internal.pages.shared.links.StartPageLink;
 
 @StyleSheet("frontend://styles/portfolio-simple-navigation.css")
 public final class SimpleNavigation extends PortfolioNav {
 
 	private static final long serialVersionUID = -4212171098990270530L;
 
-	private final PortfolioForwardSelector forwardButton;
-	private final PortfolioBackSelector backButton;
+	private final NextPartLink nextPartLink;
+	private final PreviousPartLink previousPartLink;
 
 	public SimpleNavigation(PortfolioPageState state) {
-		StartPageSelector menuButton = new StartPageSelector();
-		forwardButton = new PortfolioForwardSelector(state);
-		backButton = new PortfolioBackSelector(state);
+		StartPageLink startPageLink = new StartPageLink();
+		nextPartLink = new NextPartLink(state);
+		previousPartLink = new PreviousPartLink(state);
 
-		add(menuButton, forwardButton, backButton);
+		add(startPageLink, nextPartLink, previousPartLink);
 
 		setClassName("simple-navigation");
 	}
 
 	@Override
 	public void update() {
-		forwardButton.update();
-		backButton.update();
+		nextPartLink.update();
+		previousPartLink.update();
 	}
 }

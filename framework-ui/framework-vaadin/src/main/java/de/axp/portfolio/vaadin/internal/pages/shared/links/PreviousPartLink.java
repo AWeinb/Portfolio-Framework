@@ -4,11 +4,11 @@ import com.vaadin.flow.component.html.Image;
 import de.axp.framework.api.services.UiService;
 import de.axp.portfolio.vaadin.internal.pages.portfolio.PortfolioPageState;
 
-public class PortfolioBackSelector extends PortfolioRouterLink {
+public class PreviousPartLink extends PortfolioRouterLink {
 
 	private final PortfolioPageState state;
 
-	public PortfolioBackSelector(PortfolioPageState state) {
+	public PreviousPartLink(PortfolioPageState state) {
 		this.state = state;
 
 		Image image = new Image("frontend/images/arrows_left_double.svg", "");

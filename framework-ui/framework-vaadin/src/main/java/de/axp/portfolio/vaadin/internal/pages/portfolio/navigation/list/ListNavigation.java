@@ -5,10 +5,10 @@ import com.vaadin.flow.component.html.Div;
 import de.axp.framework.api.services.UiService;
 import de.axp.portfolio.vaadin.internal.pages.portfolio.PortfolioPageState;
 import de.axp.portfolio.vaadin.internal.pages.portfolio.navigation.PortfolioNav;
-import de.axp.portfolio.vaadin.internal.pages.shared.links.PortfolioBackSelector;
-import de.axp.portfolio.vaadin.internal.pages.shared.links.PortfolioForwardSelector;
-import de.axp.portfolio.vaadin.internal.pages.shared.links.PortfolioSelector;
-import de.axp.portfolio.vaadin.internal.pages.shared.links.StartPageSelector;
+import de.axp.portfolio.vaadin.internal.pages.shared.links.PreviousPartLink;
+import de.axp.portfolio.vaadin.internal.pages.shared.links.NextPartLink;
+import de.axp.portfolio.vaadin.internal.pages.shared.links.PortfolioLink;
+import de.axp.portfolio.vaadin.internal.pages.shared.links.StartPageLink;
 
 @StyleSheet("frontend://styles/portfolio-list-navigation.css")
 public final class ListNavigation extends PortfolioNav {
@@ -17,9 +17,9 @@ public final class ListNavigation extends PortfolioNav {
 
 	private final PortfolioPageState state;
 
-	private PortfolioForwardSelector forwardButton;
-	private PortfolioBackSelector backButton;
-	private Div partSelectorContainer;
+	private NextPartLink nextPartLink;
+	private PreviousPartLink previousPartLink;
+	private Div partsContainer;
 
 	public ListNavigation(PortfolioPageState state) {
 		this.state = state;
@@ -31,33 +31,33 @@ public final class ListNavigation extends PortfolioNav {
 
 	private void addDefaultMenu() {
 		Div buttonContainer = new Div();
-		buttonContainer.setClassName("default-btns");
+		buttonContainer.setClassName("default-links");
 		add(buttonContainer);
 
-		StartPageSelector menuButton = new StartPageSelector();
-		forwardButton = new PortfolioForwardSelector(state);
-		backButton = new PortfolioBackSelector(state);
-		buttonContainer.add(backButton, menuButton, forwardButton);
+		StartPageLink startPageLink = new StartPageLink();
+		nextPartLink = new NextPartLink(state);
+		previousPartLink = new PreviousPartLink(state);
+		buttonContainer.add(previousPartLink, startPageLink, nextPartLink);
 	}
 
 	private void addPartMenu() {
-		partSelectorContainer = new Div();
-		partSelectorContainer.setClassName("parts");
-		add(partSelectorContainer);
+		partsContainer = new Div();
+		partsContainer.setClassName("part-links");
+		add(partsContainer);
 	}
 
 	@Override
 	public void update() {
-		forwardButton.update();
-		backButton.update();
+		nextPartLink.update();
+		previousPartLink.update();
 
-		partSelectorContainer.removeAll();
+		partsContainer.removeAll();
 
 		for (UiService.PortfolioPart<?> part : state.getPortfolioDefinition().getPortfolioParts()) {
 			UiService.PortfolioDefinition portfolioDefinition = state.getPortfolioDefinition();
-			PortfolioSelector portfolioSelector = new PortfolioSelector(portfolioDefinition, part);
-			portfolioSelector.setText(part.getPartId());
-			partSelectorContainer.add(portfolioSelector);
+			PortfolioLink link = new PortfolioLink(portfolioDefinition, part);
+			link.setText(part.getPartId());
+			partsContainer.add(link);
 		}
 	}
 }

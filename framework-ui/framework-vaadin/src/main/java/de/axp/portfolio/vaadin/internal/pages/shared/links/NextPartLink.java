@@ -8,11 +8,11 @@ import java.util.List;
 import static de.axp.framework.api.services.UiService.PortfolioDefinition;
 import static de.axp.framework.api.services.UiService.PortfolioPart;
 
-public class PortfolioForwardSelector extends PortfolioRouterLink {
+public class NextPartLink extends PortfolioRouterLink {
 
 	private final PortfolioPageState state;
 
-	public PortfolioForwardSelector(PortfolioPageState state) {
+	public NextPartLink(PortfolioPageState state) {
 		this.state = state;
 
 		Image image = new Image("frontend/images/arrows_right_double.svg", "");

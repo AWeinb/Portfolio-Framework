@@ -22,7 +22,7 @@
     border-right: 1px solid #ccc;
 }
 
-.start .selector {
+.start .portfolio-menu {
 	display: grid;
 	grid-gap: 1vw;
 	grid-template-columns: repeat(auto-fit, 300px);
@@ -34,7 +34,7 @@
 	overflow-y: scroll;
 }
 
-.start .selector .button {
+.start .portfolio-menu .button {
 	height: 240px;
 	width: 300px;
 	border: 1px solid #ccc;
@@ -42,7 +42,7 @@
 	border-radius: 4px;
 }
 
-.start .selector .button:hover {
+.start .portfolio-menu .button:hover {
 	background-color: rgba(25, 59, 103, 0.05);
 	text-decoration: none;
 }
