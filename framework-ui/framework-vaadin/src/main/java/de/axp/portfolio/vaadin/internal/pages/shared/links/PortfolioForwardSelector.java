@@ -1,4 +1,4 @@
-package de.axp.portfolio.vaadin.internal.pages.shared;
+package de.axp.portfolio.vaadin.internal.pages.shared.links;
 
 import com.vaadin.flow.component.html.Image;
 import de.axp.portfolio.vaadin.internal.pages.portfolio.PortfolioPageState;

@@ -8,7 +8,7 @@ import com.vaadin.flow.component.html.Section;
 import com.vaadin.flow.router.Route;
 import de.axp.framework.api.PortfolioFramework;
 import de.axp.framework.api.services.UiService;
-import de.axp.portfolio.vaadin.internal.pages.shared.PortfolioSelector;
+import de.axp.portfolio.vaadin.internal.pages.shared.links.PortfolioSelector;
 
 import java.util.Set;
 

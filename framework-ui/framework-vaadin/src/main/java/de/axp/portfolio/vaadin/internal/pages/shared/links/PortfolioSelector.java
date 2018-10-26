@@ -1,4 +1,4 @@
-package de.axp.portfolio.vaadin.internal.pages.shared;
+package de.axp.portfolio.vaadin.internal.pages.shared.links;
 
 import static de.axp.framework.api.services.UiService.PortfolioDefinition;
 import static de.axp.framework.api.services.UiService.PortfolioPart;

@@ -6,10 +6,10 @@ import com.vaadin.flow.component.html.Div;
 import de.axp.framework.api.services.UiService;
 import de.axp.portfolio.vaadin.internal.pages.portfolio.PortfolioPageState;
 import de.axp.portfolio.vaadin.internal.pages.portfolio.navigation.PortfolioNav;
-import de.axp.portfolio.vaadin.internal.pages.shared.PortfolioBackSelector;
-import de.axp.portfolio.vaadin.internal.pages.shared.PortfolioForwardSelector;
-import de.axp.portfolio.vaadin.internal.pages.shared.PortfolioSelector;
-import de.axp.portfolio.vaadin.internal.pages.shared.StartPageSelector;
+import de.axp.portfolio.vaadin.internal.pages.shared.links.PortfolioBackSelector;
+import de.axp.portfolio.vaadin.internal.pages.shared.links.PortfolioForwardSelector;
+import de.axp.portfolio.vaadin.internal.pages.shared.links.PortfolioSelector;
+import de.axp.portfolio.vaadin.internal.pages.shared.links.StartPageSelector;
 
 @StyleSheet("frontend://styles/portfolio-list-navigation.css")
 public final class ListNavigation extends PortfolioNav {

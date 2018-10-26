@@ -3,9 +3,9 @@ package de.axp.portfolio.vaadin.internal.pages.portfolio.navigation.simple;
 import com.vaadin.flow.component.dependency.StyleSheet;
 import de.axp.portfolio.vaadin.internal.pages.portfolio.PortfolioPageState;
 import de.axp.portfolio.vaadin.internal.pages.portfolio.navigation.PortfolioNav;
-import de.axp.portfolio.vaadin.internal.pages.shared.PortfolioBackSelector;
-import de.axp.portfolio.vaadin.internal.pages.shared.PortfolioForwardSelector;
-import de.axp.portfolio.vaadin.internal.pages.shared.StartPageSelector;
+import de.axp.portfolio.vaadin.internal.pages.shared.links.PortfolioBackSelector;
+import de.axp.portfolio.vaadin.internal.pages.shared.links.PortfolioForwardSelector;
+import de.axp.portfolio.vaadin.internal.pages.shared.links.StartPageSelector;
 
 @StyleSheet("frontend://styles/portfolio-simple-navigation.css")
 public final class SimpleNavigation extends PortfolioNav {

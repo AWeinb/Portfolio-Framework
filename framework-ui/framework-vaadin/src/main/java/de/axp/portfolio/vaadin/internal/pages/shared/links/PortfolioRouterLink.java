@@ -1,4 +1,4 @@
-package de.axp.portfolio.vaadin.internal.pages.shared;
+package de.axp.portfolio.vaadin.internal.pages.shared.links;
 
 import java.util.HashMap;
 import java.util.List;
