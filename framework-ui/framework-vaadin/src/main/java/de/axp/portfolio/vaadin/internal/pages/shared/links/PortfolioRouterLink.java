@@ -2,7 +2,7 @@ package de.axp.portfolio.vaadin.internal.pages.shared.links;
 
 import com.vaadin.flow.router.RouterLink;
 import de.axp.framework.api.services.UiService;
-import de.axp.portfolio.vaadin.internal.pages.QueryParametersUtil;
+import de.axp.portfolio.vaadin.internal.pages.shared.QueryParametersUtil;
 import de.axp.portfolio.vaadin.internal.pages.portfolio.PortfolioPage;
 
 import java.util.HashMap;

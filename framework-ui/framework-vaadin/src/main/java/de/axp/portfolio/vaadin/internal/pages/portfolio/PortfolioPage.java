@@ -7,7 +7,7 @@ import com.vaadin.flow.router.*;
 import de.axp.framework.api.PortfolioFramework;
 import de.axp.framework.api.services.UiService;
 import de.axp.portfolio.vaadin.FallbackPortfolioDefinition;
-import de.axp.portfolio.vaadin.internal.pages.QueryParametersUtil;
+import de.axp.portfolio.vaadin.internal.pages.shared.QueryParametersUtil;
 import de.axp.portfolio.vaadin.internal.pages.portfolio.content.PortfolioContentManager;
 import de.axp.portfolio.vaadin.internal.pages.portfolio.navigation.PortfolioNavigationManager;
 

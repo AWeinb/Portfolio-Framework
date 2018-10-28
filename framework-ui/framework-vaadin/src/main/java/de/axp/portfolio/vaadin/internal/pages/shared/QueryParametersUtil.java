@@ -1,4 +1,4 @@
-package de.axp.portfolio.vaadin.internal.pages;
+package de.axp.portfolio.vaadin.internal.pages.shared;
 
 import com.vaadin.flow.router.QueryParameters;
 
