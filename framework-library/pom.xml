@@ -18,6 +18,7 @@
 	</properties>
 
 	<modules>
+		<module>example-library</module>
 	</modules>
 
 	<dependencyManagement>

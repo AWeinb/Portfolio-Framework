@@ -1,5 +1,6 @@
 package de.axp.framework.internal;
 
+import de.axp.framework.api.FrameworkExtension;
 import de.axp.framework.api.FrameworkService;
 import de.axp.framework.api.PortfolioFramework;
 import de.axp.framework.api.services.*;
@@ -50,5 +51,10 @@ class PortfolioFrameworkImpl implements PortfolioFramework {
 	@Override
 	public void shutdown() {
 		serviceService.disposeServices();
+	}
+
+	@Override
+	public void install(FrameworkExtension frameworkExtension) {
+		frameworkExtension.install(() -> this);
 	}
 }

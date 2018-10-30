@@ -24,4 +24,6 @@ public interface PortfolioFramework {
 	TranslationService getTranslationService();
 
 	void shutdown();
+
+	void install(FrameworkExtension frameworkExtension);
 }

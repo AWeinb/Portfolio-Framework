@@ -1,7 +1,10 @@
 package de.axp.example.portfolio;
 
 import com.vaadin.flow.component.Component;
+import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.html.Label;
+import de.axp.framework.api.PortfolioFramework;
+import de.axp.framework.api.services.DataService;
 import de.axp.framework.api.services.UiService;
 
 class ExamplePortfolioPartTwo implements UiService.PortfolioPart<Component> {
@@ -13,6 +16,8 @@ class ExamplePortfolioPartTwo implements UiService.PortfolioPart<Component> {
 
 	@Override
 	public Component getUiComponent() {
-		return new Label("2222");
+		PortfolioFramework framework = UI.getCurrent().getSession().getAttribute(PortfolioFramework.class);
+		DataService dataService = framework.getDataService();
+		return new Label((String) dataService.get("example-data"));
 	}
 }
