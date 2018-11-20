@@ -1,65 +1,77 @@
 package de.axp.framework.example.routes.start;
 
-import java.util.Set;
-
+import com.vaadin.flow.component.AttachEvent;
 import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.dependency.StyleSheet;
 import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.html.Section;
 import com.vaadin.flow.router.Route;
-
 import de.axp.framework.api.PortfolioFramework;
-import de.axp.framework.api.services.TranslationService;
 import de.axp.framework.api.services.PortfolioService;
-import de.axp.framework.example.shared.links.PortfolioLink;
+import de.axp.framework.api.services.TranslationService;
 import de.axp.framework.example.ExampleTranslator;
+import de.axp.framework.example.shared.links.PortfolioLink;
+
+import java.util.Set;
+
+import static de.axp.framework.api.services.PortfolioService.PortfolioDefinition;
 
 @Route("")
 @StyleSheet("frontend://styles/start.css")
 public class StartPage extends Div {
 
-	private static final long serialVersionUID = -2132241652252682848L;
+	private static final String CLASS_NAME_EMPTY = "empty";
+	private static final String CLASS_NAME_START = "start";
+	private static final String CLASS_NAME_HEADER = "header";
+	private static final String CLASS_NAME_PORTFOLIO_MENU = "portfolio-menu";
 
-	{
-		setClassName("start");
-		initHeader();
-		initContent();
-	}
+	private final PortfolioService portfolioService;
+	private final TranslationService translationService;
 
-	private void initHeader() {
-		Div header = new Div();
-		header.setClassName("header");
-		add(header);
-	}
+	private final Section menuContainer;
 
-	private void initContent() {
+	public StartPage() {
 		PortfolioFramework framework = UI.getCurrent().getSession().getAttribute(PortfolioFramework.class);
-		PortfolioService portfolioService = framework.getServiceByType(PortfolioService.class);
-		Set<PortfolioService.PortfolioDefinition> portfolioDefinitions = portfolioService.getPortfolioDefinitions();
+		portfolioService = framework.getServiceByType(PortfolioService.class);
+		translationService = framework.getTranslationService();
 
-		if (!portfolioDefinitions.isEmpty()) {
-			fillMenu(portfolioDefinitions);
-		} else {
-			handleEmptyMenu(framework);
-		}
-	}
+		setClassName(CLASS_NAME_START);
 
-	private void fillMenu(Set<PortfolioService.PortfolioDefinition> portfolioDefinitions) {
-		Section menuContainer = new Section();
-		menuContainer.setClassName("portfolio-menu");
-		for (PortfolioService.PortfolioDefinition d : portfolioDefinitions) {
-			PortfolioLink link = new PortfolioLink(d);
-			link.add((Component) d.getPortfolioPreview().getUiComponent());
-			menuContainer.add(link);
-		}
+		Div header = new Div();
+		header.setClassName(CLASS_NAME_HEADER);
+		add(header);
+
+		menuContainer = new Section();
+		menuContainer.setClassName(CLASS_NAME_PORTFOLIO_MENU);
 		add(menuContainer);
 	}
 
-	private void handleEmptyMenu(PortfolioFramework framework) {
-		addClassName("empty");
-		TranslationService translationService = framework.getTranslationService();
+	@Override
+	protected void onAttach(AttachEvent attachEvent) {
+		Set<PortfolioDefinition> portfolioDefinitions = portfolioService.getPortfolioDefinitions();
+		if (!portfolioDefinitions.isEmpty()) {
+			fillMenu(portfolioDefinitions);
+		} else {
+			handleEmptyMenu();
+		}
+	}
+
+	private void fillMenu(Set<PortfolioDefinition> portfolioDefinitions) {
+		menuContainer.removeAll();
+		menuContainer.removeClassName(CLASS_NAME_EMPTY);
+
+		portfolioDefinitions.forEach(definition -> {
+			PortfolioLink link = new PortfolioLink(definition);
+			link.add((Component) definition.getPortfolioPreview().getUiComponent());
+			menuContainer.add(link);
+		});
+	}
+
+	private void handleEmptyMenu() {
+		addClassName(CLASS_NAME_EMPTY);
 		String translatorId = ExampleTranslator.class.getSimpleName();
-		setText(translationService.translate(translatorId, "no-portfolios-registered"));
+		String translatedText = translationService.translate(translatorId, "no-portfolios-registered");
+		setText(translatedText);
 	}
 }
