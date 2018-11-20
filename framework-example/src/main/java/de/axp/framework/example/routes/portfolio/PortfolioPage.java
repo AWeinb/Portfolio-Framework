@@ -7,7 +7,7 @@ import com.vaadin.flow.router.*;
 import de.axp.framework.api.PortfolioFramework;
 import de.axp.framework.api.services.PortfolioService;
 import de.axp.framework.example.FallbackPortfolioDefinition;
-import de.axp.framework.example.routes.portfolio.content.PortfolioContentManager;
+import de.axp.framework.example.routes.portfolio.content.PortfolioContent;
 import de.axp.framework.example.routes.portfolio.navigation.PortfolioNav;
 import de.axp.framework.example.shared.QueryParametersUtil;
 
@@ -24,18 +24,16 @@ public class PortfolioPage extends Div implements HasUrlParameter<String>, After
 
 	private final PortfolioFramework framework;
 	private final PortfolioPageState state;
-	private final PortfolioContentManager contentManager;
 
 	public PortfolioPage() {
 		framework = UI.getCurrent().getSession().getAttribute(PortfolioFramework.class);
 		state = new PortfolioPageState();
 		state.setPortfolioDefinition(new FallbackPortfolioDefinition(framework));
-		contentManager = new PortfolioContentManager(state);
 
 		setClassName("portfolio");
 
 		add(new PortfolioNav());
-		add(contentManager.getContentComponent());
+		add(new PortfolioContent(state));
 	}
 
 	@Override
@@ -77,6 +75,5 @@ public class PortfolioPage extends Div implements HasUrlParameter<String>, After
 
 	@Override
 	public void afterNavigation(AfterNavigationEvent event) {
-		contentManager.update();
 	}
 }

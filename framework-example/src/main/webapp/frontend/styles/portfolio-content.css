@@ -9,18 +9,4 @@
 .content-base {
 	height: 100%;
     width: 100%;
-    box-sizing: border-box;
-    padding: 4px;
-    padding-left: 0;
-    overflow: hidden;
-}
-
-.content-base .content {
-	height: 100%;
-    width: 100%;
-    overflow: auto;
-}
-
-.content-base .content label {
-	white-space: pre;
 }
