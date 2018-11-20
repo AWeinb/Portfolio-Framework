@@ -7,9 +7,9 @@ import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.html.Label;
 
 import de.axp.framework.api.PortfolioFramework;
-import de.axp.framework.api.services.UiService;
+import de.axp.framework.api.services.PortfolioService;
 
-public class FallbackPortfolioDefinition implements UiService.PortfolioDefinition {
+public class FallbackPortfolioDefinition implements PortfolioService.PortfolioDefinition {
 
 	private String text;
 
@@ -24,18 +24,18 @@ public class FallbackPortfolioDefinition implements UiService.PortfolioDefinitio
 	}
 
 	@Override
-	public UiService.PortfolioPreview getPortfolioPreview() {
+	public PortfolioService.PortfolioPreview getPortfolioPreview() {
 		return null;
 	}
 
 	@Override
-	public List<? extends UiService.PortfolioPart> getPortfolioParts() {
+	public List<? extends PortfolioService.PortfolioPart> getPortfolioParts() {
 		List<FallbackPortfolioPart> parts = new ArrayList<>();
 		parts.add(new FallbackPortfolioPart());
 		return parts;
 	}
 
-	class FallbackPortfolioPart implements UiService.PortfolioPart {
+	class FallbackPortfolioPart implements PortfolioService.PortfolioPart {
 
 		@Override
 		public String getPartId() {

@@ -1,7 +1,7 @@
 package de.axp.portfolio.example.vaadin.internal.pages.portfolio;
 
-import static de.axp.framework.api.services.UiService.PortfolioDefinition;
-import static de.axp.framework.api.services.UiService.PortfolioPart;
+import static de.axp.framework.api.services.PortfolioService.PortfolioDefinition;
+import static de.axp.framework.api.services.PortfolioService.PortfolioPart;
 
 import java.util.Objects;
 
@@ -17,7 +17,7 @@ import com.vaadin.flow.router.Route;
 import com.vaadin.flow.router.WildcardParameter;
 
 import de.axp.framework.api.PortfolioFramework;
-import de.axp.framework.api.services.UiService;
+import de.axp.framework.api.services.PortfolioService;
 import de.axp.portfolio.example.vaadin.FallbackPortfolioDefinition;
 import de.axp.portfolio.example.vaadin.internal.pages.portfolio.content.PortfolioContentManager;
 import de.axp.portfolio.example.vaadin.internal.pages.portfolio.navigation.PortfolioNavigationManager;
@@ -62,8 +62,8 @@ public class PortfolioPage extends Div implements HasUrlParameter<String>, After
 			return;
 		}
 
-		UiService uiService = framework.getServiceByType(UiService.class);
-		PortfolioDefinition newPortfolioDefinition = uiService.getPortfolioDefinitions().stream() //
+		PortfolioService portfolioService = framework.getServiceByType(PortfolioService.class);
+		PortfolioDefinition newPortfolioDefinition = portfolioService.getPortfolioDefinitions().stream() //
 				.filter(d -> d.getPortfolioId().equals(portfolioId)) //
 				.findFirst() //
 				.orElse(fallbackPortfolioDefinition);

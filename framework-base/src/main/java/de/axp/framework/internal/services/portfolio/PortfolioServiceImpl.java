@@ -1,17 +1,17 @@
-package de.axp.framework.internal.services.ui;
+package de.axp.framework.internal.services.portfolio;
 
 import de.axp.framework.api.services.PluginService;
 import de.axp.framework.api.services.ServiceService;
-import de.axp.framework.api.services.UiService;
+import de.axp.framework.api.services.PortfolioService;
 
 import java.util.Optional;
 import java.util.Set;
 
-class UiServiceImpl implements UiService {
+class PortfolioServiceImpl implements PortfolioService {
 
 	private final ServiceService serviceService;
 
-	UiServiceImpl(ServiceService serviceService) {
+	PortfolioServiceImpl(ServiceService serviceService) {
 		this.serviceService = serviceService;
 	}
 

@@ -11,7 +11,7 @@ import com.vaadin.flow.router.Route;
 
 import de.axp.framework.api.PortfolioFramework;
 import de.axp.framework.api.services.TranslationService;
-import de.axp.framework.api.services.UiService;
+import de.axp.framework.api.services.PortfolioService;
 import de.axp.portfolio.example.vaadin.VaadinFrameworkTranslator;
 import de.axp.portfolio.example.vaadin.internal.pages.shared.links.PortfolioLink;
 
@@ -35,8 +35,8 @@ public class StartPage extends Div {
 
 	private void initContent() {
 		PortfolioFramework framework = UI.getCurrent().getSession().getAttribute(PortfolioFramework.class);
-		UiService uiService = framework.getServiceByType(UiService.class);
-		Set<UiService.PortfolioDefinition> portfolioDefinitions = uiService.getPortfolioDefinitions();
+		PortfolioService portfolioService = framework.getServiceByType(PortfolioService.class);
+		Set<PortfolioService.PortfolioDefinition> portfolioDefinitions = portfolioService.getPortfolioDefinitions();
 
 		if (!portfolioDefinitions.isEmpty()) {
 			fillMenu(portfolioDefinitions);
@@ -45,10 +45,10 @@ public class StartPage extends Div {
 		}
 	}
 
-	private void fillMenu(Set<UiService.PortfolioDefinition> portfolioDefinitions) {
+	private void fillMenu(Set<PortfolioService.PortfolioDefinition> portfolioDefinitions) {
 		Section menuContainer = new Section();
 		menuContainer.setClassName("portfolio-menu");
-		for (UiService.PortfolioDefinition d : portfolioDefinitions) {
+		for (PortfolioService.PortfolioDefinition d : portfolioDefinitions) {
 			PortfolioLink link = new PortfolioLink(d);
 			link.add((Component) d.getPortfolioPreview().getUiComponent());
 			menuContainer.add(link);

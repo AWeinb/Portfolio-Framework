@@ -1,11 +1,11 @@
 package de.axp.portfolio.example;
 
-import de.axp.framework.api.services.UiService;
+import de.axp.framework.api.services.PortfolioService;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class ExamplePortfolioDefinition implements UiService.PortfolioDefinition {
+public class ExamplePortfolioDefinition implements PortfolioService.PortfolioDefinition {
 
 	@Override
 	public String getPortfolioId() {
@@ -13,13 +13,13 @@ public class ExamplePortfolioDefinition implements UiService.PortfolioDefinition
 	}
 
 	@Override
-	public UiService.PortfolioPreview getPortfolioPreview() {
+	public PortfolioService.PortfolioPreview getPortfolioPreview() {
 		return new ExamplePortfolioPreview();
 	}
 
 	@Override
-	public List<? extends UiService.PortfolioPart> getPortfolioParts() {
-		ArrayList<UiService.PortfolioPart> parts = new ArrayList<>();
+	public List<? extends PortfolioService.PortfolioPart> getPortfolioParts() {
+		ArrayList<PortfolioService.PortfolioPart> parts = new ArrayList<>();
 		parts.add(new ExamplePortfolioPartOne());
 		parts.add(new ExamplePortfolioPartTwo());
 		return parts;

@@ -39,8 +39,8 @@ class PortfolioFrameworkImpl implements PortfolioFramework {
 	}
 
 	@Override
-	public UiService getUiService() {
-		return serviceService.getService(UiService.class);
+	public PortfolioService getPortfolioService() {
+		return serviceService.getService(PortfolioService.class);
 	}
 
 	@Override

@@ -19,7 +19,7 @@ public interface PortfolioFramework {
 
 	DataService getDataService();
 
-	UiService getUiService();
+	PortfolioService getPortfolioService();
 
 	TranslationService getTranslationService();
 

@@ -2,9 +2,9 @@ package de.axp.portfolio.example;
 
 import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.html.Label;
-import de.axp.framework.api.services.UiService;
+import de.axp.framework.api.services.PortfolioService;
 
-class ExamplePortfolioPartOne implements UiService.PortfolioPart<Component> {
+class ExamplePortfolioPartOne implements PortfolioService.PortfolioPart<Component> {
 
 	@Override
 	public String getPartId() {

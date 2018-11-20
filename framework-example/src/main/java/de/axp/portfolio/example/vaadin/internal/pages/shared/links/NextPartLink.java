@@ -1,7 +1,7 @@
 package de.axp.portfolio.example.vaadin.internal.pages.shared.links;
 
-import static de.axp.framework.api.services.UiService.PortfolioDefinition;
-import static de.axp.framework.api.services.UiService.PortfolioPart;
+import static de.axp.framework.api.services.PortfolioService.PortfolioDefinition;
+import static de.axp.framework.api.services.PortfolioService.PortfolioPart;
 
 import java.util.List;
 

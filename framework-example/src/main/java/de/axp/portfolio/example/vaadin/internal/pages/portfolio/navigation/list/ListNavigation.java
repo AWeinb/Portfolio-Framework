@@ -3,7 +3,7 @@ package de.axp.portfolio.example.vaadin.internal.pages.portfolio.navigation.list
 import com.vaadin.flow.component.dependency.StyleSheet;
 import com.vaadin.flow.component.html.Div;
 
-import de.axp.framework.api.services.UiService;
+import de.axp.framework.api.services.PortfolioService;
 import de.axp.portfolio.example.vaadin.internal.pages.portfolio.PortfolioPageState;
 import de.axp.portfolio.example.vaadin.internal.pages.portfolio.navigation.PortfolioNav;
 import de.axp.portfolio.example.vaadin.internal.pages.shared.links.NextPartLink;
@@ -54,8 +54,8 @@ public final class ListNavigation extends PortfolioNav {
 
 		partsContainer.removeAll();
 
-		for (UiService.PortfolioPart<?> part : state.getPortfolioDefinition().getPortfolioParts()) {
-			UiService.PortfolioDefinition portfolioDefinition = state.getPortfolioDefinition();
+		for (PortfolioService.PortfolioPart<?> part : state.getPortfolioDefinition().getPortfolioParts()) {
+			PortfolioService.PortfolioDefinition portfolioDefinition = state.getPortfolioDefinition();
 			PortfolioLink link = new PortfolioLink(portfolioDefinition, part);
 			link.setText(part.getPartId());
 			partsContainer.add(link);

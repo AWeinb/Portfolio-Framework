@@ -2,7 +2,7 @@ package de.axp.portfolio.example.vaadin.internal.pages.shared.links;
 
 import com.vaadin.flow.component.html.Image;
 
-import de.axp.framework.api.services.UiService;
+import de.axp.framework.api.services.PortfolioService;
 import de.axp.portfolio.example.vaadin.internal.pages.portfolio.PortfolioPageState;
 
 public class PreviousPartLink extends PortfolioRouterLink {
@@ -25,12 +25,12 @@ public class PreviousPartLink extends PortfolioRouterLink {
 	}
 
 	@Override
-	protected UiService.PortfolioDefinition getPortfolioDefinitionTarget() {
+	protected PortfolioService.PortfolioDefinition getPortfolioDefinitionTarget() {
 		return state.getPortfolioDefinition();
 	}
 
 	@Override
-	protected UiService.PortfolioPart getPortfolioPartTarget() {
+	protected PortfolioService.PortfolioPart getPortfolioPartTarget() {
 		int portfolioPartIndex = Math.max(0, state.getPortfolioPartIndex() - 1);
 		return state.getPortfolioDefinition().getPortfolioParts().get(portfolioPartIndex);
 	}

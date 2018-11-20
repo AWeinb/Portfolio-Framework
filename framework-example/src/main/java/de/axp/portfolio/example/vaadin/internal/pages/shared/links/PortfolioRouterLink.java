@@ -6,7 +6,7 @@ import java.util.Map;
 
 import com.vaadin.flow.router.RouterLink;
 
-import de.axp.framework.api.services.UiService;
+import de.axp.framework.api.services.PortfolioService;
 import de.axp.portfolio.example.vaadin.internal.pages.portfolio.PortfolioPage;
 import de.axp.portfolio.example.vaadin.internal.pages.shared.QueryParametersUtil;
 
@@ -22,12 +22,12 @@ abstract class PortfolioRouterLink extends RouterLink {
 	}
 
 	public void update() {
-		UiService.PortfolioDefinition portfolioDefinition = getPortfolioDefinitionTarget();
-		UiService.PortfolioPart<?> portfolioPart = getPortfolioPartTarget();
+		PortfolioService.PortfolioDefinition portfolioDefinition = getPortfolioDefinitionTarget();
+		PortfolioService.PortfolioPart<?> portfolioPart = getPortfolioPartTarget();
 		setQueryParameters(QueryParametersUtil.build(queryParametersMap, portfolioDefinition, portfolioPart));
 	}
 
-	protected abstract UiService.PortfolioDefinition getPortfolioDefinitionTarget();
+	protected abstract PortfolioService.PortfolioDefinition getPortfolioDefinitionTarget();
 
-	protected abstract UiService.PortfolioPart<?> getPortfolioPartTarget();
+	protected abstract PortfolioService.PortfolioPart<?> getPortfolioPartTarget();
 }

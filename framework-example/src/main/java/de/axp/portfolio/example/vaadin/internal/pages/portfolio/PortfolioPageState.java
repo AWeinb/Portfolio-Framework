@@ -1,6 +1,6 @@
 package de.axp.portfolio.example.vaadin.internal.pages.portfolio;
 
-import static de.axp.framework.api.services.UiService.PortfolioDefinition;
+import static de.axp.framework.api.services.PortfolioService.PortfolioDefinition;
 
 public final class PortfolioPageState {
 

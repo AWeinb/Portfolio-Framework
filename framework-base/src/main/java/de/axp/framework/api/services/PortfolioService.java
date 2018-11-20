@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
-public interface UiService extends FrameworkService {
+public interface PortfolioService extends FrameworkService {
 
 	void registerPortfolioDefinition(PortfolioDefinition definition);
 

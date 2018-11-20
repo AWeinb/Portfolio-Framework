@@ -4,8 +4,8 @@ import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.dependency.StyleSheet;
 import com.vaadin.flow.component.html.Section;
 
-import de.axp.framework.api.services.UiService;
-import de.axp.framework.api.services.UiService.PortfolioPart;
+import de.axp.framework.api.services.PortfolioService;
+import de.axp.framework.api.services.PortfolioService.PortfolioPart;
 import de.axp.portfolio.example.vaadin.internal.pages.portfolio.PortfolioPageState;
 
 @StyleSheet("frontend://styles/portfolio-content.css")
@@ -23,7 +23,7 @@ class PortfolioContent extends Section {
 	void update() {
 		removeAll();
 
-		UiService.PortfolioDefinition portfolioDefinition = pageState.getPortfolioDefinition();
+		PortfolioService.PortfolioDefinition portfolioDefinition = pageState.getPortfolioDefinition();
 		int portfolioPartIndex = pageState.getPortfolioPartIndex();
 		PortfolioPart<?> part = portfolioDefinition.getPortfolioParts().get(portfolioPartIndex);
 		if (part.getUiComponent() instanceof Component) {
