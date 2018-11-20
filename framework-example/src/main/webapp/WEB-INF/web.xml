@@ -12,7 +12,7 @@
 
     <servlet>
         <servlet-name>ExampleAppServlet</servlet-name>
-        <servlet-class>de.axp.portfolio.example.ExampleAppServlet</servlet-class>
+        <servlet-class>de.axp.framework.example.ExampleAppServlet</servlet-class>
     </servlet>
 
     <servlet-mapping>
