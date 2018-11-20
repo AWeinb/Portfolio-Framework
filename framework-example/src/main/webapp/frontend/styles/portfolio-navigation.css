@@ -7,42 +7,4 @@
 */
 
 .navigation-base {
-    height: 100%;
-}
-
-.navigation-base .button {
-    cursor: pointer;
-    padding: 8px;
-}
-
-.navigation-base .button img {
-    height: 100%;
-    width: 100%;
-}
-
-.navigation-base .button:hover {
-	background: rgba(22, 118, 243, 0.05);
-}
-
-.navigation-base .button[disabled] {
-    cursor: default;
-	filter: opacity(0.2);
-}
-
-.navigation-base .button[disabled]:hover {
-	background: transparent;
-}
-
-.navigation-base .navigation-toggle-btn {
-	position: absolute;
-	height: 50px;
-	width: 50px;
-    margin: 0 8px;
-	bottom: 0;
-    background: transparent;
-}
-
-.navigation-base .navigation-toggle-btn img {
-	height: 30px;
-	width: 30px;
 }

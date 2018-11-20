@@ -1,12 +1,24 @@
 package de.axp.framework.example.routes.portfolio.navigation;
 
-import com.vaadin.flow.component.dependency.StyleSheet;
+import com.vaadin.flow.component.AttachEvent;
+import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.html.Nav;
 
-@StyleSheet("frontend://styles/portfolio-navigation.css")
-public abstract class PortfolioNav extends Nav {
+public class PortfolioNav extends Nav {
 
-	private static final long serialVersionUID = 1614357453838016041L;
+	public PortfolioNav() {
+		setClassName("navigation-base");
 
-	public abstract void update();
+		Div buttonBar = new Div();
+		buttonBar.setClassName("button-bar");
+		add(buttonBar);
+
+		Div partSelector = new Div();
+		partSelector.setClassName("part-selector");
+		add(partSelector);
+	}
+
+	@Override
+	protected void onAttach(AttachEvent attachEvent) {
+	}
 }

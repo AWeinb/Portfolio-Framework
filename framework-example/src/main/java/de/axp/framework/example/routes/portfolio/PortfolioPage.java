@@ -1,27 +1,20 @@
 package de.axp.framework.example.routes.portfolio;
 
-import static de.axp.framework.api.services.PortfolioService.PortfolioDefinition;
-import static de.axp.framework.api.services.PortfolioService.PortfolioPart;
-
-import java.util.Objects;
-
 import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.dependency.StyleSheet;
 import com.vaadin.flow.component.html.Div;
-import com.vaadin.flow.router.AfterNavigationEvent;
-import com.vaadin.flow.router.AfterNavigationObserver;
-import com.vaadin.flow.router.BeforeEvent;
-import com.vaadin.flow.router.HasUrlParameter;
-import com.vaadin.flow.router.QueryParameters;
-import com.vaadin.flow.router.Route;
-import com.vaadin.flow.router.WildcardParameter;
-
+import com.vaadin.flow.router.*;
 import de.axp.framework.api.PortfolioFramework;
 import de.axp.framework.api.services.PortfolioService;
 import de.axp.framework.example.FallbackPortfolioDefinition;
 import de.axp.framework.example.routes.portfolio.content.PortfolioContentManager;
-import de.axp.framework.example.routes.portfolio.navigation.PortfolioNavigationManager;
+import de.axp.framework.example.routes.portfolio.navigation.PortfolioNav;
 import de.axp.framework.example.shared.QueryParametersUtil;
+
+import java.util.Objects;
+
+import static de.axp.framework.api.services.PortfolioService.PortfolioDefinition;
+import static de.axp.framework.api.services.PortfolioService.PortfolioPart;
 
 @Route(value = "portfolio")
 @StyleSheet("frontend://styles/portfolio.css")
@@ -31,21 +24,17 @@ public class PortfolioPage extends Div implements HasUrlParameter<String>, After
 
 	private final PortfolioFramework framework;
 	private final PortfolioPageState state;
-	private final PortfolioNavigationManager navigationManager;
 	private final PortfolioContentManager contentManager;
-	private final FallbackPortfolioDefinition fallbackPortfolioDefinition;
 
-	{
+	public PortfolioPage() {
 		framework = UI.getCurrent().getSession().getAttribute(PortfolioFramework.class);
 		state = new PortfolioPageState();
-		navigationManager = new PortfolioNavigationManager(state);
+		state.setPortfolioDefinition(new FallbackPortfolioDefinition(framework));
 		contentManager = new PortfolioContentManager(state);
-		fallbackPortfolioDefinition = new FallbackPortfolioDefinition(framework);
-
-		state.setPortfolioDefinition(fallbackPortfolioDefinition);
 
 		setClassName("portfolio");
-		add(navigationManager.getNavigationComponent());
+
+		add(new PortfolioNav());
 		add(contentManager.getContentComponent());
 	}
 
@@ -66,7 +55,7 @@ public class PortfolioPage extends Div implements HasUrlParameter<String>, After
 		PortfolioDefinition newPortfolioDefinition = portfolioService.getPortfolioDefinitions().stream() //
 				.filter(d -> d.getPortfolioId().equals(portfolioId)) //
 				.findFirst() //
-				.orElse(fallbackPortfolioDefinition);
+				.orElse(new FallbackPortfolioDefinition(framework));
 		state.setPortfolioDefinition(newPortfolioDefinition);
 	}
 
@@ -88,7 +77,6 @@ public class PortfolioPage extends Div implements HasUrlParameter<String>, After
 
 	@Override
 	public void afterNavigation(AfterNavigationEvent event) {
-		navigationManager.update();
 		contentManager.update();
 	}
 }
