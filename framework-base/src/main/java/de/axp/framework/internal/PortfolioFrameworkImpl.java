@@ -3,54 +3,59 @@ package de.axp.framework.internal;
 import de.axp.framework.api.FrameworkExtension;
 import de.axp.framework.api.FrameworkService;
 import de.axp.framework.api.PortfolioFramework;
-import de.axp.framework.api.services.*;
+import de.axp.framework.api.services.DataService;
+import de.axp.framework.api.services.PluginService;
+import de.axp.framework.api.services.PortfolioService;
+import de.axp.framework.api.ServiceManager;
+import de.axp.framework.api.services.TaskService;
+import de.axp.framework.api.services.TranslationService;
 
 class PortfolioFrameworkImpl implements PortfolioFramework {
 
-	private final ServiceService serviceService;
+	private final ServiceManager serviceManager;
 
-	PortfolioFrameworkImpl(ServiceService serviceService) {
-		this.serviceService = serviceService;
+	PortfolioFrameworkImpl(ServiceManager serviceManager) {
+		this.serviceManager = serviceManager;
+	}
+
+	@Override
+	public ServiceManager getServiceManager() {
+		return serviceManager;
 	}
 
 	@Override
 	public <T extends FrameworkService> T getServiceByType(Class<T> type) {
-		return serviceService.getService(type);
-	}
-
-	@Override
-	public ServiceService getServiceService() {
-		return serviceService.getService(ServiceService.class);
+		return serviceManager.getService(type);
 	}
 
 	@Override
 	public PluginService getPluginService() {
-		return serviceService.getService(PluginService.class);
+		return serviceManager.getService(PluginService.class);
 	}
 
 	@Override
 	public TaskService getTaskService() {
-		return serviceService.getService(TaskService.class);
+		return serviceManager.getService(TaskService.class);
 	}
 
 	@Override
 	public DataService getDataService() {
-		return serviceService.getService(DataService.class);
+		return serviceManager.getService(DataService.class);
 	}
 
 	@Override
 	public PortfolioService getPortfolioService() {
-		return serviceService.getService(PortfolioService.class);
+		return serviceManager.getService(PortfolioService.class);
 	}
 
 	@Override
 	public TranslationService getTranslationService() {
-		return serviceService.getService(TranslationService.class);
+		return serviceManager.getService(TranslationService.class);
 	}
 
 	@Override
 	public void shutdown() {
-		serviceService.disposeServices();
+		serviceManager.disposeServices();
 	}
 
 	@Override

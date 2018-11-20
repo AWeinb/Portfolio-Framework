@@ -1,6 +1,6 @@
 package de.axp.framework.internal.services.task;
 
-import de.axp.framework.api.services.ServiceService;
+import de.axp.framework.api.ServiceManager;
 import de.axp.framework.api.services.TaskService;
 
 public final class TaskServiceFactory {
@@ -8,8 +8,8 @@ public final class TaskServiceFactory {
 	private TaskServiceFactory() {
 	}
 
-	public static TaskService createTaskService(ServiceService serviceService) {
-		return new TaskServiceImpl(serviceService);
+	public static TaskService createTaskService(ServiceManager serviceManager) {
+		return new TaskServiceImpl(serviceManager);
 	}
 
 	public static TaskService.Task createTask(String taskId, Object content) {

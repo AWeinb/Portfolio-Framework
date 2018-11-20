@@ -1,4 +1,4 @@
-package de.axp.framework.internal.services.service;
+package de.axp.framework.internal.services;
 
 import java.util.HashMap;
 import java.util.Map;

@@ -1,17 +1,17 @@
 package de.axp.framework.internal.services.translation;
 
 import de.axp.framework.api.services.PluginService;
-import de.axp.framework.api.services.ServiceService;
+import de.axp.framework.api.ServiceManager;
 import de.axp.framework.api.services.TranslationService;
 
 import java.util.Set;
 
 class TranslationServiceImpl implements TranslationService {
 
-	private final ServiceService serviceService;
+	private final ServiceManager serviceManager;
 
-	TranslationServiceImpl(ServiceService serviceService) {
-		this.serviceService = serviceService;
+	TranslationServiceImpl(ServiceManager serviceManager) {
+		this.serviceManager = serviceManager;
 	}
 
 	@Override
@@ -21,13 +21,13 @@ class TranslationServiceImpl implements TranslationService {
 
 	@Override
 	public void registerTranslator(Translator translator) {
-		PluginService pluginService = serviceService.getService(PluginService.class);
+		PluginService pluginService = serviceManager.getService(PluginService.class);
 		pluginService.addPlugin(Translator.class, translator);
 	}
 
 	@Override
 	public String translate(String translatorId, String key) {
-		PluginService pluginService = serviceService.getService(PluginService.class);
+		PluginService pluginService = serviceManager.getService(PluginService.class);
 		Set<Translator> translators = pluginService.getPlugins(Translator.class);
 		for (Translator translator : translators) {
 			if (translator.getTranslatorId().equals(translatorId)) {

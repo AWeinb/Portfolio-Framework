@@ -1,8 +1,6 @@
-package de.axp.framework.api.services;
+package de.axp.framework.api;
 
-import de.axp.framework.api.FrameworkService;
-
-public interface ServiceService extends FrameworkService {
+public interface ServiceManager extends FrameworkService {
 
 	<T extends FrameworkService> void registerNewService(Class<T> type, T service);
 

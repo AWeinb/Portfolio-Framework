@@ -1,13 +1,13 @@
-package de.axp.framework.internal.services.service;
+package de.axp.framework.internal.services;
 
 import de.axp.framework.api.FrameworkService;
-import de.axp.framework.api.services.ServiceService;
+import de.axp.framework.api.ServiceManager;
 
-class ServiceServiceImpl implements ServiceService {
+class ServiceManagerImpl implements ServiceManager {
 
 	private final ServiceRegistry serviceRegistry;
 
-	ServiceServiceImpl(ServiceRegistry serviceRegistry) {
+	ServiceManagerImpl(ServiceRegistry serviceRegistry) {
 		this.serviceRegistry = serviceRegistry;
 	}
 

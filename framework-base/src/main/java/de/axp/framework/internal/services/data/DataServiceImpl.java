@@ -4,16 +4,16 @@ import java.util.Set;
 
 import de.axp.framework.api.services.DataService;
 import de.axp.framework.api.services.PluginService;
-import de.axp.framework.api.services.ServiceService;
+import de.axp.framework.api.ServiceManager;
 import de.axp.framework.api.services.TaskService;
 
 class DataServiceImpl implements DataService {
 
-	private final ServiceService serviceService;
+	private final ServiceManager serviceManager;
 	private final DataCache dataCache;
 
-	DataServiceImpl(ServiceService serviceService, DataCache dataCache) {
-		this.serviceService = serviceService;
+	DataServiceImpl(ServiceManager serviceManager, DataCache dataCache) {
+		this.serviceManager = serviceManager;
 		this.dataCache = dataCache;
 	}
 
@@ -24,7 +24,7 @@ class DataServiceImpl implements DataService {
 
 	@Override
 	public void registerDataDefinition(DataDefinition definition) {
-		PluginService pluginService = serviceService.getService(PluginService.class);
+		PluginService pluginService = serviceManager.getService(PluginService.class);
 		pluginService.addPlugin(DataDefinition.class, definition);
 	}
 
@@ -34,7 +34,7 @@ class DataServiceImpl implements DataService {
 			dataCache.set(dataId, "");
 
 			DataDefinition dataDefinition = getDataDefinition(dataId);
-			TaskService taskService = serviceService.getService(TaskService.class);
+			TaskService taskService = serviceManager.getService(TaskService.class);
 			taskService.triggerTask(dataDefinition.getLoadTask(), response -> {
 				if (response.getResolution() == TaskService.TaskResolution.RESOLVED) {
 					dataCache.set(dataId, response.getContent());
@@ -47,7 +47,7 @@ class DataServiceImpl implements DataService {
 	@Override
 	public void save(String dataId, TaskService.TaskPromise promise) {
 		DataDefinition dataDefinition = getDataDefinition(dataId);
-		TaskService taskService = serviceService.getService(TaskService.class);
+		TaskService taskService = serviceManager.getService(TaskService.class);
 		taskService.triggerTask(dataDefinition.getSaveTask(), promise);
 	}
 
@@ -62,7 +62,7 @@ class DataServiceImpl implements DataService {
 	}
 
 	private DataDefinition getDataDefinition(String dataId) {
-		PluginService pluginService = serviceService.getService(PluginService.class);
+		PluginService pluginService = serviceManager.getService(PluginService.class);
 		Set<DataDefinition> dataDefinitions = pluginService.getPlugins(DataDefinition.class);
 		return dataDefinitions.stream().filter(dd -> dd.dataId().equals(dataId)).findFirst().get();
 	}

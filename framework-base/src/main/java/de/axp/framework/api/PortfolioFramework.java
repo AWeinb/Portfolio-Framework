@@ -1,6 +1,10 @@
 package de.axp.framework.api;
 
-import de.axp.framework.api.services.*;
+import de.axp.framework.api.services.DataService;
+import de.axp.framework.api.services.PluginService;
+import de.axp.framework.api.services.PortfolioService;
+import de.axp.framework.api.services.TaskService;
+import de.axp.framework.api.services.TranslationService;
 import de.axp.framework.internal.InternalFactory;
 
 public interface PortfolioFramework {
@@ -9,9 +13,9 @@ public interface PortfolioFramework {
 		return InternalFactory.createFramework();
 	}
 
-	<T extends FrameworkService> T getServiceByType(Class<T> type);
+	ServiceManager getServiceManager();
 
-	ServiceService getServiceService();
+	<T extends FrameworkService> T getServiceByType(Class<T> type);
 
 	PluginService getPluginService();
 
