@@ -1,13 +1,41 @@
 package de.axp.framework.example;
 
+import com.vaadin.flow.component.Component;
+import com.vaadin.flow.component.dependency.StyleSheet;
+import com.vaadin.flow.component.html.Div;
+import com.vaadin.flow.component.html.Image;
+import com.vaadin.flow.component.html.Label;
 
-import de.axp.framework.example.vaadin.GenericPortfolioPreview;
+import de.axp.framework.api.services.PortfolioService;
 
-class ExamplePortfolioPreview extends GenericPortfolioPreview {
+@StyleSheet("frontend://styles/portfolio-preview-generic.css")
+public class ExamplePortfolioPreview extends Div implements PortfolioService.PortfolioPreview<Component> {
 
-	ExamplePortfolioPreview() {
-		super("frontend/images/music_record.svg", //
+	public ExamplePortfolioPreview() {
+		this("frontend/images/music_record.svg", //
 				"Portfolio X", //
 				"Shows names of classes, methods, fields, and keywords within the visibility scope.");
+	}
+
+	public ExamplePortfolioPreview(String icon, String caption, String description) {
+		setClassName("generic-preview");
+
+		Image iconComponent = new Image(icon, "");
+		iconComponent.setClassName("icon");
+		add(iconComponent);
+
+		Label captionComponent = new Label(caption);
+		captionComponent.setClassName("caption");
+		add(captionComponent);
+
+		Label descriptionComponent = new Label(description);
+		descriptionComponent.setClassName("description");
+		add(descriptionComponent);
+
+	}
+
+	@Override
+	public Component getUiComponent() {
+		return this;
 	}
 }
